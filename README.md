@@ -7,7 +7,9 @@ Code and documents for the internship
 
 Learned how to use grid layouts.
 
-MAde first hello world pyqt5 program, practicing now making a UI and having it interact with code.
+Began first look at Napari to see how they use pyqt. Didnt learn too much however, will need to do some more research.
+
+Made first hello world pyqt5 program, practicing now making a UI and having it interact with code.
 
 ## Day 1
 12:00pm-4:00pm
