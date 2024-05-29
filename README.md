@@ -5,7 +5,7 @@ Code and documents for the internship
 
 9:50 am -
 
-
+Learned how to use grid layouts.
 
 ## Day 1
 12:00pm-4:00pm
