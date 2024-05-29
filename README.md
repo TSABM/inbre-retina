@@ -3,7 +3,7 @@ Code and documents for the internship
 
 ## Day 2
 
-9:50 am -
+9:50 am - 3:04pm
 
 Learned how to use grid layouts.
 
