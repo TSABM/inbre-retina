@@ -1,6 +1,12 @@
 # internship
 Code and documents for the internship
 
+## Day 2
+
+9:50 am -
+
+
+
 ## Day 1
 12:00pm-4:00pm
 
