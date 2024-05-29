@@ -17,6 +17,8 @@ Learned about slots and signals, aka how the pyqt buttons and other widgets actu
 
 Learned about Styling. There are premade styles that can have their color pallets modified easily enough with built in tools. However for finer control there are also style sheets that act much like CSS style sheets. They give finer control but are less flexible so if the modified program we make is needed to look good on many different screen sizes then there may need to be lots of style sheet code.
 
+Began coding a dummy napari UI. The plan is to have a look alike program by tomorrow that performs a similar function, if I can do that I reckon I'll have mastered enough of pyqt.
+
 ## Day 1
 12:00pm-4:00pm
 
