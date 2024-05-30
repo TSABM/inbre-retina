@@ -6,6 +6,8 @@ Code and documents for the internship
 
 began work on the demo app for the day. So far I have the controls rendering in, now I'm adding an image field and then adding some formatting.
 
+Added an image and began learning how to alter and resize the image.
+
 ## Day 2
 
 9:50 am - 3:04pm
