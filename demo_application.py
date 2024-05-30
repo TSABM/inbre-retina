@@ -1,18 +1,20 @@
 #demo application
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
 
 
 class MainWindow(qtw.QWidget):
     def __init__(self):#telling main window to init 
         super().__init__()
         self.setWindowTitle("DemoApp")
-        self.setLayout(qtw.QHBoxLayout()) #adding a veritcal container
+        self.setLayout(qtw.QHBoxLayout()) #adding a horizontal container
         self.mainControls()
-        #self.display()
+        self.imageDisplay()
 
 
         self.show()
+
     def mainControls(self):
         #setting layout
         controlBox = qtw.QWidget()
@@ -58,7 +60,13 @@ class MainWindow(qtw.QWidget):
 
         controlBox.layout().addWidget(controls)
         self.layout().addWidget(controlBox)
-    #def display(self):
+    
+    def imageDisplay(self):
+        self.label = qtw.QLabel(self)
+        self.pixmap = QPixmap('demoImage.jpg')
+        self.label.setPixmap(self.pixmap)
+        self.layout().addWidget(self.label)
+        
         
         
 
