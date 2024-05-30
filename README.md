@@ -8,6 +8,8 @@ began work on the demo app for the day. So far I have the controls rendering in,
 
 Added an image and began learning how to alter and resize the image.
 
+Learning about image processing with pyqt, its not as straightforward as I'd hoped.
+
 ## Day 2
 
 9:50 am - 3:04pm
