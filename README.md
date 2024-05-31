@@ -7,6 +7,8 @@ Code and documents for the internship
 
 I've continued work on the demo application which has caused me to realize I needed more understanding with some widgets as well as slots and signals. With some of my new knowledge The sliders now have defined ranges and output numbers to connected functions. So far the functions dont do anything to the image but thats ok for now. I plan to change the image anyway since the current one is static, next is the file explorer to choose an image, then I need to change my image format so it can be edited.
 
+I'm learning about toolbars and menus. So far Its not implemented but I'm working on it.
+
 ## Day 3 
 10:28 am - 2:37 pm
 
