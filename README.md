@@ -12,7 +12,7 @@ I'm learning about toolbars and menus. So far Its not implemented but I'm workin
 Learning about Dialogs now. Once I've learned Dialogs toolsbars, and menues I ought to be able to make a convincing toolbar for the demo app, though its more complicated than I thought it'd be.
 
 ## Day 3 
-10:28 am - 2:37 pm
+10:28 am - 2:37 pm (4hrs 9 mins)
 
 began work on the demo app for the day. So far I have the controls rendering in, now I'm adding an image field and then adding some formatting.
 
@@ -22,7 +22,7 @@ Learning about image processing with pyqt, its not as straightforward as I'd hop
 
 ## Day 2
 
-9:50 am - 3:04pm
+9:50 am - 3:04pm (5 hrs 14 mins)
 
 Learned how to use grid layouts.
 
@@ -39,7 +39,7 @@ Learned about Styling. There are premade styles that can have their color pallet
 Began coding a dummy napari UI. The plan is to have a look alike program by tomorrow that performs a similar function, if I can do that I reckon I'll have mastered enough of pyqt.
 
 ## Day 1
-12:00pm-4:00pm
+12:00pm-4:00pm (4 hours)
 
 
 Set up pyQT5 on my computer and began learning pyQT5. Its a tool that lets you use QT5 with python (since QT5 is C++ based). QT5 is used to make GUI's. pyqt5 may be phased out soon in favor of a n official qt5 for python tool but they are very similar and pyqt5 is commonly used now. pyqt5 is used in napari so it still needs to be learned either way. 
