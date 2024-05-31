@@ -11,7 +11,7 @@ I'm learning about toolbars and menus. So far Its not implemented but I'm workin
 
 Learning about Dialogs now. Once I've learned Dialogs toolsbars, and menues I ought to be able to make a convincing toolbar for the demo app, though its more complicated than I thought it'd be.
 
-Learned mostly how to handle custom dialogs (I'll need to review it), but I also learned about the prebuilt in dialogs which seem very easy and versatile at least for simple popups. More complex ones would be an issue till I've praciced.
+Learned mostly how to handle custom dialogs (I'll need to review it), but I also learned about the prebuilt in dialogs which seem very easy and versatile at least for simple popups. More complex ones would be an issue till I've practiced.
 
 ## Day 3 
 10:28 am - 2:37 pm (4hrs 9 mins)
