@@ -9,6 +9,8 @@ I've continued work on the demo application which has caused me to realize I nee
 
 I'm learning about toolbars and menus. So far Its not implemented but I'm working on it.
 
+Learning about Dialogs now. Once I've learned Dialogs toolsbars, and menues I ought to be able to make a convincing toolbar for the demo app, though its more complicated than I thought it'd be.
+
 ## Day 3 
 10:28 am - 2:37 pm
 
