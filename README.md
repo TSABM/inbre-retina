@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+## Day 4
+
+10:40 am - 
+
 ## Day 3 
 10:28 am - 2:37 pm
 
