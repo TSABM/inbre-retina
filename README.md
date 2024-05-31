@@ -1,7 +1,7 @@
 # internship
 Code and documents for the internship
 
-## Day 4
+## Day 4 5/31/2024
 
 10:40 am - 
 
