@@ -7,6 +7,10 @@ Code and documents for the internship
 
 I have learned a great deal about napari's label class and how its used, as well as some more general info about napari and how it operates. The labels class is a subclass of the image class so learning more about the image class will be beneficial. It seems though these layers support numpy style image arrays which should make live image editing and analysis easy. The labels class will be really useful in any instance or semantic segmentation.
 
+Learned how the layer class works. Its a base class that custom layer classes have to extend, this way its easier to make custom classes.
+
+Learned a bunch about the Image Layer. Again it accepts most any numpy style data array. It also has some advanced functions to help with very large and complex images inclusing multiscale image support, some lazy loading support, and auto computing multiscale images as needed. 
+
 
 
 ## Day 4 5/31/2024
