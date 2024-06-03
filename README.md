@@ -3,7 +3,7 @@ Code and documents for the internship
 
 ## Day 5 6/3/2024
 
-10:15 am - 
+10:15 am - 3:17 pm
 
 I have learned a great deal about napari's label class and how its used, as well as some more general info about napari and how it operates. The labels class is a subclass of the image class so learning more about the image class will be beneficial. It seems though these layers support numpy style image arrays which should make live image editing and analysis easy. The labels class will be really useful in any instance or semantic segmentation.
 
@@ -13,8 +13,7 @@ Learned a bunch about the Image Layer. Again it accepts most any numpy style dat
 
 Finished going over each of the layer types. It seems to me for this project we are probably using labels, and layer most, as well as image, points, and shapes. Surface renders 3-d objects which is nice, but given we're probably using one 2-d image or several layers of a 2-d images I dont know if we'll need any 3-d rendering. Tracks could get used maybe, but its focus is on projecting the paths of moving objects and applying trails if I understand correctly, which probably wont be of much use here. Vectors could get used, but shapes will probably be more versatile for the job at hand given vectors limitations and lack of interactivity with the gui. 
 
-Next topic will probably be types, as well as looking at the source code of the layers since so far I only have a high level understanding of how theyre used.
-
+Next topic will probably be types, as well as looking at the source code of the layers since so far I only have a high level understanding of how theyre used. Edit: Scratch that next part I think will probably be code of layers and how to make plugins. The built in types seem pretty bare bones.
 
 
 ## Day 4 5/31/2024
