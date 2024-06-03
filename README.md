@@ -1,9 +1,15 @@
 # internship
 Code and documents for the internship
 
+## Day 5 6/3/2024
+
+10:15 am - 
+
+
+
 ## Day 4 5/31/2024
 
-10:40 am - 3:40pm
+10:40 am - 3:40pm (5 hours)
 
 I've continued work on the demo application which has caused me to realize I needed more understanding with some widgets as well as slots and signals. With some of my new knowledge The sliders now have defined ranges and output numbers to connected functions. So far the functions dont do anything to the image but thats ok for now. I plan to change the image anyway since the current one is static, next is the file explorer to choose an image, then I need to change my image format so it can be edited.
 
