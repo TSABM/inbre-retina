@@ -11,6 +11,10 @@ Learned how the layer class works. Its a base class that custom layer classes ha
 
 Learned a bunch about the Image Layer. Again it accepts most any numpy style data array. It also has some advanced functions to help with very large and complex images inclusing multiscale image support, some lazy loading support, and auto computing multiscale images as needed. 
 
+Finished going over each of the layer types. It seems to me for this project we are probably using labels, and layer most, as well as image, points, and shapes. Surface renders 3-d objects which is nice, but given we're probably using one 2-d image or several layers of a 2-d images I dont know if we'll need any 3-d rendering. Tracks could get used maybe, but its focus is on projecting the paths of moving objects and applying trails if I understand correctly, which probably wont be of much use here. Vectors could get used, but shapes will probably be more versatile for the job at hand given vectors limitations and lack of interactivity with the gui. 
+
+Next topic will probably be types, as well as looking at the source code of the layers since so far I only have a high level understanding of how theyre used.
+
 
 
 ## Day 4 5/31/2024
