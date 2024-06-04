@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+## Day 6 6/4/2024
+9:40 am - 
+
+
+
 ## Day 5 6/3/2024
 
 10:15 am - 3:17 pm
