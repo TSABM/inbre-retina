@@ -4,7 +4,9 @@ Code and documents for the internship
 ## Day 6 6/4/2024
 9:40 am - 
 
+The start of my shift was occupied with some account issues I had to talk with arleen about.
 
+I've spent most of the time since though trying to go over everything about napari I can. I have a bit on an idea how to make a new plugin now, but not deep understanding yet of how to expand beyond simpler plugins. So I decided to try to learn more about napari's built in classes and methods and such, which has been a bit confusing since I've only had the raw documentation to work on but otherwise its been ok. I think I may try to find a plugin so I can open it up and look at how their code is set up, it might help me wrap my head a little around how to use napari.utils and components and such.
 
 ## Day 5 6/3/2024
 
