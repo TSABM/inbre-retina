@@ -2,13 +2,15 @@
 Code and documents for the internship
 
 ## Day 6 6/4/2024
-9:40 am - 
+9:40 am - 3:01 pm
 
 The start of my shift was occupied with some account issues I had to talk with arleen about.
 
 I've spent most of the time since though trying to go over everything about napari I can. I have a bit on an idea how to make a new plugin now, but not deep understanding yet of how to expand beyond simpler plugins. So I decided to try to learn more about napari's built in classes and methods and such, which has been a bit confusing since I've only had the raw documentation to work on but otherwise its been ok. I think I may try to find a plugin so I can open it up and look at how their code is set up, it might help me wrap my head a little around how to use napari.utils and components and such.
 
 I spent time reading up on everything to do with a simple hello world napari module. I started creating it, but I still need to run a few commands to test if its going to render the button correctly. Its tough not quite knowing what I'll need to know but I'm trying to keep a broad base and I'm writing down what a lot of things do on a high level so I can find them and dig deeper as needed.
+
+Attempted to run my napari hello world plugin but it failed. Not sure what I could have done wrong given I followed the tutorial and most of it was simple or copy paste but I'll check each file again and see if I missed something. There may be a manual way to load it bit I want to check the tutorial steps first in case I missed something important.
 
 ## Day 5 6/3/2024
 
