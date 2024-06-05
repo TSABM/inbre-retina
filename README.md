@@ -1,6 +1,13 @@
 # internship
 Code and documents for the internship
 
+## Day 7 6/5/2024
+9:40 am - 
+
+Resolved the issues with my account and the timesheet.
+
+
+
 ## Day 6 6/4/2024
 9:40 am - 3:01 pm
 
