@@ -12,6 +12,8 @@ Continued research into inner workings of napari. Learned a bunch about differen
 
 Nevermind they use qtpy which just has compatability for pyqt and pyside. Pyqt5 stuff should still work.
 
+Began reading up on testing napari plugins. The recommended way is to use pytest in tandem with it. I need to review pytest as I only have a basic understanding of how to use it. Napari recommends testing most functions and methods directly rather than trying to actually test many gui elements since those are hard to test. I have a basic understanding of how plugins are made and how tests work, but I'm going to need some more practical experience to get the full hang of it.
+
 ## Day 6 6/4/2024
 9:40 am - 3:01 pm
 
