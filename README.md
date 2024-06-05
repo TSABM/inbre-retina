@@ -8,6 +8,8 @@ Resolved the issues with my account and the timesheet.
 
 Ran first successful hello world plugin in napari, it printed to the console after clicking a run button in napari. Now to understand better how to make more complex plugins.
 
+Continued research into inner workings of napari. Learned a bunch about different contributions. One thing of note is napari may have moved gui functionality from pyqt to qt for python since the latter is open source. Theyre pretty similar but not the same. Its possible we wont be able to use pyqt but I'm still confirming that.
+
 ## Day 6 6/4/2024
 9:40 am - 3:01 pm
 
