@@ -6,7 +6,7 @@ Code and documents for the internship
 
 Resolved the issues with my account and the timesheet.
 
-
+Ran first successful hello world plugin in napari, it printed to the console after clicking a run button in napari. Now to understand better how to make more complex plugins.
 
 ## Day 6 6/4/2024
 9:40 am - 3:01 pm
