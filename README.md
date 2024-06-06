@@ -10,6 +10,8 @@ I'm not seeing much customization of napari's gui. I do see some impressive gui 
 
 Began work on a new plugin where I can experiement with the gui a bit. I used cookiecutter this time instead of making the base plugin manually. It has quirks but it might be good to use in the future due to its speed.
 
+Began experiementing with a basic example gui editor. The gui makes sense enough, there are essentially 4 options when it comes to the gui. 1 Type pure python and let the built in autogenerate function make the gui around that. Its easy but I suspect not very accurate the more complex a function gets. In tandem with this or seperate (not entirely sure) magic factory allows some customization of these values while still keeping it simple. Then theres magic gui container which gives even more control and lastly pure qwidget widgets. The last being the most powerful but also the most finnecky. Unfortunately I still need more practice with these things, the prebuilt example only seems to lay a very small line of pixels down the screen rather than seeming to do anything meaningful. I need to figure out better how its actually interacting.
+
 ## Day 7 6/5/2024
 9:40 am - 2:40 pm
 
