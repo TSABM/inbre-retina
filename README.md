@@ -4,7 +4,9 @@ Code and documents for the internship
 ## Day 8 6/6/2024
 10:10 am
 
+Having a tough time making progress today. I found some plugins other people have made and I'm reading thm to see how they do it. It's given me additional insights on package structuring and how multiple classes wirk with that. Layer data tuples also make more sense as passing info between plugins looks to be very important. A lot of other folks's plugins use libraries I am unfamiliar with such as Zarr so depending on what we're doing specifically that may be needed.
 
+I'm not seeing much customization of napari's gui. I do see some impressive gui fields being added as well as pop up windows but if we need to edit the standard existing gui I may need to dig deeper.
 
 ## Day 7 6/5/2024
 9:40 am - 2:40 pm
