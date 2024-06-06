@@ -2,7 +2,7 @@
 Code and documents for the internship
 
 ## Day 8 6/6/2024
-10:10 am - 3:09 pm
+10:10 am - 3:25 pm
 
 Having a tough time making progress today. I found some plugins other people have made and I'm reading thm to see how they do it. It's given me additional insights on package structuring and how multiple classes wirk with that. Layer data tuples also make more sense as passing info between plugins looks to be very important. A lot of other folks's plugins use libraries I am unfamiliar with such as Zarr so depending on what we're doing specifically that may be needed.
 
