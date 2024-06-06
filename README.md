@@ -8,6 +8,8 @@ Having a tough time making progress today. I found some plugins other people hav
 
 I'm not seeing much customization of napari's gui. I do see some impressive gui fields being added as well as pop up windows but if we need to edit the standard existing gui I may need to dig deeper.
 
+Began work on a new plugin where I can experiement with the gui a bit. I used cookiecutter this time instead of making the base plugin manually. It has quirks but it might be good to use in the future due to its speed.
+
 ## Day 7 6/5/2024
 9:40 am - 2:40 pm
 
