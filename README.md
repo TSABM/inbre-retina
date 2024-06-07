@@ -8,6 +8,8 @@ As recommended I turned back to focusing on pyqt and my demo app. It needs some 
 
 The old code has needed some work. With a week of napari I'm finding progress on the pyqt has been slow. I fixed the menu situation but thye still dont work. Furthermore I havent even begun to understand how to handle the labelling issue. pyqt's pixmap does not lend itself it any sort of image resizing, or editing. A custom pixmap class will probably be needed, as well as layering functionality so the labels can draw onto the image below it.
 
+I discovered the widget I might be looking for. QSplitter. I beleive this will mimic napari's resizable windows, if so this would be the ideal widget to use. trying to implement it now though it keeps failing to compile so I'm not quite used to the changes it will require.
+
 ## Day 8 6/6/2024
 10:10 am - 3:25 pm
 
