@@ -6,6 +6,8 @@ Code and documents for the internship
 
 As recommended I turned back to focusing on pyqt and my demo app. It needs some major overhauls since before it was just dabbling with pyqt's base functions. I'll see what I can do.
 
+The old code has needed some work. With a week of napari I'm finding progress on the pyqt has been slow. I fixed the menu situation but thye still dont work. Furthermore I havent even begun to understand how to handle the labelling issue. pyqt's pixmap does not lend itself it any sort of image resizing, or editing. A custom pixmap class will probably be needed, as well as layering functionality so the labels can draw onto the image below it.
+
 ## Day 8 6/6/2024
 10:10 am - 3:25 pm
 
