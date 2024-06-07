@@ -4,7 +4,7 @@ Code and documents for the internship
 ## Day 9 6/7/2024
 10:06 am - 
 
-
+As recommended I turned back to focusing on pyqt and my demo app. It needs some major overhauls since before it was just dabbling with pyqt's base functions. I'll see what I can do.
 
 ## Day 8 6/6/2024
 10:10 am - 3:25 pm
