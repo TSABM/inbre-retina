@@ -10,6 +10,8 @@ The old code has needed some work. With a week of napari I'm finding progress on
 
 I discovered the widget I might be looking for. QSplitter. I beleive this will mimic napari's resizable windows, if so this would be the ideal widget to use. trying to implement it now though it keeps failing to compile so I'm not quite used to the changes it will require.
 
+Image no longer loads, something about qsplitter isnt playing well with it.
+
 ## Day 8 6/6/2024
 10:10 am - 3:25 pm
 
