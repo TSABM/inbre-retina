@@ -1,6 +1,9 @@
 # internship
 Code and documents for the internship
 
+## Day 10 6/10/24
+10:00 am - 
+
 ## Day 9 6/7/2024
 10:06 am - 3:00 pm
 
