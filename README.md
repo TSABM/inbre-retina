@@ -12,6 +12,8 @@ resolved the formatting issue plauging the early versions of the demo app. Now t
 
 Menus and sub menus now work, and an exit button has been implemented
 
+Implementing a file dialog that selects a folder and grabs all the files of the desired type
+
 ## Day 9 6/7/2024
 10:06 am - 3:00 pm
 
