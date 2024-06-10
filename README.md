@@ -8,6 +8,8 @@ Spent most of the day so far trying to set things up to test another independent
 
 Ah got it working. It only allows some file types. Also it only splits images into different classes. E.g. if I had 10 images, half of clowns and the other of coins this program is just an interface to make a csv classifying each image as a clown or coin. That shouldnt be too hard to replicate.
 
+resolved the formatting issue plauging the early versions of the demo app. Now to fix some functionality issues. 
+
 ## Day 9 6/7/2024
 10:06 am - 3:00 pm
 
