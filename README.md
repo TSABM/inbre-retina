@@ -10,6 +10,8 @@ Ah got it working. It only allows some file types. Also it only splits images in
 
 resolved the formatting issue plauging the early versions of the demo app. Now to fix some functionality issues. 
 
+Menus and sub menus now work, and an exit button has been implemented
+
 ## Day 9 6/7/2024
 10:06 am - 3:00 pm
 
