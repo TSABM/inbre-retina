@@ -2,7 +2,7 @@
 Code and documents for the internship
 
 ## Day 10 6/10/24
-10:00 am - 
+10:00 am - 3:00pm
 
 Spent most of the day so far trying to set things up to test another independent pyqt5 project that is supposed to annotate images. However it seems its not working with my current tests. Its gui is also much more primitive than I expected (functional but primitive). Its making me wonder how interactive our gui will need to be. I'm trying a simpler image to give the program to see if that helps it tag it correctly.
 
@@ -12,7 +12,7 @@ resolved the formatting issue plauging the early versions of the demo app. Now t
 
 Menus and sub menus now work, and an exit button has been implemented
 
-Implementing a file dialog that selects a folder and grabs all the files of the desired type
+Implementing a file dialog that selects a folder and grabs all the files of the desired type. The dialog works, but it wont select directories yet, I need to review how that is handled.
 
 ## Day 9 6/7/2024
 10:06 am - 3:00 pm
