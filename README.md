@@ -6,6 +6,8 @@ Code and documents for the internship
 
 Spent most of the day so far trying to set things up to test another independent pyqt5 project that is supposed to annotate images. However it seems its not working with my current tests. Its gui is also much more primitive than I expected (functional but primitive). Its making me wonder how interactive our gui will need to be. I'm trying a simpler image to give the program to see if that helps it tag it correctly.
 
+Ah got it working. It only allows some file types. Also it only splits images into different classes. E.g. if I had 10 images, half of clowns and the other of coins this program is just an interface to make a csv classifying each image as a clown or coin. That shouldnt be too hard to replicate.
+
 ## Day 9 6/7/2024
 10:06 am - 3:00 pm
 
