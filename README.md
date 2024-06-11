@@ -6,6 +6,8 @@ Code and documents for the internship
 
 Spent the first hour and a half completing all required employee trainings
 
+Downloaded a pyqt based photoshop style app to see how they implemented image layers and editing. Began studying QGraphics. Its much better than what I was doing before. QgraphicsScene acts as a whiteboard where actual image editing positioning and rendering can be done. QGraphicsItem includes all objects I may want to interact with (in this case I think this would be the layers). And Then QGraphicsView affects the rendering which means this view can be manipulated, shrunk, expanded, etc without changing the origonal image. The tools and abilities QGraphics offers I think aligns perfectly with what we want our app to do (if we dont use napari).
+
 ## Day 10 6/10/24
 10:00 am - 3:00pm
 
