@@ -126,22 +126,28 @@ class MainWindow(qtw.QMainWindow):
         sys.exit()
 
     def openFolder(self):
-        print("partially tested")
+        print("opening folder dialog")
 
         #Open a file dialog to identify the directory to open
         fileDialog = qtw.QFileDialog(self)
-        fileDialog.setFileMode(qtw.QFileDialog.Directory) #FIXME wont grab directories only grabbing files
-        fileURL = fileDialog.getOpenFileUrl()
+        direcotryPath = fileDialog.getExistingDirectory()
 
         #open folder
-        files = os.listdir(fileURL[1])
+        files = os.listdir(direcotryPath)
         #now filter out all files of incompatable types
         filteredFiles = self.filterFileList(files)
         #then store the remaining files somewhere for interaction
         return filteredFiles
 
     def filterFileList(self, fileList):
-        print("filtering is unimplemented")
+        print("filtering for jpeg, jpg, and png")
+
+        filteredList = []
+        for file in fileList:
+            if ".jpeg" in file or ".png" in file or ".jpg" in file:
+                filteredList.append(file)
+        #print(filteredList)
+        return filteredList
 
     def loadImage(self):
         print("unimplemented")
