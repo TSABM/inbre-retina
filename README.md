@@ -2,7 +2,7 @@
 Code and documents for the internship
 
 ## Day 11 6/11/24
-11:00 am - 3:15 am
+11:00 am - 3:15 pm
 
 Spent the first hour and a half completing all required employee trainings
 
