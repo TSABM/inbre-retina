@@ -7,6 +7,9 @@ from PyQt5.QtGui import QPixmap
 
 
 class MainWindow(qtw.QMainWindow):
+
+    openFiles = []
+
     def __init__(self):#telling main window to init 
         super().__init__()
         self.setWindowTitle("DemoApp")
@@ -17,8 +20,8 @@ class MainWindow(qtw.QMainWindow):
         self.setCentralWidget(mainBox)
         
         
-        self.mainControls(mainBox)
-        self.imageDisplay(mainBox)
+        self.mainControls(mainBox) #FIXME need to rework this into a controls Dock widget with more pertinent contents
+        self.imageArea(mainBox) # FIXME need to rework into an image boc holding the image and the toolbar
 
 
         self.show()
@@ -113,13 +116,39 @@ class MainWindow(qtw.QMainWindow):
         controlBox.layout().addWidget(controls)
         mainBox.addWidget(controlBox)
 
-    def imageDisplay(self, mainBox):
+    def imageArea(self, mainBox):
+        '''
         mainBox.label = qtw.QLabel(mainBox)
         pixmap = QPixmap('demoImage.jpg')
         if pixmap.isNull():
             print("failed to load image")
         mainBox.label.setPixmap(pixmap)
         mainBox.addWidget(mainBox.label)
+        '''
+        #Overarching widget that holds the image area together
+        displayArea = qtw.QWidget()
+        displayArea.setLayout(qtw.QVBoxLayout())
+        mainBox.addWidget(displayArea)
+
+        #scrollable contents
+        menuContainer = qtw.QWidget()
+        menuContainer.setLayout(qtw.QHBoxLayout())
+        
+
+        menu = qtw.QMenuBar()
+        for i in range(30):  # Add 30 demo items
+            action = qtw.QAction(f"Item {i+1}", menu)
+            menu.addAction(action)
+        
+        menuContainer.layout().setMenuBar(menu)
+        displayArea.layout().addWidget(menuContainer)
+
+        #Widget that holds the graphical interface
+
+        scene = qtw.QGraphicsScene(0, 0, 400, 200)
+        view = qtw.QGraphicsView(scene)
+        displayArea.layout().addWidget(view)
+        
 
     def closeApplication(self):
         print("exiting application")
@@ -130,14 +159,21 @@ class MainWindow(qtw.QMainWindow):
 
         #Open a file dialog to identify the directory to open
         fileDialog = qtw.QFileDialog(self)
-        direcotryPath = fileDialog.getExistingDirectory()
+        directoryPath = fileDialog.getExistingDirectory()
+        #print("directory path is: ", directoryPath)
 
         #open folder
-        files = os.listdir(direcotryPath)
+        files = os.listdir(directoryPath)
         #now filter out all files of incompatable types
         filteredFiles = self.filterFileList(files)
+        #now update the filtered files to include the whole path
+        fullPathFiles = []
+        for file in filteredFiles:
+            filePath = directoryPath + "/" + file
+            fullPathFiles.append(filePath)
         #then store the remaining files somewhere for interaction
-        return filteredFiles
+        #print(fullPathFiles)
+        return fullPathFiles
 
     def filterFileList(self, fileList):
         print("filtering for jpeg, jpg, and png")
