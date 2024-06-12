@@ -6,6 +6,8 @@ Code and documents for the internship
 
 Worked a metric ton on fixing up the image area. I have a little menubar now to hold the images within an open folder. There are issues, such as me becoming more and more convinced I'm goin gto need to tear all of this down and refactor them into objects and classes and such to make it object oriented, but for now I'm leaving it because doing that now will mean I'll never get to anything else before reporting in.
 
+Well I didnt leave it, I started developing the classes needed and began prepping to move everything over to individual classes. I also started reading on how to start drawing onto the canvas. I may go to drag and drop rectangles I just havent figured out all the details yet. The end goal is to have a number of images load in, one loads in as a base layer then you can identify objects in it on a layer above that and save a csv or something indicating the objects.
+
 ## Day 11 6/11/24
 11:00 am - 3:15 pm
 
