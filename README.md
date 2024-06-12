@@ -4,6 +4,7 @@ Code and documents for the internship
 ## Day 12 6/12/24
 10:30 am - 
 
+Worked a metric ton on fixing up the image area. I have a little menubar now to hold the images within an open folder. There are issues, such as me becoming more and more convinced I'm goin gto need to tear all of this down and refactor them into objects and classes and such to make it object oriented, but for now I'm leaving it because doing that now will mean I'll never get to anything else before reporting in.
 
 ## Day 11 6/11/24
 11:00 am - 3:15 pm
