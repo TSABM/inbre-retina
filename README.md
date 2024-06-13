@@ -1,6 +1,9 @@
 # internship
 Code and documents for the internship
 
+## Day 13 6/13/24
+10:15 am - 
+
 ## Day 12 6/12/24
 10:30 am - 3:30 pm
 
