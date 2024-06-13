@@ -6,6 +6,8 @@ Code and documents for the internship
 
 Working on classes and drawing to the canvas. Its not as straightforward as I'd like but I think I'll be drawing tons of dots wherever the mouse moves to? Its a bit primitive...
 
+I've gone ahead and changed the file structure to a model,view,presenter structure commonly used for gui's. Most of the files are still not functional at all but the structure is almost where it needs to be. I'm working on the canvas class then the pen then the canvas view... and then the presenter...The addition of a presenter complicates things but it will probably help with dev stuff later.
+
 ## Day 12 6/12/24
 10:30 am - 3:30 pm
 
