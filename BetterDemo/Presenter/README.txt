@@ -1,0 +1,2 @@
+The presenter layer is where my middleman programs should be. They should receive user inputs from the view layer and tell the model to update in
+response. It also handles passing updated model info back to the view so the view is rendering the most up to date info.
