@@ -4,6 +4,8 @@ Code and documents for the internship
 ## Day 13 6/13/24
 10:15 am - 
 
+Working on classes and drawing to the canvas. Its not as straightforward as I'd like but I think I'll be drawing tons of dots wherever the mouse moves to? Its a bit primitive...
+
 ## Day 12 6/12/24
 10:30 am - 3:30 pm
 
