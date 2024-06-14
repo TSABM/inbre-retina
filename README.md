@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+## Day 14 6/14/24
+10:00 am - 
+Began work from home. Intend to work on completing the restructuring today, and maybe getting the canvas working.
+
 ## Day 13 6/13/24
 10:15 am - 3:30 pm 
 
