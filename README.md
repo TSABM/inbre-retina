@@ -2,8 +2,11 @@
 Code and documents for the internship
 
 ## Day 14 6/14/24
-10:00 am - 
-Began work from home. Intend to work on completing the restructuring today, and maybe getting the canvas working.
+10:00 am - 12:15 pm (lunchbreak)
+
+Began work from home. Intend to work on completing the restructuring today, and maybe getting the canvas working. 
+
+Restructuring is going slow but ok so far. I still need to finish moving main chunks of code and then I need to finish refactoring portions so it all renders like it should.
 
 ## Day 13 6/13/24
 10:15 am - 3:30 pm 
