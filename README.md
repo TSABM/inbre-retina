@@ -2,7 +2,7 @@
 Code and documents for the internship
 
 ## Day 14 6/14/24
-10:00 am - 12:15 pm (lunchbreak)
+10:00 am - 12:15 pm
 
 Began work from home. Intend to work on completing the restructuring today, and maybe getting the canvas working. 
 
