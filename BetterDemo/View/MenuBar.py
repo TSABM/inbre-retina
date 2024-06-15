@@ -1,62 +1,42 @@
-#FIXME replace most or all instances of self with the main window instance or layout or whatever, setmenubar needs the main window
+import PyQt5.QtWidgets as qtw
+
+from Presenter import MenuBarPresenter
+
 class MenuBar():
-    menu = qtw.QMenuBar()
-    def __init__():
+    #initalize menubar and the selectable options
+    def __init__(self, parentLayout):
+        self.parentLayout = parentLayout
         #main menu
-        menu = qtw.QMenuBar()
-        self.setMenuBar(menu)
+        self.menu = qtw.QMenuBar()
+        self.parentLayout.setMenuBar(self.menu)
 
         #actions
         actions = []
         
-        openFolder = qtw.QAction("Open Folder", self)
-        openFolder.triggered.connect(self.openFolder)
+        openFolder = qtw.QAction("Open Folder", self.parentLayout)
+        openFolder.triggered.connect(self.parentLayout.openFolder)
         actions.append(openFolder)
 
-        exit = qtw.QAction("Exit", self)
-        exit.triggered.connect(self.closeApplication)
+        exit = qtw.QAction("Exit", self.parentLayout)
+        exit.triggered.connect(self.parentLayout.closeApplication)
         actions.append(exit)
 
         #submenus
-        fileButton = qtw.QMenu("File", self)
-        menu.addMenu(fileButton)
-        settingsButton = qtw.QMenu("Settings", self)
-        menu.addMenu(settingsButton)
+        fileButton = qtw.QMenu("File", self.parentLayout)
+        self.menu.addMenu(fileButton)
+        settingsButton = qtw.QMenu("Settings", self.parentLayout)
+        self.menu.addMenu(settingsButton)
 
         #add actions to buttons
         fileButton.addActions(actions)
-    
+        
+    #Selectable options below here
     def openFolder(self):
-        print("opening folder dialog")
-
-        #Open a file dialog to identify the directory to open
+        #Open file dialog
         fileDialog = qtw.QFileDialog(self)
         directoryPath = fileDialog.getExistingDirectory()
-        #print("directory path is: ", directoryPath)
-
-        #open folder
-        files = os.listdir(directoryPath)
-        #now filter out all files of incompatable types
-        filteredFiles = self.filterFileList(files)
-        #now update the filtered files to include the whole path
-        fullPathFiles = []
-        for file in filteredFiles:
-            filePath = directoryPath + "/" + file
-            fullPathFiles.append(filePath)
-        #then store the remaining files somewhere for interaction
-        #print(fullPathFiles)
-        return fullPathFiles
-
-    def filterFileList(self, fileList):
-        print("filtering for jpeg, jpg, and png")
-
-        filteredList = []
-        for file in fileList:
-            if ".jpeg" in file or ".png" in file or ".jpg" in file:
-                filteredList.append(file)
-        #print(filteredList)
-        return filteredList
+        #Send the directory path off for file list extraction
+        MenuBarPresenter.MenuBarPresenter.getFilteredFolderContents(directoryPath)
 
     def closeApplication(self):
-        print("exiting application")
-        sys.exit()
+        MenuBarPresenter.MenuBarPresenter.closeApplication()
