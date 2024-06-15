@@ -4,7 +4,7 @@ Code and documents for the internship
 ## Day 15 6/15/24
 11:45 am - 
 
-
+Cleaned up menubar behind the scenes a bit. Still not functional but the view now tries to talk exclusivley with the presenter. Cleaning up that presenter now and the model.
 
 ## Day 14 6/14/24
 10:00 am - 12:15 pm
