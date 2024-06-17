@@ -1,4 +1,4 @@
-import AbstractPresenter
+from AbstractPresenter import AbstractPresenter
 
 class MainControlsPresenter(AbstractPresenter):
     def __init__(self, view, model):

@@ -2,7 +2,7 @@ import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import Qt
 
 import MainControls
-import ImageArea
+import View.ImageArea.ImageArea as ImageArea
 
 class CenterBox():
     '''

@@ -1,6 +1,6 @@
 #demo application
 import PyQt5.QtWidgets as qtw
-import View.MainWindow as MainWindow
+from  View.MainWindow import MainWindow
 
 
 app = qtw.QApplication([])

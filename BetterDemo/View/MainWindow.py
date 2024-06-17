@@ -9,8 +9,8 @@ class MainWindow(qtw.QMainWindow):
         super().__init__()
         self.setWindowTitle("DemoApp")
 
-        menuBar = WindowMenuBar(self) #initalize menubar and pass main window
+        self.menuBar = WindowMenuBar(self) #initalize menubar and pass main window
 
-        centerBox = CenterBox(self)
+        self.centerBox = CenterBox(self)
 
         self.show()

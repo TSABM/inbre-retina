@@ -6,7 +6,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap, QPen
 
 import View.PrimaryControls as PrmryCntrlAr
-import View.ImageArea as ImgAr
+import View.ImageArea.ImageArea as ImgAr
 
 
 class MainWindow(qtw.QMainWindow):

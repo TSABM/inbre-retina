@@ -2,8 +2,8 @@
 A presenter to act as a middleman between the view and model
 '''
 
-import AbstractPresenter
-from Model import WindowMenuBarModel
+from AbstractPresenter import AbstractPresenter
+from ..Model.WindowMenuBarModel import WindowMenuBarModel
 
 class WindowMenuBarPresenter(AbstractPresenter):
     
