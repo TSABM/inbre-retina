@@ -4,6 +4,8 @@ Code and documents for the internship
 ## Day 16 6/17/24
 10:08 am - 
 
+Spent the day so far fixing issues with the restructuring. Now I think I'm mostly done but even when I am this wont have any more functionality than before, but still the pattern is supposed to help redability and help people who may have to maintain this code in the future. A bit more boring refactoring and then I ought to be able to run the next test. If it renders correctly then its time to try an implement the labelling functionality which is going to be fun to figure out.
+
 ## Day 15 6/15/24
 11:45 am - 2:00 pm
 
