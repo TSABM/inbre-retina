@@ -1,7 +1,13 @@
-
+import PyQt5.QtWidgets as qtw
+from Presenter import MainControlsPresenter
 
 class MainControls():
-    def __init__(self, MainBox):
+    '''
+    The primary control widgets for the app.
+    '''
+    def __init__(self, centerBox):
+        self.presenter = MainControlsPresenter.MainControlsPresenter()
+
         #setting layout
         controlBox = qtw.QWidget()
         controlBox.setLayout(qtw.QVBoxLayout())
@@ -10,83 +16,41 @@ class MainControls():
         controls.setLayout(qtw.QGridLayout())
 
         #making the widgets
-        opacityLabel = qtw.QLabel("Opacity")
-        contrastLimitsLabel = qtw.QLabel("Contrast Limits")
-        autoContrastLabel = qtw.QLabel("Auto Contrast")
-        gammaLabel = qtw.QLabel("Gamma")
-        colorLabel = qtw.QLabel("Color")
-        blendingLabel = qtw.QLabel("Blending")
-        interpolationLabel = qtw.QLabel("Interpolation")
+        labelGroupLabel = qtw.QLabel("Label group")
+        squareLabel = qtw.QLabel("Square")
+        freeDrawLabel = qtw.QLabel("Free draw")
+        fillLabel = qtw.QLabel("Fill")
         
+        labelGroupSelect = qtw.QComboBox()
+        squareModeButton = qtw.QPushButton()
+        freeDrawModeButton = qtw.QPushButton()
+        fillModeButton = qtw.QPushButton()
 
-        opacityControl = qtw.QSlider(Qt.Horizontal)
-        opacityControl.setRange(0, 100)
-        opacityControl.setSliderPosition(100)
-        opacityControl.setSingleStep(1)
-        opacityControl.valueChanged['int'].connect(self.adjustOpacity)
-
-        contrastLimitsControl = qtw.QSlider(Qt.Horizontal)
-        contrastLimitsControl.setRange(-100, 100)
-        contrastLimitsControl.setSliderPosition(0)
-        contrastLimitsControl.setSingleStep(1)
-        contrastLimitsControl.valueChanged['int'].connect(self.adjustContrastLimits)    
-
-        autoContrastControl = qtw.QRadioButton()
-        
-        gammaControl = qtw.QSlider(Qt.Horizontal)
-        gammaControl.setRange(-100, 100)
-        gammaControl.setSliderPosition(0)
-        contrastLimitsControl.setSingleStep(1)
-        gammaControl.valueChanged['int'].connect(self.adjustGamma)
-
-        colorControl = qtw.QComboBox()
-        blendingControl = qtw.QComboBox()
-        interpolationControl = qtw.QComboBox()
+        #Connecting widgets to functions
+        squareModeButton.pressed.connect(self.setModeToSquare)
+        freeDrawModeButton.pressed.connect(self.setModeToFreeDraw)
+        fillModeButton.pressed.connect(self.setModeToFill)
 
 
         #binding widgets to layout
-        controls.layout().addWidget(opacityLabel, 0, 0)
-        controls.layout().addWidget(contrastLimitsLabel, 1, 0)
-        controls.layout().addWidget(autoContrastLabel, 2, 0)
-        controls.layout().addWidget(gammaLabel, 3, 0)
-        controls.layout().addWidget(colorLabel, 4, 0)
-        controls.layout().addWidget(blendingLabel, 5, 0)
-        controls.layout().addWidget(interpolationLabel, 6, 0)
+        controls.layout().addWidget(labelGroupLabel, 0, 0)
+        controls.layout().addWidget(squareLabel, 1, 0)
+        controls.layout().addWidget(freeDrawLabel, 2, 0)
+        controls.layout().addWidget(fillLabel, 3, 0)
 
-        controls.layout().addWidget(opacityControl, 0, 1)
-        controls.layout().addWidget(contrastLimitsControl, 1, 1)
-        controls.layout().addWidget(autoContrastControl, 2, 1)
-        controls.layout().addWidget(gammaControl, 3, 1)
-        controls.layout().addWidget(colorControl, 4, 1)
-        controls.layout().addWidget(blendingControl, 5, 1)
-        controls.layout().addWidget(interpolationControl, 6, 1)
+        controls.layout().addWidget(labelGroupSelect, 0, 1)
+        controls.layout().addWidget(squareModeButton, 1, 1)
+        controls.layout().addWidget(freeDrawModeButton, 2, 1)
+        controls.layout().addWidget(fillModeButton, 3, 1)
+        
 
         controlBox.layout().addWidget(controls)
-        mainBox.addWidget(controlBox)
+        centerBox.addWidget(controlBox)
 
-    def loadImage(self):
-        print("unimplemented")
-    
-    def adjustOpacity(self, value):
-        print("opacity: ", value)
-    
-    def adjustContrastLimits(self, value):
-        print("contrast lim: ", value)
-
-    def toggleAutoContrast(self):
-        print("unimplemented")
-    
-    def adjustGamma(self):
-        print("unimplemented")
-
-    def adjustGamma(self):
-        print("unimplemented")
-    
-    def selectColor(self):
-        print("unimplemented")
-
-    def selectBlending(self):
-        print("unimplemented")
-    
-    def selectInterpolation(self):
-        print("unimplemented")
+    #Functions to send udate requests to the presenter
+    def setModeToSquare():
+        pass
+    def setModeToFreeDraw():
+        pass
+    def setModeToFill():
+        pass

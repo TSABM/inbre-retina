@@ -12,4 +12,4 @@ class strings():
         openFile = "Open File"
         exit = "Exit"
 
-    #Insert language translations below e.g. def setSpanish(): openFile = "open file but in spanish" etc.
+    #Insert language translations below
