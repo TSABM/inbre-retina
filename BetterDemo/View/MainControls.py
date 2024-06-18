@@ -1,12 +1,12 @@
 import PyQt5.QtWidgets as qtw
-from Presenter import MainControlsPresenter
+from Presenter.MainControlsPresenter import MainControlsPresenter
 
 class MainControls():
     '''
     The primary control widgets for the app.
     '''
     def __init__(self, centerBox):
-        self.presenter = MainControlsPresenter.MainControlsPresenter()
+        self.presenter = MainControlsPresenter()
 
         #setting layout
         controlBox = qtw.QWidget()

@@ -1,6 +1,6 @@
-from AbstractPresenter import AbstractPresenter
+#from AbstractPresenter import AbstractPresenter
 
-class MainControlsPresenter(AbstractPresenter):
-    def __init__(self, view, model):
-        super().__init__(view, model)
+class MainControlsPresenter():
+    def __init__(self):
+        pass
     

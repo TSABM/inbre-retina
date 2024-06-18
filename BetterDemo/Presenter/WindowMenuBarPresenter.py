@@ -2,19 +2,21 @@
 A presenter to act as a middleman between the view and model
 '''
 
-from AbstractPresenter import AbstractPresenter
-from ..Model.WindowMenuBarModel import WindowMenuBarModel
+#from AbstractPresenter import AbstractPresenter
+from Model.WindowMenuBarModel import WindowMenuBarModel
 
-class WindowMenuBarPresenter(AbstractPresenter):
+class WindowMenuBarPresenter():
     
-    def __init__(self, mainWindow):
-        super().__init__(mainWindow)
+    def __init__(self):
+        self.model = WindowMenuBarModel()
+        pass
     
     def getFilteredFolderContents(self, directoryPath):
         '''
         requests filtered contents of a selected directory
         '''
-        WindowMenuBarModel.WindowMenuBarModel.openFolder(directoryPath)
+
+        self.model.openFolder(directoryPath)
 
 
     def closeApplication(self):

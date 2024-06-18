@@ -1,7 +1,7 @@
 import os
 
 class WindowMenuBarModel():
-    def __init__():
+    def __init__(self):
         pass
 
     
@@ -9,6 +9,7 @@ class WindowMenuBarModel():
         '''
         returns the contents of a selected folder
         '''
+        #ensure the path isnt empty
         if(directoryPath == ""):
             print("Empty path detected, no file/folder selected")
         else:

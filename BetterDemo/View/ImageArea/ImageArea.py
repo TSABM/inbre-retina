@@ -1,6 +1,6 @@
 import PyQt5.QtWidgets as qtw
-import CanvasView
-import OpenFilesMenu
+from View.ImageArea.CanvasView import CanvasView
+from View.ImageArea.OpenFilesMenu import OpenFilesMenu
 
 class ImageArea():
     '''
