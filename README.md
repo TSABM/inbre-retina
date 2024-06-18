@@ -6,6 +6,8 @@ Code and documents for the internship
 
 Remving the abstract class didnt fix the problem. Its an issue with how paths are handled in python I beleive. I'm going to need to use absolute paths using sys to get updated paths. Its going to take some time to refactor all the files.
 
+Figured out the issue and resolved it. The window now open as it should and renders the controls and canvas. The file explorer is broken and I still need to make the canvas do things but its a start.
+
 ## Day 16 6/17/24
 10:08 am - 2:00 pm
 
