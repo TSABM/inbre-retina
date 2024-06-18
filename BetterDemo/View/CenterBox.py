@@ -1,0 +1,17 @@
+import PyQt5.QtWidgets as qtw
+from PyQt5.QtCore import Qt
+
+from View.MainControls import MainControls
+from View.ImageArea.ImageArea import ImageArea
+
+class CenterBox():
+    '''
+    A container for the main windows items, in this implementation a splitter to allow some resizing
+    '''
+    def __init__(self, parentLayout):
+        self.mainBox = qtw.QSplitter(Qt.Horizontal)
+        self.mainBox.setChildrenCollapsible(False)
+        parentLayout.setCentralWidget(self.mainBox)
+
+        mainControlsArea = MainControls(self.mainBox)
+        imageArea = ImageArea(self.mainBox)
