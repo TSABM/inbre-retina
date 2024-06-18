@@ -8,6 +8,8 @@ Remving the abstract class didnt fix the problem. Its an issue with how paths ar
 
 Figured out the issue and resolved it. The window now open as it should and renders the controls and canvas. The file explorer is broken and I still need to make the canvas do things but its a start.
 
+Fixed file explorer
+
 ## Day 16 6/17/24
 10:08 am - 2:00 pm
 
