@@ -4,6 +4,8 @@ Code and documents for the internship
 ## Day 17 6/18/24
 10:30 am - 
 
+Remving the abstract class didnt fix the problem. Its an issue with how paths are handled in python I beleive. I'm going to need to use absolute paths using sys to get updated paths. Its going to take some time to refactor all the files.
+
 ## Day 16 6/17/24
 10:08 am - 2:00 pm
 
