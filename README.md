@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+## Day 18 6/19/24
+11:45 am - (Just finishing my work from yesterday I had to cut short)
+
+
 ## Day 17 6/18/24
 10:30 am - 1:30 pm
 
