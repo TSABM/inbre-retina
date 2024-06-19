@@ -2,8 +2,9 @@
 Code and documents for the internship
 
 ## Day 18 6/19/24
-11:45 am - (Just finishing my work from yesterday I had to cut short)
+11:45 am - 12:15 pm
 
+Started working to finish hours I missed yesterday, didnt realize I wasnt allowed to work on the holiday. Cutting shift short. Worked on the canvas, trying to get one layer working where I can draw rectangles.
 
 ## Day 17 6/18/24
 10:30 am - 1:30 pm
