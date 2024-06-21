@@ -3,11 +3,12 @@ Code and documents for the internship
 
 ## Day 19 6/21/24
 1:15 am - 3:15 pm
+
 4:15 pm - 
 
 Working on the canvas classes. Working on letting the user 1) load any image, 2) add graphics items (this will be used for the labeling and segmentation), 3) resize the view (this will allow them to zoom in if something they want to label is small) 4) switch between several images keeping labels constant.
 
-Started a sinlge image loader to test on a small scale my code. Need to refactor some code to allow cross view communication.
+Started a sinlge image loader to test on a small scale my code. Need to refactor some code to allow cross view communication. Having difficulty with the cross class communication. I need a menubar view to somehow send a signal to the image area canvas model to change its details and then make sure the view is updated... I'm having difficulty without breaking the mvp...
 
 ## Day 18 6/19/24
 11:45 am - 12:15 pm
