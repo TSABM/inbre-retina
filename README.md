@@ -3,6 +3,7 @@ Code and documents for the internship
 
 ## Day 19 6/21/24
 1:15 am - 3:15 pm
+4:15 pm - 
 
 Working on the canvas classes. Working on letting the user 1) load any image, 2) add graphics items (this will be used for the labeling and segmentation), 3) resize the view (this will allow them to zoom in if something they want to label is small) 4) switch between several images keeping labels constant.
 
