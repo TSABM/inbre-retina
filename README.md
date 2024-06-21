@@ -1,6 +1,9 @@
 # internship
 Code and documents for the internship
 
+## Day 19 6/21/24
+1:15 am - 
+
 ## Day 18 6/19/24
 11:45 am - 12:15 pm
 
