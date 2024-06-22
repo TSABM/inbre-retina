@@ -10,6 +10,8 @@ Working on the canvas classes. Working on letting the user 1) load any image, 2)
 
 Started a sinlge image loader to test on a small scale my code. Need to refactor some code to allow cross view communication. Having difficulty with the cross class communication. I need a menubar view to somehow send a signal to the image area canvas model to change its details and then make sure the view is updated... I'm having difficulty without breaking the mvp...
 
+Found the issue, I made an error with the mvp that is causing the issue... the views are handling too much. The Presenter should handle more and thus hopefully be able to provide better updates.
+
 ## Day 18 6/19/24
 11:45 am - 12:15 pm
 
