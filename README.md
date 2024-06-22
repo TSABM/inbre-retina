@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+## Day 20 6/22/24
+01:36pm - 
+
+Going to try and fix the code today, if I can just get an image to load properly it will be good progress.
+
 ## Day 19 6/21/24
 1:15 am - 3:15 pm
 
