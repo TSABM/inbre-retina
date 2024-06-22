@@ -1,5 +1,4 @@
 import PyQt5.QtWidgets as qtw
-from Presenter.MainControlsPresenter import MainControlsPresenter
 
 class MainControls():
     '''

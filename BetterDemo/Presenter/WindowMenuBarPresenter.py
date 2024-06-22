@@ -2,15 +2,24 @@
 A presenter to act as a middleman between the view and model
 '''
 
-#from AbstractPresenter import AbstractPresenter
+from Presenter.AbstractPresenter import AbstractPresenter
 from Model.WindowMenuBarModel import WindowMenuBarModel
+from View.WindowMenuBarView import WindowMenuBarView
 
-class WindowMenuBarPresenter():
+class WindowMenuBarPresenter(AbstractPresenter):
     
     def __init__(self):
-        self.model = WindowMenuBarModel()
+        super().__init__(WindowMenuBarView(), WindowMenuBarModel())
         pass
     
+    def openImage(self, fileDialog):
+        '''
+        opens a dialog and returns one selected image
+        '''
+        fileDialog.setFilter("Images (*.png *.jpg *jpeg)")
+        imagePath = fileDialog.selectFile()
+        self.model.openImage(imagePath)
+
     def getFilteredFolderContents(self, directoryPath):
         '''
         requests filtered contents of a selected directory

@@ -5,6 +5,10 @@ class CanvasView:
     The canvas
     '''
     def __init__(self, parentWidget):
-        scene = qtw.QGraphicsScene(0, 0, 400, 200)
-        view = qtw.QGraphicsView(scene)
-        parentWidget.layout().addWidget(view)
+        self.presenter = CanvasPresenter()
+        scene = self.presenter.getScene() #Is this going to let the view be updated live?
+        self.view = qtw.QGraphicsView(scene)
+        parentWidget.layout().addWidget(self.view)
+    
+    def refresh(self):
+        pass
