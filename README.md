@@ -6,6 +6,8 @@ Code and documents for the internship
 
 Going to try and fix the code today, if I can just get an image to load properly it will be good progress.
 
+So far I havent made it to images loading but I did clarify the mvp issue fully. If I work quick I may be done refactoring in an hour.
+
 ## Day 19 6/21/24
 1:15 am - 3:15 pm
 
