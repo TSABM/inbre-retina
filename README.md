@@ -3,7 +3,10 @@ Code and documents for the internship
 
 ## Day 20 6/22/24
 01:36pm - 3:10 pm
+
 3:27pm - 3:34 pm
+
+3:38 - 
 
 Going to try and fix the code today, if I can just get an image to load properly it will be good progress.
 
