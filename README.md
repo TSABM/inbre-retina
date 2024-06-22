@@ -9,7 +9,7 @@ Going to try and fix the code today, if I can just get an image to load properly
 
 So far I havent made it to images loading but I did clarify the mvp issue fully. If I work quick I may be done refactoring in an hour.
 
-Well I'm trying to do it right this time so its taking a bit longer than I'd like. Maybe 1/4th of the way done? 
+Well I'm trying to do it right this time so its taking a bit longer than I'd like. Maybe 1/4th of the way done?  Fixed the main window and menubar now, both should work... though the menubar is now inheriting directly from the menubar widget which might be a mistake...
 
 ## Day 19 6/21/24
 1:15 pm - 3:15 pm
