@@ -3,12 +3,15 @@ from Model.Canvas import Canvas
 from View.ImageArea.CanvasView import CanvasView
 
 class CanvasPresenter(AbstractPresenter):
-    def __init__(self, view, model):
-        super().__init__(view, model)
+    def __init__(self):
+        super().__init__(CanvasView(), Canvas())
         pass
     
+    def setScene(self):
+        self.view.setScene(self.getScene())
+
     def getScene(self):
-        pass
+        return self.model
 
     def setBaseLayer():
         pass

@@ -11,7 +11,7 @@ class Canvas(QGraphicsScene):
         self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
         self.layers = []
         self.currentLayer = None
-    
+
     #handling drawing
     def onClick():
         pass
