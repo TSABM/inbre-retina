@@ -3,6 +3,8 @@ A presenter to act as a middleman between the view and model
 '''
 
 from Presenter.AbstractPresenter import AbstractPresenter
+
+
 from Model.WindowMenuBarModel import WindowMenuBarModel
 from View.WindowMenuBarView import WindowMenuBarView
 
@@ -18,8 +20,8 @@ class WindowMenuBarPresenter(AbstractPresenter):
         opens a dialog and returns one selected image
         '''
         fileDialog.setFilter("Images (*.png *.jpg *jpeg)")
-        imagePath = fileDialog.selectFile()
-        self.model.openImage(imagePath)
+        imagePath = fileDialog.getOpenFile()
+        
 
     def getFilteredFolderContents(self, directoryPath):
         '''
