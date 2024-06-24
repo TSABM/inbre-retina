@@ -3,6 +3,7 @@ import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QPixmap
 
+#TEST
 
 class MainWindow(qtw.QWidget):
     def __init__(self):#telling main window to init 
