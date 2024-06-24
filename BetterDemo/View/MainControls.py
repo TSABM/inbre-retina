@@ -1,15 +1,15 @@
 import PyQt5.QtWidgets as qtw
 
-class MainControls():
+class MainControls(qtw.QWidget):
     '''
     The primary control widgets for the app.
     '''
-    def __init__(self, centerBox):
-        self.presenter = MainControlsPresenter()
+    def __init__(self):
+        #self.presenter = MainControlsPresenter()
 
         #setting layout
-        controlBox = qtw.QWidget()
-        controlBox.setLayout(qtw.QVBoxLayout())
+        #controlBox = qtw.QWidget()
+        self.setLayout(qtw.QVBoxLayout())
 
         controls = qtw.QWidget()
         controls.setLayout(qtw.QGridLayout())
@@ -43,8 +43,7 @@ class MainControls():
         controls.layout().addWidget(fillModeButton, 3, 1)
         
 
-        controlBox.layout().addWidget(controls)
-        centerBox.addWidget(controlBox)
+        self.layout().addWidget(controls)
 
     #Functions to send udate requests to the presenter
     def setModeToSquare():
