@@ -4,6 +4,8 @@ Code and documents for the internship
 ## Day 21 6/24/24
 9:39 am - 
 
+Fixed the github repo so it no longer will keep outdated versions of this app. It will now also be easier for me to update the repo assuming no github syncing issues. Also fixed 3 out of 7 classes. 
+
 ## Day 20 6/22/24
 01:36pm - 3:10 pm
 
