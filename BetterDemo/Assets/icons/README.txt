@@ -1,1 +1,0 @@
-All icons taken from https://iconoir.com/ since they are open source
