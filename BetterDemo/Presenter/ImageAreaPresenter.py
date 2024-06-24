@@ -5,7 +5,7 @@ from Presenter.CanvasPresenter import CanvasPresenter
 from View.ImageArea.ImageAreaView import ImageAreaView
 
 class ImageAreaPresenter(AbstractPresenter):
-    def __init__():
+    def __init__(self):
         super().__init__(ImageAreaView(), None)
 
     def addFileMenu(self):

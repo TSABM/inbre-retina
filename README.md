@@ -8,7 +8,7 @@ Code and documents for the internship
 
 Fixed the github repo so it no longer will keep outdated versions of this app. It will now also be easier for me to update the repo assuming no github syncing issues. Also fixed 3 out of 7 classes. 
 
-Fixed most if not all the classes. Now to test and then implement segmentation if possible.
+Fixed most if not all the classes. Now to test and then implement segmentation if possible. Testing complete, window renders now. Now to hook up image rendering.
 
 ## Day 20 6/22/24
 01:36pm - 3:10 pm

@@ -1,4 +1,4 @@
-from AbstractPresenter import AbstractPresenter
+from Presenter.AbstractPresenter import AbstractPresenter
 from View.MainControls import MainControls
 
 class MainControlsPresenter(AbstractPresenter):

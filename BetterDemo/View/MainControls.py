@@ -5,6 +5,7 @@ class MainControls(qtw.QWidget):
     The primary control widgets for the app.
     '''
     def __init__(self):
+        super().__init__()
         #self.presenter = MainControlsPresenter()
 
         #setting layout

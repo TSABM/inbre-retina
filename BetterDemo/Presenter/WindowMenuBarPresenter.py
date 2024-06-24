@@ -9,7 +9,7 @@ from View.WindowMenuBarView import WindowMenuBarView
 class WindowMenuBarPresenter(AbstractPresenter):
     
     def __init__(self):
-        super().__init__(WindowMenuBarView(self), WindowMenuBarModel(self))
+        super().__init__(WindowMenuBarView(self), WindowMenuBarModel())
         pass
     
 
