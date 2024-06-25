@@ -20,6 +20,7 @@ class WindowMenuBarPresenter(AbstractPresenter):
         '''
         fileDialog.setFilter("Images (*.png *.jpg *jpeg)")
         imagePath = fileDialog.getOpenFile()
+        self.model.openImage(imagePath)
         
 
     def getFilteredFolderContents(self, directoryPath):

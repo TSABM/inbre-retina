@@ -7,7 +7,8 @@ class WindowMenuBarModel():
         pass
 
     def openImage(self, imagePath):
-        pass
+        canvas = Canvas()
+        canvas.addItem(imagePath)
     
     def openFolder(self, directoryPath):
         '''

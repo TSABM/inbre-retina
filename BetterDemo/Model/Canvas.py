@@ -1,16 +1,18 @@
 '''
 The QGraphics Scene that all drawing takes place
 '''
-from PyQt5.QtWidgets import QGraphicsScene
+#from PyQt5.QtWidgets import QGraphicsScene
+from PyQt5.QtGui import QPixmap, QPainter, QPen
 import PyQt5.QtWidgets as qtw
 
 defaultWidth = 400
 defaultHeight = 200
 
 class Canvas():
+    scene = qtw.QGraphicsScene(0, 0, defaultWidth, defaultHeight)
     def __init__(self):
         super().__init__()
-        self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
+        #self.scene = QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
         self.layers = []
         self.currentLayer = None
 
@@ -50,9 +52,11 @@ class Canvas():
     def getBaseLayer(self):
         return None
    
-    def addLayer(self):
-        self.layers.append()
-        pass
+    def addItem(self, itemPathToAdd):
+        #self.layers.append()
+        pixmap = QPixmap(itemPathToAdd)
+        graphicsPixmapItem = qtw.QGraphicsPixmapItem(pixmap)
+        self.scene.addItem(graphicsPixmapItem)
     
     def selectLayer():
         pass
