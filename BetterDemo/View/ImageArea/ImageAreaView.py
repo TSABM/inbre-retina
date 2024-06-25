@@ -1,6 +1,7 @@
 import PyQt5.QtWidgets as qtw
 from View.ImageArea.CanvasView import CanvasView
 from View.ImageArea.OpenFilesMenu import OpenFilesMenu
+from Presenter.ImageAreaPresenter import ImageAreaPresenter
 
 class ImageAreaView(qtw.QWidget):
     '''
@@ -8,5 +9,6 @@ class ImageAreaView(qtw.QWidget):
     '''
     def __init__(self):
         super().__init__()
+        self.presenter = ImageAreaPresenter(self)
         #Overarching widget that holds the image area together
         self.setLayout(qtw.QVBoxLayout())

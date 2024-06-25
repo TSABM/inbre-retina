@@ -8,7 +8,7 @@ class Canvas(QGraphicsScene):
     def __init__(self, parent = None):
         super().__init__(parent)
         self.drawing = False
-        self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
+        #self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
         self.layers = []
         self.currentLayer = None
 

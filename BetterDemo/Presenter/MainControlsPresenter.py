@@ -1,9 +1,9 @@
 from Presenter.AbstractPresenter import AbstractPresenter
-from View.MainControls import MainControls
+from BetterDemo.View.MainControlsView import MainControls
 
 class MainControlsPresenter(AbstractPresenter):
-    def __init__(self):
-        super().__init__(MainControls(), None)
+    def __init__(self, view):
+        super().__init__(view, None)
         
     def setModeToSquare():
         pass

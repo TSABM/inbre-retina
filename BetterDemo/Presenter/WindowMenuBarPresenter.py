@@ -6,12 +6,11 @@ from Presenter.AbstractPresenter import AbstractPresenter
 
 
 from Model.WindowMenuBarModel import WindowMenuBarModel
-from View.WindowMenuBarView import WindowMenuBarView
 
 class WindowMenuBarPresenter(AbstractPresenter):
     
-    def __init__(self):
-        super().__init__(WindowMenuBarView(self), WindowMenuBarModel())
+    def __init__(self, view):
+        super().__init__(view, WindowMenuBarModel())
         pass
     
 

@@ -1,13 +1,14 @@
 import PyQt5.QtWidgets as qtw
 
+from Presenter.WindowMenuBarPresenter import WindowMenuBarPresenter
 
 class WindowMenuBarView(qtw.QMenuBar):
     #initalize menubar and the selectable options
-    def __init__(self, presenter):
+    def __init__(self):
         #main menu
         super().__init__()
 
-        self.presenter = presenter
+        self.presenter = WindowMenuBarPresenter(self)
 
         actions = []
 
