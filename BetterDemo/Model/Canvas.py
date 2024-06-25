@@ -23,13 +23,25 @@ class Canvas():
         pass
 
     #handling layers
+    def getScene(self):
+        '''
+        returns current scene
+        '''
+        return self.scene
+
     def getWidth(self):
+        '''
+        returns current scene width
+        '''
         if self.getBaseLayer() == None:
             return defaultWidth
         else:
             pass
 
     def getHeight(self):
+        '''
+        returns current scene height
+        '''
         if self.getBaseLayer() == None:
             return defaultHeight
         else:

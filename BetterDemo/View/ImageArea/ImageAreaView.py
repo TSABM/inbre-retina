@@ -14,7 +14,7 @@ class ImageAreaView(qtw.QWidget):
         self.setLayout(qtw.QVBoxLayout())
 
         #the currently open files
-        self.layout().setMenuBar(OpenFilesMenu)
+        self.layout().setMenuBar(OpenFilesMenu())
 
         #the canvas
         self.layout().addWidget(CanvasView())

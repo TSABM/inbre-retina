@@ -7,10 +7,7 @@ class CanvasPresenter(AbstractPresenter):
         pass
 
     def getScene(self):
-        #check first to see if there is an open scene to turn to
-
-        #if no open scene send a default scene
-        return 
+        return self.model.getScene()
 
     def setBaseLayer():
         pass
