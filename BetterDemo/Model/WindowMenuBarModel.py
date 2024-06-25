@@ -1,5 +1,5 @@
 import os
-from Model.Canvas import Canvas
+#from Model.Canvas import Canvas
 
 
 class WindowMenuBarModel():
