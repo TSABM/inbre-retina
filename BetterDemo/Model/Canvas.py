@@ -9,10 +9,10 @@ defaultWidth = 400
 defaultHeight = 200
 
 class Canvas():
-    scene = qtw.QGraphicsScene(0, 0, defaultWidth, defaultHeight)
+    #scene = qtw.QGraphicsScene(0, 0, defaultWidth, defaultHeight)
     def __init__(self):
         super().__init__()
-        #self.scene = QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
+        self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
         self.layers = []
         self.currentLayer = None
 
