@@ -10,7 +10,7 @@ Base canvas now renders again, hooking up the menubar to load one image.
 
 I ran tests on the first attempt to load an image for labelling, it causes an immediate crash. Print off the filepath first to see if your giving it garbage.
 
-Nope it looks like an issue in the central widget. I'm thinking my canvas import might be messed up. Found the issue, it was the class wide variable. Read back into how thats handled, I asked chatGPT earlier for a tip on it and I think it was wrong.
+Nope it looks like an issue in the central widget. I'm thinking my canvas import might be messed up. Found the issue, it was the class wide variable in the canvas, which was imported via the central widget. Read back into how thats handled, I asked chatGPT earlier for a tip on it and I think it was wrong.
 
 ## Day 21 6/24/24
 9:39 am - 1:31 pm
