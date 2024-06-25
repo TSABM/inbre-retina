@@ -3,5 +3,5 @@ from Presenter.AbstractPresenter import AbstractPresenter
 #from Presenter.CenterBoxPresenter import CenterBoxPresenter
 
 class MainWindowPresenter(AbstractPresenter):
-    def __init__(self, view, model):
-        super().__init__(view, model)
+    def __init__(self, view):
+        super().__init__(view, None)

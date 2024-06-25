@@ -1,5 +1,5 @@
 from Presenter.AbstractPresenter import AbstractPresenter
-from BetterDemo.View.MainControlsView import MainControls
+#from View.MainControlsView import MainControlsView
 
 class MainControlsPresenter(AbstractPresenter):
     def __init__(self, view):
