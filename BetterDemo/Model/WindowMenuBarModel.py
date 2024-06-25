@@ -7,9 +7,10 @@ class WindowMenuBarModel():
         pass
 
     def openImage(self, imagePath):
-        canvas = Canvas()
-        canvas.addItem(imagePath)
-    
+        #canvas = Canvas()
+        #canvas.addItem(imagePath)
+        pass
+
     def openFolder(self, directoryPath):
         '''
         returns the contents of a selected folder

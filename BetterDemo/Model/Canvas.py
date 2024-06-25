@@ -54,10 +54,11 @@ class Canvas():
    
     def addItem(self, itemPathToAdd):
         #self.layers.append()
-        pixmap = QPixmap(itemPathToAdd)
-        graphicsPixmapItem = qtw.QGraphicsPixmapItem(pixmap)
-        self.scene.addItem(graphicsPixmapItem)
-    
+        #pixmap = QPixmap(itemPathToAdd)
+        #graphicsPixmapItem = qtw.QGraphicsPixmapItem(pixmap)
+        #self.scene.addItem(graphicsPixmapItem)
+        pass
+
     def selectLayer():
         pass
     
