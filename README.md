@@ -6,7 +6,9 @@ Code and documents for the internship
 
 performed what will hopefully be the last refactor of the base code. Working on rendering those images now on the canvas.
 
-Base canvas now renders again, hooking up the menubar to load one image
+Base canvas now renders again, hooking up the menubar to load one image.
+
+I ran tests on the first attempt to load an image for labelling, it causes an immediate crash. Print off the filepath first to see if your giving it garbage.
 
 ## Day 21 6/24/24
 9:39 am - 1:31 pm
