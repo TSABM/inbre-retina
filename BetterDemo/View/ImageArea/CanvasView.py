@@ -1,16 +1,16 @@
 import PyQt5.QtWidgets as qtw
 
+from Presenter.CanvasPresenter import CanvasPresenter
+
 class CanvasView(qtw.QGraphicsView):
     '''
     The canvas
     '''
     def __init__(self):
-        #self.presenter = CanvasPresenter()
-        #scene = self.presenter.getScene() #Is this going to let the view be updated live?
-        #self.view = qtw.QGraphicsView(scene)
-        #parentWidget.layout().addWidget(self.view)
         super().__init__()
-        
+        self.presenter = CanvasPresenter(self)
+        self.setScene()
     
-    def setScene(self, scene):
+    def setScene(self):
+        scene = self.presenter.setScene()
         self.setScene(scene)

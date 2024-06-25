@@ -1,16 +1,15 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.Canvas import Canvas
-from View.ImageArea.CanvasView import CanvasView
 
 class CanvasPresenter(AbstractPresenter):
-    def __init__(self):
-        super().__init__(CanvasView(), Canvas())
+    def __init__(self, view):
+        super().__init__(view, Canvas())
         pass
-    
-    def setScene(self):
-        self.view.setScene(self.getScene())
 
-    def getScene(self):
+    def setScene(self):
+        #check first to see if there is an open scene to turn to
+
+        #if no open scene send a default scene
         return self.model
 
     def setBaseLayer():

@@ -12,3 +12,10 @@ class ImageAreaView(qtw.QWidget):
         self.presenter = ImageAreaPresenter(self)
         #Overarching widget that holds the image area together
         self.setLayout(qtw.QVBoxLayout())
+
+        #the currently open files
+        self.layout().setMenuBar(OpenFilesMenu)
+
+        #the canvas
+        self.layout().addWidget(CanvasView())
+
