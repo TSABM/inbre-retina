@@ -18,3 +18,5 @@ class MainWindowView(qtw.QMainWindow):
         self.setMenuBar(WindowMenuBarView())
 
         self.setCentralWidget(CenterBox())
+
+        print("main window initalized")

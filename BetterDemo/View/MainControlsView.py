@@ -48,6 +48,8 @@ class MainControlsView(qtw.QWidget):
 
         self.layout().addWidget(controls)
 
+        print("main controls initalized")
+
     #Functions to send udate requests to the presenter
     def setModeToSquare():
         pass

@@ -17,3 +17,5 @@ class CenterBox(qtw.QSplitter):
 
         self.addWidget(MainControlsView())
         self.addWidget(ImageAreaView())
+
+        print("center box initalized")

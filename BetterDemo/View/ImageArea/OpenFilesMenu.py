@@ -13,3 +13,5 @@ class OpenFilesMenu(qtw.QMenuBar):
         '''
         #menuContainer.layout().setMenuBar(menu)
         #parentWidget.layout().addWidget(menuContainer)
+
+        print("open files menubar initalized")

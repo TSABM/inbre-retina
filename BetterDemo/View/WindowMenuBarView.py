@@ -37,6 +37,8 @@ class WindowMenuBarView(qtw.QMenuBar):
 
         #add actions to buttons
         fileButton.addActions(actions)
+
+        print("main menu bar initalized")
         
     #Selectable options below here
     def createNewProject(self):

@@ -19,3 +19,5 @@ class ImageAreaView(qtw.QWidget):
         #the canvas
         self.layout().addWidget(CanvasView())
 
+        print("image area initalized")
+
