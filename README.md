@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+## Day 22 6/25/24
+9:50 am - 
+
+
 ## Day 21 6/24/24
 9:39 am - 1:31 pm
 
