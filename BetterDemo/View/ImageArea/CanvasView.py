@@ -11,6 +11,6 @@ class CanvasView(qtw.QGraphicsView):
         self.presenter = CanvasPresenter(self)
         self.setScene()
     
-    def setScene(self):
+    def getScene(self):
         scene = self.presenter.setScene()
         self.setScene(scene)

@@ -4,11 +4,13 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene
 import PyQt5.QtWidgets as qtw
 
-class Canvas(QGraphicsScene):
-    def __init__(self, parent = None):
-        super().__init__(parent)
-        self.drawing = False
-        #self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
+defaultWidth = 400
+defaultHeight = 200
+
+class Canvas():
+    def __init__(self):
+        super().__init__()
+        self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
         self.layers = []
         self.currentLayer = None
 
@@ -21,14 +23,20 @@ class Canvas(QGraphicsScene):
         pass
 
     #handling layers
-    def getWidth():
-        pass
+    def getWidth(self):
+        if self.getBaseLayer() == None:
+            return defaultWidth
+        else:
+            pass
 
-    def getHeight():
-        pass
+    def getHeight(self):
+        if self.getBaseLayer() == None:
+            return defaultHeight
+        else:
+            pass
 
-    def setBaseLayer(self, graphicsItem):
-        pass
+    def getBaseLayer(self):
+        return None
    
     def addLayer(self):
         self.layers.append()

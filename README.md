@@ -4,6 +4,7 @@ Code and documents for the internship
 ## Day 22 6/25/24
 9:50 am - 
 
+performed what will hopefully be the last refactor of the base code. Working on rendering those images now on the canvas.
 
 ## Day 21 6/24/24
 9:39 am - 1:31 pm
