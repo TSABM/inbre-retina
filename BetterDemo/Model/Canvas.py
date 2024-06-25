@@ -2,14 +2,13 @@
 The QGraphics Scene that all drawing takes place
 '''
 #from PyQt5.QtWidgets import QGraphicsScene
-from PyQt5.QtGui import QPixmap, QPainter, QPen
+#from PyQt5.QtGui import QPixmap, QPainter, QPen
 import PyQt5.QtWidgets as qtw
 
 defaultWidth = 400
 defaultHeight = 200
 
 class Canvas():
-    #scene = qtw.QGraphicsScene(0, 0, defaultWidth, defaultHeight)
     def __init__(self):
         super().__init__()
         self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())

@@ -12,6 +12,8 @@ I ran tests on the first attempt to load an image for labelling, it causes an im
 
 Nope it looks like an issue in the central widget. I'm thinking my canvas import might be messed up. Found the issue, it was the class wide variable in the canvas, which was imported via the central widget. Read back into how thats handled, I asked chatGPT earlier for a tip on it and I think it was wrong.
 
+All tries to fix the issue and still have a class wide canvas have failed. Any other class wide variable seems ok and even removing all references to a classwide canvas except its instantiation still causes a crash. I'm just going to have to move forward under the assumption that a class wide canvas (to be more specific QGraphicsScene) is not an option right now.
+
 ## Day 21 6/24/24
 9:39 am - 1:31 pm
 
