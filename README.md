@@ -6,6 +6,8 @@ Code and documents for the internship
 
 Created a new class to hold all active scenes. The scenes container is class wide which should solve the previous issues related to crashing. Initial tests work.
 
+Run into another problem like before where I need the menu to communicate with another widget. I think I found the solution, I'll use a publish subscribe model. I'm going to create a master memory where each model can be found via a simple address.
+
 ## Day 22 6/25/24
 9:50 am - 2:50 pm
 
