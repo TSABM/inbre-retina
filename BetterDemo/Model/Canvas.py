@@ -4,6 +4,7 @@ The QGraphics Scene that all drawing takes place
 #from PyQt5.QtWidgets import QGraphicsScene
 #from PyQt5.QtGui import QPixmap, QPainter, QPen
 import PyQt5.QtWidgets as qtw
+from Model.OpenScenes import OpenScenes
 
 defaultWidth = 400
 defaultHeight = 200
