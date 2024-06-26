@@ -28,7 +28,7 @@ class WindowMenuBarPresenter(AbstractPresenter):
         requests filtered contents of a selected directory
         '''
 
-        #self.model.openFolder(directoryPath)
+        self.model.openFolder(directoryPath)
         pass
 
 

@@ -1,5 +1,5 @@
 import os
-#from Model.Canvas import Canvas
+from Model.OpenScenes import OpenScenes
 
 
 class WindowMenuBarModel():
@@ -7,9 +7,8 @@ class WindowMenuBarModel():
         pass
 
     def openImage(self, imagePath):
-        #canvas = Canvas()
-        #canvas.addItem(imagePath)
-        pass
+        openScenes = OpenScenes()
+        openScenes.addScene()
 
     def openFolder(self, directoryPath):
         '''

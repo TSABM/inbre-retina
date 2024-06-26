@@ -6,51 +6,23 @@ The QGraphics Scene that all drawing takes place
 import PyQt5.QtWidgets as qtw
 from Model.OpenScenes import OpenScenes
 
-defaultWidth = 400
-defaultHeight = 200
-
 class Canvas():
     def __init__(self):
         super().__init__()
-        self.scene = qtw.QGraphicsScene(0, 0, self.getWidth(), self.getHeight())
-        self.layers = []
-        self.currentLayer = None
-
-    #handling drawing
-    def onClick():
-        pass
-    def onDrag():
-        pass
-    def onRelease():
-        pass
+        self.currentSceneIndex = 0
+        self.currentScene = OpenScenes().getSceneByIndex(self.currentSceneIndex)
 
     #handling layers
+    def setCurrentScene(self, index):
+        self.currentSceneIndex = index
+
     def getScene(self):
         '''
         returns current scene
         '''
-        return self.scene
+        return self.currentScene
 
-    def getWidth(self):
-        '''
-        returns current scene width
-        '''
-        if self.getBaseLayer() == None:
-            return defaultWidth
-        else:
-            pass
-
-    def getHeight(self):
-        '''
-        returns current scene height
-        '''
-        if self.getBaseLayer() == None:
-            return defaultHeight
-        else:
-            pass
-
-    def getBaseLayer(self):
-        return None
+    
    
     def addItem(self, itemPathToAdd):
         #self.layers.append()
@@ -59,12 +31,13 @@ class Canvas():
         #self.scene.addItem(graphicsPixmapItem)
         pass
 
-    def selectLayer():
+    #handling drawing
+    def onClick():
         pass
-    
-    def deleteLayer():
+    def onDrag():
         pass
-
+    def onRelease():
+        pass
     
 
         
