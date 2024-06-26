@@ -48,7 +48,11 @@ class WindowMenuBarView(qtw.QMenuBar):
     #FIXME send some of this logic to the presenter layer
     def openImage(self):
         fileDialog = qtw.QFileDialog(self)
-        self.presenter.openImage(fileDialog)
+        #fileDialog.setFileMode(qtw.QFileDialog.AnyFile)
+        #fileDialog.setFilter("Images (*.png *.jpg *jpeg)")
+        imagePath = fileDialog.getOpenFileName()[0]
+        print(imagePath)
+        self.presenter.openImage(imagePath)
         #FIXME need to figure out how to send the image path data to somewhere to be rendered...
         #Send to image area menu?
         #from image area menu send to canvas as new layer/base layer?

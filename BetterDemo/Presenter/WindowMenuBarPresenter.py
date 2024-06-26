@@ -14,12 +14,11 @@ class WindowMenuBarPresenter(AbstractPresenter):
         pass
     
 
-    def openImage(self, fileDialog):
+    def openImage(self, imagePath):
         '''
         opens a dialog and returns one selected image
         '''
-        fileDialog.setFilter("Images (*.png *.jpg *jpeg)")
-        imagePath = fileDialog.getOpenFile()
+        
         self.model.openImage(imagePath)
         
 

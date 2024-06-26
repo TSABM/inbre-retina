@@ -8,7 +8,7 @@ class WindowMenuBarModel():
 
     def openImage(self, imagePath):
         openScenes = OpenScenes()
-        openScenes.addScene()
+        openScenes.addSceneByPath(imagePath)
 
     def openFolder(self, directoryPath):
         '''
