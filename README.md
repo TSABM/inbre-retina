@@ -2,7 +2,8 @@
 Code and documents for the internship
 
 ## Day 26 6/26/24
-10:08 am - 
+10:08 am - 2:15
+2:50 pm - 
 
 Created a new class to hold all active scenes. The scenes container is class wide which should solve the previous issues related to crashing. Initial tests work.
 
