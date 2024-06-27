@@ -3,6 +3,7 @@ Code and documents for the internship
 
 ## Day 27 6/27/24
 11:33 am - 12:25 pm
+1:30 pm - 
 
 Trying to implement that main memory pipeline.
 
