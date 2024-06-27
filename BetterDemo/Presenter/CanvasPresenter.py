@@ -3,11 +3,11 @@ from Model.Canvas import Canvas
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
-        super().__init__(view, Canvas())
+        super().__init__(view)
         pass
 
     def getScene(self):
-        return self.model.getScene()
+        pass
 
     def setBaseLayer():
         pass
