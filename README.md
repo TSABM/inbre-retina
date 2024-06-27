@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+## Day 27 6/27/24
+11:33 am - 
+
+
 ## Day 26 6/26/24
 10:08 am - 2:15
 2:50 pm - 3:18 (meeting)
