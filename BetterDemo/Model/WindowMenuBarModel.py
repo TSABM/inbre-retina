@@ -1,5 +1,6 @@
 import os
-
+from Model.nd2FileOpener import nd2FileOpener
+from Model.masterMemory import MasterMemory
 
 
 class WindowMenuBarModel():
@@ -7,8 +8,7 @@ class WindowMenuBarModel():
         pass
 
     def openImage(self, imagePath):
-        openScenes = OpenScenes()
-        openScenes.addSceneByPath(imagePath)
+        
 
     def openFolder(self, directoryPath):
         '''
