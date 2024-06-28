@@ -6,15 +6,6 @@ class CanvasPresenter(AbstractPresenter):
         super().__init__(view)
         pass
 
-    def getScene(self):
-        pass
-
-    def setBaseLayer():
-        pass
-
-    def addLayer():
-        pass
-
-    def removeLayer():
+    def getCanvas(self):
         pass
 

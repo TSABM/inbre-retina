@@ -13,6 +13,6 @@ class CanvasView(qtw.QGraphicsView):
 
         print("canvas initalized")
     
-    def getScene(self):
-        scene = self.presenter.getScene()
+    def getCanvas(self):
+        canvas = self.presenter.getCanvas()
         self.setScene(scene)

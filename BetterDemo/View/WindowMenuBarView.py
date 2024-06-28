@@ -11,24 +11,7 @@ class WindowMenuBarView(qtw.QMenuBar):
 
         self.presenter = WindowMenuBarPresenter(self)
 
-        actions = []
-
-        newProject = qtw.QAction("New...", self)
-        newProject.triggered.connect(self.createNewProject)
-        actions.append(newProject)
-
-        openImage = qtw.QAction("Open Image", self)
-        openImage.triggered.connect(self.openImage)
-        actions.append(openImage)
-        
-        openFolder = qtw.QAction("Open Folder", self)
-        openFolder.triggered.connect(self.openFolder)
-        actions.append(openFolder)
-
-        exit = qtw.QAction("Exit", self)
-        exit.triggered.connect(self.closeApplication)
-        actions.append(exit)
-        
+        actions = self.generateMainActions()
 
         #submenus
         fileButton = qtw.QMenu("File", self)
@@ -67,3 +50,23 @@ class WindowMenuBarView(qtw.QMenuBar):
 
     def closeApplication(self):
         self.presenter.closeApplication()
+
+    def generateMainActions(self):
+        actions = []
+
+        newProject = qtw.QAction("New...", self)
+        newProject.triggered.connect(self.createNewProject)
+        actions.append(newProject)
+
+        openImage = qtw.QAction("Open Image", self)
+        openImage.triggered.connect(self.openImage)
+        actions.append(openImage)
+        
+        openFolder = qtw.QAction("Open Folder", self)
+        openFolder.triggered.connect(self.openFolder)
+        actions.append(openFolder)
+
+        exit = qtw.QAction("Exit", self)
+        exit.triggered.connect(self.closeApplication)
+        actions.append(exit)
+        return actions

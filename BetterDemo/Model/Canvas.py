@@ -1,16 +1,12 @@
 '''
 The QGraphics Scene that all drawing takes place
 '''
-#from PyQt5.QtWidgets import QGraphicsScene
+from PyQt5.QtWidgets import QGraphicsScene
 #from PyQt5.QtGui import QPixmap, QPainter, QPen
-import PyQt5.QtWidgets as qtw
-from Model.OpenScenes import OpenScenes
 
-class Canvas():
+class Canvas(QGraphicsScene):
     def __init__(self):
         super().__init__()
-        self.currentSceneIndex = 0
-        self.currentScene = OpenScenes().getSceneByIndex(self.currentSceneIndex)
 
     #handling layers
     def setCurrentScene(self, index):
