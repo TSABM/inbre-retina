@@ -1,5 +1,6 @@
 import PyQt5.QtWidgets as qtw
 
+
 from Presenter.WindowMenuBarPresenter import WindowMenuBarPresenter
 
 class WindowMenuBarView(qtw.QMenuBar):

@@ -6,7 +6,11 @@ Code and documents for the internship
 
 1:30 pm - 3:39 pm
 
+4:15 pm - 5:16 pm
+
 Trying to implement that main memory pipeline. 
+
+imported nd2 package, learning how to use it to display an image with pyqt. Learned several things about the format, it will most likely need to be converted to some kind of array which should be able to be done quickly if some tricks are used. Its also possible to extract the files dimensions including the depth of layers which ought to be useful.
 
 
 ## Day 26 6/26/24
