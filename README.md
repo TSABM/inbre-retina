@@ -2,9 +2,19 @@
 Code and documents for the internship
 
 ## Day 28 6/28/24
-9:25 am - 
+9:25 am - 11:00 am
+
+11:44 am - 1:12 pm
+
+1:46 pm - 
 
 Finished some minor refactoring. Beginnning work on opening the first nd2 file.
+
+opening it is harder than expected. Because the files are so large I am worried about memory concenrs. Trying to solve that by using a dask xarray but this is proving difficult to understand.
+
+First nd2 image loaded successfully, but it crashes when I try to pull out one frame, looking into it. Also I beleive this first image at least is not in rgb format, but in rgba.
+
+Continued reading up on nd2 and I learned how to extract a single frame correctly. Working on displaying one frame. Note this part may need to get overhauled since we will be processing such large files.
 
 ## Day 27 6/27/24
 11:33 am - 12:25 pm
