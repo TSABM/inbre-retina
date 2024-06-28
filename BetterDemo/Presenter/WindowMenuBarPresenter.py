@@ -3,14 +3,13 @@ A presenter to act as a middleman between the view and model
 '''
 
 from Presenter.AbstractPresenter import AbstractPresenter
-
-
 from Model.WindowMenuBarModel import WindowMenuBarModel
 
 class WindowMenuBarPresenter(AbstractPresenter):
     
     def __init__(self, view):
-        super().__init__(view, WindowMenuBarModel())
+        super().__init__(view)
+        self.model = WindowMenuBarModel()
         pass
     
 

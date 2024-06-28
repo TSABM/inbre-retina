@@ -9,7 +9,7 @@ defaultHeight = 200
 
 class Canvas():
     def __init__(self):
-        self.scene = QGraphicsScene()
+        self.setDefault()
 
 
     def setDefault(self):

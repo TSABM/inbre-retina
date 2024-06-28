@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from Model.masterMemory import MasterMemory
 
 class AbstractPresenter(ABC):
     @abstractmethod
@@ -9,5 +10,9 @@ class AbstractPresenter(ABC):
     def getView(self):
         return self.view
     
-    def addSubscriber(self, subscriber):
-        self.subscribers.append(subscriber)
+    def addSubscriber(self, key, newSubscriberObject):
+        MasterMemory.addSubscriber(key, newSubscriberObject)
+        self.subscribers.append(key)
+    
+    def getSubscriberByKey(self, key):
+        return MasterMemory.getScubscriberByKey(key)

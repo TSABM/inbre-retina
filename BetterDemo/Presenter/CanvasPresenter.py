@@ -5,11 +5,8 @@ from Model.masterMemory import MasterMemory
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.subscribers.append("canvas")
-        self.subscribers.append()
-        pass
+        self.addSubscriber("canvas", Canvas())
 
     def getCanvas(self):
-
-        pass
+        return MasterMemory.getSubscriberByKey("canvas")
 

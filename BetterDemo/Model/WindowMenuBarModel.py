@@ -1,5 +1,5 @@
 import os
-from Model.OpenScenes import OpenScenes
+
 
 
 class WindowMenuBarModel():
@@ -12,7 +12,7 @@ class WindowMenuBarModel():
 
     def openFolder(self, directoryPath):
         '''
-        returns the contents of a selected folder
+        FIXME returns the contents of a selected folder
         '''
         #ensure the path isnt empty
         if(directoryPath == ""):
