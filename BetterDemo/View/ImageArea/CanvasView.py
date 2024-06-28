@@ -15,4 +15,4 @@ class CanvasView(qtw.QGraphicsView):
     
     def getCanvas(self):
         canvas = self.presenter.getCanvas()
-        self.setScene(scene)
+        self.setScene(canvas.getScene())
