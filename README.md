@@ -6,7 +6,7 @@ Code and documents for the internship
 
 11:44 am - 1:12 pm
 
-1:46 pm - 
+1:46 pm - 4:00 pm
 
 Finished some minor refactoring. Beginnning work on opening the first nd2 file.
 
@@ -15,6 +15,8 @@ opening it is harder than expected. Because the files are so large I am worried 
 First nd2 image loaded successfully, but it crashes when I try to pull out one frame, looking into it. Also I beleive this first image at least is not in rgb format, but in rgba.
 
 Continued reading up on nd2 and I learned how to extract a single frame correctly. Working on displaying one frame. Note this part may need to get overhauled since we will be processing such large files.
+
+unable to get the first image rendering. Encountering an error converting a frame to a readable format for the canvas.
 
 ## Day 27 6/27/24
 11:33 am - 12:25 pm

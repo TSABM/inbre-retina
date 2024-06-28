@@ -8,7 +8,8 @@ class WindowMenuBarModel():
         pass
 
     def openImage(self, imagePath):
-        nd2FileOpener().openNd2(imagePath)
+        image = nd2FileOpener().openNd2(imagePath)
+        if image != None: print("image returned")
 
     def openFolder(self, directoryPath):
         '''
