@@ -1,6 +1,12 @@
 # internship
 Code and documents for the internship
 
+## Day 29 7/2/24
+11:40 am - 12:06 pm
+
+4:20 pm - 
+
+
 ## Day 28 6/28/24
 9:25 am - 11:00 am
 
