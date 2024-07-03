@@ -4,8 +4,11 @@ Code and documents for the internship
 ## Day 29 7/2/24
 11:40 am - 12:06 pm
 
-4:20 pm - 
+4:20 pm - 6:15 pm 
 
+Going back to reading the image as a dask xarray if I can. xarray is having problems unfortunately. Checking to make sure my environement has xarray set up right.
+
+this might not work. xarray still does not work. It looks like it might be an issue with the nd2 package using an old version of xarray. If so numpy arrays might be required... this would slow it down though.
 
 ## Day 28 6/28/24
 9:25 am - 11:00 am

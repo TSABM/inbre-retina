@@ -10,6 +10,9 @@ defaultHeight = 200
 class Canvas():
     def __init__(self):
         self.setDefault()
+        #initalize scene
+        #init base image
+        #init the labeling layer
 
 
     def setDefault(self):

@@ -8,10 +8,9 @@ class nd2FileOpener():
         pass
     
     def openNd2(self, fileToOpen):
-        #nd2Array = nd2.imread(fileToOpen, xarray= True, dask= True)
-        #code below will need to be altered to accept different amounts of frames
-        qImage = None
-
+        nd2Array = nd2.imread(fileToOpen, xarray= True, dask= True)
+        return nd2Array
+        '''
         with nd2.ND2File(fileToOpen) as myfile:
             print(myfile.metadata)
             
@@ -45,3 +44,4 @@ class nd2FileOpener():
                 #else
         print("returning a qimage")
         return qImage
+        '''
