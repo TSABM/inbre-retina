@@ -21,6 +21,11 @@ class Canvas():
     def getScene(self):
         return self.scene
 
+    def setBaseImage(self, width, height, image):
+        self.scene.width = width
+        self.scene.height = height
+
+        self.scene.addItem()
     '''
     #handling layers
     def setCurrentScene(self, index):

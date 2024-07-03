@@ -9,6 +9,7 @@ class nd2FileOpener():
     
     def openNd2(self, fileToOpen):
         nd2Array = nd2.imread(fileToOpen, xarray= True, dask= True)
+        print("file opened")
         return nd2Array
         '''
         with nd2.ND2File(fileToOpen) as myfile:

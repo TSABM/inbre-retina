@@ -9,7 +9,9 @@ class WindowMenuBarModel():
 
     def openImage(self, imagePath):
         image = nd2FileOpener().openNd2(imagePath)
-        if image != None: print("image returned")
+        #print(image)
+        canvas = MasterMemory.getSubscriberByKey("canvas")
+        canvas.
 
     def openFolder(self, directoryPath):
         '''
