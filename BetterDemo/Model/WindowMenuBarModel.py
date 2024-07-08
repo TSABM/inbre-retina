@@ -1,5 +1,5 @@
 import os
-from Model.nd2FileOpener import nd2FileOpener
+from BetterDemo.Model.nd2FileConverter import nd2FileOpener
 from Model.masterMemory import MasterMemory
 
 
@@ -10,8 +10,11 @@ class WindowMenuBarModel():
     def openImage(self, imagePath):
         image = nd2FileOpener().openNd2(imagePath)
         #print(image)
+        
+
+        
         canvas = MasterMemory.getSubscriberByKey("canvas")
-        canvas.
+        
 
     def openFolder(self, directoryPath):
         '''

@@ -1,12 +1,20 @@
 # internship
 Code and documents for the internship
 
+## Day 30 7/6/24
+3:26 pm - 4:21pm
+4:55 pm - 5:56 pm
+
+working on loading one frame to start.
+
 ## Day 29 7/2/24
 11:40 am - 12:06 pm
 
 4:20 pm - 6:15 pm 
 
 7:00 pm - 8:07
+
+8:50 - 9:57
 
 Going back to reading the image as a dask xarray if I can. xarray is having problems unfortunately. Checking to make sure my environement has xarray set up right.
 
@@ -15,6 +23,8 @@ this might not work. xarray still does not work. It looks like it might be an is
 Got xarray working, at least temporarily. It still crashes, but it tries to open the file.
 
 stuck trying to get the image data to render. searching for a solution on stack overflow.
+
+Ok changing the plan... Going to load the nd2 file reference into main memory for now and grab individual frames, actually I'm less sure now that would mean a lot of disc calls.
 
 ## Day 28 6/28/24
 9:25 am - 11:00 am

@@ -9,6 +9,8 @@ import Model.OpenScenes
 
 class MasterMemory():
     subscribers = dict()
+    nd2File = []
+    
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
         self.addSubscriber("canvas", Model.Canvas.Canvas())

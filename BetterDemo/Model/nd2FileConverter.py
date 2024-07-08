@@ -2,16 +2,32 @@
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtGui import QImage
 import nd2
+from Model.frameReader import FrameReader
 
-class nd2FileOpener():
+class nd2FileConverter():
     def __init__(self):
+        self.frameReader = FrameReader()
         pass
     
+    def convertND2ToWidget(self, fileToConvert):
+        pass
+
     def openNd2(self, fileToOpen):
-        nd2Array = nd2.imread(fileToOpen, xarray= True, dask= True)
-        print("file opened")
-        return nd2Array
-        '''
+        #nd2Array = nd2.imread(fileToOpen, xarray= True, dask= True)
+        #nd2Array = nd2.imread(fileToOpen)
+        #print("file opened")
+
+        #get metadata (especially height, and width)
+        
+
+        #grab single frame
+        frame = self.frameReader.readOneFrame(fileToOpen, 0) #FIXME using 0 as a temp value.    
+        #convert to a QImage
+        imageToShow = QImage(frame.data, width, height, )
+
+        #attach QImage to the canvas
+
+        ''' This code may be useful, review it and see if any can be salvaged.
         with nd2.ND2File(fileToOpen) as myfile:
             print(myfile.metadata)
             
