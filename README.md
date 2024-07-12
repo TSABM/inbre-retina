@@ -1,6 +1,17 @@
 # internship
 Code and documents for the internship
 
+## Day 31 7/12/24
+12:26 pm - 1:23 pm
+
+1:56 pm - 2:50 pm
+
+Plan: work on single frame loader, if possible also develop the square drawer for labelling.
+
+refactored my approach to opening images. The new one ought to be much better. Now working on finishing it out.
+
+Still working on last few steps
+
 ## Day 30 7/6/24
 3:26 pm - 4:21pm
 4:55 pm - 5:56 pm

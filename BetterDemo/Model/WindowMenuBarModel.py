@@ -1,6 +1,6 @@
 import os
-from BetterDemo.Model.nd2FileConverter import nd2FileOpener
 from Model.masterMemory import MasterMemory
+from Model.nd2FileAccessor import ND2FileAccessor
 
 
 class WindowMenuBarModel():
@@ -8,12 +8,15 @@ class WindowMenuBarModel():
         pass
 
     def openImage(self, imagePath):
-        image = nd2FileOpener().openNd2(imagePath)
-        #print(image)
-        
+        #open file at image location
 
-        
+        #place file in memory
+        MasterMemory.addOpenFile()
+
+        #send the the image info to the canvas
         canvas = MasterMemory.getSubscriberByKey("canvas")
+
+        #ask for canvas to update
         
 
     def openFolder(self, directoryPath):
