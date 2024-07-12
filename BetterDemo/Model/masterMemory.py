@@ -31,6 +31,13 @@ class MasterMemory():
     @classmethod
     def getOpenFiles(cls):
         return cls.openNd2Files
+    
+    @classmethod
+    def publish(cls, subsToRefresh):
+        for sub in cls.subscribers:
+            #push the refresh FIXME
+            pass
+        pass
 
     def unsubscribe():
         pass

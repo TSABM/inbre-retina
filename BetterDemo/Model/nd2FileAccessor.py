@@ -1,9 +1,9 @@
 import nd2
 
+
 class ND2FileAccessor():
     
-    def __init__(self, fileName, filePath, currentFrameIndex = None):
-        self.fileName = fileName
+    def __init__(self, filePath, currentFrameIndex = None):
         self.filePath = filePath
         self.currentFrameIndex = currentFrameIndex
 
@@ -26,9 +26,6 @@ class ND2FileAccessor():
         with nd2.ND2File(self.getFilePath()) as nd2_file:
             frame = nd2_file.read_frame(self.decrementFrameIndex())
         return frame
-    
-    def getFileName(self):
-        return self.fileName
     
     def getFilePath(self):
         return self.filePath

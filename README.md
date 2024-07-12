@@ -6,11 +6,15 @@ Code and documents for the internship
 
 1:56 pm - 2:50 pm
 
+4:00 pm - 5:00 pm
+
 Plan: work on single frame loader, if possible also develop the square drawer for labelling.
 
 refactored my approach to opening images. The new one ought to be much better. Now working on finishing it out.
 
 Still working on last few steps
+
+added an abstract view. trying to make it easier for the app to update widgets (particularly when a new image is opened) Hopefully this will mean the whole app could update easily. Not working yet, but working on it.
 
 ## Day 30 7/6/24
 3:26 pm - 4:21pm
