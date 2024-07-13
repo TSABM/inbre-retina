@@ -15,4 +15,4 @@ class AbstractPresenter(ABC):
         self.subscribers.append(key)
     
     def getSubscriberByKey(self, key):
-        return MasterMemory.getScubscriberByKey(key)
+        return MasterMemory.getSubscriberByKey(key)

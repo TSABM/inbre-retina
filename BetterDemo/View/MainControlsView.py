@@ -1,18 +1,18 @@
 import PyQt5.QtWidgets as qtw
 
 from Presenter.MainControlsPresenter import MainControlsPresenter
+from View.AbstractView import AbstractView
 
-class MainControlsView(qtw.QWidget):
+class MainControlsView(AbstractView):
     '''
     The primary control widgets for the app.
     '''
     def __init__(self):
-        super().__init__()
+        super().__init__(qtw.QWidget())
         self.presenter = MainControlsPresenter(self)
 
         #setting layout
-        #controlBox = qtw.QWidget()
-        self.setLayout(qtw.QVBoxLayout())
+        self.view.setLayout(qtw.QVBoxLayout())
 
         controls = qtw.QWidget()
         controls.setLayout(qtw.QGridLayout())
@@ -46,7 +46,7 @@ class MainControlsView(qtw.QWidget):
         controls.layout().addWidget(fillModeButton, 3, 1)
         
 
-        self.layout().addWidget(controls)
+        self.view.layout().addWidget(controls)
 
         print("main controls initalized")
 

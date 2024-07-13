@@ -33,7 +33,7 @@ class MasterMemory():
         return cls.openNd2Files
     
     @classmethod
-    def publish(cls, subsToRefresh):
+    def publishToSubscribers(cls, subsToPubTo):
         for sub in cls.subscribers:
             #push the refresh FIXME
             pass

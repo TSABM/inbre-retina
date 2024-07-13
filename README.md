@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+## Day 32 7/13/24
+10:51 am - 
+
+
+
 ## Day 31 7/12/24
 12:26 pm - 1:23 pm
 

@@ -1,13 +1,14 @@
 import PyQt5.QtWidgets as qtw
+from View.AbstractView import AbstractView
 
 
 from Presenter.WindowMenuBarPresenter import WindowMenuBarPresenter
 
-class WindowMenuBarView(qtw.QMenuBar):
+class WindowMenuBarView(AbstractView):
     #initalize menubar and the selectable options
     def __init__(self):
         #main menu
-        super().__init__()
+        super().__init__(qtw.QMenuBar())
 
         self.presenter = WindowMenuBarPresenter(self)
 
@@ -15,15 +16,27 @@ class WindowMenuBarView(qtw.QMenuBar):
 
         #submenus
         fileButton = qtw.QMenu("File", self)
-        self.addMenu(fileButton)
+        self.view.addMenu(fileButton)
         settingsButton = qtw.QMenu("Settings", self)
-        self.addMenu(settingsButton)
+        self.view.addMenu(settingsButton)
 
         #add actions to buttons
         fileButton.addActions(actions)
 
         print("main menu bar initalized")
-        
+    
+
+    def refresh(self):
+        '''
+        redraw view with updated data
+        '''
+        super().refresh()
+        pass #FIXME 
+
+
+    def getMenuBar(self):
+        return self.menubar
+
     #Selectable options below here
     def createNewProject(self):
         print("unimplemented")

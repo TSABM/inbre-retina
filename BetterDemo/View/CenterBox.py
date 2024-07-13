@@ -4,18 +4,22 @@ from PyQt5.QtCore import Qt
 from Presenter.CenterBoxPresenter import CenterBoxPresenter
 from View.MainControlsView import MainControlsView
 from View.ImageArea.ImageAreaView import ImageAreaView
+from View.AbstractView import AbstractView
 
-class CenterBox(qtw.QSplitter):
+class CenterBox(AbstractView):
     '''
     A container for the main windows items, in this implementation a splitter to allow some resizing
     '''
     def __init__(self):
-        super().__init__()
+        super().__init__(qtw.QSplitter())
         self.presenter = CenterBoxPresenter(self)
-        self.setOrientation(Qt.Horizontal)
-        self.setChildrenCollapsible(False)
+        self.view.setOrientation(Qt.Horizontal)
+        self.view.setChildrenCollapsible(False)
 
-        self.addWidget(MainControlsView())
-        self.addWidget(ImageAreaView())
+        self.view.addWidget(MainControlsView())
+        self.view.addWidget(ImageAreaView())
 
         print("center box initalized")
+    
+    def refresh(self):
+        return super().refresh()
