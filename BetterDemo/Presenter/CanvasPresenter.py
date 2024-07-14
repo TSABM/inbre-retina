@@ -1,6 +1,6 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.Canvas import Canvas
-from Model.masterMemory import MasterMemory
+from BetterDemo.masterMemory import MasterMemory
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):

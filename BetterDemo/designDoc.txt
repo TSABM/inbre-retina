@@ -1,0 +1,18 @@
+Main window :
+    has: Menubar, centerbox
+
+Menubar:
+    has: submenus
+    publishes to: canvas, and maybe controls
+
+Centerbox:
+    has: controls area, image area
+
+Control area:
+    has: controls
+    publishes to: canvas
+
+image area:
+    has: canvas
+    publishes to: ... ?
+

@@ -14,8 +14,10 @@ class MainWindowView(AbstractView):
         super().__init__(qtw.QMainWindow())
         self.presenter = MainWindowPresenter(self)
         self.view.setWindowTitle("DemoApp")
-        self.view.setMenuBar(WindowMenuBarView())
-        self.view.setCentralWidget(CenterBox())
+        menuBar = WindowMenuBarView()
+        self.view.setMenuBar(menuBar.getView())
+        centerBox = CenterBox()
+        self.view.setCentralWidget(centerBox.getView())
         print("main window initalized")
     
     def refresh(self):

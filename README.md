@@ -2,9 +2,10 @@
 Code and documents for the internship
 
 ## Day 32 7/13/24
-10:51 am - 
+10:51 am - 11:53 am
+7:30 pm - 
 
-
+made most views abstract compliant. Widgets need fixing, right now it will try to display non widgets. Plan is to add the views to the main mem and then access them in the views...
 
 ## Day 31 7/12/24
 12:26 pm - 1:23 pm
