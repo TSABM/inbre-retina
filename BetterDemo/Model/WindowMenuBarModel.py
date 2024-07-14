@@ -6,15 +6,17 @@ from Model.Canvas import Canvas
 
 class WindowMenuBarModel():
     def __init__(self):
+        
         pass
 
     def openImage(self, imagePath):
         #open file at image location
         image = ND2FileAccessor(imagePath) #FIXME currently frame index is just none, handle this better.
         #place file in memory
-        MasterMemory.addOpenFile(image)
+        MasterMemory.setOpenFile(image)
+        #Note: Commented out below code. I think the presenter can handle it from here...
         #send the the image info to the canvas
-        canvas = MasterMemory.getSubscriberByKey("canvas")
+        #canvas = MasterMemory.publishToSubscribers("canvas")
         #ask for canvas to update (should the presenter govern this part?) FIXME
         
         

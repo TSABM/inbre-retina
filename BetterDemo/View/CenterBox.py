@@ -16,8 +16,10 @@ class CenterBox(AbstractView):
         self.view.setOrientation(Qt.Horizontal)
         self.view.setChildrenCollapsible(False)
 
-        self.view.addWidget(MainControlsView())
-        self.view.addWidget(ImageAreaView())
+        mainCntrlsView = MainControlsView()
+        self.view.addWidget(mainCntrlsView.getWidget())
+        imageAreaView = ImageAreaView()
+        self.view.addWidget(imageAreaView.getWidget())
 
         print("center box initalized")
     

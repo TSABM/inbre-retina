@@ -15,9 +15,9 @@ class MainWindowView(AbstractView):
         self.presenter = MainWindowPresenter(self)
         self.view.setWindowTitle("DemoApp")
         menuBar = WindowMenuBarView()
-        self.view.setMenuBar(menuBar.getView())
+        self.view.setMenuBar(menuBar.getWidget())
         centerBox = CenterBox()
-        self.view.setCentralWidget(centerBox.getView())
+        self.view.setCentralWidget(centerBox.getWidget())
         print("main window initalized")
     
     def refresh(self):

@@ -9,7 +9,7 @@ import Model.OpenScenes
 
 class MasterMemory():
     subscribers = dict()
-    openNd2Files = []
+    openNd2File = None
     
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
@@ -25,8 +25,8 @@ class MasterMemory():
         return cls.subscribers.get(key)
     
     @classmethod
-    def addOpenFile(cls, openFile):
-        cls.openNd2Files.append(openFile)
+    def setOpenFile(cls, openFile):
+        cls.openNd2Files = openFile
 
     @classmethod
     def getOpenFiles(cls):

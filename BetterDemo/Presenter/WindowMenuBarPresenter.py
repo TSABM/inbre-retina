@@ -10,6 +10,7 @@ class WindowMenuBarPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
         self.model = WindowMenuBarModel()
+        self.addSubscriber("canvas")
         pass
     
 
@@ -17,7 +18,6 @@ class WindowMenuBarPresenter(AbstractPresenter):
         '''
         opens a dialog and returns one selected image
         '''
-        
         self.model.openImage(imagePath)
         
 
@@ -25,7 +25,6 @@ class WindowMenuBarPresenter(AbstractPresenter):
         '''
         requests filtered contents of a selected directory
         '''
-
         self.model.openFolder(directoryPath)
         pass
 
