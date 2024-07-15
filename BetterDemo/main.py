@@ -2,7 +2,7 @@
 import PyQt5.QtWidgets as qtw
 
 from View.MainWindowView import MainWindowView
-from BetterDemo.masterMemory import MasterMemory
+from masterMemory import MasterMemory
 
 print("starting")
 app = qtw.QApplication([])

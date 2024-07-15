@@ -1,5 +1,4 @@
 import PyQt5.QtWidgets as qtw
-import main
 
 class OpenFilesMenu(qtw.QMenuBar):
     def __init__(self):

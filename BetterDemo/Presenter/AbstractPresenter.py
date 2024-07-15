@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from BetterDemo.masterMemory import MasterMemory
+from masterMemory import MasterMemory
 
 class AbstractPresenter(ABC):
     @abstractmethod
@@ -13,8 +13,9 @@ class AbstractPresenter(ABC):
     def getView(self):
         return self.view
     
-    def addSubscriber(self, key, newSubscriberObject):
-        MasterMemory.addSubscriber(key, newSubscriberObject)
+    def addSubscriber(self, key, newSubscriberObject = None):
+        if newSubscriberObject != None:
+            MasterMemory.addSubscriber(key, newSubscriberObject)
         self.subscribers.append(key)
     
     def getSubscriberByKey(self, key):
