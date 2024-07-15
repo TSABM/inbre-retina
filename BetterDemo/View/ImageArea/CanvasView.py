@@ -10,10 +10,14 @@ class CanvasView(AbstractView):
     def __init__(self):
         super().__init__(qtw.QGraphicsView)
         self.presenter = CanvasPresenter(self)
-        self.getCanvas()
+        self.setCanvas()
 
         print("canvas initalized")
     
-    def getCanvas(self):
+    def setCanvas(self):
         canvas = self.presenter.getCanvas()
         self.viewWidget.setScene(canvas.getScene())
+
+    def refresh(self):
+        super().refresh()
+        self.setCanvas()

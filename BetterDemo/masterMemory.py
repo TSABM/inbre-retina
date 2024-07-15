@@ -8,8 +8,8 @@ import Model.OpenScenes
 
 
 class MasterMemory():
-    subscribers = dict()
-    openNd2File = None
+    subscribers = dict() #must be a view (or maybe a presenter?) that extends the abstract class
+    openNd2File = None #Must be in a numpy array?
     
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
@@ -34,10 +34,9 @@ class MasterMemory():
     
     @classmethod
     def publishToSubscribers(cls, subsToPubTo):
-        for sub in cls.subscribers:
-            #push the refresh FIXME
-            pass
-        pass
+        for subKey in subsToPubTo:
+            sub = cls.getSubscriberByKey(subKey)
+            sub.refresh() #FIXME this will only work for views that extend the abstract... there must be a better way to handle this...
 
     def unsubscribe():
         pass

@@ -6,7 +6,6 @@ from Model.Canvas import Canvas
 
 class WindowMenuBarModel():
     def __init__(self):
-        
         pass
 
     def openImage(self, imagePath):
