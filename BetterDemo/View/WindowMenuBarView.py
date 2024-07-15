@@ -10,14 +10,14 @@ class WindowMenuBarView(AbstractView):
         #main menu
         super().__init__(qtw.QMenuBar())
 
-        self.presenter = WindowMenuBarPresenter(self)
+        self.presenter = WindowMenuBarPresenter(self.viewWidget)
 
         actions = self.generateMainActions()
 
         #submenus
-        fileButton = qtw.QMenu("File", self)
+        fileButton = qtw.QMenu("File", self.viewWidget)
         self.viewWidget.addMenu(fileButton)
-        settingsButton = qtw.QMenu("Settings", self)
+        settingsButton = qtw.QMenu("Settings", self.viewWidget)
         self.viewWidget.addMenu(settingsButton)
 
         #add actions to buttons
@@ -35,7 +35,7 @@ class WindowMenuBarView(AbstractView):
 
 
     def getMenuBar(self):
-        return self.menubar
+        return self.viewWidget
 
     #Selectable options below here
     def createNewProject(self):
@@ -56,7 +56,7 @@ class WindowMenuBarView(AbstractView):
 
     def openFolder(self):
         #Open file dialog
-        fileDialog = qtw.QFileDialog(self)
+        fileDialog = qtw.QFileDialog(self.viewWidget)
         directoryPath = fileDialog.getExistingDirectory()
         #Send the directory path off for file list extraction
         self.presenter.getFilteredFolderContents(directoryPath)
@@ -67,19 +67,19 @@ class WindowMenuBarView(AbstractView):
     def generateMainActions(self):
         actions = []
 
-        newProject = qtw.QAction("New...", self)
+        newProject = qtw.QAction("New...", self.viewWidget)
         newProject.triggered.connect(self.createNewProject)
         actions.append(newProject)
 
-        openImage = qtw.QAction("Open Image", self)
+        openImage = qtw.QAction("Open Image", self.viewWidget)
         openImage.triggered.connect(self.openImage)
         actions.append(openImage)
         
-        openFolder = qtw.QAction("Open Folder", self)
+        openFolder = qtw.QAction("Open Folder", self.viewWidget)
         openFolder.triggered.connect(self.openFolder)
         actions.append(openFolder)
 
-        exit = qtw.QAction("Exit", self)
+        exit = qtw.QAction("Exit", self.viewWidget)
         exit.triggered.connect(self.closeApplication)
         actions.append(exit)
         return actions
