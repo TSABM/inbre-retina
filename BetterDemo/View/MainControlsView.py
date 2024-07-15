@@ -49,6 +49,10 @@ class MainControlsView(AbstractView):
         self.viewWidget.layout().addWidget(controls)
 
         print("main controls initalized")
+    
+    def refresh(self):
+        super().refresh()
+        pass
 
     #Functions to send udate requests to the presenter
     def setModeToSquare():

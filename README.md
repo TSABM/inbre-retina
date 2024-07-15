@@ -3,9 +3,11 @@ Code and documents for the internship
 
 ## Day 33 7/15/24
 11:08 am - 12:08 pm
-12:22 pm - 
+12:22 pm - 1:43 pm
 
 Updated master mem and added some abstract subscriber publish methods. Still need to get the image into the canvas and then to test and bugfix the newly edited code.
+
+did some bugfixing. Need to change quickly how the master memory receives the views or presenters. I think I will store references to the presenters rather than the views in the master memory... it seems cleaner? hmm but maybe its a mistake...
 
 ## Day 32 7/13/24
 10:51 am - 11:53 am

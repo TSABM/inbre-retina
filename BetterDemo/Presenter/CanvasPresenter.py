@@ -5,7 +5,7 @@ from masterMemory import MasterMemory
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.addSubscriber("canvas", Canvas())
+        self.registerNewSubscriber("canvas", Canvas())
 
     def getCanvas(self):
         return MasterMemory.getSubscriberByKey("canvas")

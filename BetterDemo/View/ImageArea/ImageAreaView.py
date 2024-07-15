@@ -10,7 +10,7 @@ class ImageAreaView(AbstractView):
     '''
     def __init__(self):
         super().__init__(qtw.QWidget())
-        self.presenter = ImageAreaPresenter(self)
+        self.presenter = ImageAreaPresenter(self.viewWidget)
         #Overarching widget that holds the image area together
         self.viewWidget.setLayout(qtw.QVBoxLayout())
 
@@ -21,4 +21,8 @@ class ImageAreaView(AbstractView):
         self.viewWidget.layout().addWidget(CanvasView())
 
         print("image area initalized")
+    
+    def refresh(self):
+        super().refresh()
+        pass
 

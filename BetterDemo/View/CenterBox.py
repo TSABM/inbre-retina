@@ -24,4 +24,5 @@ class CenterBox(AbstractView):
         print("center box initalized")
     
     def refresh(self):
-        return super().refresh()
+        super().refresh()
+        pass

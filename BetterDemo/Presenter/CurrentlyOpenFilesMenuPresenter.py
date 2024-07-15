@@ -4,7 +4,7 @@ from Presenter.AbstractPresenter import AbstractPresenter
 class CurrentlyOpenFilesMenuPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.addSubscriber
+        #self.addSubscriber()
 
     def addFile():
         pass

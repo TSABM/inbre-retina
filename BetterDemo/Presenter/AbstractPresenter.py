@@ -13,9 +13,16 @@ class AbstractPresenter(ABC):
     def getView(self):
         return self.view
     
-    def addSubscriber(self, key, newSubscriberObject = None):
-        if newSubscriberObject != None:
-            MasterMemory.addSubscriber(key, newSubscriberObject)
+    def registerNewSubscriber(self, key, newSubscriberObject):
+        '''
+        Adds a subscriber object to the master memory so it can be published to by other classes
+        '''
+        MasterMemory.addSubscriber(key, newSubscriberObject)
+    
+    def addSubscriber(self, key):
+        '''
+        Adds a subscriber key so this object can publish to it
+        '''
         self.subscribers.append(key)
     
     def getSubscriberByKey(self, key):
