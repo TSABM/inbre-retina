@@ -16,9 +16,9 @@ class WindowMenuBarView(AbstractView):
 
         #submenus
         fileButton = qtw.QMenu("File", self)
-        self.view.addMenu(fileButton)
+        self.viewWidget.addMenu(fileButton)
         settingsButton = qtw.QMenu("Settings", self)
-        self.view.addMenu(settingsButton)
+        self.viewWidget.addMenu(settingsButton)
 
         #add actions to buttons
         fileButton.addActions(actions)

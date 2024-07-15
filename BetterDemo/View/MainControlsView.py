@@ -12,7 +12,7 @@ class MainControlsView(AbstractView):
         self.presenter = MainControlsPresenter(self)
 
         #setting layout
-        self.view.setLayout(qtw.QVBoxLayout())
+        self.viewWidget.setLayout(qtw.QVBoxLayout())
 
         controls = qtw.QWidget()
         controls.setLayout(qtw.QGridLayout())
@@ -46,7 +46,7 @@ class MainControlsView(AbstractView):
         controls.layout().addWidget(fillModeButton, 3, 1)
         
 
-        self.view.layout().addWidget(controls)
+        self.viewWidget.layout().addWidget(controls)
 
         print("main controls initalized")
 

@@ -2,7 +2,8 @@
 Code and documents for the internship
 
 ## Day 33 7/15/24
-11:08 am - 
+11:08 am - 12:08 pm
+12:22 pm - 
 
 Updated master mem and added some abstract subscriber publish methods. Still need to get the image into the canvas and then to test and bugfix the newly edited code.
 

@@ -13,13 +13,13 @@ class CenterBox(AbstractView):
     def __init__(self):
         super().__init__(qtw.QSplitter())
         self.presenter = CenterBoxPresenter(self)
-        self.view.setOrientation(Qt.Horizontal)
-        self.view.setChildrenCollapsible(False)
+        self.viewWidget.setOrientation(Qt.Horizontal)
+        self.viewWidget.setChildrenCollapsible(False)
 
         mainCntrlsView = MainControlsView()
-        self.view.addWidget(mainCntrlsView.getWidget())
+        self.viewWidget.addWidget(mainCntrlsView.getWidget())
         imageAreaView = ImageAreaView()
-        self.view.addWidget(imageAreaView.getWidget())
+        self.viewWidget.addWidget(imageAreaView.getWidget())
 
         print("center box initalized")
     
