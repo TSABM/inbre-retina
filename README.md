@@ -10,6 +10,8 @@ Updated master mem and added some abstract subscriber publish methods. Still nee
 
 did some bugfixing. Need to change quickly how the master memory receives the views or presenters. I think I will store references to the presenters rather than the views in the master memory... it seems cleaner? hmm but maybe its a mistake...
 
+Decided to not pipe everything through the presenters... at least for now. Continued bugfixing, the window and base canvas now reappears. Now to translate the numpy image into a qimage and then the first part will be complete.
+
 ## Day 32 7/13/24
 10:51 am - 11:53 am
 7:30 pm - 8:18pm
