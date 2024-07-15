@@ -2,7 +2,7 @@
 import PyQt5.QtWidgets as qtw
 
 from View.MainWindowView import MainWindowView
-from masterMemory import MasterMemory
+from Model.masterMemory import MasterMemory
 
 print("starting")
 app = qtw.QApplication([])
@@ -14,5 +14,5 @@ masterMemory = MasterMemory()
 mainView = MainWindowView()
 
 #display the main view
-mainView.show()
+mainView.getWidget().show()
 app.exec_()

@@ -15,10 +15,12 @@ class ImageAreaView(AbstractView):
         self.viewWidget.setLayout(qtw.QVBoxLayout())
 
         #the currently open files
-        self.viewWidget.layout().setMenuBar(OpenFilesMenu())
+        openFilesMenu = OpenFilesMenu()
+        self.viewWidget.layout().setMenuBar(openFilesMenu.getWidget())
 
         #the canvas
-        self.viewWidget.layout().addWidget(CanvasView())
+        canvas = CanvasView()
+        self.viewWidget.layout().addWidget(canvas.getWidget())
 
         print("image area initalized")
     

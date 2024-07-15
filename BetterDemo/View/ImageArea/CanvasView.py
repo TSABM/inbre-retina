@@ -8,7 +8,7 @@ class CanvasView(AbstractView):
     The canvas
     '''
     def __init__(self):
-        super().__init__(qtw.QGraphicsView)
+        super().__init__(qtw.QGraphicsView())
         self.presenter = CanvasPresenter(self)
         self.setCanvas()
 

@@ -1,5 +1,5 @@
 import os
-from masterMemory import MasterMemory
+from Model.masterMemory import MasterMemory
 from Model.nd2FileAccessor import ND2FileAccessor
 from Model.Canvas import Canvas
 
