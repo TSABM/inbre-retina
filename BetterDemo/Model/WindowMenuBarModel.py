@@ -16,24 +16,9 @@ class WindowMenuBarModel():
         MasterMemory.setOpenFile(file)
         #convert to QImage compatable format
         frame = file.grabcurrentFrame()
-        #determine number of channels
-        #FIXME grab metadata properly and judge based on that.
-        height, width, channels = frame.shape #Note: this might not work, its making an assumption on array structure...
-        #if 3, rgb
-        if channels == 3:
-            qimage = QImage(frame.data, width, height, 3 * width, QImage.Format_RGB888)
-        #if 4, rgba
-        elif channels == 4:
-            qimage = QImage(frame.data, width, height, 4 * width, QImage.Format_RGBA8888)
-        #if 1, grayscale
-        elif channels == 1:
-            qimage = QImage(frame.data, width, height, width, QImage.Format_Grayscale8)
-        #else, error
-        else:
-            raise ValueError("Unsupported number of channels: {}".format(channels))
 
         #Return QImage to presenter where it can be sent off to the master memory and view
-        return qimage
+        return frame
         
 
     def openFolder(self, directoryPath):
