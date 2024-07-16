@@ -45,7 +45,12 @@ class WindowMenuBarView(AbstractView):
     #FIXME send some of this logic to the presenter layer or the model?
     def openImage(self):
         print("opening image")
-        fileDialog = qtw.QFileDialog(self.getWidget())
+        try:
+            fileDialog = qtw.QFileDialog(self.viewWidget)
+            if fileDialog.exec_():
+                print("file dialog executed")
+        except Exception as e:
+            print(f"exception raised: {e}")
         #fileDialog.setFileMode(qtw.QFileDialog.AnyFile)
         #fileDialog.setFilter("Images (*.png *.jpg *jpeg)")
         imagePath = fileDialog.getOpenFileName()[0]
