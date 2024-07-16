@@ -7,19 +7,12 @@ from Presenter.MainWindowPresenter import MainWindowPresenter
 
 from View.WindowMenuBarView import WindowMenuBarView
 from View.CenterBox import CenterBox
-from View.AbstractView import AbstractView
 
-class MainWindowView(AbstractView):
+class MainWindowView(qtw.QMainWindow):
     def __init__(self):#telling main window to init 
-        super().__init__(qtw.QMainWindow())
+        super().__init__()
         self.presenter = MainWindowPresenter(self)
-        self.viewWidget.setWindowTitle("DemoApp")
-        menuBar = WindowMenuBarView()
-        self.viewWidget.setMenuBar(menuBar.getWidget())
-        centerBox = CenterBox()
-        self.viewWidget.setCentralWidget(centerBox.getWidget())
+        self.setWindowTitle("DemoApp")
+        self.setMenuBar(WindowMenuBarView())
+        self.setCentralWidget(CenterBox())
         print("main window initalized")
-    
-    def refresh(self):
-        super().refresh()
-        pass

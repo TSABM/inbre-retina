@@ -1,6 +1,14 @@
 # internship
 Code and documents for the internship
 
+## Day 34 7/16/24
+12:30pm - 
+
+Today plans are to work on:
+1. fixing the image rendering, the format right now is not compatable, use the metadata to try and extract the data better.
+2. ~~refactor the views. I beleive the error with the menubar not updating anything is because the parent processes that hold the widgets get put to "sleep" or somethign similar so the user interaction events never even get properly handled. If the views are made extentions of the widget again I think the code will remain active and thus receive events properly.~~ That fixed it, the dialog now opens correctly. Now to fix dialog related code to opening the image.
+3. note that step 2 likely will mean needing to change the master mem too.
+
 ## Day 33 7/15/24
 11:08 am - 12:08 pm
 12:22 pm - 1:43 pm

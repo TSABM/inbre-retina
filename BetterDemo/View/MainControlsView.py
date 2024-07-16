@@ -1,18 +1,17 @@
 import PyQt5.QtWidgets as qtw
 
 from Presenter.MainControlsPresenter import MainControlsPresenter
-from View.AbstractView import AbstractView
 
-class MainControlsView(AbstractView):
+class MainControlsView(qtw.QWidget):
     '''
     The primary control widgets for the app.
     '''
     def __init__(self):
-        super().__init__(qtw.QWidget())
+        super().__init__()
         self.presenter = MainControlsPresenter(self)
 
         #setting layout
-        self.viewWidget.setLayout(qtw.QVBoxLayout())
+        self.setLayout(qtw.QVBoxLayout())
 
         controls = qtw.QWidget()
         controls.setLayout(qtw.QGridLayout())
@@ -46,13 +45,9 @@ class MainControlsView(AbstractView):
         controls.layout().addWidget(fillModeButton, 3, 1)
         
 
-        self.viewWidget.layout().addWidget(controls)
+        self.layout().addWidget(controls)
 
         print("main controls initalized")
-    
-    def refresh(self):
-        super().refresh()
-        pass
 
     #Functions to send udate requests to the presenter
     def setModeToSquare():

@@ -1,9 +1,8 @@
 import PyQt5.QtWidgets as qtw
-from View.AbstractView import AbstractView
 
-class OpenFilesMenu(AbstractView):
+class OpenFilesMenu(qtw.QMenuBar):
     def __init__(self):
-        super().__init__(qtw.QMenuBar())
+        super().__init__()
         #menuContainer = qtw.QWidget()
         #menuContainer.setLayout(qtw.QHBoxLayout())
         #menu = qtw.QMenuBar()
@@ -16,7 +15,3 @@ class OpenFilesMenu(AbstractView):
         #parentWidget.layout().addWidget(menuContainer)
 
         print("open files menubar initalized")
-
-    def refresh(self):
-        super().refresh()
-        pass

@@ -14,5 +14,5 @@ masterMemory = MasterMemory()
 mainView = MainWindowView()
 
 #display the main view
-mainView.getWidget().show()
+mainView.show()
 app.exec_()
