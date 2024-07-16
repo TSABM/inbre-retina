@@ -42,9 +42,10 @@ class WindowMenuBarView(AbstractView):
         print("unimplemented")
         pass
     
-    #FIXME send some of this logic to the presenter layer
+    #FIXME send some of this logic to the presenter layer or the model?
     def openImage(self):
-        fileDialog = qtw.QFileDialog(self)
+        print("opening image")
+        fileDialog = qtw.QFileDialog(self.getWidget())
         #fileDialog.setFileMode(qtw.QFileDialog.AnyFile)
         #fileDialog.setFilter("Images (*.png *.jpg *jpeg)")
         imagePath = fileDialog.getOpenFileName()[0]

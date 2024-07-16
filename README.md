@@ -5,12 +5,15 @@ Code and documents for the internship
 11:08 am - 12:08 pm
 12:22 pm - 1:43 pm
 4:24 pm - 5:27 pm
+10:42 pm - 
 
 Updated master mem and added some abstract subscriber publish methods. Still need to get the image into the canvas and then to test and bugfix the newly edited code.
 
 did some bugfixing. Need to change quickly how the master memory receives the views or presenters. I think I will store references to the presenters rather than the views in the master memory... it seems cleaner? hmm but maybe its a mistake...
 
 Decided to not pipe everything through the presenters... at least for now. Continued bugfixing, the window and base canvas now reappears. Now to translate the numpy image into a qimage and then the first part will be complete.
+
+new problem the file dialog no longer works, unsure why. Fixed the problem, it was an issue of assigning the widget parent. Now having an issue because the extracted image has no shape attribute.
 
 ## Day 32 7/13/24
 10:51 am - 11:53 am
