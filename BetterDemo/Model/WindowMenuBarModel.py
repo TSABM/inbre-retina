@@ -2,6 +2,7 @@ import os
 from Model.masterMemory import MasterMemory
 from Model.nd2FileAccessor import ND2FileAccessor
 from Model.Canvas import Canvas
+from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage
 
 
 class WindowMenuBarModel():
@@ -13,11 +14,24 @@ class WindowMenuBarModel():
         image = ND2FileAccessor(imagePath) #FIXME currently frame index is just none, handle this better.
         #place file in memory
         MasterMemory.setOpenFile(image)
-        #Note: Commented out below code. I think the presenter can handle it from here...
-        #send the the image info to the canvas
-        #canvas = MasterMemory.publishToSubscribers("canvas")
-        #ask for canvas to update (should the presenter govern this part?) FIXME
-        
+        #convert to QImage compatable format
+        #determine number of channels
+        height, width, channels = image.shape #Note: this might not work, its making an assumption on array structure...
+        #if 3, rgb
+        if channels == 3:
+            qimage = QImage(image.data, width, height, 3 * width, QImage.Format_RGB888)
+        #if 4, rgba
+        elif channels == 4:
+            qimage = QImage(image.data, width, height, 4 * width, QImage.Format_RGBA8888)
+        #if 1, grayscale
+        elif channels == 1:
+            qimage = QImage(image.data, width, height, width, QImage.Format_Grayscale8)
+        #else, error
+        else:
+            raise ValueError("Unsupported number of channels: {}".format(channels))
+
+        #Return QImage to presenter where it can be sent off to the master memory and view
+        return qimage
         
 
     def openFolder(self, directoryPath):
