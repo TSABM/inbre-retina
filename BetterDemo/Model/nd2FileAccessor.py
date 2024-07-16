@@ -3,7 +3,7 @@ import nd2
 
 class ND2FileAccessor():
     
-    def __init__(self, filePath, currentFrameIndex = None):
+    def __init__(self, filePath, currentFrameIndex = 0):
         self.filePath = filePath
         self.currentFrameIndex = currentFrameIndex
 
@@ -13,6 +13,11 @@ class ND2FileAccessor():
         '''
         with nd2.ND2File(self.getFilePath()) as nd2_file:
             frame = nd2_file.read_frame(index)
+        return frame
+    
+    def grabcurrentFrame(self):
+        with nd2.ND2File(self.getFilePath()) as nd2_file:
+            frame = nd2_file.read_frame(self.currentFrameIndex)
         return frame
     
     def grabNextFrame(self):

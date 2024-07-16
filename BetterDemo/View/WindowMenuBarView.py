@@ -28,8 +28,6 @@ class WindowMenuBarView(qtw.QMenuBar):
         print("opening image")
         try:
             fileDialog = qtw.QFileDialog(self)
-            if fileDialog.exec_():
-                print("file dialog executed")
         except Exception as e:
             print(f"exception raised: {e}")
         #fileDialog.setFileMode(qtw.QFileDialog.AnyFile)
