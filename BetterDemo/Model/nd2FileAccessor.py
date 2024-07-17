@@ -8,7 +8,8 @@ class ND2FileAccessor():
         self.filePath = filePath
         self.currentFrameIndex = currentFrameIndex
         with nd2.ND2File(filePath) as myfile:
-            self.metadataShape = myfile.shape
+            self.attributes = myfile.attributes
+            self.componentsPerChannel = myfile.components_per_channel
 
     def grabFrameByIndex(self, index):
         '''
@@ -33,8 +34,10 @@ class ND2FileAccessor():
     def __convertFrameToQImage(self, frame):
         #determine number of channels
         #FIXME grab metadata properly and judge based on that.
-        print("shape metadata: ", self.metadataShape)
-        T, channels, height, width = self.metadataShape
+        print("shape metadata: ", self.attributes)
+        channels = self.attributes.channelCount
+        width = self.attributes.widthPx
+        height = self.attributes.heightPx
         #if 3, rgb
         if channels == 3:
             qimage = QImage(frame.data, width, height, 3 * width, QImage.Format_RGB888)
