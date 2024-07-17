@@ -31,22 +31,32 @@ class ND2FileAccessor():
         #FIXME check if it can be decremented
         return self.grabFrameByIndex(self.decrementFrameIndex())
     
+    def __normalize(self):
+        #ensure image is 16 bit
+        #normalize to 8 bit
+        #
+
     def __convertFrameToQImage(self, frame):
-        #determine number of channels
-        #FIXME grab metadata properly and judge based on that.
         print("shape metadata: ", self.attributes)
         channels = self.attributes.channelCount
         width = self.attributes.widthPx
         height = self.attributes.heightPx
-        #if 3, rgb
+        #normalize the 16 bit image to 8 for display
+        #FIXME
+        #if grayscale
+        if channels == 1:
+            qimage = QImage(frame.data, width, height, width, QImage.Format_Grayscale8)
+            pass
+        #if grayscale and alpha
+        elif channels == 2:
+            #FIXME
+            pass
+        #RGB
         if channels == 3:
             qimage = QImage(frame.data, width, height, 3 * width, QImage.Format_RGB888)
         #if 4, rgba
         elif channels == 4:
             qimage = QImage(frame.data, width, height, 4 * width, QImage.Format_RGBA8888)
-        #if 1, grayscale
-        elif channels == 1:
-            qimage = QImage(frame.data, width, height, width, QImage.Format_Grayscale8)
         #else, error
         else:
             raise ValueError("Unsupported number of channels: {}".format(channels))

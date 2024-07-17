@@ -4,6 +4,7 @@ Code and documents for the internship
 ## Day 34 7/16/24
 12:30pm - 2:09pm
 3:24 pm - 5:00pm
+7:28 pm - 8:08 pm
 
 Today plans are to work on:
 1. fixing the image rendering, the format right now is not compatable, use the metadata to try and extract the data better. Edit: its definitely a metadata issue, I need to read it better so the image will be processed correctly.
@@ -13,6 +14,8 @@ Today plans are to work on:
 worked on getting file metadata, but so far its not working. Working on the details, probably an issue because I started working on getting frame metadata, but I realize now I'm extracting file metadata instead. Check the format of the file metadata or switch to frame metadata.
 
 Edit: partially fixed the above problem. I have the metadata now that I need, but the channel count is incompatable with my initial code. see how to handle 2 channels... Not sure what it even means, 3 is rgb, 4 is rgba, 1 is grayscale, what is 2? NOTE: Try compoannts per channel instead, you may be getting multiple sets of data per pixel right now so the components may hold the count your looking for.
+
+Ok I learned some things. First off the image here is black and white, second components per channel may be the metadata I need to indicate how the pixel data is stored. Third 1 channel means black and white, 2 channels means black and white and alpha (opacity I beleive), 3 channels means rgb, 4 channels means rgba (with a = alpha). This is the most common kinds of encodings. (though printers use a different 4 channel/component pattern)
 
 ## Day 33 7/15/24
 11:08 am - 12:08 pm
