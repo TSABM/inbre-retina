@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+## Day 36 7/18/24
+12:00 pm -
+
+initial box drawing code now in the canvas view. Testing now.
+
 ## Day 35 7/17/24
 11:05am - 11:30 am
 11:53am - 1:04 pm

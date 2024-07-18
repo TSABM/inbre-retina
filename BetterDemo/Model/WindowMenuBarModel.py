@@ -9,7 +9,8 @@ class WindowMenuBarModel():
     def __init__(self):
         pass
 
-    def openImage(self, imagePath):
+    def openImage(self, imagePath, ):
+
         #open file at image location
         file = ND2FileAccessor(imagePath) #FIXME currently frame index is just none, handle this better.
         #place file in memory
