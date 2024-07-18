@@ -2,7 +2,7 @@
 Code and documents for the internship
 
 ## Day 36 7/18/24
-12:00 pm -
+12:00 pm - 3:07 pm
 
 initial box drawing code now in the canvas view. Testing now. Testing complete, causes an immediate crash, I never included a pixmap. I need to put a pixmap or qimage in the graphics scene then draw the rectabgle onto it.
 
