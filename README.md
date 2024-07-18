@@ -1,6 +1,18 @@
 # internship
 Code and documents for the internship
 
+## Day 35 7/17/24
+11:05am - 11:30 am
+11:53am - 1:04 pm
+1:45 pm - 2:33 pm
+3:24 pm - 5:00 pm
+
+found an error due to closing the file preemptively. Resolved I think. Unfortunately there is no grayscale 88. Need to handle the alpha properly... chatgpt suggests converting to a black and white rgba format, this will preserve the image and allow for diaply with pyqt.
+
+stuck on nd2 image processing so taking a break from it. Asked a question on stack overflow about nd2'd format and how QImage handles it, that might help. plan is to shift over to the rectangle labelling portion of the code, even drawing rectangles on a blank canvas would be a good step twoards the other goals.
+
+work is progressing twoards the labelling code. I started with some psuedo code for the base though this will probably need to be scrapped. I also started on a label class, this can be used I think to represent individual labels, each one will be a label object...hmm maybe they will need label id's...
+
 ## Day 34 7/16/24
 12:30pm - 2:09pm
 3:24 pm - 5:00pm

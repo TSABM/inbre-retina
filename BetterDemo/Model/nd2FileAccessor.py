@@ -1,5 +1,6 @@
 import nd2
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage
+import numpy as np
 
 
 class ND2FileAccessor():
@@ -17,7 +18,7 @@ class ND2FileAccessor():
         '''
         with nd2.ND2File(self.getFilePath()) as nd2_file:
             frame = nd2_file.read_frame(index)
-        convertedFrame = self.__convertFrameToQImage(frame)
+            convertedFrame = self.__convertFrameToQImage(frame)
         return convertedFrame
     
     def grabcurrentFrame(self):
@@ -31,10 +32,16 @@ class ND2FileAccessor():
         #FIXME check if it can be decremented
         return self.grabFrameByIndex(self.decrementFrameIndex())
     
-    def __normalize(self):
+    def __normalize(self, imageToNormalize):
         #ensure image is 16 bit
         #normalize to 8 bit
-        #
+        print("normalizing")
+        normalizedArray = (imageToNormalize/256).astype(np.uint8)
+        return normalizedArray
+
+    def __handleTwoChannelGrayscale(self, grayscaleImage):
+        #convert to a grey rgba image. This will allow display    
+        pass
 
     def __convertFrameToQImage(self, frame):
         print("shape metadata: ", self.attributes)
@@ -42,24 +49,26 @@ class ND2FileAccessor():
         width = self.attributes.widthPx
         height = self.attributes.heightPx
         #normalize the 16 bit image to 8 for display
+        normalizedFrame = self.__normalize(frame)
         #FIXME
         #if grayscale
         if channels == 1:
-            qimage = QImage(frame.data, width, height, width, QImage.Format_Grayscale8)
+            qimage = QImage(normalizedFrame.data, width, height, width, QImage.Format_Grayscale8)
             pass
         #if grayscale and alpha
-        elif channels == 2:
-            #FIXME
-            pass
+        #elif channels == 2:
+        #    print("unimplemented")
+            #qimage = QImage(normalizedFrame.data, width, height, width, QImage.Format_Grayscale16)
         #RGB
-        if channels == 3:
-            qimage = QImage(frame.data, width, height, 3 * width, QImage.Format_RGB888)
+        elif channels == 3: 
+            qimage = QImage(normalizedFrame.data, width, height, 3 * width, QImage.Format_RGB888)
         #if 4, rgba
         elif channels == 4:
-            qimage = QImage(frame.data, width, height, 4 * width, QImage.Format_RGBA8888)
+            qimage = QImage(normalizedFrame.data, width, height, 4 * width, QImage.Format_RGBA8888)
         #else, error
         else:
             raise ValueError("Unsupported number of channels: {}".format(channels))
+        print("frame formatted for display")
         return qimage
     
     def getFilePath(self):

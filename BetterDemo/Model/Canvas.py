@@ -7,16 +7,11 @@ from PyQt5.QtWidgets import QGraphicsScene
 defaultWidth = 400
 defaultHeight = 200
 
+
+
 class Canvas():
     def __init__(self):
-        self.setDefault()
-        #initalize scene
-        #init base image
-        #init the labeling layer
-
-
-    def setDefault(self):
-        self.scene = QGraphicsScene(0, 0, defaultWidth, defaultHeight)
+        self.scene = QGraphicsScene(0, 0, defaultWidth, defaultHeight)        
 
     def getScene(self):
         return self.scene
