@@ -4,7 +4,9 @@ Code and documents for the internship
 ## Day 36 7/18/24
 12:00 pm -
 
-initial box drawing code now in the canvas view. Testing now.
+initial box drawing code now in the canvas view. Testing now. Testing complete, causes an immediate crash, I never included a pixmap. I need to put a pixmap or qimage in the graphics scene then draw the rectabgle onto it.
+
+rubberband box now shows. Permanent box still does not. Still need a base image in the scene.
 
 ## Day 35 7/17/24
 11:05am - 11:30 am

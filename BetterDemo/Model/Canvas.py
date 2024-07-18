@@ -21,30 +21,9 @@ class Canvas():
         self.scene.height = height
 
         self.scene.addItem()
-    '''
-    #handling layers
-    def setCurrentScene(self, index):
-        self.currentSceneIndex = index
-
-    def getScene(self):
-        return self.currentScene
-
     
-   
     def addItem(self, itemPathToAdd):
-        #self.layers.append()
-        #pixmap = QPixmap(itemPathToAdd)
-        #graphicsPixmapItem = qtw.QGraphicsPixmapItem(pixmap)
-        #self.scene.addItem(graphicsPixmapItem)
-        pass
-
-    #handling drawing
-    def onClick():
-        pass
-    def onDrag():
-        pass
-    def onRelease():
-        pass
-    
-
-    '''
+        self.layers.append()
+        pixmap = QPixmap(itemPathToAdd)
+        graphicsPixmapItem = qtw.QGraphicsPixmapItem(pixmap)
+        self.scene.addItem(graphicsPixmapItem)
