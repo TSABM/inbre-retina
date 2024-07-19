@@ -2,7 +2,7 @@ import PyQt5.QtWidgets as qtw
 
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
 from Presenter.CanvasPresenter import CanvasPresenter
-from PyQt5.QtGui import QPixmap, QPainter
+from PyQt5.QtGui import QPixmap, QPainter, QColor
 
 class CanvasView(qtw.QGraphicsView):
     '''
@@ -64,14 +64,14 @@ class CanvasView(qtw.QGraphicsView):
     
     def drawBox(self, rect):
         #FIXME most of this needs to be changed to communicate with the presenter
-        self.presenter.addBox()
+        self.presenter.addBox(rect)
         #painter = QPainter(self.pixmap)
-        #painter.setPen(qtw.QColor(255, 0, 0))
+        #painter.setPen(QColor(255, 0, 0))
         #painter.drawRect(rect)
         #painter.end()
         #self.pixmap_item.setPixmap(self.pixmap)
     
-    def redrawBoxes(self, rect):
+    def redrawBoxes(self):
         '''
         redraws boxes to canvas if one or multiple boxes have been altered or deleted
         '''

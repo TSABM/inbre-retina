@@ -31,9 +31,4 @@ class Canvas():
     
     def addBox(self, rectangleToAdd):
         self.labels.append(rectangleToAdd)
-        painter = QPainter(self.pixmap)
-        painter.setPen(QColor(255, 0, 0))
-        painter.drawRect(rectangleToAdd)
-        painter.end()
-        #self.pixmap_item.setPixmap(self.pixmap)
         pass
