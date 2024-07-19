@@ -2,7 +2,7 @@
 Code and documents for the internship
 
 ## Day 37 7/19/24
-10:00 am - 
+10:00 am -
 
 Had a meeting. Need to get a better deliverable ready. Make box drawing work and then implement import and export of label data.
 
