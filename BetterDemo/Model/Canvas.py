@@ -2,7 +2,7 @@
 The QGraphics Scene that all drawing takes place
 '''
 from PyQt5.QtWidgets import QGraphicsScene
-from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage
+from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 #from Model.masterMemory import MasterMemory
 
 defaultWidth = 400
@@ -29,9 +29,11 @@ class Canvas():
 
         self.scene.addItem()
     
-    def addItem(self, itemPathToAdd):
-        #self.layers.append()
-        #pixmap = QPixmap(itemPathToAdd)
-        #graphicsPixmapItem = qtw.QGraphicsPixmapItem(pixmap)
-        #self.scene.addItem(graphicsPixmapItem)
+    def addBox(self, rectangleToAdd):
+        self.labels.append(rectangleToAdd)
+        painter = QPainter(self.pixmap)
+        painter.setPen(QColor(255, 0, 0))
+        painter.drawRect(rectangleToAdd)
+        painter.end()
+        #self.pixmap_item.setPixmap(self.pixmap)
         pass

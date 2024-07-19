@@ -70,3 +70,9 @@ class CanvasView(qtw.QGraphicsView):
         #painter.drawRect(rect)
         #painter.end()
         #self.pixmap_item.setPixmap(self.pixmap)
+    
+    def redrawBoxes(self, rect):
+        '''
+        redraws boxes to canvas if one or multiple boxes have been altered or deleted
+        '''
+        pass
