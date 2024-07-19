@@ -9,4 +9,19 @@ class CanvasPresenter(AbstractPresenter):
 
     def getCanvas(self):
         return MasterMemory.getSubscriberByKey("canvas")
+    
+    def addBox(self):
+        pass
+
+    def getBox(self):
+        pass
+
+    def deleteBox(self):
+        pass
+
+    def getAllBoxes(self):
+        pass
+
+    def deleteAllBoxes(self):
+        pass
 

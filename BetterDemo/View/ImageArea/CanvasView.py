@@ -64,8 +64,9 @@ class CanvasView(qtw.QGraphicsView):
     
     def drawBox(self, rect):
         #FIXME most of this needs to be changed to communicate with the presenter
-        painter = QPainter(self.pixmap)
-        painter.setPen(qtw.QColor(255, 0, 0))
-        painter.drawRect(rect)
-        painter.end()
-        self.pixmap_item.setPixmap(self.pixmap)
+        self.presenter.addBox()
+        #painter = QPainter(self.pixmap)
+        #painter.setPen(qtw.QColor(255, 0, 0))
+        #painter.drawRect(rect)
+        #painter.end()
+        #self.pixmap_item.setPixmap(self.pixmap)

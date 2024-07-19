@@ -10,7 +10,7 @@ import Model.OpenScenes
 class MasterMemory():
     subscribers = dict() #must be a view (or maybe a presenter?) that extends the abstract class
     openNd2File = None #Must be in a numpy array?
-    labels = dict() #remember you will need to be able to access specific labels by key, all labels for a frame, and all labels in general
+    labels = [] #remember you will need to be able to access specific labels by key, all labels for a frame, and all labels in general
     
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
