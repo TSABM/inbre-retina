@@ -34,7 +34,7 @@ class CanvasView(qtw.QGraphicsView):
     
     def setCanvas(self):
         canvas = self.presenter.getCanvas()
-        self.setScene(canvas.getScene())
+        self.setScene(canvas)
 
     def mousePressEvent(self, event):
         #check if the event 
@@ -65,11 +65,7 @@ class CanvasView(qtw.QGraphicsView):
     def drawBox(self, rect):
         #FIXME most of this needs to be changed to communicate with the presenter
         self.presenter.addBox(rect)
-        #painter = QPainter(self.pixmap)
-        #painter.setPen(QColor(255, 0, 0))
-        #painter.drawRect(rect)
-        #painter.end()
-        #self.pixmap_item.setPixmap(self.pixmap)
+        
     
     def redrawBoxes(self):
         '''

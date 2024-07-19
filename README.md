@@ -2,9 +2,11 @@
 Code and documents for the internship
 
 ## Day 37 7/19/24
-10:00 am -
+10:00 am - 12:57 pm
 
 Had a meeting. Need to get a better deliverable ready. Make box drawing work and then implement import and export of label data.
+
+Having issues with QPainter not drawing. Apparently its a beginners mistake though I cant find much help online about what specifically needs changing. Need to read up more on it.
 
 ## Day 36 7/18/24
 12:00 pm - 3:07 pm
