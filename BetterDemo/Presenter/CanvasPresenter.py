@@ -12,7 +12,11 @@ class CanvasPresenter(AbstractPresenter):
         return self.model
     
     def addBox(self, boxToAdd):
+        #make the box into a label object
+        #add label to the list of labels
+        #add the label to the model
         self.model.addBox(boxToAdd)
+
 
     def getBox(self):
         pass

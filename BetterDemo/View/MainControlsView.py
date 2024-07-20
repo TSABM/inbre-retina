@@ -9,10 +9,12 @@ class MainControlsView(qtw.QWidget):
     def __init__(self):
         super().__init__()
         self.presenter = MainControlsPresenter(self)
-
         #setting layout
         self.setLayout(qtw.QVBoxLayout())
+        self.__addControls()
+        print("main controls initalized")
 
+    def __addControls(self):
         controls = qtw.QWidget()
         controls.setLayout(qtw.QGridLayout())
 
@@ -21,7 +23,7 @@ class MainControlsView(qtw.QWidget):
         squareLabel = qtw.QLabel("Square")
         freeDrawLabel = qtw.QLabel("Free draw")
         fillLabel = qtw.QLabel("Fill")
-        
+
         labelGroupSelect = qtw.QComboBox()
         squareModeButton = qtw.QPushButton()
         freeDrawModeButton = qtw.QPushButton()
@@ -31,7 +33,6 @@ class MainControlsView(qtw.QWidget):
         squareModeButton.pressed.connect(self.setModeToSquare)
         freeDrawModeButton.pressed.connect(self.setModeToFreeDraw)
         fillModeButton.pressed.connect(self.setModeToFill)
-
 
         #binding widgets to layout
         controls.layout().addWidget(labelGroupLabel, 0, 0)
@@ -43,11 +44,9 @@ class MainControlsView(qtw.QWidget):
         controls.layout().addWidget(squareModeButton, 1, 1)
         controls.layout().addWidget(freeDrawModeButton, 2, 1)
         controls.layout().addWidget(fillModeButton, 3, 1)
-        
 
+        #add widget to layout
         self.layout().addWidget(controls)
-
-        print("main controls initalized")
 
     #Functions to send udate requests to the presenter
     def setModeToSquare():

@@ -2,9 +2,12 @@
 Code and documents for the internship
 
 Day 38 7/20/24
-12:56pm -
+12:56pm - 2:40 pm
+3:20pm - 3:45 pm
 
 Boxes draw properly and are stored in a temporary list in the canvas object. Currently boxes cant be deleted yet or edited in any way.
+
+working on editable boxes, need to change the control box area for this. the area needs to be able to 1. change the mouse select mode 2. display box info.
 
 ## Day 37 7/19/24
 10:00 am - 12:58 pm
