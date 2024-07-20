@@ -1,12 +1,24 @@
 # internship
 Code and documents for the internship
 
+Day 38 7/20/24
+12:56pm -
+
+Boxes draw properly and are stored in a temporary list in the canvas object. Currently boxes cant be deleted yet or edited in any way.
+
 ## Day 37 7/19/24
-10:00 am - 12:57 pm
+10:00 am - 12:58 pm
+3:20 pm - 4:48 pm
 
 Had a meeting. Need to get a better deliverable ready. Make box drawing work and then implement import and export of label data.
 
 Having issues with QPainter not drawing. Apparently its a beginners mistake though I cant find much help online about what specifically needs changing. Need to read up more on it.
+
+boxes now draw, though resizing the window makes future squares draw on improperly.
+
+Further testing indicates the image will need to be resized to fit the canvas window probably, furthermore the users inputs dont line up with exactly where the mouse is when resized or zoomed in too far. The program treats the canvas as one static size in the top left corner even if it displays elsehwere.
+
+Partial fix complete. The rectangles draw right, except for the rubber band one.
 
 ## Day 36 7/18/24
 12:00 pm - 3:07 pm

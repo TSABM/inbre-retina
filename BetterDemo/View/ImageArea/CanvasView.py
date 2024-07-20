@@ -14,12 +14,6 @@ class CanvasView(qtw.QGraphicsView):
         self.presenter = CanvasPresenter(self)
         self.setCanvas()
 
-        #TEMP CODE loading a pixmap
-        #self.image = QImage(image_path)
-        #self.pixmap = QPixmap.fromImage(self.image)
-        #self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
-        #self.scene.addItem(self.pixmap_item)
-
         #init variables for drawing labels
         self.drawing = False
         self.origin = QPoint()
@@ -42,14 +36,16 @@ class CanvasView(qtw.QGraphicsView):
             if self.drawing == True:
                 pass
             else:
-                self.origin = event.pos()
-                self.rubberBand.setGeometry(QRect(self.origin, QSize())) #note the new QSize object has width and height of 0
+                #mapping from the view coordinates to the scene to fix issues when resized
+                self.origin = self.mapToScene(event.pos()).toPoint()
+                #Adjusting back because the rubber band box needs the unadjusted values
+                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.origin), QSize())) #note the new QSize object has width and height of 0
                 self.drawing = True
                 self.rubberBand.show()
      
     def mouseMoveEvent(self, event):
         if not self.origin.isNull():
-            self.rubberBand.setGeometry(QRect(self.origin, event.pos()).normalized())
+            self.rubberBand.setGeometry(QRect(self.mapFromScene(self.origin), event.pos()).normalized())
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -57,7 +53,8 @@ class CanvasView(qtw.QGraphicsView):
                 pass
             else:
                 self.rubberBand.hide()
-                rect = self.rubberBand.geometry()
+                endPoint = self.mapToScene(event.pos()).toPoint()
+                rect = QRect(self.origin, endPoint).normalized()
                 self.drawBox(rect)
                 self.origin = QPoint()
                 self.drawing = False
