@@ -1,9 +1,18 @@
 # internship
 Code and documents for the internship
 
+Day 39 7/22/24
+12:40 pm - 2:19 pm
+3:31 pm - 5:18 pm
+
+working on having the controls select the mouse interaction mode. Currently it does not yet work. 
+
+selecting interaction mode now works, only drawing works at the moment. Working now on properly storing the label boxes for export and editing. Been doing a bit of refactoring to let this work.
+
 Day 38 7/20/24
 12:56pm - 2:40 pm
 3:20pm - 3:45 pm
+5:35 pm - 6:35 pm 
 
 Boxes draw properly and are stored in a temporary list in the canvas object. Currently boxes cant be deleted yet or edited in any way.
 

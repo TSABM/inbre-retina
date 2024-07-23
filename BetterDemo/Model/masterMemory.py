@@ -9,14 +9,28 @@ import Model.OpenScenes
 
 class MasterMemory():
     subscribers = dict() #must be a view (or maybe a presenter?) that extends the abstract class
-    openNd2File = None #Must be in a numpy array?
-    labels = [] #remember you will need to be able to access specific labels by key, all labels for a frame, and all labels in general
-    
+    openVideoPath = None #the full path to a video to be viewed frame by frame
+    currentFrameNumber = None #current frame in a video
+    frameLabels = dict() #frame num is the key, contents will be a list of the labels on that frame
+    interactionMode = "Select label"
+
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
         self.addSubscriber("canvas", Model.Canvas.Canvas())
         pass
     
+    #interact with interaction mode
+    @classmethod
+    def setInteractionMode(cls, mode : str):
+        '''
+        Set global interaction mode to a string. Preset strings are select, and square (so far)
+        '''
+        cls.interactionMode = mode
+    
+    @classmethod
+    def getInteractionMode(cls):
+        return cls.interactionMode
+
     #deal with subscribers
     @classmethod
     def addSubscriber(cls, key, model):

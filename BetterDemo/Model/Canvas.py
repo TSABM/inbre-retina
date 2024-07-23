@@ -12,17 +12,17 @@ defaultHeight = 200
 
 
 class Canvas(QGraphicsScene):
-    def __init__(self):
+    def __init__(self, fileName, frameNumber, labels = []):
         super().__init__(0, 0, defaultWidth, defaultHeight)
-        #drawing background to a light gray to indicate the end of the drawable canavs
-        self.setBackgroundBrush(QColor(200, 200, 200))
-        #init the pixmap FIXME: need to handle its size better and probably move this to a method
+        self.fileName = fileName
+        self.frameNumber = frameNumber
+        self.labels = labels
         self.pixmap = QPixmap(defaultWidth, defaultHeight)
-        self.drawBaseImage()
         self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
+        
+        self.setBackgroundBrush(QColor(200, 200, 200)) #drawing background to a light gray to indicate the end of the drawable canavs
+        self.drawBaseImage()
         self.addItem(self.pixmap_item)
-        #init label storage FIXME: need to integrate this with the master memory better
-        self.labels = []
 
     def getScene(self):
         return self.scene

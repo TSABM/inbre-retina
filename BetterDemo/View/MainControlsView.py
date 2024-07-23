@@ -15,43 +15,30 @@ class MainControlsView(qtw.QWidget):
         print("main controls initalized")
 
     def __addControls(self):
-        controls = qtw.QWidget()
-        controls.setLayout(qtw.QGridLayout())
+        #controls = qtw.QWidget()
+        #controls.setLayout(qtw.QGridLayout())
 
         #making the widgets
-        labelGroupLabel = qtw.QLabel("Label group")
-        squareLabel = qtw.QLabel("Square")
-        freeDrawLabel = qtw.QLabel("Free draw")
-        fillLabel = qtw.QLabel("Fill")
+        interactionModeLabel = qtw.QLabel("Select interaction mode")
 
-        labelGroupSelect = qtw.QComboBox()
-        squareModeButton = qtw.QPushButton()
-        freeDrawModeButton = qtw.QPushButton()
-        fillModeButton = qtw.QPushButton()
+        interactionModeSelect = qtw.QComboBox()
 
         #Connecting widgets to functions
-        squareModeButton.pressed.connect(self.setModeToSquare)
-        freeDrawModeButton.pressed.connect(self.setModeToFreeDraw)
-        fillModeButton.pressed.connect(self.setModeToFill)
+        #squareModeButton.pressed.connect(self.setModeToSquare)
+        interactionModeSelect.addItem("Select label")
+        interactionModeSelect.addItem("Draw label")
+        interactionModeSelect.addItem("Erase")
+
+        interactionModeSelect.currentTextChanged.connect(self.setInteractionMode)
 
         #binding widgets to layout
-        controls.layout().addWidget(labelGroupLabel, 0, 0)
-        controls.layout().addWidget(squareLabel, 1, 0)
-        controls.layout().addWidget(freeDrawLabel, 2, 0)
-        controls.layout().addWidget(fillLabel, 3, 0)
+        self.layout().addWidget(interactionModeLabel)
 
-        controls.layout().addWidget(labelGroupSelect, 0, 1)
-        controls.layout().addWidget(squareModeButton, 1, 1)
-        controls.layout().addWidget(freeDrawModeButton, 2, 1)
-        controls.layout().addWidget(fillModeButton, 3, 1)
+        self.layout().addWidget(interactionModeSelect)
 
         #add widget to layout
-        self.layout().addWidget(controls)
+        #self.layout().addWidget(controls)
 
-    #Functions to send udate requests to the presenter
-    def setModeToSquare():
-        pass
-    def setModeToFreeDraw():
-        pass
-    def setModeToFill():
-        pass
+    #Functions to send update requests to the presenter
+    def setInteractionMode(self, mode):
+        self.presenter.setInteractionMode(mode)

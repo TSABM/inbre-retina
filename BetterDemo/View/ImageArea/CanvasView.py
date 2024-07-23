@@ -31,29 +31,35 @@ class CanvasView(qtw.QGraphicsView):
         self.setScene(canvas)
 
     def mousePressEvent(self, event):
-        #check if the event 
+        #check if the event is a left click
         if event.button() == Qt.LeftButton:
-            if self.drawing == False:
+            mode = self.presenter.getInteractionMode()
+            if mode == "Select label":
+                print("mode is set to select")
                 pass
-            else:
+            elif mode == "Draw label":
                 #mapping from the view coordinates to the scene to fix issues when resized
                 self.origin = self.mapToScene(event.pos()).toPoint()
                 #Adjusting back because the rubber band box needs the unadjusted values
                 self.rubberBand.setGeometry(QRect(self.mapFromScene(self.origin), QSize())) #note the new QSize object has width and height of 0
                 self.rubberBand.show()
+            else:
+                print("invalid interaction mode ", mode)
      
     def mouseMoveEvent(self, event):
-        if self.drawing == False:
+        mode = self.presenter.getInteractionMode()
+        if mode == "Select label":
             pass
-        else:
+        elif mode == "Draw label":
             if not self.origin.isNull():
                 self.rubberBand.setGeometry(QRect(self.mapFromScene(self.origin), event.pos()).normalized())
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
-            if self.drawing == False:
+            mode = self.presenter.getInteractionMode()
+            if mode == "Select label":
                 pass
-            else:
+            elif mode == "Draw label":
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()
                 rect = QRect(self.origin, endPoint).normalized()

@@ -11,6 +11,14 @@ class CanvasPresenter(AbstractPresenter):
     def getCanvas(self):
         return self.model
     
+    #handle interactionMode
+    def getInteractionMode(self):
+        return MasterMemory.getInteractionMode()
+    
+    def setInteractionMode(self, mode : str):
+        MasterMemory.setInteractionMode(mode)
+
+    #Handle boxes
     def addBox(self, boxToAdd):
         #make the box into a label object
         #add label to the list of labels
