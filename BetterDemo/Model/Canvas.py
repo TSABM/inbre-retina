@@ -10,7 +10,6 @@ defaultWidth = 400
 defaultHeight = 200
 
 
-
 class Canvas(QGraphicsScene):
     def __init__(self, fileName : str, frameNumber : int, labels : list = []):
         super().__init__(0, 0, defaultWidth, defaultHeight)
@@ -45,7 +44,7 @@ class Canvas(QGraphicsScene):
     def drawBaseImage(self):
         self.pixmap.fill(Qt.white)
 
-    def updatePixmap(self):
+    def updatePixmap(self, point):
         self.drawBaseImage()
         painter = QPainter(self.pixmap)
         painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
@@ -58,4 +57,6 @@ class Canvas(QGraphicsScene):
         for label in self.labels:
             if label.rectangle.contains(point):
                 print("box selected")
-        pass
+                self.updatePixmap(point)
+            else:
+                print("no box selected")

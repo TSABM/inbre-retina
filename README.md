@@ -1,12 +1,15 @@
 # internship
 Code and documents for the internship
 
-Day 40 7/23/24
-10:53 am - 
+## Day 40 7/23/24
+10:53 am - 2:00 pm
+3:36 pm - 4:32 pm
 
 boxes are now stored in a usable way at least for initial tests. Need to update it so that the whole label is stored and can be accessed easily.
 
-Day 39 7/22/24
+Box selection now works, though in the earliest form. Two canvases get instantiated though which could use touching up even though one gets wiped. Working on visual box updates. Work on resizing soon.
+
+## Day 39 7/22/24
 12:40 pm - 2:19 pm
 3:31 pm - 5:18 pm
 
@@ -14,7 +17,7 @@ working on having the controls select the mouse interaction mode. Currently it d
 
 selecting interaction mode now works, only drawing works at the moment. Working now on properly storing the label boxes for export and editing. Been doing a bit of refactoring to let this work.
 
-Day 38 7/20/24
+## Day 38 7/20/24
 12:56pm - 2:40 pm
 3:20pm - 3:45 pm
 5:35 pm - 6:35 pm 

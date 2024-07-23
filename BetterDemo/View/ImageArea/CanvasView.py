@@ -16,7 +16,7 @@ class CanvasView(qtw.QGraphicsView):
 
         #init variables for drawing labels
         self.drawing = True
-        self.origin = QPoint()
+        self.point = QPoint()
         self.rubberBand = qtw.QRubberBand(qtw.QRubberBand.Rectangle, self)
 
         #turn mouse tracking on
@@ -34,14 +34,12 @@ class CanvasView(qtw.QGraphicsView):
         #check if the event is a left click
         if event.button() == Qt.LeftButton:
             mode = self.presenter.getInteractionMode()
+            self.point = self.mapToScene(event.pos()).toPoint()
             if mode == "Select label":
-                print("mode is set to select")
-                pass
+                self.presenter.selectBox(self.point)
             elif mode == "Draw label":
-                #mapping from the view coordinates to the scene to fix issues when resized
-                self.origin = self.mapToScene(event.pos()).toPoint()
                 #Adjusting back because the rubber band box needs the unadjusted values
-                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.origin), QSize())) #note the new QSize object has width and height of 0
+                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.point), QSize())) #note the new QSize object has width and height of 0
                 self.rubberBand.show()
             else:
                 print("invalid interaction mode ", mode)
@@ -51,8 +49,8 @@ class CanvasView(qtw.QGraphicsView):
         if mode == "Select label":
             pass
         elif mode == "Draw label":
-            if not self.origin.isNull():
-                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.origin), event.pos()).normalized())
+            if not self.point.isNull():
+                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.point), event.pos()).normalized())
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -62,9 +60,9 @@ class CanvasView(qtw.QGraphicsView):
             elif mode == "Draw label":
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()
-                rect = QRect(self.origin, endPoint).normalized()
+                rect = QRect(self.point, endPoint).normalized()
                 self.drawBox(rect)
-                self.origin = QPoint()
+                self.point = QPoint() #not sure the need for this
     
     def drawBox(self, rect):
         #FIXME most of this needs to be changed to communicate with the presenter

@@ -30,8 +30,7 @@ class CanvasPresenter(AbstractPresenter):
 
 
     def selectBox(self, point):
-        self.model
-        pass
+        self.model.selectBox(point)
 
     def deleteBox(self):
         pass
