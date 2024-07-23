@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+Day 40 7/23/24
+10:53 am - 
+
+boxes are now stored in a usable way at least for initial tests. Need to update it so that the whole label is stored and can be accessed easily.
+
 Day 39 7/22/24
 12:40 pm - 2:19 pm
 3:31 pm - 5:18 pm

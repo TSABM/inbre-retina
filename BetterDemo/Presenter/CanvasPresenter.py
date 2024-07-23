@@ -1,11 +1,12 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.Canvas import Canvas
 from Model.masterMemory import MasterMemory
+from Model.Label import Label
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.model = Canvas()
+        self.model = Canvas("test", 0)
         self.registerNewSubscriber("canvas", self)
 
     def getCanvas(self):
@@ -21,12 +22,15 @@ class CanvasPresenter(AbstractPresenter):
     #Handle boxes
     def addBox(self, boxToAdd):
         #make the box into a label object
+        label = Label(0, boxToAdd, "testType", "testID", "testDescription")
         #add label to the list of labels
         #add the label to the model
-        self.model.addBox(boxToAdd)
+        frameLabels = self.model.addBox(label)
+        MasterMemory.updateFrame(0, frameLabels)
 
 
-    def getBox(self):
+    def selectBox(self, point):
+        self.model
         pass
 
     def deleteBox(self):

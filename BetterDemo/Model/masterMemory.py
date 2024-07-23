@@ -16,7 +16,7 @@ class MasterMemory():
 
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
-        self.addSubscriber("canvas", Model.Canvas.Canvas())
+        self.addSubscriber("canvas", Model.Canvas.Canvas("test2", 0))
         pass
     
     #interact with interaction mode
@@ -60,8 +60,8 @@ class MasterMemory():
     
     #deal with labels
     @classmethod
-    def addLabel(cls, label):
-        pass
+    def updateFrame(cls, frameNumber : int, frame : list):
+        cls.frameLabels.update({frameNumber : frame})
 
     @classmethod
     def getLabel(cls, key):
