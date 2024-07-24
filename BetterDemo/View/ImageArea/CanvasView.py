@@ -15,8 +15,11 @@ class CanvasView(qtw.QGraphicsView):
         self.setCanvas()
 
         #init variables for drawing labels
-        self.drawing = True
-        self.point = QPoint()
+        self.drawing = False
+        self.resizing = False
+        self.moving = False
+        self.initialPoint = QPoint()
+        self.resizeCorner = None
         self.rubberBand = qtw.QRubberBand(qtw.QRubberBand.Rectangle, self)
 
         #turn mouse tracking on
@@ -34,23 +37,27 @@ class CanvasView(qtw.QGraphicsView):
         #check if the event is a left click
         if event.button() == Qt.LeftButton:
             mode = self.presenter.getInteractionMode()
-            self.point = self.mapToScene(event.pos()).toPoint()
+            self.initialPoint = self.mapToScene(event.pos()).toPoint()
             if mode == "Select label":
-                self.presenter.selectBox(self.point)
+                self.presenter.selectBox(self.initialPoint)
             elif mode == "Draw label":
                 #Adjusting back because the rubber band box needs the unadjusted values
-                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.point), QSize())) #note the new QSize object has width and height of 0
+                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), QSize())) #note the new QSize object has width and height of 0
                 self.rubberBand.show()
             else:
                 print("invalid interaction mode ", mode)
      
     def mouseMoveEvent(self, event):
         mode = self.presenter.getInteractionMode()
+        new_pos = self.mapToScene(event.pos()).toPoint()
         if mode == "Select label":
-            pass
+            if self.resizing == True and self.resizeCorner != None:
+                self.presenter.resizeBox(new_pos, self.resizeCorner)
+            elif self.moving == True:
+                self.presenter.moveBox(new_pos)
         elif mode == "Draw label":
             if not self.point.isNull():
-                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.point), event.pos()).normalized())
+                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), self.mapFromScene(new_pos)).normalized())
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -60,10 +67,9 @@ class CanvasView(qtw.QGraphicsView):
             elif mode == "Draw label":
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()
-                rect = QRect(self.point, endPoint).normalized()
+                rect = QRect(self.initialPoint, endPoint).normalized()
                 self.drawBox(rect)
                 self.point = QPoint() #not sure the need for this
     
     def drawBox(self, rect):
-        #FIXME most of this needs to be changed to communicate with the presenter
         self.presenter.addBox(rect)

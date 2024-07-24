@@ -41,3 +41,10 @@ class CanvasPresenter(AbstractPresenter):
     def deleteAllBoxes(self):
         pass
 
+    def resizeBox(self, box, point):
+        self.model.resizeBox()  
+        pass
+
+    def moveBox(self, box, point):
+        pass
+
