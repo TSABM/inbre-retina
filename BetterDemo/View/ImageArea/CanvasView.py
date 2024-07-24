@@ -39,6 +39,8 @@ class CanvasView(qtw.QGraphicsView):
             mode = self.presenter.getInteractionMode()
             self.initialPoint = self.mapToScene(event.pos()).toPoint()
             if mode == "Select label":
+                if self.presenter.selectResizeCorner() != None:
+                    pass
                 self.presenter.selectBox(self.initialPoint)
             elif mode == "Draw label":
                 #Adjusting back because the rubber band box needs the unadjusted values
@@ -53,7 +55,7 @@ class CanvasView(qtw.QGraphicsView):
         if mode == "Select label":
             if self.resizing == True and self.resizeCorner != None:
                 self.presenter.resizeBox(new_pos, self.resizeCorner)
-            elif self.moving == True:
+            elif self.resizing == False:
                 self.presenter.moveBox(new_pos)
         elif mode == "Draw label":
             if not self.point.isNull():
@@ -63,7 +65,8 @@ class CanvasView(qtw.QGraphicsView):
         if event.button() == Qt.LeftButton:
             mode = self.presenter.getInteractionMode()
             if mode == "Select label":
-                pass
+                if self.resizing == True:
+                    self.resizing = False
             elif mode == "Draw label":
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()

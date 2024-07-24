@@ -4,6 +4,7 @@ Code and documents for the internship
 ## Day 41 7/24/24
 11:45 am - 1:00 pm
 1:30 pm - 3:13 pm 
+3:52 pm - 4:29 pm
 
 Box now turns blue when selected, and corner boxes appear for resizing (currently nonfunctional).Working on implementing resizing, perhapse halfway there before testing.
 

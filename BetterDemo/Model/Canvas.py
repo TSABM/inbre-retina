@@ -20,6 +20,7 @@ class Canvas(QGraphicsScene):
         self.pixmap = QPixmap(defaultWidth, defaultHeight)
         self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
 
+        self.selectedLabel = None
         self.resizing = False
         self.resizecorner = None
         
@@ -89,7 +90,7 @@ class Canvas(QGraphicsScene):
     def selectResizeCorner(self):
         #if no box is selected do nothing
         #check the handles and see if the clicked point is in any of them if so return that box?
-        pass
-
+        return None
+    
     def resizeBox(self, point, corner):
         pass
