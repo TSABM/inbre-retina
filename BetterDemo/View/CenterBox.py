@@ -2,7 +2,7 @@ import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import Qt
 
 from Presenter.CenterBoxPresenter import CenterBoxPresenter
-from View.MainControlsView import MainControlsView
+from View.ControlsArea.MainControlsView import MainControlsView
 from View.ImageArea.ImageAreaView import ImageAreaView
 
 class CenterBox(qtw.QSplitter):

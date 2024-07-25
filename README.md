@@ -4,6 +4,7 @@ Code and documents for the internship
 ## Day 42 7/25/24
 12:46 pm - 2:17 pm
 2:51 pm - 4:01 pm
+4:20 pm - 4:30 pm
 
 resize code mostly complete. Bugfixing and testing now. Also initial bugfixing on box movement too, though its incomplete.
 
