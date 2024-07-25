@@ -82,15 +82,26 @@ class Canvas(QGraphicsScene):
         for label in self.labels:
             if label.rectangle.contains(point):
                 print("box selected")
+                self.selectedLabel = label
                 self.updatePixmap(label)
+                return self.selectedLabel
             else:
                 print("no box selected")
-                self.updatePixmap()
+                self.deselectBox()
+                return None
+    
+    def deselectBox(self):
+        self.selectedLabel = None
+        self.updatePixmap()
 
-    def selectResizeCorner(self):
+    def selectResizeCorner(self, cornerHandle):
         #if no box is selected do nothing
+        if self.selectedLabel == None:
+            print("corner cannot be selected: no label in selected mode")
+            return
+        else:
+            pass
         #check the handles and see if the clicked point is in any of them if so return that box?
-        return None
     
     def resizeBox(self, point, corner):
         pass

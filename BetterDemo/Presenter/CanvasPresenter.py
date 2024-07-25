@@ -30,10 +30,13 @@ class CanvasPresenter(AbstractPresenter):
 
 
     def selectBox(self, point):
-        self.model.selectBox(point)
+        return self.model.selectBox(point)
     
-    def selectResizeCorner(self):
-        return self.model.selectResizeCorner()
+    def deselectBox(self):
+        self.model.deselectBox()
+    
+    def selectResizeCorner(self, resizeCorner):
+        return self.model.selectResizeCorner(resizeCorner)
 
     def deleteBox(self):
         pass

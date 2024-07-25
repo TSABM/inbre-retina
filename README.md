@@ -5,8 +5,11 @@ Code and documents for the internship
 11:45 am - 1:00 pm
 1:30 pm - 3:13 pm 
 3:52 pm - 4:29 pm
+6:39 pm - 07:31 pm
 
 Box now turns blue when selected, and corner boxes appear for resizing (currently nonfunctional).Working on implementing resizing, perhapse halfway there before testing.
+
+Canvas now stores actively selected labels, resizing does not work yet.
 
 ## Day 40 7/23/24
 10:53 am - 2:00 pm

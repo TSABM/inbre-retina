@@ -39,11 +39,14 @@ class CanvasView(qtw.QGraphicsView):
             mode = self.presenter.getInteractionMode()
             self.initialPoint = self.mapToScene(event.pos()).toPoint()
             if mode == "Select label":
-                if self.presenter.selectResizeCorner() != None:
+                selectedBox = self.presenter.selectBox(self.initialPoint)
+                if selectedBox != None and self.presenter.selectResizeCorner() != None:
+                    #FIXME
                     pass
-                self.presenter.selectBox(self.initialPoint)
             elif mode == "Draw label":
-                #Adjusting back because the rubber band box needs the unadjusted values
+                #ensure there are no boxes in select mode
+                self.presenter.deselectBox()
+                #begin rubber band box
                 self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), QSize())) #note the new QSize object has width and height of 0
                 self.rubberBand.show()
             else:
