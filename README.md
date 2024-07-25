@@ -18,6 +18,8 @@ Blue fill: only boxes made after the one selected get filled in with blue, it mu
 
 Fixed blue fill issue.
 
+Next task is to display selected label data, make it so the user can meaningfully edit it, and then export it to xml
+
 ## Day 41 7/24/24
 11:45 am - 1:00 pm
 1:30 pm - 3:13 pm 
