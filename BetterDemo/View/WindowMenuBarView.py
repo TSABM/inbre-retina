@@ -46,6 +46,12 @@ class WindowMenuBarView(qtw.QMenuBar):
         #Send the directory path off for file list extraction
         self.presenter.getFilteredFolderContents(directoryPath)
 
+    def importLabels(self):
+        pass
+
+    def exportLabels(self):
+        pass
+
     def closeApplication(self):
         self.presenter.closeApplication()
 
@@ -56,13 +62,21 @@ class WindowMenuBarView(qtw.QMenuBar):
         newProject.triggered.connect(self.createNewProject)
         actions.append(newProject)
 
-        openImage = qtw.QAction("Open Image", self)
+        openImage = qtw.QAction("Open image", self)
         openImage.triggered.connect(self.openImage)
         actions.append(openImage)
         
-        openFolder = qtw.QAction("Open Folder", self)
+        openFolder = qtw.QAction("Open folder", self)
         openFolder.triggered.connect(self.openFolder)
         actions.append(openFolder)
+
+        importLabels = qtw.QAction("Import labels", self)
+        importLabels.triggered.connect(self.importLabels)
+        actions.append(importLabels)
+
+        exportLabels = qtw.QAction("Export labels", self)
+        exportLabels.triggered.connect(self.exportLabels)
+        actions.append(exportLabels)
 
         exit = qtw.QAction("Exit", self)
         exit.triggered.connect(self.closeApplication)
