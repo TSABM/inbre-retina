@@ -1,6 +1,22 @@
 # internship
 Code and documents for the internship
 
+## Day 42 7/25/24
+12:46 pm - 2:17 pm
+2:51 pm - 
+
+resize code mostly complete. Bugfixing and testing now. Also initial bugfixing on box movement too, though its incomplete.
+
+initial resizing works now, some few fixes could still be useful but the concept is working. Moving signal is sent, though its doesnt yet move anything
+
+resizing and moving now work. However there is a problem. Selecting one box now fills all other boxes with the color blue and all boxes after the first cannot be selected moved or resized. This needs fixing.
+
+Found first problem, only the first box was selectable, this should no longer be the case, still looking for the blue fill issue.
+
+Blue fill: only boxes made after the one selected get filled in with blue, it must be an after effect of drawing the selected box in blue
+
+Fixed blue fill issue.
+
 ## Day 41 7/24/24
 11:45 am - 1:00 pm
 1:30 pm - 3:13 pm 

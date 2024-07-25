@@ -19,7 +19,7 @@ class CanvasView(qtw.QGraphicsView):
         self.resizing = False
         self.moving = False
         self.initialPoint = QPoint()
-        self.resizeCorner = None
+        self.resizeCornerIndex = None
         self.rubberBand = qtw.QRubberBand(qtw.QRubberBand.Rectangle, self)
 
         #turn mouse tracking on
@@ -40,9 +40,14 @@ class CanvasView(qtw.QGraphicsView):
             self.initialPoint = self.mapToScene(event.pos()).toPoint()
             if mode == "Select label":
                 selectedBox = self.presenter.selectBox(self.initialPoint)
-                if selectedBox != None and self.presenter.selectResizeCorner() != None:
-                    #FIXME
-                    pass
+                if selectedBox != None:
+                    cornerIndex = self.presenter.selectResizeCorner(self.initialPoint)
+                    if cornerIndex != None:
+                        self.resizing = True
+                        self.resizeCornerIndex = cornerIndex
+                    else:
+                        self.moving = True
+                    
             elif mode == "Draw label":
                 #ensure there are no boxes in select mode
                 self.presenter.deselectBox()
@@ -56,12 +61,12 @@ class CanvasView(qtw.QGraphicsView):
         mode = self.presenter.getInteractionMode()
         new_pos = self.mapToScene(event.pos()).toPoint()
         if mode == "Select label":
-            if self.resizing == True and self.resizeCorner != None:
-                self.presenter.resizeBox(new_pos, self.resizeCorner)
-            elif self.resizing == False:
+            if self.resizing == True and self.resizeCornerIndex != None:
+                self.presenter.resizeBox(new_pos, self.resizeCornerIndex)
+            elif self.moving == True:
                 self.presenter.moveBox(new_pos)
         elif mode == "Draw label":
-            if not self.point.isNull():
+            if not self.initialPoint.isNull():
                 self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), self.mapFromScene(new_pos)).normalized())
 
     def mouseReleaseEvent(self, event):
@@ -70,6 +75,10 @@ class CanvasView(qtw.QGraphicsView):
             if mode == "Select label":
                 if self.resizing == True:
                     self.resizing = False
+                    if self.resizeCornerIndex != None:
+                        self.resizeCornerIndex = None
+                elif self.moving == True:
+                    self.moving = False
             elif mode == "Draw label":
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()

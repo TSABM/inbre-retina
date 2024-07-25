@@ -66,9 +66,12 @@ class Canvas(QGraphicsScene):
     
     def drawResizeHandles(self, painter, label : Label):
         handles = self.getResizeHandles(label.rectangle)
-        painter.setBrush(QColor(0, 0, 255)) #blue handles
+        painter.setBrush(QColor(0, 0, 255)) #blue handle fill
+        #draw each handle
         for handle in handles:
             painter.drawRect(handle)
+        #remove blue fill for future rectangles
+        painter.setBrush(Qt.NoBrush)
 
     def getResizeHandles(self, rect):
         return [
@@ -86,22 +89,38 @@ class Canvas(QGraphicsScene):
                 self.updatePixmap(label)
                 return self.selectedLabel
             else:
-                print("no box selected")
-                self.deselectBox()
-                return None
+                pass
+        print("no box selected")
+        self.deselectBox()
+        return None
     
     def deselectBox(self):
         self.selectedLabel = None
         self.updatePixmap()
 
-    def selectResizeCorner(self, cornerHandle):
+    def selectResizeCorner(self, point):
         #if no box is selected do nothing
         if self.selectedLabel == None:
-            print("corner cannot be selected: no label in selected mode")
-            return
+            print("corner cannot be selected: no label marked as selected")
+            return None
         else:
-            pass
-        #check the handles and see if the clicked point is in any of them if so return that box?
+            handles = self.getResizeHandles(self.selectedLabel.rectangle)
+            for index in range(len(handles)):
+                if handles[index].contains(point):
+                    return index
     
     def resizeBox(self, point, corner):
-        pass
+        if corner == 0:  # Top-left
+            self.selectedLabel.rectangle.setTopLeft(point)
+        elif corner == 1:  # Top-right
+            self.selectedLabel.rectangle.setTopRight(point)
+        elif corner == 2:  # Bottom-left
+            self.selectedLabel.rectangle.setBottomLeft(point)
+        elif corner == 3:  # Bottom-right
+            self.selectedLabel.rectangle.setBottomRight(point)
+
+        self.updatePixmap(self.selectedLabel)
+    
+    def moveBox(self, point):
+        self.selectedLabel.rectangle.moveCenter(point)
+        self.updatePixmap(self.selectedLabel)
