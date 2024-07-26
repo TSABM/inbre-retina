@@ -5,6 +5,7 @@ Code and documents for the internship
 12:46 pm - 2:17 pm
 2:51 pm - 4:01 pm
 4:20 pm - 4:30 pm
+8:01 pm - 9:00 pm
 
 resize code mostly complete. Bugfixing and testing now. Also initial bugfixing on box movement too, though its incomplete.
 
@@ -19,6 +20,8 @@ Blue fill: only boxes made after the one selected get filled in with blue, it mu
 Fixed blue fill issue.
 
 Next task is to display selected label data, make it so the user can meaningfully edit it, and then export it to xml
+
+Began working on label data display
 
 ## Day 41 7/24/24
 11:45 am - 1:00 pm
