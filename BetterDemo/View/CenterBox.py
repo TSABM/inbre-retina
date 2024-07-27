@@ -2,7 +2,7 @@ import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import Qt
 
 from Presenter.CenterBoxPresenter import CenterBoxPresenter
-from View.ControlsArea.MainControlsView import MainControlsView
+from View.ControlsArea.ControlAreaView import ControlAreaView
 from View.ImageArea.ImageAreaView import ImageAreaView
 
 class CenterBox(qtw.QSplitter):
@@ -15,7 +15,7 @@ class CenterBox(qtw.QSplitter):
         self.setOrientation(Qt.Horizontal)
         self.setChildrenCollapsible(False)
 
-        self.addWidget(MainControlsView())
+        self.addWidget(ControlAreaView())
         self.addWidget(ImageAreaView())
 
         print("center box initalized")
