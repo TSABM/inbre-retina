@@ -7,7 +7,7 @@ class AbstractPresenter(ABC):
         self.view  = view
         self.subscribers = []
 
-    def publish(self, subsToPubTo):
+    def publish(self, subsToPubTo : str):
         MasterMemory.publishToSubscribers(subsToPubTo)
     
     def getView(self):

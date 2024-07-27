@@ -1,11 +1,19 @@
 # internship
 Code and documents for the internship
+
+## Day 44 7/27/24
+12:50 pm - 1:36 pm
+2:12 pm - 
+
+working on label data view. In theory it now works as it should at a base level. Now to make the canvas cause it to display.
+
 ## Day 43 7/26/24
 10:22 am - 10:45
 12:54pm - 1:19
 2:17 pm - 3:00 pm
 3:20 pm - 3:50 pm
 4:44 pm - 5:14 pm 
+7:04 pm - 7:20 pm
 
 I have an idea why the canvas is black till a box is drawn. The initial scene is set then overwritten, the view is still trying to display it though which leads to garbage data trying to display. Solve this by not rendering a scene till a valid one is open.
 
