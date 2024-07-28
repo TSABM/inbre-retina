@@ -5,6 +5,7 @@ snub
 import Model
 import Model.Canvas
 import Model.OpenScenes
+from Presenter.AbstractPresenter import AbstractPresenter
 
 
 class MasterMemory():
@@ -41,7 +42,7 @@ class MasterMemory():
         return cls.subscribers.get(key)
     
     @classmethod
-    def publishToSubscribers(cls, subsToPubTo):
+    def publishToSubscribers(cls, subsToPubTo : AbstractPresenter):
         for subKey in subsToPubTo:
             sub = cls.getSubscriberByKey(subKey)
             sub.refresh() #FIXME this will only work for views that extend the abstract... there must be a better way to handle this...

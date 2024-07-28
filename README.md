@@ -3,9 +3,11 @@ Code and documents for the internship
 
 ## Day 44 7/27/24
 12:50 pm - 1:36 pm
-2:12 pm - 
+2:12 pm - 4:12 pm 
+5:18 pm - 6:15 pm
 
 working on label data view. In theory it now works as it should at a base level. Now to make the canvas cause it to display.
+need to fix my sub/pub communication. Its inconsistant right now, not all subscribers have refresh methods, and some publishers who call publish are giving single subscribers not lists. hmmm should I just have publishers communicate more directly? They could just ask for the subscriber from the master mem and manipulate it directly...
 
 ## Day 43 7/26/24
 10:22 am - 10:45

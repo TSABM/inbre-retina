@@ -8,6 +8,10 @@ class CanvasPresenter(AbstractPresenter):
         super().__init__(view)
         self.model = Canvas("test", 0)
         self.registerNewSubscriber("canvas", self)
+    
+    def refresh(self):
+        super().refresh()
+        self.model.updatePixmap()
 
     def getCanvas(self):
         return self.model
@@ -30,7 +34,9 @@ class CanvasPresenter(AbstractPresenter):
 
 
     def selectBox(self, point):
-        return self.model.selectBox(point)
+        selectedBox = self.model.selectBox(point)
+        self.publish("labelData")
+        return selectedBox 
     
     def deselectBox(self):
         self.model.deselectBox()

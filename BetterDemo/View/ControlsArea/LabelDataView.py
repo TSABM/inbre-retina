@@ -38,14 +38,14 @@ class LabelDataView(qtw.QWidget):
         self.bottomRightXField.setValidator(QIntValidator(0, maxX))
         self.bottomRightYField.setValidator(QIntValidator(0, maxY))
 
-        #connect fields to functions (currently only triggers when a user changes the values in the ui)
-        self.iDField.textEdited.connect()
-        self.typeField.textEdited.connect()
-        self.frameNumberField.textEdited.connect()
-        self.topLeftXField.textEdited.connect()
-        self.topLeftYField.textEdited.connect()
-        self.bottomRightXField.textEdited.connect()
-        self.bottomRightYField.textEdited.connect()
+        #connect fields to functions (currently only triggers when a user presses enter in a field)
+        self.iDField.returnPressed.connect(self.publishLabelData())
+        self.typeField.returnPressed.connect(self.publishLabelData())
+        self.frameNumberField.returnPressed.connect(self.publishLabelData())
+        self.topLeftXField.returnPressed.connect(self.publishLabelData())
+        self.topLeftYField.returnPressed.connect(self.publishLabelData())
+        self.bottomRightXField.returnPressed.connect(self.publishLabelData())
+        self.bottomRightYField.returnPressed.connect(self.publishLabelData())
 
         #add labels and fields to the widget
         self.layout().addWidget(iDLabel)
@@ -87,7 +87,7 @@ class LabelDataView(qtw.QWidget):
         #when the text is changed update the label on the canvas
         #determine what changed?
         #call the presenter and ask the canvas to update, may need to send the label back but proabbly not.
-        self.presenter.publish("canvas")
+        self.presenter.publishToSubs()
 
     def hideLabelData(self):
         self.hide()
