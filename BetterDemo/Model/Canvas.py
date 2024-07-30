@@ -37,6 +37,9 @@ class Canvas(QGraphicsScene):
     def getFrameNumber(self):
         return self.frameNumber
     
+    def getSelectedLabel(self):
+        return self.selectedLabel
+    
     def addBox(self, labelToAdd : Label):
         #append label to local list
         self.labels.append(labelToAdd)

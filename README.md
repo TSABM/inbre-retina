@@ -1,6 +1,23 @@
 # internship
 Code and documents for the internship
 
+## Day 46 7/30.24
+10:54 am - 
+
+took some time but now it works as expected. The fields are hidden till a box is selected and then it live updates the values one way from the canvas to the fields. However there are a coupel issues. 
+1. The fields appearing causes resize issues when drawing the first box. 
+2. I have not yet tested if the fields alter the boxes as they should
+3. When deselecting a box the fields continue to interact with the last selected box instead of going blank or hiding.
+
+I think the solution will have to go as follows: First the fields should either not expand the window when initalized, or they should begin shown. Second I need to improve how the selected field is handled. It should be None when deselected and the fields should be unable to be interacted with. Furthermore as of now the fields and labels need to be bounded by the image size, and I need to work on image rendering to work out some sort of zoom in and out system for the canvas.
+
+## Day 45 7/29/24
+10:51 am - 11:37 pm 
+1:30 pm - 3:16 pm 
+4:11 pm - 4:25 pm
+
+working on displaying label data. Does not work yet, though I fixed crashing while selecting. Ok slight problem. I now display the fields when selecting but 1. The fields are empty and 2. The fields never hide and multiply when selecting more than one box. The first is probably an issue with not hiding the fields.
+
 ## Day 44 7/27/24
 12:50 pm - 1:36 pm
 2:12 pm - 4:12 pm 

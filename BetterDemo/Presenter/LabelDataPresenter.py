@@ -7,8 +7,15 @@ class LabelDataPresenter(AbstractPresenter):
         self.registerNewSubscriber("labelData", self)
         self.addSubscriber("canvas")
     
-    def getMaxXVal():
+    def refresh(self):
+        super().refresh()
+        #print("attempted to refresh label data")
+        label = self.getSubscriberByKey("canvas").getSelectedLabel()
+        self.view.setLabelToDisplay(label)
+        self.view.displayLabelData()
+    
+    def getMaxXVal(self):
         return 9999 #temp number
 
-    def getMaxYVal():
+    def getMaxYVal(self):
         return 9999

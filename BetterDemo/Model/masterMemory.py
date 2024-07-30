@@ -5,7 +5,6 @@ snub
 import Model
 import Model.Canvas
 import Model.OpenScenes
-from Presenter.AbstractPresenter import AbstractPresenter
 
 
 class MasterMemory():
@@ -17,7 +16,7 @@ class MasterMemory():
 
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
-        self.addSubscriber("canvas", Model.Canvas.Canvas("test2", 0))
+        #self.addSubscriber("canvas", Model.Canvas.Canvas("test2", 0))
         pass
     
     #interact with interaction mode
@@ -42,7 +41,7 @@ class MasterMemory():
         return cls.subscribers.get(key)
     
     @classmethod
-    def publishToSubscribers(cls, subsToPubTo : AbstractPresenter):
+    def publishToSubscribers(cls, subsToPubTo):
         for subKey in subsToPubTo:
             sub = cls.getSubscriberByKey(subKey)
             sub.refresh() #FIXME this will only work for views that extend the abstract... there must be a better way to handle this...

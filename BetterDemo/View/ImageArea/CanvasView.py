@@ -12,7 +12,6 @@ class CanvasView(qtw.QGraphicsView):
         super().__init__()
         #init presenter and request QGraphicsScene
         self.presenter = CanvasPresenter(self)
-        self.setCanvas()
 
         #init variables for drawing labels
         self.drawing = False
@@ -27,6 +26,9 @@ class CanvasView(qtw.QGraphicsView):
         #setting render hints (askes engine to try to antialias and use smooth pixmap transforming)
         self.setRenderHint(QPainter.Antialiasing)
         self.setRenderHint(QPainter.SmoothPixmapTransform)
+
+        self.setCanvas()
+        
         print("canvas initalized")
     
     def setCanvas(self):

@@ -8,6 +8,7 @@ class CanvasPresenter(AbstractPresenter):
         super().__init__(view)
         self.model = Canvas("test", 0)
         self.registerNewSubscriber("canvas", self)
+        self.addSubscriber("labelData")
     
     def refresh(self):
         super().refresh()
@@ -15,6 +16,9 @@ class CanvasPresenter(AbstractPresenter):
 
     def getCanvas(self):
         return self.model
+
+    def getSelectedLabel(self):
+        return self.model.selectedLabel
     
     #handle interactionMode
     def getInteractionMode(self):
@@ -35,10 +39,11 @@ class CanvasPresenter(AbstractPresenter):
 
     def selectBox(self, point):
         selectedBox = self.model.selectBox(point)
-        self.publish("labelData")
+        self.publishToSubs()
         return selectedBox 
     
     def deselectBox(self):
+        self.publishToSubs()
         self.model.deselectBox()
     
     def selectResizeCorner(self, point):
@@ -58,4 +63,5 @@ class CanvasPresenter(AbstractPresenter):
 
     def moveBox(self, point):
         self.model.moveBox(point)
+        self.publishToSubs()
 

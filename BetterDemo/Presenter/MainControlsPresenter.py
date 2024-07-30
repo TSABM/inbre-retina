@@ -8,4 +8,7 @@ class MainControlsPresenter(AbstractPresenter):
         
     def setInteractionMode(self, mode : str):
         MasterMemory.setInteractionMode(mode)
+
+    def refresh(self):
+        super().refresh()
     

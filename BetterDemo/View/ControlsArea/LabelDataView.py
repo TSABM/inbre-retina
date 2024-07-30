@@ -6,9 +6,15 @@ from Model.Label import Label
 class LabelDataView(qtw.QWidget):
     def __init__(self):
         super().__init__()
-        self.labelToDisplay = None
+        self.labelToDisplay : Label = None
         self.presenter = LabelDataPresenter(self)
         self.setLayout(qtw.QVBoxLayout())
+        self.showing = False
+
+        self.loadLabelDataFields()
+    
+    def setLabelToDisplay(self, label):
+        self.labelToDisplay = label
     
     def loadLabelDataFields(self):
         #init labels
@@ -39,13 +45,13 @@ class LabelDataView(qtw.QWidget):
         self.bottomRightYField.setValidator(QIntValidator(0, maxY))
 
         #connect fields to functions (currently only triggers when a user presses enter in a field)
-        self.iDField.returnPressed.connect(self.publishLabelData())
-        self.typeField.returnPressed.connect(self.publishLabelData())
-        self.frameNumberField.returnPressed.connect(self.publishLabelData())
-        self.topLeftXField.returnPressed.connect(self.publishLabelData())
-        self.topLeftYField.returnPressed.connect(self.publishLabelData())
-        self.bottomRightXField.returnPressed.connect(self.publishLabelData())
-        self.bottomRightYField.returnPressed.connect(self.publishLabelData())
+        self.iDField.returnPressed.connect(self.publishLabelData)
+        self.typeField.returnPressed.connect(self.publishLabelData)
+        self.frameNumberField.returnPressed.connect(self.publishLabelData)
+        self.topLeftXField.returnPressed.connect(self.publishLabelData)
+        self.topLeftYField.returnPressed.connect(self.publishLabelData)
+        self.bottomRightXField.returnPressed.connect(self.publishLabelData)
+        self.bottomRightYField.returnPressed.connect(self.publishLabelData)
 
         #add labels and fields to the widget
         self.layout().addWidget(iDLabel)
@@ -69,25 +75,29 @@ class LabelDataView(qtw.QWidget):
         self.layout().addWidget(bottomRightYLabel)
         self.layout().addWidget(self.bottomRightYField)
         
+        #self.hideLabelData()
 
-    def displayLabelData(self, label : Label):
-        #set fields to data vals
-        self.iDField.setText(label.itemId)
-        self.typeField.setText(label.type)
-        self.frameNumberField.setText(label.frameNumber)
-        self.topLeftXField.setText(label.rectangle.topLeft().x)
-        self.topLeftYField.setText(label.rectangle.topLeft().y)
-        self.bottomRightXField.setText(label.rectangle.bottomRight().x)
-        self.bottomRightYField.setText(label.rectangle.bottomRight().y)
+    def displayLabelData(self):    
+        if self.labelToDisplay != None:
+            #set fields to data vals
+            self.iDField.setText(self.labelToDisplay.itemId)
+            self.typeField.setText(self.labelToDisplay.type)
+            self.frameNumberField.setText(str(self.labelToDisplay.frameNumber))
+            self.topLeftXField.setText(str(self.labelToDisplay.rectangle.topLeft().x()))
+            self.topLeftYField.setText(str(self.labelToDisplay.rectangle.topLeft().y()))
+            self.bottomRightXField.setText(str(self.labelToDisplay.rectangle.bottomRight().x()))
+            self.bottomRightYField.setText(str(self.labelToDisplay.rectangle.bottomRight().y()))
 
         #show the widget
+        self.showing = True
         self.show()
+
+    def hideLabelData(self):
+        self.showing = False
+        self.hide()
 
     def publishLabelData(self):
         #when the text is changed update the label on the canvas
         #determine what changed?
         #call the presenter and ask the canvas to update, may need to send the label back but proabbly not.
         self.presenter.publishToSubs()
-
-    def hideLabelData(self):
-        self.hide()

@@ -13,6 +13,8 @@ class WindowMenuBarPresenter(AbstractPresenter):
         self.addSubscriber("canvas")
         pass
     
+    def refresh(self):
+        super().refresh()
 
     def openImage(self, imagePath):
         '''
