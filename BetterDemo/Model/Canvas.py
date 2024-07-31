@@ -4,7 +4,7 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.Label import Label
+from BetterDemo.Model.Labels import Label
 
 defaultWidth = 400
 defaultHeight = 200

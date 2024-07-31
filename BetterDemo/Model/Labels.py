@@ -2,18 +2,16 @@ from PyQt5.QtCore import QRect
 
 
 
-class Label(dict):
+class Labels(dict):
     '''
-    A rectangular box which "labels" or indicates the presence of something. Also contains data about what the object being labelled is.
+    dictionary containing the bounding boxes events and metadata for the file
     '''
-    def __init__(self, frameNumber: int, rectangle : QRect, type: str, itemID: str, description: str = ""):
-        self.frameNumber : int = frameNumber
-        self.rectangle : QRect = rectangle
-        self.itemId : str = itemID
-        self.type : str = type
-        self.description : str = description
+    def __init__(self):
+        self.update("BoundingBoxes", BoundingBoxes())
+        self.update("Events", Events())
+        self.update("MetaData", MetaData())
 
-class BoundingBox(dict):
+class BoundingBoxes(dict):
     def __init__(self):
         super().__init__()
 
@@ -24,6 +22,7 @@ class BoundingBox(dict):
         cellType : list[str] = []
 
         #adding to dict
+        #fix this below. If order is not guranteed storing boxid cellid frame number and celltype all seperately would result in a jumble
         self.update("boxID", boxID)
         self.update("cellID", cellID)
         self.update("frameNumber", frameNumber)
@@ -42,9 +41,15 @@ class Events(dict):
         self.update("type", type)
 
 class MetaData(dict):
-    def __init__():
+    def __init__(self):
         super().__init__()
 
         #defining fields
+        fileInfo : list[str] = []
+        frameTotal : int = None
+        other : list[str] = []
 
         #adding to dict
+        self.update("fileInfo", fileInfo)
+        self.update("frameTotal", frameTotal)
+        self.update("other", other)

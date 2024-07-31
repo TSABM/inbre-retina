@@ -5,13 +5,14 @@ snub
 import Model
 import Model.Canvas
 import Model.OpenScenes
+from Model.Labels import Labels
 
 
 class MasterMemory():
     subscribers = dict() #must be a view (or maybe a presenter?) that extends the abstract class
     openVideoPath = None #the full path to a video to be viewed frame by frame
     currentFrameNumber = None #current frame in a video
-    frameLabels = dict() #frame num is the key, contents will be a list of the labels on that frame
+    labels = Labels() #frame num is the key, contents will be a list of the labels on that frame
     interactionMode = "Select label"
 
     def __init__(self):
