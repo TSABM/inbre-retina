@@ -3,8 +3,12 @@ Code and documents for the internship
 
 ## Day 47 7/31/24
 10:20 am - 12:13 pm
+1:25 pm - 1:40 pm
+2:37 pm - 4:00 pm
 
 labels are perhapse refactored as they should be. No they need some work. the problem right now is that the bounding boxes arent assotiated in any way with the events... though I suppose I assume they should be. Furthermore things like boxID and cellID dont get assotiated to one another either (except perhapse loosly by the order added) I worry this will result in data jumbling. I think it might be important to store that data differently.
+
+Its still not right, I'm trying to figure it out.
 
 ## Day 46 7/30/24
 10:54 am - 2:10 pm
