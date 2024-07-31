@@ -2,7 +2,9 @@
 Code and documents for the internship
 
 ## Day 46 7/30.24
-10:54 am - 
+10:54 am - 2:10 pm
+4:29 pm - 4:33 pm
+4:51 pm - 6:05 pm
 
 took some time but now it works as expected. The fields are hidden till a box is selected and then it live updates the values one way from the canvas to the fields. However there are a coupel issues. 
 1. The fields appearing causes resize issues when drawing the first box. 
@@ -10,6 +12,10 @@ took some time but now it works as expected. The fields are hidden till a box is
 3. When deselecting a box the fields continue to interact with the last selected box instead of going blank or hiding.
 
 I think the solution will have to go as follows: First the fields should either not expand the window when initalized, or they should begin shown. Second I need to improve how the selected field is handled. It should be None when deselected and the fields should be unable to be interacted with. Furthermore as of now the fields and labels need to be bounded by the image size, and I need to work on image rendering to work out some sort of zoom in and out system for the canvas.
+
+The control area should probably also be changed into some sort of scrollable area.
+
+Discussed how label data really needs to be stored. Working on refactoring to the proper manner. Once done work on loading gifs, exporting data to json files, and properly recording data
 
 ## Day 45 7/29/24
 10:51 am - 11:37 pm 
