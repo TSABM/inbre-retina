@@ -3,7 +3,7 @@ snub
 '''
 
 import Model
-import Model.Canvas
+import BetterDemo.Model.Canvases.ImageCanvas
 import Model.OpenScenes
 from Model.Labels import Labels
 

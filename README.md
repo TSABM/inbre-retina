@@ -2,9 +2,11 @@
 Code and documents for the internship
 
 ## Day 48 8/1/24
-11:17 am - 
+11:17 am - 2:17 pm
 
-reading up on QMovie so as to make loading many video formats possible (gif included) it will require refactoring the canvas
+reading up on QMovie so as to make loading many video formats possible (gif included) it will require refactoring the canvas. 
+
+Refactoring is in progress, but proving difficult. I'm trying to slide the video loader as neatly as I can into the existing framework while also trying to make it easily expandable in the future when handling other formats. Its difficult to say the least. The current plan is to make some subclass or something that hands the scene one pixmap at a time for each frame, but can still run at its correct ish framerate... it might be too clunky.
 
 ## Day 47 7/31/24
 10:20 am - 12:13 pm

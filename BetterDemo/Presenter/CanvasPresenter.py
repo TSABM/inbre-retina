@@ -1,12 +1,12 @@
 from Presenter.AbstractPresenter import AbstractPresenter
-from Model.Canvas import Canvas
+from BetterDemo.Model.Canvases.ImageCanvas import ImageCanvas
 from Model.masterMemory import MasterMemory
 from BetterDemo.Model.Labels import Label
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.model = Canvas("test", 0)
+        self.model = ImageCanvas("test", 0)
         self.registerNewSubscriber("canvas", self)
         self.addSubscriber("labelData")
     

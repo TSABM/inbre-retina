@@ -1,6 +1,6 @@
 import PyQt5.QtWidgets as qtw
 from View.ImageArea.CanvasView import CanvasView
-from View.ImageArea.MovieCanvas import MovieCanvas
+from BetterDemo.Model.Canvases.MovieCanvas import MovieCanvas
 from View.ImageArea.OpenFilesMenu import OpenFilesMenu
 from Presenter.ImageAreaPresenter import ImageAreaPresenter
 from PyQt5.QtGui import QPainter, QMovie
@@ -19,12 +19,13 @@ class MediaAreaView(qtw.QWidget):
         # #FIXME this is likely no longer a useful widget  replace with a frame number counter increment and decrement buttons 
         # and an index search.
         self.layout().setMenuBar(OpenFilesMenu())
+        
         #the canvas
-        #self.layout().addWidget(CanvasView())
-        movieCanvas = MovieCanvas()
-        self.layout().addWidget(movieCanvas)
-        movieCanvas.movie.frameChanged.connect(self.update)
+        #note that I probably need to add some sort of ability to zoom in and out.
+        self.layout().addWidget(CanvasView())
+        
         #Video controls
+        #FIXME note that video controls should load only for videos not single images
 
         print("image area initalized")
 

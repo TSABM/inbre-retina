@@ -4,21 +4,25 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from BetterDemo.Model.Labels import Label
+from Model.Labels import Label
 
 defaultWidth = 400
 defaultHeight = 200
 cornerSize = 6
 
 
-class Canvas(QGraphicsScene):
+class ImageCanvas(QGraphicsScene):
+    '''
+    a canvas which renders a static image and accepts labels
+    '''
     def __init__(self, fileName : str, frameNumber : int, labels : list = []):
         super().__init__(0, 0, defaultWidth, defaultHeight)
         self.fileName : str = fileName
         self.frameNumber : int = frameNumber
         self.labels : list[Label] = labels
-        self.pixmap = QPixmap(defaultWidth, defaultHeight)
-        self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
+        #FIXME need to make compatable with videos (gif videos)
+        #self.pixmap = QPixmap(defaultWidth, defaultHeight)
+        #self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
 
         self.selectedLabel = None
         self.resizing = False
