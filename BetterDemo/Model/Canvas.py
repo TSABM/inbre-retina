@@ -127,3 +127,6 @@ class Canvas(QGraphicsScene):
     def moveBox(self, point):
         self.selectedLabel.rectangle.moveCenter(point)
         self.updatePixmap(self.selectedLabel)
+    
+    def loadGif(self, gif):
+        pass

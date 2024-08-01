@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+## Day 48 8/1/24
+11:17 am - 
+
+reading up on QMovie so as to make loading many video formats possible (gif included) it will require refactoring the canvas
+
 ## Day 47 7/31/24
 10:20 am - 12:13 pm
 1:25 pm - 1:40 pm

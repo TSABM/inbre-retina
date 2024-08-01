@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 
 from Presenter.CenterBoxPresenter import CenterBoxPresenter
 from View.ControlsArea.ControlAreaView import ControlAreaView
-from View.ImageArea.ImageAreaView import ImageAreaView
+from BetterDemo.View.ImageArea.MediaAreaView import MediaAreaView
 
 class CenterBox(qtw.QSplitter):
     '''
@@ -16,6 +16,6 @@ class CenterBox(qtw.QSplitter):
         self.setChildrenCollapsible(False)
 
         self.addWidget(ControlAreaView())
-        self.addWidget(ImageAreaView())
+        self.addWidget(MediaAreaView())
 
         print("center box initalized")

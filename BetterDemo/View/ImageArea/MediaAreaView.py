@@ -1,11 +1,13 @@
 import PyQt5.QtWidgets as qtw
 from View.ImageArea.CanvasView import CanvasView
+from View.ImageArea.MovieCanvas import MovieCanvas
 from View.ImageArea.OpenFilesMenu import OpenFilesMenu
 from Presenter.ImageAreaPresenter import ImageAreaPresenter
+from PyQt5.QtGui import QPainter, QMovie
 
-class ImageAreaView(qtw.QWidget):
+class MediaAreaView(qtw.QWidget):
     '''
-    A container holding the image as well as a menubar that displays the open files. FIXME move the filebar to the toolbars or dock widgets layer
+    This is the media area. Used to hold the image/video and the direct controls for it
     '''
     def __init__(self):
         super().__init__()
@@ -18,7 +20,11 @@ class ImageAreaView(qtw.QWidget):
         # and an index search.
         self.layout().setMenuBar(OpenFilesMenu())
         #the canvas
-        self.layout().addWidget(CanvasView())
+        #self.layout().addWidget(CanvasView())
+        movieCanvas = MovieCanvas()
+        self.layout().addWidget(movieCanvas)
+        movieCanvas.movie.frameChanged.connect(self.update)
+        #Video controls
 
         print("image area initalized")
 
