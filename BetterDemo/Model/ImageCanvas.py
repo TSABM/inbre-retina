@@ -15,11 +15,11 @@ class ImageCanvas(QGraphicsScene):
     '''
     a canvas which renders a static image and accepts labels
     '''
-    def __init__(self, fileName : str, frameNumber : int, labels : list = []):
+    def __init__(self, labels : list = []):
         super().__init__(0, 0, defaultWidth, defaultHeight)
-        self.fileName : str = fileName
-        self.frameNumber : int = frameNumber
+        self.fileToDisplay = None
         self.labels : list[Label] = labels
+        self.pixmap : QPixmap = None
         #FIXME need to make compatable with videos (gif videos)
         #self.pixmap = QPixmap(defaultWidth, defaultHeight)
         #self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
@@ -29,20 +29,10 @@ class ImageCanvas(QGraphicsScene):
         self.resizecorner = None
         
         self.setBackgroundBrush(QColor(200, 200, 200)) #drawing background to a light gray to indicate the end of the drawable canavs
-        self.drawBaseImage()
+        self.drawPixmap()
         self.addItem(self.pixmap_item)
     
-    def getPixmap(self):
-        return self.pixmap
     
-    def getLabels(self):
-        return self.labels
-    
-    def getFrameNumber(self):
-        return self.frameNumber
-    
-    def getSelectedLabel(self):
-        return self.selectedLabel
     
     def addBox(self, labelToAdd : Label):
         #append label to local list
@@ -53,8 +43,12 @@ class ImageCanvas(QGraphicsScene):
         return self.getLabels()
         
 
-    def drawBaseImage(self):
-        self.pixmap.fill(Qt.white)
+    def setPixmap(self):
+        #ask if the current file is an image, or a video thats currently supported
+        #if image
+            #convert the image to a pixmap and set self.pixmap to it
+        #else if video
+            #extract pixmap from the video either the current frame or perhapse make sure the frame is passed in
 
     def updatePixmap(self, selectedlabel : Label = None):
         self.drawBaseImage()
@@ -134,3 +128,15 @@ class ImageCanvas(QGraphicsScene):
     
     def loadGif(self, gif):
         pass
+
+    def getPixmap(self):
+        return self.pixmap
+    
+    def getLabels(self):
+        return self.labels
+    
+    def getFrameNumber(self):
+        return self.frameNumber
+    
+    def getSelectedLabel(self):
+        return self.selectedLabel
