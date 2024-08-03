@@ -1,7 +1,7 @@
 import PyQt5.QtWidgets as qtw
 from View.ImageArea.CanvasView import CanvasView
-from BetterDemo.Model.Canvases.MovieCanvas import MovieCanvas
-from View.ImageArea.OpenFilesMenu import OpenFilesMenu
+#from Model.Canvases.MovieCanvas import MovieCanvas
+#from View.ImageArea.OpenFilesMenu import OpenFilesMenu
 from Presenter.ImageAreaPresenter import ImageAreaPresenter
 from PyQt5.QtGui import QPainter, QMovie
 
@@ -14,11 +14,6 @@ class MediaAreaView(qtw.QWidget):
         self.presenter = ImageAreaPresenter(self)
         #Overarching widget that holds the image area together
         self.setLayout(qtw.QVBoxLayout())
-
-        #the currently open files 
-        # #FIXME this is likely no longer a useful widget  replace with a frame number counter increment and decrement buttons 
-        # and an index search.
-        self.layout().setMenuBar(OpenFilesMenu())
         
         #the canvas
         #note that I probably need to add some sort of ability to zoom in and out.

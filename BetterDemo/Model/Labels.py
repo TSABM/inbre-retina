@@ -15,44 +15,26 @@ class BoundingBoxes(dict):
     def __init__(self):
         super().__init__()
 
-        #key boxID, cellID, frameNumber
-        frames : dict[int] = dict()
-        
-        #defining fields
-        boxIDs : list[int] = []
-        cellIDs : list[int] = []
-        frameNumbers : list[int] = []
-        cellTypes : list[str] = []
-
-        #adding to dict
-        #fix this below. If order is not guranteed storing boxid cellid frame number and celltype all seperately would result in a jumble
-        self.update("boxIDs", boxIDs)
-        self.update("cellIDs", cellIDs)
-        self.update("frameNumbers", frameNumbers)
-        self.update("cellTypes", cellTypes)
-
 class Events(dict):
     def __init__(self):
         super().__init__()
 
-        #defining fields
-        eventIDs : list[int] = []
-        types : list[str] = []
-
-        #adding to dict
-        self.update("eventID", eventIDs)
-        self.update("type", types)
-
-class MetaData(dict):
+class MetaData():
     def __init__(self):
-        super().__init__()
-
         #defining fields
-        fileInfo : str = None
-        frameTotal : int = None
-        other : list[str] = []
+        self.fileInfo : str = None
+        self.frameTotal : int = None
+        self.other : list[str] = []
 
-        #adding to dict
-        self.update("fileInfo", fileInfo)
-        self.update("frameTotal", frameTotal)
-        self.update("other", other)
+class BoundingBox():
+    def __init__(self, boxID  = None, cellID = None, frameNumber = None, cellType = None):
+        #defining fields
+        self.boxID : int = boxID
+        self.cellID : int = cellID
+        self.frameNumber : int = frameNumber
+        self.cellType : str = cellType
+
+class Event():
+    def __init__(self, eventID = None, type = None):
+        self.eventID = eventID
+        self.type = type

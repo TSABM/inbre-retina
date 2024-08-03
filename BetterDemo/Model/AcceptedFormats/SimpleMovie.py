@@ -1,14 +1,18 @@
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QMovie
+from Model.AcceptedFormats.Displayable import Displayable
 
-class MovieCanvas(QLabel):
+class MovieCanvas(Displayable):
     '''
     canvas that accepts GIF, MNG, and APNG formats
     '''
     def __init__(self):
         super().__init__()
+        #self.label = QLabel #FIXME possibly not needed?
         self.movie : QMovie = None
-        pass
+    
+    def getPixmap(self):
+        return self.movie.currentPixmap()
 
     def setMovie(self, moviePath):
         if moviePath != None:

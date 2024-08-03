@@ -1,5 +1,5 @@
 from Presenter.AbstractPresenter import AbstractPresenter
-from BetterDemo.Model.Canvases.ImageCanvas import ImageCanvas
+from BetterDemo.Model.CanvasModel import ImageCanvas
 from Model.masterMemory import MasterMemory
 from BetterDemo.Model.Labels import Label
 

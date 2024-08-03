@@ -3,9 +3,9 @@ snub
 '''
 
 import Model
-import BetterDemo.Model.Canvases.ImageCanvas
-import Model.OpenScenes
-from Model.Labels import Labels
+#import Model.Canvases.ImageCanvas
+#import Model.OpenScenes
+from BetterDemo.Model.Labels import Labels
 
 
 class MasterMemory():

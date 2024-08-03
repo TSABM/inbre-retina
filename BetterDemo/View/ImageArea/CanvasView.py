@@ -28,8 +28,6 @@ class CanvasView(qtw.QGraphicsView):
         self.setRenderHint(QPainter.SmoothPixmapTransform)
 
         self.setCanvas()
-        
-        print("canvas initalized")
     
     def setCanvas(self):
         canvas = self.presenter.getCanvas()
