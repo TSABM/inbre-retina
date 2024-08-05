@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
 from Model.Labels import Labels
+from Model.AcceptedFormats.Displayable import Displayable
 
 ## temporary default values ##
 defaultWidth = 400
@@ -12,14 +13,14 @@ defaultHeight = 200
 cornerSize = 6
 
 
-class ImageCanvas():
+class CanvasModel():
     '''
     a canvas which renders a static image and accepts labels
     '''
     def __init__(self):
-        self.fileToDisplay = None
+        self.fileToDisplay : Displayable = None
         self.scene : QGraphicsScene = QGraphicsScene()
-        self.boundingBoxes :  = boundingBoxes
+        self.labels :  = boundingBoxes
         self.pixmap : QPixmap = None
         #FIXME need to make compatable with videos (gif videos)
         #self.pixmap = QPixmap(defaultWidth, defaultHeight)
@@ -44,11 +45,6 @@ class ImageCanvas():
 
     def setPixmap(self):
         self.fileToDisplay.getPixmap()
-        #ask if the current file is an image, or a video thats currently supported
-        #if image
-            #convert the image to a pixmap and set self.pixmap to it
-        #else if video
-            #extract pixmap from the video either the current frame or perhapse make sure the frame is passed in
 
     def updatePixmap(self, selectedlabel : Label = None):
         self.drawBaseImage()
@@ -64,9 +60,6 @@ class ImageCanvas():
                 painter.drawRect(label.rectangle)
         painter.end()
         self.pixmap_item.setPixmap(self.pixmap)
-    
-    def loadGif(self, gif):
-        pass
 
     def getPixmap(self):
         return self.pixmap

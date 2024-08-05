@@ -19,22 +19,37 @@ class Events(dict):
     def __init__(self):
         super().__init__()
 
-class MetaData():
-    def __init__(self):
-        #defining fields
-        self.fileInfo : str = None
-        self.frameTotal : int = None
-        self.other : list[str] = []
+class MetaData(dict):
+    def __init__(self, fileInfo: str = None, frameTotal: int = None, other: list[str] = None):
+        # Ensure other is a list if not provided
+        if other is None: #May need fixing as it may be unneeded and unreachable
+            other = []
+        
+        # defining fields
+        super().__init__({
+            "fileInfo": fileInfo,
+            "frameTotal": frameTotal,
+            "other": other,
+        })
 
-class BoundingBox():
-    def __init__(self, boxID  = None, cellID = None, frameNumber = None, cellType = None):
+class BoundingBox(dict):
+    def __init__(self, boxID : int = None, cellID : int = None, frameNumber : int = None, cellType : str = None, xCoord : int = None, yCoord : int = None, width : int = None, height : int = None, events : list = None):
         #defining fields
-        self.boxID : int = boxID
-        self.cellID : int = cellID
-        self.frameNumber : int = frameNumber
-        self.cellType : str = cellType
+        super().__init__({
+                "boxID" : boxID, 
+                "cellID" : cellID,
+                "frameNumber" : frameNumber,
+                "cellType" : cellType,
+                #coordinate and size data for the bounding box
+                "coordsAndDims" : [xCoord, yCoord, width, height],
+                "associatedEvents" : []
+                })
 
-class Event():
-    def __init__(self, eventID = None, type = None):
-        self.eventID = eventID
-        self.type = type
+class Event(dict):
+    def __init__(self, eventID : int, eventType : str, boxID : int,):
+        # defining fields
+        super().__init__({
+            "eventID": eventID,
+            "eventType": eventType,
+            "associatedBoxID" : boxID
+        })

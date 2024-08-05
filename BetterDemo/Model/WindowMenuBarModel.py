@@ -1,7 +1,7 @@
 import os
 from Model.masterMemory import MasterMemory
 from Model.nd2FileAccessor import ND2FileAccessor
-from Model.CanvasModel import ImageCanvas
+from Model.CanvasModel import CanvasModel
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage
 
 
