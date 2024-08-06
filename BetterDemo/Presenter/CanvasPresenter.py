@@ -1,7 +1,7 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from BetterDemo.Model.CanvasModel import CanvasModel
 from Model.masterMemory import MasterMemory
-from BetterDemo.Model.Labels import Label
+from BetterDemo.Model.LabelData import Label
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):

@@ -4,7 +4,7 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.Labels import Labels
+from Model.LabelData import LabelData, BoundingBox
 from Model.AcceptedFormats.Displayable import Displayable
 
 ## temporary default values ##
@@ -20,7 +20,7 @@ class CanvasModel():
     def __init__(self):
         self.fileToDisplay : Displayable = None
         self.scene : QGraphicsScene = QGraphicsScene()
-        self.labels :  = boundingBoxes
+        self.labels : LabelData = LabelData()
         self.pixmap : QPixmap = None
         #FIXME need to make compatable with videos (gif videos)
         #self.pixmap = QPixmap(defaultWidth, defaultHeight)
@@ -31,7 +31,7 @@ class CanvasModel():
         self.resizecorner = None
         
         self.scene.setBackgroundBrush(QColor(200, 200, 200)) #drawing background to a light gray to indicate the end of the drawable canavs
-        self.drawPixmap()
+        self.updatePixmap()
         self.scene.addItem(self.pixmap_item)
     
     
@@ -46,20 +46,28 @@ class CanvasModel():
     def setPixmap(self):
         self.fileToDisplay.getPixmap()
 
-    def updatePixmap(self, selectedlabel : Label = None):
+    def updatePixmap(self):
         self.drawBaseImage()
         painter = QPainter(self.pixmap)
         painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
-        for label in self.boundingBoxes:
-            if label == selectedlabel:
+        self.__drawLabels__(painter)
+
+    def __drawLabels__(self, painter : QPainter):
+        boundingBoxes : dict = self.labels.get("BoundingBoxes")
+        for box in boundingBoxes.values():
+            #if its selected render it blue and with handles
+            rectangle : QRect = box.get("rectangle")
+            if box == self.selectedLabel:
                 painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
-                painter.drawRect(label.rectangle)
-                self.drawResizeHandles(painter, label)
+                painter.drawRect(rectangle)
+                self.drawResizeHandles(painter, rectangle)
                 painter.setPen(QColor(255, 0, 0)) #set painter color back to red for the non selected labels
+            #else render it like normal
             else:
-                painter.drawRect(label.rectangle)
+                painter.drawRect(rectangle)
         painter.end()
         self.pixmap_item.setPixmap(self.pixmap)
+
 
     def getPixmap(self):
         return self.pixmap
@@ -68,7 +76,7 @@ class CanvasModel():
         return self.frameNumber
     
     ## Handle everything related to the bounding boxes ##
-    def addBox(self, labelToAdd : Label):
+    def addBox(self, boxToAdd : BoundingBox):
         #append label to local list
         self.boundingBoxes.append(labelToAdd)
         #update pixmap so boxes display
@@ -77,11 +85,15 @@ class CanvasModel():
         return self.getLabels()
 
     def selectBox(self, point):
-        for label in self.boundingBoxes:
-            if label.rectangle.contains(point):
+        boundingBoxes : dict = self.labels.get("BoundingBoxes")
+        for boundingBox in boundingBoxes.values():
+            if boundingBox.get("rectangle") == None:
+                print("no rectangle assigned to this label")
+                pass
+            elif boundingBox.get("rectangle").contains(point):
                 print("box selected")
-                self.selectedLabel = label
-                self.updatePixmap(label)
+                self.selectedLabel = boundingBox
+                self.updatePixmap()
                 return self.selectedLabel
             else:
                 pass
@@ -109,8 +121,8 @@ class CanvasModel():
         self.selectedLabel.rectangle.moveCenter(point)
         self.updatePixmap(self.selectedLabel)
 
-    def drawResizeHandles(self, painter, label : Label):
-        handles = self.getResizeHandles(label.rectangle)
+    def drawResizeHandles(self, painter, rectangle):
+        handles = self.getResizeHandles(rectangle)
         painter.setBrush(QColor(0, 0, 255)) #blue handle fill
         #draw each handle
         for handle in handles:

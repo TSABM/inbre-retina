@@ -1,7 +1,7 @@
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtGui import QIntValidator
 from Presenter.LabelDataPresenter import LabelDataPresenter
-from BetterDemo.Model.Labels import Label
+from BetterDemo.Model.LabelData import Label
 
 class LabelDataView(qtw.QWidget):
     def __init__(self):

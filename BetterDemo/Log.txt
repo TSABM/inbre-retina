@@ -1,8 +1,17 @@
 # internship
 Code and documents for the internship
 
+## Day 52 8/6/24
+11:00 am - 
+
+I've been working hard to make the canvas accept the new formats. I had to revert part of the label class to storing QRects rather than 
+lists. This means I'll need to fix some compatability problems with converting to JSON but it was easier than either storing two 
+dictionaries or converting the coords to QRects every time they got rerendered.
+
 ## Day 51 8/5/2024
-10:00 am - 
+10:00 am - 11:00 am
+2:05 pm - 4:00 pm
+5:00 pm - 5:26 pm
 
 
 ## Day 50 8/3/24
