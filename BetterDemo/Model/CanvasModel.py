@@ -76,9 +76,9 @@ class CanvasModel():
         return self.frameNumber
     
     ## Handle everything related to the bounding boxes ##
-    def addBox(self, boxToAdd : BoundingBox):
+    def addBox(self, key, boxToAdd : BoundingBox):
         #append label to local list
-        self.boundingBoxes.append(labelToAdd)
+        self.labels. (key, labelToAdd)
         #update pixmap so boxes display
         self.updatePixmap()
         #return labels to update the master mem

@@ -83,8 +83,8 @@ class CanvasView(qtw.QGraphicsView):
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()
                 rect = QRect(self.initialPoint, endPoint).normalized()
-                self.drawBox(rect)
-                self.point = QPoint() #not sure the need for this
+                self.drawBox(rect) 
+                self.point = QPoint() #resetting selected point data for next draw or select
     
     def drawBox(self, rect):
         self.presenter.addBox(rect)

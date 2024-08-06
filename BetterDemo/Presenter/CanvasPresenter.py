@@ -28,9 +28,9 @@ class CanvasPresenter(AbstractPresenter):
         MasterMemory.setInteractionMode(mode)
 
     #Handle boxes
-    def addBox(self, boxToAdd):
+    def addBox(self, boxToAdd): #FIXME
         #make the box into a label object
-        label = Label(0, boxToAdd, "testType", "testID", "testDescription")
+        label = Label(0, boxToAdd, "testType", "testID", "testDescription") #FIXME
         #add label to the list of labels
         #add the label to the model
         frameLabels = self.model.addBox(label)
