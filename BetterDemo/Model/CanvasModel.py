@@ -44,13 +44,16 @@ class CanvasModel():
         self.fileToDisplay = file
 
     def setPixmap(self):
-        self.fileToDisplay.getPixmap()
+        if self.fileToDisplay != None:
+            self.pixmap = self.fileToDisplay.getPixmap()
+            self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
 
     def updatePixmap(self):
-        self.drawBaseImage()
-        painter = QPainter(self.pixmap)
-        painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
-        self.__drawLabels__(painter)
+        self.setPixmap()
+        if self.pixmap != None:
+            painter = QPainter(self.pixmap)
+            painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
+            self.__drawLabels__(painter)
 
     def __drawLabels__(self, painter : QPainter):
         cells : dict = self.labels.get("Cells")
