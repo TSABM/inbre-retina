@@ -34,7 +34,8 @@ class CanvasModel():
         self.updatePixmap()
         self.scene.addItem(self.pixmap_item)
     
-    
+    def getScene(self):
+        return self.scene
     
     
     ## handle pixmap setting and getting ##  

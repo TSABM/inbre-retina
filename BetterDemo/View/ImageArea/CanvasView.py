@@ -31,7 +31,7 @@ class CanvasView(qtw.QGraphicsView):
     
     def setCanvas(self):
         canvas = self.presenter.getCanvas()
-        self.setScene(canvas)
+        self.setScene(canvas.getScene())
 
     def mousePressEvent(self, event):
         #check if the event is a left click
