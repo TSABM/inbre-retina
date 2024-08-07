@@ -1,12 +1,26 @@
 # internship
 Code and documents for the internship
 
+## Day 53 8/7/24
+10:30 am - 
+
+basic label processing probably complete. Need to pass in proper files before I can test.
+
+draw box in view is still broken. Need cell data before drawing is possible, possibly use a popup, otherwise change how boxes draw and reduce requirements
+
+loading an image needs to be implemented
+
 ## Day 52 8/6/24
-11:00 am - 
+11:00 am - 2:30 pm
+3:51 pm - 4:00 pm
+4:41 pm - 4:50 pm
+9:25 pm - 09:45 pm
 
 I've been working hard to make the canvas accept the new formats. I had to revert part of the label class to storing QRects rather than 
 lists. This means I'll need to fix some compatability problems with converting to JSON but it was easier than either storing two 
 dictionaries or converting the coords to QRects every time they got rerendered.
+
+had a meeting. Need to turn the rectangles back to lists now. I was recommended to just turn the list into a rectangle as needed.
 
 ## Day 51 8/5/2024
 10:00 am - 11:00 am

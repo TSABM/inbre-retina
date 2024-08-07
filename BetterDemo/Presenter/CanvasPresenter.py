@@ -1,12 +1,12 @@
 from Presenter.AbstractPresenter import AbstractPresenter
-from BetterDemo.Model.CanvasModel import CanvasModel
+from Model.CanvasModel import CanvasModel
 from Model.masterMemory import MasterMemory
-from BetterDemo.Model.LabelData import Label
+from Model.LabelData import Cell
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.model = CanvasModel("test", 0)
+        self.model = CanvasModel()
         self.registerNewSubscriber("canvas", self)
         self.addSubscriber("labelData")
     
@@ -18,7 +18,7 @@ class CanvasPresenter(AbstractPresenter):
         return self.model
 
     def getSelectedLabel(self):
-        return self.model.selectedLabel
+        return self.model.selectedItem
     
     #handle interactionMode
     def getInteractionMode(self):
@@ -30,10 +30,17 @@ class CanvasPresenter(AbstractPresenter):
     #Handle boxes
     def addBox(self, boxToAdd): #FIXME
         #make the box into a label object
+        #boxID
+        #cellID
+        #frame num
+        #cell type
+        #x, y, width, height
+        #events
+        cell = Cell()
         label = Label(0, boxToAdd, "testType", "testID", "testDescription") #FIXME
         #add label to the list of labels
         #add the label to the model
-        frameLabels = self.model.addBox(label)
+        frameLabels = self.model.addBox(key, label)
         MasterMemory.updateFrame(0, frameLabels)
 
 

@@ -4,7 +4,7 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.LabelData import LabelData, BoundingBox
+from Model.LabelData import LabelData
 from Model.AcceptedFormats.Displayable import Displayable
 
 ## temporary default values ##
@@ -26,7 +26,7 @@ class CanvasModel():
         #self.pixmap = QPixmap(defaultWidth, defaultHeight)
         self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
 
-        self.selectedLabel = None
+        self.selectedItem = None
         self.resizing = False
         self.resizecorner = None
         
@@ -53,11 +53,11 @@ class CanvasModel():
         self.__drawLabels__(painter)
 
     def __drawLabels__(self, painter : QPainter):
-        boundingBoxes : dict = self.labels.get("BoundingBoxes")
-        for box in boundingBoxes.values():
+        cells : dict = self.labels.get("Cells")
+        for cell in cells.values():
             #if its selected render it blue and with handles
-            rectangle : QRect = box.get("rectangle")
-            if box == self.selectedLabel:
+            rectangle : QRect = cell.get_boundingBox_as_rect()
+            if cell == self.selectedItem:
                 painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
                 painter.drawRect(rectangle)
                 self.drawResizeHandles(painter, rectangle)
@@ -76,25 +76,26 @@ class CanvasModel():
         return self.frameNumber
     
     ## Handle everything related to the bounding boxes ##
-    def addBox(self, key, boxToAdd : BoundingBox):
+    def addCell(self, key, cell):
         #append label to local list
-        self.labels. (key, labelToAdd)
+        self.labels.update({key : cell})
         #update pixmap so boxes display
         self.updatePixmap()
         #return labels to update the master mem
         return self.getLabels()
 
     def selectBox(self, point):
-        boundingBoxes : dict = self.labels.get("BoundingBoxes")
-        for boundingBox in boundingBoxes.values():
-            if boundingBox.get("rectangle") == None:
-                print("no rectangle assigned to this label")
+        cells : dict = self.labels.get("Cells")
+        for cell in cells.values():
+            rectangle : QRect = cell.get_boundingBox_as_rect()
+            if rectangle == None:
+                print("ERROR: no rectangle assigned to this label")
                 pass
-            elif boundingBox.get("rectangle").contains(point):
+            elif rectangle.contains(point):
                 print("box selected")
-                self.selectedLabel = boundingBox
+                self.selectedItem = cell
                 self.updatePixmap()
-                return self.selectedLabel
+                return self.selectedItem
             else:
                 pass
         print("no box selected")
@@ -102,24 +103,24 @@ class CanvasModel():
         return None
     
     def deselectBox(self):
-        self.selectedLabel = None
+        self.selectedItem = None
         self.updatePixmap()
     
     def resizeBox(self, point, corner):
         if corner == 0:  # Top-left
-            self.selectedLabel.rectangle.setTopLeft(point)
+            self.selectedItem.rectangle.setTopLeft(point)
         elif corner == 1:  # Top-right
-            self.selectedLabel.rectangle.setTopRight(point)
+            self.selectedItem.rectangle.setTopRight(point)
         elif corner == 2:  # Bottom-left
-            self.selectedLabel.rectangle.setBottomLeft(point)
+            self.selectedItem.rectangle.setBottomLeft(point)
         elif corner == 3:  # Bottom-right
-            self.selectedLabel.rectangle.setBottomRight(point)
+            self.selectedItem.rectangle.setBottomRight(point)
 
-        self.updatePixmap(self.selectedLabel)
+        self.updatePixmap(self.selectedItem)
     
     def moveBox(self, point):
-        self.selectedLabel.rectangle.moveCenter(point)
-        self.updatePixmap(self.selectedLabel)
+        self.selectedItem.rectangle.moveCenter(point)
+        self.updatePixmap(self.selectedItem)
 
     def drawResizeHandles(self, painter, rectangle):
         handles = self.getResizeHandles(rectangle)
@@ -140,11 +141,11 @@ class CanvasModel():
 
     def selectResizeCorner(self, point):
         #if no box is selected do nothing
-        if self.selectedLabel == None:
+        if self.selectedItem == None:
             print("corner cannot be selected: no label marked as selected")
             return None
         else:
-            handles = self.getResizeHandles(self.selectedLabel.rectangle)
+            handles = self.getResizeHandles(self.selectedItem.rectangle)
             for index in range(len(handles)):
                 if handles[index].contains(point):
                     return index
@@ -153,4 +154,4 @@ class CanvasModel():
         return self.boundingBoxes
     
     def getSelectedLabel(self):
-        return self.selectedLabel
+        return self.selectedItem

@@ -7,14 +7,10 @@ class LabelData(dict):
     dictionary containing the bounding boxes events and metadata for the file
     '''
     def __init__(self):
-        self.update("BoundingBoxes", dict())
-        self.update("Events", dict())
-        self.update("MetaData", MetaData())
+        self.update({"Cells": dict()})
+        self.update({"Events": dict()})
+        self.update({"MetaData": MetaData()})
     
-    @classmethod
-    def from_dict(cls, data):
-        #FIXME need to extract data and convert to subclasses...
-        pass
 
 class MetaData(dict):
     def __init__(self, fileInfo: str = None, frameTotal: int = None, other: list[str] = None):
@@ -29,8 +25,8 @@ class MetaData(dict):
             "other": other,
         })
 
-class BoundingBox(dict):
-    def __init__(self, boxID : str = None, cellID : str = None, frameNumber : int = None, cellType : str = None, rectangle : QRect = None, events : list = None):
+class Cell(dict):
+    def __init__(self, boxID : str = None, cellID : str = None, frameNumber : int = None, cellType : str = None, xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, events : list = []):
         #defining fields
         super().__init__({
                 "boxID" : boxID, 
@@ -38,39 +34,21 @@ class BoundingBox(dict):
                 "frameNumber" : frameNumber,
                 "cellType" : cellType,
                 #coordinate and size data for the bounding box
-                "rectangle" : rectangle,
-                "associatedEvents" : []
+                "boundingBox": [xCoord, yCoord, width, height],
+                "associatedEvents" : events #make events able to store multiple cells
                 })
-        
-    @staticmethod
-    def rect_to_dict(rect):
-        if rect is None:
-            return None
-        return {"x": rect.x(), "y": rect.y(), "width": rect.width(), "height": rect.height()}
 
-    @staticmethod
-    def dict_to_rect(d):
-        if d is None:
+    def get_boundingBox_as_rect(self):
+        boundingBox = self.get("boundingBox")
+        if boundingBox[0] is None:
             return None
-        return QRect(d["x"], d["y"], d["width"], d["height"])
-
-    @classmethod
-    def from_dict(cls, data):
-        rect_data = data.get("coordsAndDims")
-        rect = cls.dict_to_rect(rect_data)
-        return cls(
-            boxID=data.get("boxID"),
-            cellID=data.get("cellID"),
-            frameNumber=data.get("frameNumber"),
-            cellType=data.get("cellType"),
-            rect=rect
-        )
+        return QRect(boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3])
 
 class Event(dict):
-    def __init__(self, eventID : str, eventType : str, boxID : str,):
+    def __init__(self, eventID : str, eventType : str, boxIDs : list,):
         # defining fields
         super().__init__({
             "eventID": eventID,
             "eventType": eventType,
-            "associatedBoxID" : boxID
+            "associatedBoxIDs" : boxIDs
         })
