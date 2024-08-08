@@ -20,6 +20,7 @@ class WindowMenuBarPresenter(AbstractPresenter):
         '''
         opens a dialog and returns one selected image
         '''
+        #set the open image
         self.model.openImage(imagePath)
         
 

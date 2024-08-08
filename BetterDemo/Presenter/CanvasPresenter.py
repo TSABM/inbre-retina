@@ -10,6 +10,11 @@ class CanvasPresenter(AbstractPresenter):
         self.registerNewSubscriber("canvas", self)
         self.addSubscriber("labelData")
     
+    def setFile(self, file):
+        self.model.setfile(file)
+        print("image file set, attempting to refresh")
+        self.model.setPixmap()
+    
     def refresh(self):
         super().refresh()
         self.model.updatePixmap()

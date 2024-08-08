@@ -10,8 +10,8 @@ from Model.LabelData import LabelData
 
 class MasterMemory():
     subscribers = dict() #must be a view (or maybe a presenter?) that extends the abstract class
-    openVideoPath = None #the full path to a video to be viewed frame by frame
-    currentFrameNumber = None #current frame in a video
+    #openVideoPath = None #the full path to a video to be viewed frame by frame
+    #currentFrameNumber = None #current frame in a video
     interactionMode = "Select label"
 
     def __init__(self):
@@ -50,6 +50,7 @@ class MasterMemory():
         pass
 
     #deal with the open file
+    '''
     @classmethod
     def setOpenFile(cls, openFile):
         cls.openNd2Files = openFile
@@ -57,11 +58,13 @@ class MasterMemory():
     @classmethod
     def getOpenFiles(cls):
         return cls.openNd2Files
+    '''
     
     #deal with labels
     @classmethod
     def updateFrame(cls, frameNumber : int, frame : list):
         cls.frameLabels.update({frameNumber : frame})
+    
 
     @classmethod
     def getLabel(cls, key):

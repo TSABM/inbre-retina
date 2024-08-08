@@ -3,16 +3,37 @@ from Model.masterMemory import MasterMemory
 from Model.nd2FileAccessor import ND2FileAccessor
 from Model.CanvasModel import CanvasModel
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage
-
+from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 
 class WindowMenuBarModel():
     def __init__(self):
         pass
 
-    def openImage(self, imagePath, ):
+    def openImage(self, imagePath):
 
+        #check the file format
+
+        #if gif or other like format
+        if ".gif" in imagePath or ".mng" in imagePath or ".apng" in imagePath:
+            acceptedFormat = SimpleMovie()
+            if acceptedFormat.setMovie(imagePath) == True:
+                #send to canvas?
+                canvas = MasterMemory.getSubscriberByKey("canvas")
+                canvas.setFile(acceptedFormat)
+                pass
+            else:
+                pass
+            pass
+        #if jpeg, png, or jpg
+        elif ".jpeg" in imagePath or ".png" in imagePath or ".jpg" in imagePath:
+            print("unimplemented")
+            pass
+
+        else:
+            pass
+        '''
         #open file at image location
-        file = ND2FileAccessor(imagePath) #FIXME currently frame index is just none, handle this better.
+        file =  
         #place file in memory
         MasterMemory.setOpenFile(file)
         #convert to QImage compatable format
@@ -20,27 +41,8 @@ class WindowMenuBarModel():
 
         #Return QImage to presenter where it can be sent off to the master memory and view
         return frame
+        '''
         
-
-    def openFolder(self, directoryPath):
-        '''
-        FIXME returns the contents of a selected folder
-        '''
-        #ensure the path isnt empty
-        if(directoryPath == ""):
-            print("Empty path detected, no file/folder selected")
-        else:
-            #open folder
-            files = os.listdir(directoryPath)
-            #now filter out all files of incompatable types
-            filteredFiles = self.filterFileList(files)
-            #now update the filtered files to include the whole path
-            fullPathFiles = []
-            for file in filteredFiles:
-                filePath = directoryPath + "/" + file
-                fullPathFiles.append(filePath)
-            #now return the filtered list
-            return fullPathFiles
 
     def filterFileList(self, fileList):
         '''

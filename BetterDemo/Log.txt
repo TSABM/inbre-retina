@@ -1,8 +1,18 @@
 # internship
 Code and documents for the internship
 
+## Day 54 8/8/2024
+11:05 am - 11:17 am
+11:59 am - 12:15 pm 
+1:05 pm - 1:21
+2:32pm - 
+
+movie is now getting set, but the painter isnt active when called causing an abort. Fixed abort issue, image not displaying yet though.
+
 ## Day 53 8/7/24
-10:30 am - 
+10:30 am - 2:15 pm
+3:27 pm - 3:38 pm
+4:58 pm - 5:19 pm
 
 basic label processing probably complete. Need to pass in proper files before I can test.
 
