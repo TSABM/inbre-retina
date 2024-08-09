@@ -10,7 +10,6 @@ class LabelData(dict):
         self.update({"Cells": dict()})
         self.update({"Events": dict()})
         self.update({"MetaData": MetaData()})
-    
 
 class MetaData(dict):
     def __init__(self, fileInfo: str = None, frameTotal: int = None, other: list[str] = None):

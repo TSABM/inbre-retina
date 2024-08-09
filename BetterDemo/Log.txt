@@ -1,13 +1,20 @@
 # internship
 Code and documents for the internship
 
+## Day 55 8/9/24
+12:00 pm - 
+
+chatGPT managed to find the issue when I couldnt after looking for almost an hour. The problem was how I updated the pixmap item.
+though its fixed now I still need video capabilities and zooming in and out. Also need to test data export.
+
 ## Day 54 8/8/2024
 11:05 am - 11:17 am
 11:59 am - 12:15 pm 
 1:05 pm - 1:21
-2:32pm - 
+2:32pm - 3:30 pm 
 
 movie is now getting set, but the painter isnt active when called causing an abort. Fixed abort issue, image not displaying yet though.
+Maybe fixed one of the problems, but still no display. I need to make sure the view updates I think.
 
 ## Day 53 8/7/24
 10:30 am - 2:15 pm

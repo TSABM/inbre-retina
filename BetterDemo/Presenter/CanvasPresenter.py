@@ -13,7 +13,7 @@ class CanvasPresenter(AbstractPresenter):
     def setFile(self, file):
         self.model.setfile(file)
         print("image file set, attempting to refresh")
-        self.model.setPixmap()
+        self.model.updatePixmap()
     
     def refresh(self):
         super().refresh()
@@ -42,7 +42,7 @@ class CanvasPresenter(AbstractPresenter):
         #x, y, width, height
         #events
         cell = Cell()
-        label = Label(0, boxToAdd, "testType", "testID", "testDescription") #FIXME
+        #label = Label(0, boxToAdd, "testType", "testID", "testDescription") #FIXME
         #add label to the list of labels
         #add the label to the model
         frameLabels = self.model.addBox(key, label)

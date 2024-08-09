@@ -44,13 +44,13 @@ class CanvasModel():
         #FIXME verify valid file format before setting (possibly in the presenter)
         self.fileToDisplay = file
 
-    def setPixmap(self):
+    def __setPixmap__(self):
         if self.fileToDisplay != None:
             self.pixmap = self.fileToDisplay.getPixmap()
-            self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
+            self.pixmap_item.setPixmap(self.pixmap)
 
     def updatePixmap(self):
-        self.setPixmap()
+        self.__setPixmap__()
         if self.pixmap != None:
             painter = QPainter(self.pixmap)
             painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.

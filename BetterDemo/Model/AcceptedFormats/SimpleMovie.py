@@ -12,6 +12,8 @@ class SimpleMovie(Displayable):
         self.movie : QMovie = None
     
     def getPixmap(self):
+        if(self.movie.currentFrameNumber()) == -1:
+            self.movie.jumpToFrame(0)
         return self.movie.currentPixmap()
 
     def setMovie(self, moviePath):
