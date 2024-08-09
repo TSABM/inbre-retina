@@ -2,10 +2,13 @@
 Code and documents for the internship
 
 ## Day 55 8/9/24
-12:00 pm - 
+12:00 pm - 2:30 pm 
+3:30 pm - 4:30 pm
 
 chatGPT managed to find the issue when I couldnt after looking for almost an hour. The problem was how I updated the pixmap item.
 though its fixed now I still need video capabilities and zooming in and out. Also need to test data export.
+
+refactoring labels again
 
 ## Day 54 8/8/2024
 11:05 am - 11:17 am

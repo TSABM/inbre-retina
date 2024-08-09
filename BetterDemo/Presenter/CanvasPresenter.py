@@ -1,7 +1,7 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.CanvasModel import CanvasModel
 from Model.masterMemory import MasterMemory
-from Model.LabelData import Cell
+from Model.LabelData import BoundingBox
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
@@ -41,7 +41,7 @@ class CanvasPresenter(AbstractPresenter):
         #cell type
         #x, y, width, height
         #events
-        cell = Cell()
+        cell = BoundingBox()
         #label = Label(0, boxToAdd, "testType", "testID", "testDescription") #FIXME
         #add label to the list of labels
         #add the label to the model
