@@ -6,12 +6,15 @@ Code and documents for the internship
 12:40 pm - 2:15 pm 
 3:30 pm - 3:45 pm
 3:52 pm - 4:05 pm
-4:55 pm - 
+4:55 pm - 6:10 pm
 
 Working on a label popup. As I implement the final stages of bounding box drawing and exporting on a real image I had to remove the 
 dummy data I had been feeding before. This popup will let the user enter in the new bounding boxes cell and event data. If the data is 
 invalid it just wont draw a box, but if it is valid the box will be drawn and a label object will get stored in the background which can
 be exported. TLDR: working on setting label data correctly so it can export real data.
+
+The popup is not yet operational. Adding new cells needs work, selecting existing cells needs work, and the same for events. Then of course saving them.
+labels will probably need to be moved to master memory.
 
 ## Day 55 8/9/24
 12:00 pm - 2:30 pm 

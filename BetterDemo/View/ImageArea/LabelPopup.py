@@ -25,7 +25,6 @@ class LabelPopup(qtw.QDialog):
         boxIDField = qtw.QLineEdit()
         boxIDField.setText(boxID)
         boxIDField.setReadOnly(True)
-        boxIDField.setFocusPolicy(Qt.NoFocus)
 
         #ask for cell(s)
         cellsLabel = qtw.QLabel("Add cell(s): ")
@@ -36,20 +35,19 @@ class LabelPopup(qtw.QDialog):
             #add currently existing cells
             #define a new cell
         
-        #generate new cell ID
-        newID = 
-        newCellIDLabel = qtw.QLabel("New cell ID: ")
-        newCellIDField = qtw.QLineEdit()
+        self.newCellIDLabel = qtw.QLabel("New cell ID: ")
+        self.newCellIDField = qtw.QLineEdit()
+        self.newCellIDField.setReadOnly(True)
         
-        newCellTypeLabel = qtw.QLabel("New cell type: ")
-        newCellTypeField = qtw.QLineEdit()
-        newCellTypeField.textChanged.connect()
+        self.newCellTypeLabel = qtw.QLabel("New cell type: ")
+        self.newCellTypeField = qtw.QLineEdit()
+        self.newCellTypeField.textChanged.connect()
 
         if self.newCellMode == False:
-            newCellIDLabel.hide()
-            newCellIDField.hide()
-            newCellTypeLabel.hide()
-            newCellTypeField.hide()
+            self.newCellIDLabel.hide()
+            self.newCellIDField.hide()
+            self.newCellTypeLabel.hide()
+            self.newCellTypeField.hide()
                 #show new cell ID
                 #define cell type
 
@@ -64,8 +62,41 @@ class LabelPopup(qtw.QDialog):
             #ask for event type
             #show the participating cells? (grabbed from above?)
     
-    def cellSelected(self):
+    def generateCellID(self):
+        #quickly scan the existing cells and grab the largest number, add 1 then return a new id
+        largestValue = 0
+        for id in self.existingCells:
+            x = id.split('_')[1]
+            x = int(x)
+            if x > largestValue:
+                largestValue = x
+        newValue = largestValue + 1
+        newID = "cell_" + str(newValue)
+        return newID
 
+    def showNewCellFields(self):
+        #get the cell Id
+        newID = self.generateCellID()
+        self.newCellIDField.setText(newID)
+
+        #show the fields
+    
+    def showNewEventFields(self):
+        #get the cell Id
+        newID = self.generateCellID()
+        self.newCellIDField.setText(newID)
+
+        #show the fields
+        self.newCellIDLabel.show()
+        self.newCellIDField.show()
+        self.newCellTypeLabel.show()
+        self.newCellTypeField.show()
+
+    def cellSelected(self, mode):
+        if mode == "Add new cell":
+            pass
+        else:
+            pass
         pass
 
     def eventSelected(self):
