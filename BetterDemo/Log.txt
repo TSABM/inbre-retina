@@ -6,7 +6,7 @@ Code and documents for the internship
 12:40 pm - 2:15 pm 
 3:30 pm - 3:45 pm
 3:52 pm - 4:05 pm
-4:55 pm - 6:10 pm
+4:55 pm - 6:25 pm
 
 Working on a label popup. As I implement the final stages of bounding box drawing and exporting on a real image I had to remove the 
 dummy data I had been feeding before. This popup will let the user enter in the new bounding boxes cell and event data. If the data is 
