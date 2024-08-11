@@ -11,6 +11,13 @@ class LabelData(dict):
         self.update({"Cells": dict()})
         self.update({"Events": dict()})
         self.update({"MetaData": MetaData()})
+    
+    def generateNewLabel(self, ):
+        #generate bounding box
+        #cells
+        #events
+        #metadata
+        pass
 
 class BoundingBox(dict):
     def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : list = [], eventIDs : list = []):

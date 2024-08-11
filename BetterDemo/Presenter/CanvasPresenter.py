@@ -2,6 +2,7 @@ from Presenter.AbstractPresenter import AbstractPresenter
 from Model.CanvasModel import CanvasModel
 from Model.masterMemory import MasterMemory
 from Model.LabelData import BoundingBox
+from 
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
@@ -76,4 +77,7 @@ class CanvasPresenter(AbstractPresenter):
     def moveBox(self, point):
         self.model.moveBox(point)
         self.publishToSubs()
+    
+    def generateNewBoundingBox(self, rect):
+        pass
 
