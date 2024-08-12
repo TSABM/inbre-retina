@@ -17,8 +17,9 @@ class LabelPopup(qtw.QDialog):
         self.existingCells : list= self.presenter.getCellIDList()
         self.existingEvents : list= self.presenter.getEventIDList()
 
-        self.selectedCells = []
-        self.newCellMode = False
+        self.cellToAdd = None
+        self.selectedCells = set()
+        #self.newCellMode = False
 
         #show box ID
         boxIDLabel = qtw.QLabel("BoxID: ")
@@ -32,26 +33,27 @@ class LabelPopup(qtw.QDialog):
         cellsDropdown.addItems(self.existingCells)
         cellsDropdown.addItem("Add new cell")
         cellsDropdown.currentTextChanged.connect(self.cellSelected)
-            #add currently existing cells
-            #define a new cell
-        
+            
+        #Defining a new cell fields
         self.newCellIDLabel = qtw.QLabel("New cell ID: ")
         self.newCellIDField = qtw.QLineEdit()
         self.newCellIDField.setReadOnly(True)
         
         self.newCellTypeLabel = qtw.QLabel("New cell type: ")
         self.newCellTypeField = qtw.QLineEdit()
-        self.newCellTypeField.textChanged.connect()
+        self.newCellTypeField.textChanged.connect() #FIXME?
 
-        if self.newCellMode == False:
-            self.newCellIDLabel.hide()
-            self.newCellIDField.hide()
-            self.newCellTypeLabel.hide()
-            self.newCellTypeField.hide()
-                #show new cell ID
-                #define cell type
+        self.hideNewCellFields()
 
-        #ask for event(s)
+        #list the added cells
+        self.cellList = qtw.QListWidget()
+
+        #add cell button
+        self.addCellButton = qtw.QPushButton()
+        self.addCellButton.setText("Add cell")
+        self.addCellButton.pressed.connect(self.addCellToList)
+
+        #ask for event(s) FIXME
         eventsLabel = qtw.QLabel("Add event(s): ")
         self.selectedEvents = []
         eventsDropdown = qtw.QComboBox()
@@ -61,6 +63,12 @@ class LabelPopup(qtw.QDialog):
             #show event ID
             #ask for event type
             #show the participating cells? (grabbed from above?)
+        
+        #SUBMIT BUTTON
+        #once all data set user presses this to finalize the cell and box
+        submitButton = qtw.QPushButton()
+        submitButton.setText("Submit label data")
+        submitButton.pressed.connect(self.submitData)
     
     def generateCellID(self):
         #quickly scan the existing cells and grab the largest number, add 1 then return a new id
@@ -80,6 +88,22 @@ class LabelPopup(qtw.QDialog):
         self.newCellIDField.setText(newID)
 
         #show the fields
+        self.newCellIDLabel.show()
+        self.newCellIDField.show()
+        self.newCellTypeLabel.show()
+        self.newCellTypeField.show()
+    
+    def hideNewCellFields(self):
+        self.newCellIDLabel.hide()
+        self.newCellIDField.hide()
+        self.newCellTypeLabel.hide()
+        self.newCellTypeField.hide()
+    
+    def addCellToList(self):
+        if self.cellToAdd != None:
+            self.selectedCells.add(self.cellToAdd)
+            self.cellList.clear()
+            self.cellList.addItems(self.selectedCells)
     
     def showNewEventFields(self):
         #get the cell Id
@@ -94,10 +118,21 @@ class LabelPopup(qtw.QDialog):
 
     def cellSelected(self, mode):
         if mode == "Add new cell":
-            pass
+            #show new cell fields
+            self.showNewCellFields()
+            self.cellToadd = None
         else:
-            pass
-        pass
+            self.hideNewCellFields()
+            self.cellToAdd = mode
+
 
     def eventSelected(self):
+        pass
+
+    def submitData(self):
+        #grab the data
+
+        #check that required fields are filled
+            #if so make a new label
+            #if not give a toast
         pass

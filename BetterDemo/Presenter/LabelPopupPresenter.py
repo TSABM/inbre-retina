@@ -1,5 +1,4 @@
 from Presenter.AbstractPresenter import AbstractPresenter
-from 
 
 class LabelPopupPresenter(AbstractPresenter):
     def __init__(self, view):
