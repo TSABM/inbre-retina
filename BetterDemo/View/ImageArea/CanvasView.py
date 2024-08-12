@@ -3,6 +3,7 @@ import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
 from Presenter.CanvasPresenter import CanvasPresenter
 from PyQt5.QtGui import QPixmap, QPainter, QColor
+from View.ImageArea.LabelPopup import LabelPopup
 
 class CanvasView(qtw.QGraphicsView):
     '''
@@ -83,9 +84,13 @@ class CanvasView(qtw.QGraphicsView):
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()
                 rect = QRect(self.initialPoint, endPoint).normalized()
-                self.drawBox(rect)
+                #self.drawBox(rect)
+                self.openPopUp()
                 self.point = QPoint() #resetting selected point data for next draw or select
     
+    def openPopUp(self, rect):
+        popup = LabelPopup()
+
     def drawBox(self, rect):
         boundingBox = self.generateNewBoundingBox(rect)
         self.presenter.addBox(boundingBox)

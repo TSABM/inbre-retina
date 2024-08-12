@@ -2,7 +2,10 @@
 Code and documents for the internship
 
 ## Day 57 8/12/24
-10:00 am - 
+10:00 am - 1:00 pm
+
+made progress on the popup. Need to make a boxID when making the popup which means moving the label data probably. Then the popup 
+needs to govern if a box will be added.
 
 ## Day 56 8/10/24
 11:38 am - 12:15 pm 
