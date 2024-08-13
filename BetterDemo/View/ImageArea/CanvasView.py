@@ -85,11 +85,15 @@ class CanvasView(qtw.QGraphicsView):
                 endPoint = self.mapToScene(event.pos()).toPoint()
                 rect = QRect(self.initialPoint, endPoint).normalized()
                 #self.drawBox(rect)
-                self.openPopUp()
+                self.openPopUp(rect)
                 self.point = QPoint() #resetting selected point data for next draw or select
     
     def openPopUp(self, rect):
-        popup = LabelPopup()
+        idNum = self.presenter.getLargestBoxID() + 1
+        boxID = "box_" + str(idNum)
+        popup = LabelPopup(boxID, rect)
+        popup.setWindowTitle("Enter label info")
+        popup.exec()
 
     def drawBox(self, rect):
         boundingBox = self.generateNewBoundingBox(rect)

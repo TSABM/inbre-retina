@@ -1,8 +1,14 @@
 # internship
 Code and documents for the internship
 
+## Day 58 8/13/24
+10:25 pm - 
+
+trying to get drawing working again, but not all the data is submitted right, and refactoring issues exist from the changes to label data
+
 ## Day 57 8/12/24
 10:00 am - 1:00 pm
+2:25 pm - 3:00 pm
 
 made progress on the popup. Need to make a boxID when making the popup which means moving the label data probably. Then the popup 
 needs to govern if a box will be added.

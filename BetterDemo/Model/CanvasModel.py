@@ -4,8 +4,9 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.LabelData import LabelData
+from Model.LabelData import BoundingBox
 from Model.AcceptedFormats.Displayable import Displayable
+from Model.masterMemory import MasterMemory
 
 ## temporary default values ##
 defaultWidth = 400
@@ -20,7 +21,7 @@ class CanvasModel():
     def __init__(self):
         self.fileToDisplay : Displayable = None
         self.scene : QGraphicsScene = QGraphicsScene()
-        self.labels : LabelData = LabelData()
+        
         self.pixmap : QPixmap = None
         #FIXME need to make compatable with videos (gif videos)
         #self.pixmap = QPixmap(defaultWidth, defaultHeight)
@@ -57,18 +58,22 @@ class CanvasModel():
             self.__drawLabels__(painter)
 
     def __drawLabels__(self, painter : QPainter):
-        cells : dict = self.labels.get("Cells")
-        for cell in cells.values():
-            #if its selected render it blue and with handles
-            rectangle : QRect = cell.get_boundingBox_as_rect()
-            if cell == self.selectedItem:
-                painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
-                painter.drawRect(rectangle)
-                self.drawResizeHandles(painter, rectangle)
-                painter.setPen(QColor(255, 0, 0)) #set painter color back to red for the non selected labels
-            #else render it like normal
-            else:
-                painter.drawRect(rectangle)
+        labelData = MasterMemory.getAllLabelData()
+        boundingBoxes : dict = labelData.get("BoundingBoxes")
+        boxIds = MasterMemory.getAllBoxIDsForAFrame(0)
+        if boxIds != None:
+            for boxId in boxIds:
+                #if its selected render it blue and with handles
+                box : BoundingBox = boundingBoxes.get(boxId)
+                rectangle : QRect = box.get_boundingBox_as_rect()
+                if box == self.selectedItem:
+                    painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
+                    painter.drawRect(rectangle)
+                    self.drawResizeHandles(painter, rectangle)
+                    painter.setPen(QColor(255, 0, 0)) #set painter color back to red for the non selected labels
+                #else render it like normal
+                else:
+                    painter.drawRect(rectangle)
         painter.end()
         self.pixmap_item.setPixmap(self.pixmap)
 
@@ -99,15 +104,18 @@ class CanvasModel():
         return self.getLabels()
 
     def selectBox(self, point):
-        cells : dict = self.labels.get("Cells")
-        for cell in cells.values():
-            rectangle : QRect = cell.get_boundingBox_as_rect()
+        labelData = MasterMemory.getAllLabelData()
+        boundingBoxes : dict = labelData.get("BoundingBoxes")
+        boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
+        for boxID in boxIds:
+            box : BoundingBox = boundingBoxes.get(boxID)
+            rectangle : QRect = box.get_boundingBox_as_rect()
             if rectangle == None:
                 print("ERROR: no rectangle assigned to this label")
                 pass
             elif rectangle.contains(point):
                 print("box selected")
-                self.selectedItem = cell
+                self.selectedItem = box
                 self.updatePixmap()
                 return self.selectedItem
             else:

@@ -18,7 +18,7 @@ class WindowMenuBarModel():
             acceptedFormat = SimpleMovie()
             if acceptedFormat.setMovie(imagePath) == True:
                 #send to canvas?
-                canvas = MasterMemory.getSubscriberByKey("canvas")
+                canvas = MasterMemory.getCanvas()
                 canvas.setFile(acceptedFormat)
                 pass
             else:

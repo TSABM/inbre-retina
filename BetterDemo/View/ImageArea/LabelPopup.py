@@ -7,7 +7,7 @@ class LabelPopup(qtw.QDialog):
     The popup that appears when a new bounding box is being drawn on the image. If the user fills out the fields a valid label data item can
     be created.
     '''
-    def __init__(self, boxID):
+    def __init__(self, boxID, rectangle):
         super().__init__()
         self.presenter = LabelPopupPresenter()
         self.setWindowTitle("Classify the selection")

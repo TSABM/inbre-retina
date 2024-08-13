@@ -1,14 +1,14 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.CanvasModel import CanvasModel
 from Model.masterMemory import MasterMemory
-from Model.LabelData import BoundingBox
+from Model.LabelData import LabelData
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
         self.model = CanvasModel()
-        self.registerNewSubscriber("canvas", self)
-        self.addSubscriber("labelData")
+        MasterMemory.setCanvas(self)
+        #subs? label data? control view?
     
     def setFile(self, file):
         self.model.setfile(file)
@@ -75,8 +75,13 @@ class CanvasPresenter(AbstractPresenter):
 
     def moveBox(self, point):
         self.model.moveBox(point)
-        self.publishToSubs()
+        MasterMemory.labelData.re
     
     def generateNewBoundingBox(self, rect):
         pass
+
+    def getLargestBoxID(self):
+        labelData : LabelData = MasterMemory.getAllLabels()
+        return labelData.getLargestBoxIdVal()
+        
 
