@@ -1,5 +1,5 @@
 import PyQt5.QtWidgets as qtw
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QRect
 from Presenter.LabelPopupPresenter import LabelPopupPresenter
 
 class LabelPopup(qtw.QDialog):
@@ -7,32 +7,38 @@ class LabelPopup(qtw.QDialog):
     The popup that appears when a new bounding box is being drawn on the image. If the user fills out the fields a valid label data item can
     be created.
     '''
-    def __init__(self, boxID, rectangle):
+    def __init__(self, boxID, rectangle : QRect):
         super().__init__()
         self.presenter = LabelPopupPresenter()
         self.setWindowTitle("Classify the selection")
+
+        self.rectangle : QRect = rectangle
 
         self.setLayout(qtw.QVBoxLayout())
 
         self.existingCells : list= self.presenter.getCellIDList()
         self.existingEvents : list= self.presenter.getEventIDList()
 
-        self.cellToAdd = None
+        self.cellToAddToList = None
+        self.newCells = set()
         self.selectedCells = set()
-        #self.newCellMode = False
+
+        self.eventToAddToList = None
+        self.newEvents = set()
+        self.selectedEvents = set()
 
         #show box ID
-        boxIDLabel = qtw.QLabel("BoxID: ")
-        boxIDField = qtw.QLineEdit()
-        boxIDField.setText(boxID)
-        boxIDField.setReadOnly(True)
+        self.boxIDLabel = qtw.QLabel("BoxID: ")
+        self.boxIDField = qtw.QLineEdit()
+        self.boxIDField.setText(boxID)
+        self.boxIDField.setReadOnly(True)
 
         #ask for cell(s)
-        cellsLabel = qtw.QLabel("Add cell(s): ")
-        cellsDropdown = qtw.QComboBox()
-        cellsDropdown.addItems(self.existingCells)
-        cellsDropdown.addItem("Add new cell")
-        cellsDropdown.currentTextChanged.connect(self.cellSelected)
+        self.cellsLabel = qtw.QLabel("Add cell(s): ")
+        self.cellsDropdown = qtw.QComboBox()
+        self.cellsDropdown.addItems(self.existingCells)
+        self.cellsDropdown.addItem("Add new cell")
+        self.cellsDropdown.currentTextChanged.connect(self.cellSelected)
             
         #Defining a new cell fields
         self.newCellIDLabel = qtw.QLabel("New cell ID: ")
@@ -53,16 +59,21 @@ class LabelPopup(qtw.QDialog):
         self.addCellButton.setText("Add cell")
         self.addCellButton.pressed.connect(self.addCellToList)
 
-        #ask for event(s) FIXME
-        eventsLabel = qtw.QLabel("Add event(s): ")
-        self.selectedEvents = []
-        eventsDropdown = qtw.QComboBox()
-        eventsDropdown.addItems(self.existingEvents)
-        eventsDropdown.addItem("Add new event")
-        eventsDropdown.currentTextChanged.connect(self.eventSelected)
-            #show event ID
-            #ask for event type
-            #show the participating cells? (grabbed from above?)
+        #ask for events(s)
+        self.eventsLabel = qtw.QLabel("Add events(s): ")
+        self.eventsDropdown = qtw.QComboBox()
+        self.eventsDropdown.addItems(self.existingEvents)
+        self.eventsDropdown.addItem("Add new event")
+        self.eventsDropdown.currentTextChanged.connect(self.eventSelected)
+            
+        #Defining new event fields
+        self.newEventIDLabel = qtw.QLabel("New event ID: ")
+        self.newEventIDField = qtw.QLineEdit()
+        self.newEventIDField.setReadOnly(True)
+        
+        self.newEventTypeLabel = qtw.QLabel("New event type: ")
+        self.newEventTypeField = qtw.QLineEdit()
+        self.newEventTypeField.textChanged.connect() #FIXME?
         
         #SUBMIT BUTTON
         #once all data set user presses this to finalize the cell and box
@@ -100,8 +111,8 @@ class LabelPopup(qtw.QDialog):
         self.newCellTypeField.hide()
     
     def addCellToList(self):
-        if self.cellToAdd != None:
-            self.selectedCells.add(self.cellToAdd)
+        if self.cellToAddToList != None:
+            self.selectedCells.add(self.cellToAddToList)
             self.cellList.clear()
             self.cellList.addItems(self.selectedCells)
     
@@ -120,10 +131,10 @@ class LabelPopup(qtw.QDialog):
         if mode == "Add new cell":
             #show new cell fields
             self.showNewCellFields()
-            self.cellToadd = None
+            self.cellToAddToList = None
         else:
             self.hideNewCellFields()
-            self.cellToAdd = mode
+            self.cellToAddToList = mode
 
 
     def eventSelected(self):
@@ -131,8 +142,14 @@ class LabelPopup(qtw.QDialog):
 
     def submitData(self):
         #grab the data
-
-        #check that required fields are filled
-            #if so make a new label
-            #if not give a toast
+        
+        boxID = self.boxIDField.text()
+        boxDimensions = self.rectangle.getRect()
+        #cellIDs
+        newCellsToAdd = self.newCells
+        cellIDs = self.selectedCells
+        #eventIDs
+        newEventsToAdd = self.newEvents
+        eventIDs = self.selectedEvents
+                
         pass

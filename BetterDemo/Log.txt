@@ -1,8 +1,23 @@
 # internship
 Code and documents for the internship
 
+## Day 61 8/16/24
+11:00 am - 11:30 
+2:00 pm - 2:30 pm 
+3:25 pm - 4:25 pm
+
+implementing setting label data. Main work right now in label popup model and view, as well as in label data a little.
+
+## Day 60 8/15/2024
+10:30 - 11:30
+4:55 pm - 6:00 pm 
+
+## Day 59 8/14/24
+11:11 am - 12:00 pm
+12:40 pm - 1:00 pm
+
 ## Day 58 8/13/24
-10:25 pm - 
+10:25 pm - 2:00 pm
 
 trying to get drawing working again, but not all the data is submitted right, and refactoring issues exist from the changes to label data
 

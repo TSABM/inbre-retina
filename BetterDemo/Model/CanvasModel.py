@@ -58,7 +58,7 @@ class CanvasModel():
             self.__drawLabels__(painter)
 
     def __drawLabels__(self, painter : QPainter):
-        labelData = MasterMemory.getAllLabelData()
+        labelData = MasterMemory.getLabelDataModel()
         boundingBoxes : dict = labelData.get("BoundingBoxes")
         boxIds = MasterMemory.getAllBoxIDsForAFrame(0)
         if boxIds != None:
@@ -104,7 +104,7 @@ class CanvasModel():
         return self.getLabels()
 
     def selectBox(self, point):
-        labelData = MasterMemory.getAllLabelData()
+        labelData = MasterMemory.getLabelDataModel()
         boundingBoxes : dict = labelData.get("BoundingBoxes")
         boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
         for boxID in boxIds:

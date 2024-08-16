@@ -55,7 +55,7 @@ class CanvasPresenter(AbstractPresenter):
         return selectedBox 
     
     def deselectBox(self):
-        self.publishToSubs()
+        #self.publishToSubs()
         self.model.deselectBox()
     
     def selectResizeCorner(self, point):
@@ -81,7 +81,7 @@ class CanvasPresenter(AbstractPresenter):
         pass
 
     def getLargestBoxID(self):
-        labelData : LabelData = MasterMemory.getAllLabels()
+        labelData : LabelData = MasterMemory.getLabelDataModel()
         return labelData.getLargestBoxIdVal()
         
 

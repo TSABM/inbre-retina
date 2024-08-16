@@ -7,18 +7,28 @@ class LabelData(dict):
     dictionary containing the bounding boxes events and metadata for the file
     '''
     def __init__(self):
-        self.update({"Frames" : dict()})
-        self.update({"BoundingBoxes": dict()})
-        self.update({"Cells": dict()})
-        self.update({"Events": dict()})
+        self.update({"Frames" : dict(Frame)})
+        self.update({"BoundingBoxes": dict(BoundingBox)})
+        self.update({"Cells": dict(Cell)})
+        self.update({"Events": dict(Event)})
         self.update({"MetaData": MetaData()})
     
-    def generateNewLabel(self, ):
+    def addBoundingBox(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, 
+                          width: int = None, height: int = None, cellIDs : list = [], eventIDs : list = []):
         #generate bounding box
-        #cells
-        #events
-        #metadata
+        boundingBoxes : dict = self.get("BoundingBoxes")
+        newBox = BoundingBox(boxID, frameNumber, xCoord, yCoord, width, height, cellIDs, eventIDs)
+        boundingBoxes.update({boxID : newBox})
         pass
+    
+    def addNewCell(self):
+        
+        pass
+    def addNewEvent(self):
+        pass
+    def updateMetaData(self):
+        pass
+    
 
     def getLargestBoxIdVal(self):
         largestValue = 0
@@ -57,9 +67,33 @@ class BoundingBox(dict):
         if boundingBox[0] is None:
             return None
         return QRect(boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3])
+    
+    def updateBox(self, frameNumber : int = None, xCoord: int = None, yCoord: int = None, 
+               width: int = None, height: int = None, cellIDsToAdd : list = [], eventIdsToAdd : list = []):
+        if frameNumber is not None:
+            self["frameNumber"] = frameNumber
+        if xCoord is not None or yCoord is not None or width is not None or height is not None:
+            # Only update the dimensions that are provided
+            dimensions = self["dimensions"]
+            self["dimensions"] = [
+                xCoord if xCoord is not None else dimensions[0],
+                yCoord if yCoord is not None else dimensions[1],
+                width if width is not None else dimensions[2],
+                height if height is not None else dimensions[3]
+            ]
+        if cellIDsToAdd:
+            self["cellIDs"].extend(cellIDsToAdd)
+        if eventIdsToAdd:
+            self["eventIDs"].extend(eventIdsToAdd)
+    
+    def addCell(self, cellID):
+        self["cellIDs"].append(cellID)
+
+    def addEvent(self, eventID):
+        self["eventIDs"].append(eventID)
 
 class Cell(dict):
-    def __init__(cellID : str, cellType : str):
+    def __init__(self, cellID : str, cellType : str):
         super().__init__({
             "cellID" : cellID,
             "cellType" : cellType
