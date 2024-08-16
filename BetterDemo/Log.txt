@@ -4,7 +4,7 @@ Code and documents for the internship
 ## Day 61 8/16/24
 11:00 am - 11:30 
 2:00 pm - 2:30 pm 
-3:25 pm - 4:25 pm
+3:25 pm - 4:30 pm
 
 implementing setting label data. Main work right now in label popup model and view, as well as in label data a little.
 
