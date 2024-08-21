@@ -13,19 +13,52 @@ class LabelData(dict):
         self.update({"Events": dict(Event)})
         self.update({"MetaData": MetaData()})
     
-    def addBoundingBox(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, 
-                          width: int = None, height: int = None, cellIDs : list = [], eventIDs : list = []):
-        #generate bounding box
+    def addNewBoxLabel(self, BoundingBoxes, Cells, Events):
+        for box in BoundingBoxes:
+            self.addNewBoundingBox()
+
+    def addNewBoundingBox(self, box):
         boundingBoxes : dict = self.get("BoundingBoxes")
-        newBox = BoundingBox(boxID, frameNumber, xCoord, yCoord, width, height, cellIDs, eventIDs)
-        boundingBoxes.update({boxID : newBox})
-        pass
-    
-    def addNewCell(self):
+        frames : dict = self.get("Frames")
+        #verify type
+        if type(box) is not BoundingBox:
+            print("Error, cannot add bounding box of type: " + type(box).__name__)
+        else:
+            frameNum : int = box.get("frameNumber")
+            frame : Frame = frames.get(frameNum)
+            #verify frameNum is a valid number
+            if frameNum is not None:
+                try:
+                    frameNum = int(frameNum)
+                except ValueError:
+                    print("Error: frameNumber is not a valid integer")
+                    return
+            #verify frame is set
+            if frame == None:
+                print("Error, couldnt add box: frame number %d was invalid", frameNum)
+            else:
+                #update the frames box list
+                frame.get("")
+                frames.update({frameNum : })
+                #add the bounding box
+                boundingBoxes.update({box.get("boxID") : box})
+            
         
-        pass
-    def addNewEvent(self):
-        pass
+    
+    def addNewCell(self, cell):
+        cells: dict = self.get("Cells")
+        if not isinstance(cell, Cell):
+            print("Error, cannot add cell of type: " + type(cell).__name__)
+        else:
+            cells.update({cell.get("cellID"): cell})
+
+    def addNewEvent(self, event):
+        events: dict = self.get("Events")
+        if not isinstance(event, Event):
+            print("Error, cannot add event of type: " + type(event).__name__)
+        else:
+            events.update({event.get("eventID"): event})
+
     def updateMetaData(self):
         pass
     
@@ -47,12 +80,31 @@ class LabelData(dict):
 class Frame(dict):
     def __init__(self):
         super().__init__({
-            "boxIDs" : []
+            #using dictionaries instead of lists so adding and searching is more efficient. 
+            "boxIDs": {},  # Initialize as an empty dictionary
+            "eventIDs": {}  # Initialize as an empty dictionary
         })
+    
+    def addBoxId(self, boxId):
+        boxIds: dict = self.get("boxIDs")
+        if boxId in boxIds:
+            return
+        boxIds[boxId] = True
+    
+    def addEventId(self, eventId):
+        eventIds: dict = self.get("eventIDs")
+        if eventId in eventIds:
+            return
+        eventIds[eventId] = True
+
 
 
 class BoundingBox(dict):
-    def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : list = [], eventIDs : list = []):
+    def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : list = None, eventIDs : list = None):
+        if cellIDs is None:
+            cellIDs = []
+        if eventIDs is None:
+            eventIDs = []
         #defining fields
         super().__init__({
                 "boxID" : boxID, 

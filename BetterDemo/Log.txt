@@ -1,6 +1,15 @@
 # internship
 Code and documents for the internship
 
+## Day 62 8/20/24
+2:30 pm - 3:20 pm 
+3:50 pm - 4:20pm 
+
+managed to get time to code in between prepping for moving. Working on imporiving labelDatas adding methods so the popup can
+be super simple when adding new boxes, cells, and events. Also changed individual frames so they store id's as dictionaries. this lets us
+use it sort of like a set rather than needing to check a whole list in O(n) the only downside is we need to store a value. For now I'm using
+true since I figure it shouldnt take much memory compared to storing the Id's again or empty strings.
+
 ## Day 61 8/16/24
 11:00 am - 11:30 
 2:00 pm - 2:30 pm 

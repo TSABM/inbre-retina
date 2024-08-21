@@ -20,12 +20,14 @@ class LabelPopupModel():
         #add new events to events list
         for event in newEventsToAdd:
             #make sure all relevent cellIDs are included
+            labelData.addNewEvent()
             pass
         #add new box to boxes
             #make sure frame is updated to include the new box
         #if boxID != None
         if boxID != None:
             #add box
+            labelData.addNewBoundingBox()
             
             pass
         
