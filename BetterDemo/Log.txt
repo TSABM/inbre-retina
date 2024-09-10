@@ -1,6 +1,25 @@
 # internship
 Code and documents for the internship
 
+## Day 66 9/9/2024
+8:42pm - 9:42pm
+
+Just got hired again. Working on figuring out where I left off. 
+Fixed an issue with possible duplicate data getting stored. Bounding boxes now use dicts instead of lists to store Id's
+next problem is the master mem and label data presenter both import each other
+
+## Day 65 8/27/24
+10:15 am - 11:46 am
+
+## Day 64 8/24/2024
+2:45 pm - 3:06 pm 
+3:12 pm - 3:21 pm 
+
+## Day 63 8/22/24
+11:43 am - 11:54 am
+12:13 pm - 12:45 pm
+
+
 ## Day 62 8/20/24
 2:30 pm - 3:20 pm 
 3:50 pm - 4:20pm 

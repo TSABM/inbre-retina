@@ -13,9 +13,13 @@ class LabelData(dict):
         self.update({"Events": dict(Event)})
         self.update({"MetaData": MetaData()})
     
-    def addNewBoxLabel(self, BoundingBoxes, Cells, Events):
-        for box in BoundingBoxes:
-            self.addNewBoundingBox()
+    def addNewData(self, boundingBoxes, cells, events):
+        for box in boundingBoxes:
+            self.addNewBoundingBox(box)
+        for cell in cells:
+            self.addNewCell(cell)
+        for event in events:
+            self.addNewEvent(event)
 
     def addNewBoundingBox(self, box):
         boundingBoxes : dict = self.get("BoundingBoxes")
@@ -37,11 +41,17 @@ class LabelData(dict):
             if frame == None:
                 print("Error, couldnt add box: frame number %d was invalid", frameNum)
             else:
-                #update the frames box list
-                frame.get("")
-                frames.update({frameNum : })
+                #grab id and record box in frame
+                boxID = box.get_boxID()
+                frame.addBoxId(boxID)
+                #grab box event(s) and record in the frame
+                eventIDs = box.get_eventIDs()
+                for event in eventIDs:
+                    frame.addEventId(event)
+                #store updated frame (in case it only updated locally)
+                frames.update({frameNum : frame})
                 #add the bounding box
-                boundingBoxes.update({box.get("boxID") : box})
+                boundingBoxes.update({box.get_boxID() : box})
             
         
     
@@ -87,7 +97,7 @@ class Frame(dict):
     
     def addBoxId(self, boxId):
         boxIds: dict = self.get("boxIDs")
-        if boxId in boxIds:
+        if boxId in boxIds: #if the boxID is already stored just return
             return
         boxIds[boxId] = True
     
@@ -100,11 +110,11 @@ class Frame(dict):
 
 
 class BoundingBox(dict):
-    def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : list = None, eventIDs : list = None):
+    def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):
         if cellIDs is None:
-            cellIDs = []
+            cellIDs = {}
         if eventIDs is None:
-            eventIDs = []
+            eventIDs = {}
         #defining fields
         super().__init__({
                 "boxID" : boxID, 
@@ -120,12 +130,31 @@ class BoundingBox(dict):
             return None
         return QRect(boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3])
     
+    def get_boxID(self):
+        return self.get("boxID")
+
+    def get_frameNumber(self):
+        return self.get("frameNumber")
+    
+    def getDims(self):
+        return self.get("dimensions")
+    
+    def get_cellIDs(self):
+        return self.get("cellIds")
+
+    def get_eventIDs(self):
+        return self.get("eventIDs")
+    
     def updateBox(self, frameNumber : int = None, xCoord: int = None, yCoord: int = None, 
-               width: int = None, height: int = None, cellIDsToAdd : list = [], eventIdsToAdd : list = []):
+               width: int = None, height: int = None, cellIDsToAdd : dict = None, eventIdsToAdd : dict = None):
+        '''
+        update the box info
+        '''
+        #if a frame number is provided update the stored frame number
         if frameNumber is not None:
             self["frameNumber"] = frameNumber
+        #if dimensions are provided update them (but only update the provided dims)
         if xCoord is not None or yCoord is not None or width is not None or height is not None:
-            # Only update the dimensions that are provided
             dimensions = self["dimensions"]
             self["dimensions"] = [
                 xCoord if xCoord is not None else dimensions[0],
@@ -133,16 +162,18 @@ class BoundingBox(dict):
                 width if width is not None else dimensions[2],
                 height if height is not None else dimensions[3]
             ]
-        if cellIDsToAdd:
-            self["cellIDs"].extend(cellIDsToAdd)
+        #if cellIds are provided update the dict. Note this method will technically override duplicate entries
+        if cellIDsToAdd is not None:
+            self["cellIDs"].update(cellIDsToAdd)
+        #if an event is provided update the dict. Note this will technically override events with duplicate event keys
         if eventIdsToAdd:
-            self["eventIDs"].extend(eventIdsToAdd)
+            self["eventIDs"].update(eventIdsToAdd)
     
     def addCell(self, cellID):
-        self["cellIDs"].append(cellID)
+        self["cellIDs"].update({cellID : True})
 
     def addEvent(self, eventID):
-        self["eventIDs"].append(eventID)
+        self["eventIDs"].update({eventID : True})
 
 class Cell(dict):
     def __init__(self, cellID : str, cellType : str):
