@@ -1,14 +1,19 @@
 from Presenter.AbstractPresenter import AbstractPresenter
-from BetterDemo.Model.CanvasModel import CanvasModel
+from Model.CanvasModel import CanvasModel
 from Model.masterMemory import MasterMemory
-from BetterDemo.Model.Labels import Label
+from Model.LabelData import LabelData
 
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.model = CanvasModel("test", 0)
-        self.registerNewSubscriber("canvas", self)
-        self.addSubscriber("labelData")
+        self.model = CanvasModel()
+        MasterMemory.setCanvas(self)
+        #subs? label data? control view?
+    
+    def setFile(self, file):
+        self.model.setfile(file)
+        print("image file set, attempting to refresh")
+        self.model.updatePixmap()
     
     def refresh(self):
         super().refresh()
@@ -18,7 +23,7 @@ class CanvasPresenter(AbstractPresenter):
         return self.model
 
     def getSelectedLabel(self):
-        return self.model.selectedLabel
+        return self.model.selectedItem
     
     #handle interactionMode
     def getInteractionMode(self):
@@ -28,12 +33,19 @@ class CanvasPresenter(AbstractPresenter):
         MasterMemory.setInteractionMode(mode)
 
     #Handle boxes
-    def addBox(self, boxToAdd):
+    def addBox(self, boxToAdd): #FIXME
         #make the box into a label object
-        label = Label(0, boxToAdd, "testType", "testID", "testDescription")
+        #boxID
+        #cellID
+        #frame num
+        #cell type
+        #x, y, width, height
+        #events
+        cell = BoundingBox()
+        #label = Label(0, boxToAdd, "testType", "testID", "testDescription") #FIXME
         #add label to the list of labels
         #add the label to the model
-        frameLabels = self.model.addBox(label)
+        frameLabels = self.model.addBox(key, label)
         MasterMemory.updateFrame(0, frameLabels)
 
 
@@ -43,7 +55,7 @@ class CanvasPresenter(AbstractPresenter):
         return selectedBox 
     
     def deselectBox(self):
-        self.publishToSubs()
+        #self.publishToSubs()
         self.model.deselectBox()
     
     def selectResizeCorner(self, point):
@@ -63,5 +75,13 @@ class CanvasPresenter(AbstractPresenter):
 
     def moveBox(self, point):
         self.model.moveBox(point)
-        self.publishToSubs()
+        MasterMemory.labelData.re
+    
+    def generateNewBoundingBox(self, rect):
+        pass
+
+    def getLargestBoxID(self):
+        labelData : LabelData = MasterMemory.getLabelDataModel()
+        return labelData.getLargestBoxIdVal()
+        
 

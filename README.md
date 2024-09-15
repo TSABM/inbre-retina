@@ -4,17 +4,17 @@ The current anticipated use case is for receiving and performing object identifi
 
 To complete the project these things need to be accomplished
 
-1. The application must open
+1. The application must open (not working during the refactoring)
 2. The application must provide:
-    i. the ability to open images in the following formats
+    i. the ability to open images in the following formats (in progress)
         a. jpg & jpeg
         b. png
-    ii. the ability to open videos in the following formats
+    ii. the ability to open videos in the following formats (in progress)
         a. gif
         b. tif
-    iii. the ability to draw labels on the previous formats
-    iv. the ability to edit and delete previously drawn labels
-3. The application must be able to import label data
-4. The applicaiton must be able to export label data
-5. the application should also consider accepting nd2 and other image formats
+    iii. the ability to draw labels on the previous formats (in progress)
+    iv. the ability to edit and delete previously drawn labels (in progress)
+3. The application must be able to import label data (not started)
+4. The applicaiton must be able to export label data (in progress)
+5. the application should also consider accepting nd2 and other image formats(not started)
 
