@@ -2,22 +2,19 @@ from PyQt5.QtCore import QRect
 
 
 
-class Labels(dict):
+class LabelData(dict):
     '''
     dictionary containing the bounding boxes events and metadata for the file
     '''
     def __init__(self):
-        self.update("BoundingBoxes", BoundingBoxes())
-        self.update("Events", Events())
+        self.update("BoundingBoxes", dict())
+        self.update("Events", dict())
         self.update("MetaData", MetaData())
-
-class BoundingBoxes(dict):
-    def __init__(self):
-        super().__init__()
-
-class Events(dict):
-    def __init__(self):
-        super().__init__()
+    
+    @classmethod
+    def from_dict(cls, data):
+        #FIXME need to extract data and convert to subclasses...
+        pass
 
 class MetaData(dict):
     def __init__(self, fileInfo: str = None, frameTotal: int = None, other: list[str] = None):
@@ -33,7 +30,7 @@ class MetaData(dict):
         })
 
 class BoundingBox(dict):
-    def __init__(self, boxID : int = None, cellID : int = None, frameNumber : int = None, cellType : str = None, xCoord : int = None, yCoord : int = None, width : int = None, height : int = None, events : list = None):
+    def __init__(self, boxID : str = None, cellID : str = None, frameNumber : int = None, cellType : str = None, rectangle : QRect = None, events : list = None):
         #defining fields
         super().__init__({
                 "boxID" : boxID, 
@@ -41,12 +38,12 @@ class BoundingBox(dict):
                 "frameNumber" : frameNumber,
                 "cellType" : cellType,
                 #coordinate and size data for the bounding box
-                "coordsAndDims" : [xCoord, yCoord, width, height],
+                "rectangle" : rectangle,
                 "associatedEvents" : []
                 })
 
 class Event(dict):
-    def __init__(self, eventID : int, eventType : str, boxID : int,):
+    def __init__(self, eventID : str, eventType : str, boxID : str,):
         # defining fields
         super().__init__({
             "eventID": eventID,

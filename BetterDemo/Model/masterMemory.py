@@ -5,14 +5,13 @@ snub
 import Model
 #import Model.Canvases.ImageCanvas
 #import Model.OpenScenes
-from BetterDemo.Model.Labels import Labels
+from Model.LabelData import LabelData
 
 
 class MasterMemory():
     subscribers = dict() #must be a view (or maybe a presenter?) that extends the abstract class
     openVideoPath = None #the full path to a video to be viewed frame by frame
     currentFrameNumber = None #current frame in a video
-    labels = Labels() #frame num is the key, contents will be a list of the labels on that frame
     interactionMode = "Select label"
 
     def __init__(self):

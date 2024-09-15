@@ -22,26 +22,6 @@ class WindowMenuBarModel():
         return frame
         
 
-    def openFolder(self, directoryPath):
-        '''
-        FIXME returns the contents of a selected folder
-        '''
-        #ensure the path isnt empty
-        if(directoryPath == ""):
-            print("Empty path detected, no file/folder selected")
-        else:
-            #open folder
-            files = os.listdir(directoryPath)
-            #now filter out all files of incompatable types
-            filteredFiles = self.filterFileList(files)
-            #now update the filtered files to include the whole path
-            fullPathFiles = []
-            for file in filteredFiles:
-                filePath = directoryPath + "/" + file
-                fullPathFiles.append(filePath)
-            #now return the filtered list
-            return fullPathFiles
-
     def filterFileList(self, fileList):
         '''
         filters a list of files and returns jpeg, jpg, and png files
