@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-#from Model.masterMemory import MasterMemory
+from Model.masterMemory import MasterMemory
 
 class AbstractPresenter(ABC):
     @abstractmethod

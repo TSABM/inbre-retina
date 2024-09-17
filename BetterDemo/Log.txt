@@ -1,6 +1,7 @@
 # internship
 Code and documents for the internship
 
+<<<<<<< HEAD
 ## Day 67 9/14/24
 8:00 pm - 8:30 pm
 moving files to new temp computer and setting up git stuff while my regular laptop is getting fixed.
@@ -24,6 +25,8 @@ next problem is the master mem and label data presenter both import each other
 12:13 pm - 12:45 pm
 
 
+=======
+>>>>>>> parent of a85f780 (updated id storage, now fixing circular import)
 ## Day 62 8/20/24
 2:30 pm - 3:20 pm 
 3:50 pm - 4:20pm 

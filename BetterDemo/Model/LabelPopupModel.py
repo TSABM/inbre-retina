@@ -1,5 +1,5 @@
 from Model.masterMemory import MasterMemory
-from Model.LabelData import LabelData, BoundingBox, Cell, Event
+from Model.LabelData import LabelData
 
 class LabelPopupModel():
     def __init__(self, view):
@@ -9,11 +9,27 @@ class LabelPopupModel():
     def refresh(self):
         pass
 
-    def submitData(self, newBoxesToAdd : list[BoundingBox], newCellsToAdd : list[Cell], newEventsToAdd : list[Event]):
+    def submitData(self, newCellsToAdd, newEventsToAdd, boxID):
         labelData : LabelData = MasterMemory.getLabelDataModel()
-        
-        #convert id's into objects
-        labelData.addNewData(newBoxesToAdd, newEventsToAdd, newCellsToAdd)
+        #add new cells to cells list
+        for cell in newCellsToAdd:
+                #add them to cells list
+            labelData.addNewCell()
+
+            pass
+        #add new events to events list
+        for event in newEventsToAdd:
+            #make sure all relevent cellIDs are included
+            labelData.addNewEvent()
+            pass
+        #add new box to boxes
+            #make sure frame is updated to include the new box
+        #if boxID != None
+        if boxID != None:
+            #add box
+            labelData.addNewBoundingBox()
+            
+            pass
         
         
     
