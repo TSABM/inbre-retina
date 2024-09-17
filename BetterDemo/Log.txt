@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+## Day 67 9/14/24
+8:00 pm - 8:30 pm
+moving files to new temp computer and setting up git stuff while my regular laptop is getting fixed.
+
 ## Day 66 9/9/2024
 8:42pm - 9:42pm
 
