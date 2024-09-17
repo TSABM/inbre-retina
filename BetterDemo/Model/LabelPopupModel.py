@@ -1,5 +1,5 @@
 from Model.masterMemory import MasterMemory
-from Model.LabelData import LabelData, BoundingBox, Cell, Event
+from Model.LabelData import LabelData, Cell, BoundingBox, Event
 
 class LabelPopupModel():
     def __init__(self, view):

@@ -5,7 +5,7 @@ snub
 import Model
 #import Model.Canvases.ImageCanvas
 #import Model.OpenScenes
-from Presenter.LabelDataPresenter import LabelDataPresenter
+#from Presenter.LabelDataPresenter import LabelDataPresenter
 #from Presenter.CanvasPresenter import CanvasPresenter
 
 
@@ -14,7 +14,7 @@ class MasterMemory():
     #openVideoPath = None #the full path to a video to be viewed frame by frame
     #currentFrameNumber = None #current frame in a video
     canvas = None
-    labelData : LabelDataPresenter = None
+    labelData = None
     interactionMode = "Select label"
 
     def __init__(self):
