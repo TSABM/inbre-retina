@@ -2,8 +2,8 @@
 Code and documents for the internship
 
 ## Day 68 9/17/24
-
-12pm-2:38pm
+12pm - 12:15
+1:00pm-2:38pm
 had a git nightmare. A merge I accidentally approved absolutely broke many files. I have now tried to force push an old 
 good commit to see if that works. Some data may have been lost in the process especially on the log here. Doing my best to
 save it. fixed another set of merge issues. Working on some errors.
