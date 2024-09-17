@@ -9,7 +9,7 @@ class WindowMenuBarView(qtw.QMenuBar):
         #main menu
         super().__init__()
         self.presenter = WindowMenuBarPresenter(self)
-        actions = self.generateMainActions()
+        actions = self.__generateMainActions__()
         #submenus
         fileButton = qtw.QMenu("File", self)
         self.addMenu(fileButton)
