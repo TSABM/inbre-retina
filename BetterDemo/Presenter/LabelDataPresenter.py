@@ -14,7 +14,7 @@ class LabelDataPresenter(AbstractPresenter):
 
     def refresh(self):
         super().refresh()
-        print("attempted to refresh label data")
+        #print("attempted to refresh label data")
         canvasPresenter : CanvasPresenter = MasterMemory.getCanvas()
         label = canvasPresenter.getSelectedLabel()
         self.view.setLabelToDisplay(label)
