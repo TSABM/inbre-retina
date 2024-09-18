@@ -1,6 +1,13 @@
 # internship
 Code and documents for the internship
 
+## Day 69 9/18/24
+1:25pm - 1:32pm
+Mostly back to normal. I think I lost a day on the log but other than that most things work. The file now runs and opens a dummy window.
+Next step is to make sure gif image loading is working. Then to ensure label drawing and editing is working again. Once those are done 
+make exporting and importing label data work, then improve image loader so it can play the gif videos and load static images.
+
+
 ## Day 68 9/17/24
 12pm - 12:15
 1:00pm-2:38pm
