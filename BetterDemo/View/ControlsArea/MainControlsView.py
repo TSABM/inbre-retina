@@ -11,10 +11,10 @@ class MainControlsView(qtw.QWidget):
         self.presenter = MainControlsPresenter(self)
         #setting layout
         self.setLayout(qtw.QVBoxLayout())
-        self.__addControls__()
+        self.__addControls()
         print("main controls initalized")
 
-    def __addControls__(self):
+    def __addControls(self):
         #controls = qtw.QWidget()
         #controls.setLayout(qtw.QGridLayout())
 

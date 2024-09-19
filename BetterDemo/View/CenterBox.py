@@ -15,12 +15,7 @@ class CenterBox(qtw.QSplitter):
         self.setOrientation(Qt.Horizontal)
         self.setChildrenCollapsible(False)
 
-        #adding widgets
         self.addWidget(ControlAreaView())
         self.addWidget(MediaAreaView())
-
-        #setting stretch preferences
-        self.setStretchFactor(0,0) #Dont auto stretch first widget
-        self.setStretchFactor(1,1) #Auto stretch 2nd widget to fill space
 
         print("center box initalized")

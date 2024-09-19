@@ -1,12 +1,12 @@
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtGui import QIntValidator
 from Presenter.LabelDataPresenter import LabelDataPresenter
-from Model.LabelData import BoundingBox
+from BetterDemo.Model.Labels import Label
 
 class LabelDataView(qtw.QWidget):
     def __init__(self):
         super().__init__()
-        self.labelToDisplay : BoundingBox = None
+        self.labelToDisplay : Label = None
         self.presenter = LabelDataPresenter(self)
         self.setLayout(qtw.QVBoxLayout())
         self.showing = False

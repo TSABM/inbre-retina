@@ -9,7 +9,7 @@ class WindowMenuBarView(qtw.QMenuBar):
         #main menu
         super().__init__()
         self.presenter = WindowMenuBarPresenter(self)
-        actions = self.__generateMainActions__()
+        actions = self.generateMainActions()
         #submenus
         fileButton = qtw.QMenu("File", self)
         self.addMenu(fileButton)
@@ -27,27 +27,24 @@ class WindowMenuBarView(qtw.QMenuBar):
     def openImage(self):
         print("opening image")
         try:
-            #open file dialog
             fileDialog = qtw.QFileDialog(self)
-            
         except Exception as e:
             print(f"exception raised: {e}")
-            return
-        
-        
+        #fileDialog.setFileMode(qtw.QFileDialog.AnyFile)
+        #fileDialog.setFilter("Images (*.png *.jpg *jpeg)")
         imagePath = fileDialog.getOpenFileName()[0]
         print(imagePath)
-        #open image
         self.presenter.openImage(imagePath)
+        #FIXME need to figure out how to send the image path data to somewhere to be rendered...
+        #Send to image area menu?
+        #from image area menu send to canvas as new layer/base layer?
 
-    '''
     def openFolder(self):
         #Open file dialog
         fileDialog = qtw.QFileDialog(self)
         directoryPath = fileDialog.getExistingDirectory()
         #Send the directory path off for file list extraction
         self.presenter.getFilteredFolderContents(directoryPath)
-    '''
 
     def importLabels(self):
         pass
@@ -58,7 +55,7 @@ class WindowMenuBarView(qtw.QMenuBar):
     def closeApplication(self):
         self.presenter.closeApplication()
 
-    def __generateMainActions__(self):
+    def generateMainActions(self):
         actions = []
 
         newProject = qtw.QAction("New...", self)
@@ -69,6 +66,9 @@ class WindowMenuBarView(qtw.QMenuBar):
         openImage.triggered.connect(self.openImage)
         actions.append(openImage)
         
+        openFolder = qtw.QAction("Open folder", self)
+        openFolder.triggered.connect(self.openFolder)
+        actions.append(openFolder)
 
         importLabels = qtw.QAction("Import labels", self)
         importLabels.triggered.connect(self.importLabels)

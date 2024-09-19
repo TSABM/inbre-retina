@@ -3,7 +3,6 @@ import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
 from Presenter.CanvasPresenter import CanvasPresenter
 from PyQt5.QtGui import QPixmap, QPainter, QColor
-from View.ImageArea.LabelPopup import LabelPopup
 
 class CanvasView(qtw.QGraphicsView):
     '''
@@ -32,7 +31,7 @@ class CanvasView(qtw.QGraphicsView):
     
     def setCanvas(self):
         canvas = self.presenter.getCanvas()
-        self.setScene(canvas.getScene())
+        self.setScene(canvas)
 
     def mousePressEvent(self, event):
         #check if the event is a left click
@@ -84,24 +83,8 @@ class CanvasView(qtw.QGraphicsView):
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()
                 rect = QRect(self.initialPoint, endPoint).normalized()
-                #self.drawBox(rect)
-                self.openPopUp(rect)
-                self.point = QPoint() #resetting selected point data for next draw or select
+                self.drawBox(rect)
+                self.point = QPoint() #not sure the need for this
     
-    def openPopUp(self, rect):
-        idNum = self.presenter.getLargestBoxID() + 1
-        boxID = "box_" + str(idNum)
-        popup = LabelPopup(boxID, rect)
-        popup.setWindowTitle("Enter label info")
-        popup.exec()
-
     def drawBox(self, rect):
-        boundingBox = self.generateNewBoundingBox(rect)
-        self.presenter.addBox(boundingBox)
-    
-    def generateNewBoundingBox(self):
-        #popup to get 
-        #new bounding box
-        boundingBox = self.presenter.generateNewBoundingBox()
-        #connect to label data view
-        return None
+        self.presenter.addBox(rect)
