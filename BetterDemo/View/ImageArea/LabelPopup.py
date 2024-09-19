@@ -5,7 +5,7 @@ from Presenter.LabelPopupPresenter import LabelPopupPresenter
 class LabelPopup(qtw.QDialog):
     '''
     The popup that appears when a new bounding box is being drawn on the image. If the user fills out the fields a valid label data item can
-    be created and recorded.
+    be created.
     '''
     def __init__(self, boxID, rectangle : QRect):
         super().__init__()
@@ -16,16 +16,13 @@ class LabelPopup(qtw.QDialog):
 
         self.setLayout(qtw.QVBoxLayout())
 
-        #already existing cells and events in the files label data. Needed to ensure old data does not get overwritten by accident
-        self.existingCells : list= self.presenter.getCellIDs()
-        self.existingEvents : list= self.presenter.getEventIDs()
+        self.existingCells : list= self.presenter.getCellIDList()
+        self.existingEvents : list= self.presenter.getEventIDList()
 
-        #indicates new cell to add for the UI, and has a list for new cells (never before recorded on file) and selected cells (seen here but not for the first time)
         self.cellToAddToList = None
         self.newCells = set()
         self.selectedCells = set()
 
-        #follows a similar pattern to cells above
         self.eventToAddToList = None
         self.newEvents = set()
         self.selectedEvents = set()
@@ -79,7 +76,7 @@ class LabelPopup(qtw.QDialog):
         self.newEventTypeField.textChanged.connect() #FIXME?
         
         #SUBMIT BUTTON
-        #once all data set user presses this to finalize the box label data
+        #once all data set user presses this to finalize the cell and box
         submitButton = qtw.QPushButton()
         submitButton.setText("Submit label data")
         submitButton.pressed.connect(self.submitData)
@@ -149,11 +146,10 @@ class LabelPopup(qtw.QDialog):
         boxID = self.boxIDField.text()
         boxDimensions = self.rectangle.getRect()
         #cellIDs
-        newCellIdsToAdd = self.newCells
-        otherCellIDs = self.selectedCells
+        newCellsToAdd = self.newCells
+        cellIDs = self.selectedCells
         #eventIDs
         newEventsToAdd = self.newEvents
-        otherEventIDs = self.selectedEvents
-        
-        self.presenter.submitData(boxID, boxDimensions, newCellIdsToAdd, otherCellIDs, newEventsToAdd, otherEventIDs)
+        eventIDs = self.selectedEvents
+                
         pass

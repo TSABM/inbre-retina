@@ -1,6 +1,5 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.LabelPopupModel import LabelPopupModel
-from Model.LabelData import LabelData, Cell, BoundingBox, Event
 
 class LabelPopupPresenter(AbstractPresenter):
     def __init__(self, view):
@@ -11,23 +10,7 @@ class LabelPopupPresenter(AbstractPresenter):
     def refresh(self):
         pass
 
-    def submitData(self, boxID, boxDimensions, newCellIdsToAdd, otherCellIDs, newEventsToAdd, otherEventIDs):
-        #convert data to appropriate data types stored in iterable
-        boundingBoxes = []
-        cellsToAdd = []
-        eventsToAdd = []
-
-        for cell in newCellIdsToAdd:
-            cellsToAdd.append(Cell(newCellIdsToAdd))
-
-        x = boxDimensions[0]
-        y = boxDimensions[1]
-        width = boxDimensions[2]
-        height = boxDimensions[3]
-        frameNumber = 0 #FIXME frame number not set properly
-        BoundingBox(boxID, frameNumber, x, y, width, height, cellIDs, eventIDs)
-
-        #submit the appropriate data
+    def submitData(self, data):
         self.model.submitData()
     
 
