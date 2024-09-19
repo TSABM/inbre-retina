@@ -1,30 +1,37 @@
 # internship
 Code and documents for the internship
 
-## Day 67 9/10/24
-1:05 pm - 2:09 pm
 
-fixed issues leading to inevitable crashing. Also stopped the circular import. Need to work on making v1 work. first frame opens as
-intended but the vid freezes and the program crashes. Fixed issues with clicking no box causing a crash, working on re-enabling drawing boxes.
-## Day 69 9/18/24
+
+## Day 70 9/18/24
 1:25pm - 1:32pm
+6:10pm - 
 Mostly back to normal. I think I lost a day on the log but other than that most things work. The file now runs and opens a dummy window.
 Next step is to make sure gif image loading is working. Then to ensure label drawing and editing is working again. Once those are done 
 make exporting and importing label data work, then improve image loader so it can play the gif videos and load static images.
 
+Fixed merge issues again this time merging the files from my primary work computer with the files from my backups. This has likely
+resulted in some broken code as the branch I worked on the last couple days did not have the most up to date files. I also need to 
+compare the log to adjust things.
 
-## Day 68 9/17/24
+
+## Day 69 9/17/24
 12pm - 12:15
 1:00pm-2:38pm
 had a git nightmare. A merge I accidentally approved absolutely broke many files. I have now tried to force push an old 
 good commit to see if that works. Some data may have been lost in the process especially on the log here. Doing my best to
 save it. fixed another set of merge issues. Working on some errors.
 
-## Day 67 9/14/24
+## Day 68 9/14/24
 8:00 pm - 8:30 pm
 
 moving files to new temp computer and setting up git stuff while my regular laptop is getting fixed.
 
+## Day 67 9/10/24
+1:05 pm - 2:09 pm
+
+fixed issues leading to inevitable crashing. Also stopped the circular import. Need to work on making v1 work. first frame opens as
+intended but the vid freezes and the program crashes. Fixed issues with clicking no box causing a crash, working on re-enabling drawing boxes.
 
 ## Day 66 9/9/2024
 8:42pm - 9:42pm
