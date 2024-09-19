@@ -1,8 +1,5 @@
-'''
 
-'''
-
-def LabelImporter():
+class LabelImporter():
     def __init__():
         pass
     

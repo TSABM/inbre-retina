@@ -5,14 +5,16 @@ snub
 import Model
 #import Model.Canvases.ImageCanvas
 #import Model.OpenScenes
-from BetterDemo.Model.Labels import Labels
+#from Presenter.LabelDataPresenter import LabelDataPresenter
+#from Presenter.CanvasPresenter import CanvasPresenter
 
 
 class MasterMemory():
     subscribers = dict() #must be a view (or maybe a presenter?) that extends the abstract class
-    openVideoPath = None #the full path to a video to be viewed frame by frame
-    currentFrameNumber = None #current frame in a video
-    labels = Labels() #frame num is the key, contents will be a list of the labels on that frame
+    #openVideoPath = None #the full path to a video to be viewed frame by frame
+    #currentFrameNumber = None #current frame in a video
+    canvas = None
+    labelData = None
     interactionMode = "Select label"
 
     def __init__(self):
@@ -20,7 +22,14 @@ class MasterMemory():
         #self.addSubscriber("canvas", Model.Canvas.Canvas("test2", 0))
         pass
     
-    #interact with interaction mode
+    @classmethod
+    def getCanvas(cls):
+        return cls.canvas
+    
+    @classmethod
+    def getInteractionMode(cls):
+        return cls.interactionMode
+
     @classmethod
     def setInteractionMode(cls, mode : str):
         '''
@@ -29,10 +38,15 @@ class MasterMemory():
         cls.interactionMode = mode
     
     @classmethod
-    def getInteractionMode(cls):
-        return cls.interactionMode
+    def setCanvas(cls, canvas):
+        cls.canvas = canvas
+    
+    @classmethod
+    def setLabels(cls, labels):
+        cls.labelData = labels
 
     #deal with subscribers
+    '''
     @classmethod
     def addSubscriber(cls, key, model):
         cls.subscribers[key] = model
@@ -50,7 +64,9 @@ class MasterMemory():
     def unsubscribe():
         pass
 
+    '''
     #deal with the open file
+    '''
     @classmethod
     def setOpenFile(cls, openFile):
         cls.openNd2Files = openFile
@@ -58,11 +74,13 @@ class MasterMemory():
     @classmethod
     def getOpenFiles(cls):
         return cls.openNd2Files
+    '''
     
     #deal with labels
     @classmethod
     def updateFrame(cls, frameNumber : int, frame : list):
         cls.frameLabels.update({frameNumber : frame})
+    
 
     @classmethod
     def getLabel(cls, key):
@@ -85,11 +103,13 @@ class MasterMemory():
         pass
 
     @classmethod
-    def getAllLabelsForAFrame(cls, frame : int):
+    def getAllBoxIDsForAFrame(cls, frame : int):
         '''
         get all the labels for a specific frame of the image
         '''
-        pass
+        frames : dict = cls.labelData.getModel().get("Frames")
+        includedBoxes = frames.get(frame)
+        return includedBoxes
     
     @classmethod
     def deleteAllLabelsForAFrame(cls, frame : int):
@@ -97,10 +117,14 @@ class MasterMemory():
         delete all the labels for a specific frame of the image
         '''
         pass
+    
+    @classmethod
+    def getLabelDataPresenter(cls):
+        return cls.labelData
 
     @classmethod
-    def getAllLabels(cls):
-        pass
+    def getLabelDataModel(cls):
+        return cls.labelData.getModel()
 
     @classmethod
     def deleteAllLabels(cls):

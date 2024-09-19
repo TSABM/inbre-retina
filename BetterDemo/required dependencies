@@ -1,8 +1,6 @@
 nd2
 
 pyqt5 
-    Qtwidgets
-    QtGUI
 
-xarray
+numpy
 

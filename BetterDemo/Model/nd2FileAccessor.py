@@ -13,9 +13,7 @@ class ND2FileAccessor():
             self.componentsPerChannel = myfile.components_per_channel
 
     def grabFrameByIndex(self, index):
-        '''
-        returns the data for a frame of an nd2 files video as a numpy array
-        '''
+        #returns the data for a frame of an nd2 files video as a numpy array
         with nd2.ND2File(self.getFilePath()) as nd2_file:
             frame = nd2_file.read_frame(index)
             convertedFrame = self.__convertFrameToQImage(frame)
