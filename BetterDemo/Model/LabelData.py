@@ -23,37 +23,34 @@ class LabelData(dict):
         for event in events:
             self.addNewEvent(event)
 
-    def addNewBoundingBox(self, box):
+    def addNewBoundingBox(self, box : "BoundingBox"):
         boundingBoxes : dict = self.get("BoundingBoxes")
         frames : dict = self.get("Frames")
         #verify type
-        if type(box) is not BoundingBox:
-            print("Error, cannot add bounding box of type: " + type(box).__name__)
+        frameNum : int = box.get("frameNumber")
+        frame : Frame = frames.get(frameNum)
+        #verify frameNum is a valid number
+        if frameNum is not None:
+            try:
+                frameNum = int(frameNum)
+            except ValueError:
+                print("Error: frameNumber is not a valid integer")
+                return
+        #verify frame is set
+        if frame == None:
+            print("Error, couldnt add box: frame number %d was invalid", frameNum)
         else:
-            frameNum : int = box.get("frameNumber")
-            frame : Frame = frames.get(frameNum)
-            #verify frameNum is a valid number
-            if frameNum is not None:
-                try:
-                    frameNum = int(frameNum)
-                except ValueError:
-                    print("Error: frameNumber is not a valid integer")
-                    return
-            #verify frame is set
-            if frame == None:
-                print("Error, couldnt add box: frame number %d was invalid", frameNum)
-            else:
-                #grab id and record box in frame
-                boxID = box.get_boxID()
-                frame.addBoxId(boxID)
-                #grab box event(s) and record in the frame
-                eventIDs = box.get_eventIDs()
-                for event in eventIDs:
-                    frame.addEventId(event)
-                #store updated frame (in case it only updated locally)
-                frames.update({frameNum : frame})
-                #add the bounding box
-                boundingBoxes.update({box.get_boxID() : box})
+            #grab id and record box in frame
+            boxID = box.get_boxID()
+            frame.addBoxId(boxID)
+            #grab box event(s) and record in the frame
+            eventIDs = box.get_eventIDs()
+            for event in eventIDs:
+                frame.addEventId(event)
+            #store updated frame (in case it only updated locally)
+            frames.update({frameNum : frame})
+            #add the bounding box
+            boundingBoxes.update({box.get_boxID() : box})
 
     def addNewCellType(self, type : str):
         '''
@@ -69,19 +66,13 @@ class LabelData(dict):
         eventTypes : dict = self.get("EventTypes")
         eventTypes.update({type : True})
 
-    def addNewCell(self, cell):
+    def addNewCell(self, cell : "Cell"):
         cells: dict = self.get("Cells")
-        if not isinstance(cell, Cell):
-            print("Error, cannot add cell of type: " + type(cell).__name__)
-        else:
-            cells.update({cell.get("cellID"): cell})
+        cells.update({cell.get("cellID"): cell})
 
-    def addNewEvent(self, event):
+    def addNewEvent(self, event : "Event"):
         events: dict = self.get("Events")
-        if not isinstance(event, Event):
-            print("Error, cannot add event of type: " + type(event).__name__)
-        else:
-            events.update({event.get("eventID"): event})
+        events.update({event.get("eventID"): event})
 
     def updateMetaData(self):
         print("UPDATEMETADATA UNIMPLEMENTED")

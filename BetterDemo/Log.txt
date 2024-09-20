@@ -4,7 +4,8 @@ Code and documents for the internship
 Day 72 9/20
 11:48 - 12:17 pm
 12:28 pm - 12:42pm
-1:37 pm - 
+1:37 pm - 3:46 pm
+4:34 pm - 5:12 pm 
 working on label drawing. The introduction of the label popup has caused most of the recent issues. It needs access to label data both to read
 and write. Since I had to refactor how label data is stored its causing problems.
 Fixing many small problems. Just added type dicts so we can access what cell types and event types are present in the file.

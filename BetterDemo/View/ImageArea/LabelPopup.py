@@ -41,9 +41,10 @@ class LabelPopup(qtw.QDialog):
         self.layout.addWidget(self.boxIDField)
 
         #ask for cell(s)
-        self.cellsLabel = qtw.QLabel("Add cell(s): ")
+        self.cellsLabel = qtw.QLabel("Cell(s): ")
         self.cellsDropdown = qtw.QComboBox()
         self.cellsDropdown.addItems(self.existingCells)
+        self.cellsDropdown.addItem("-")
         self.cellsDropdown.addItem("Add new cell")
         self.cellsDropdown.currentTextChanged.connect(self.cellSelected)
         self.layout.addWidget(self.cellsLabel)
@@ -53,22 +54,28 @@ class LabelPopup(qtw.QDialog):
         self.newCellIDLabel = qtw.QLabel("New cell ID: ")
         self.newCellIDField = qtw.QLineEdit()
         self.newCellIDField.setReadOnly(True)
+        self.layout.addWidget(self.newCellIDLabel)
+        self.layout.addWidget(self.newCellIDField)
         
         self.newCellTypeLabel = qtw.QLabel("New cell type: ")
         self.newCellTypeField = qtw.QLineEdit()
-        #self.newCellTypeField.textChanged.connect() #FIXME?
+        self.newCellTypeField.textChanged.connect(self.stageCustomCellName) #FIXME?
+        self.layout.addWidget(self.newCellTypeLabel)
+        self.layout.addWidget(self.newCellTypeField)
 
         self.hideNewCellFields()
 
-        #list the added cells
-        self.cellList = qtw.QListWidget()
-        self.layout.addWidget(self.cellList)
-
         #add cell button
-        self.addCellButton = qtw.QPushButton()
-        self.addCellButton.setText("Add cell")
-        self.addCellButton.pressed.connect(self.addCellToList)
-        self.layout.addWidget(self.addCellButton)
+        self.includeCellButton = qtw.QPushButton()
+        self.includeCellButton.setText("Include cell")
+        self.includeCellButton.pressed.connect(self.addCellToList)
+        self.layout.addWidget(self.includeCellButton)
+
+        #list the included cells
+        self.cellListLabel = qtw.QLabel("Included cells:")
+        self.cellList = qtw.QListWidget()
+        self.layout.addWidget(self.cellListLabel)
+        self.layout.addWidget(self.cellList)
 
         #ask for events(s)
         self.eventsLabel = qtw.QLabel("Add events(s): ")
@@ -144,7 +151,10 @@ class LabelPopup(qtw.QDialog):
         self.newCellTypeField.show()
 
     def cellSelected(self, mode):
-        if mode == "Add new cell":
+        if mode == "-":
+            #do nothing
+            self.cellToAddToList = None
+        elif mode == "Add new cell":
             #show new cell fields
             self.showNewCellFields()
             self.cellToAddToList = None
@@ -152,6 +162,8 @@ class LabelPopup(qtw.QDialog):
             self.hideNewCellFields()
             self.cellToAddToList = mode
 
+    def stageCustomCellName(self, customName):
+        self.cellToAddToList = customName
 
     def eventSelected(self):
         pass
@@ -167,5 +179,7 @@ class LabelPopup(qtw.QDialog):
         #eventIDs
         newEventsToAdd = self.newEvents
         eventIDs = self.selectedEvents
+
+        self.presenter.submitData()
                 
         pass
