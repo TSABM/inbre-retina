@@ -10,7 +10,9 @@ class LabelData(dict):
         self.update({"Frames" : dict()})
         self.update({"BoundingBoxes": dict()})
         self.update({"Cells": dict()})
+        self.update({"CellTypes" : dict()})
         self.update({"Events": dict()})
+        self.update({"EventTypes" : dict()})
         self.update({"MetaData": MetaData()})
     
     def addNewData(self, boundingBoxes, cells, events):
@@ -52,9 +54,21 @@ class LabelData(dict):
                 frames.update({frameNum : frame})
                 #add the bounding box
                 boundingBoxes.update({box.get_boxID() : box})
-            
-        
+
+    def addNewCellType(self, type : str):
+        '''
+        adds new cell type to the dict of existing cell types. the key is the Type (which is a string), a boolean "True" is stored as the value
+        '''
+        cellTypes : dict = self.get("CellTypes")
+        cellTypes.update({type : True})
     
+    def addNewEventType(self, type : str):
+        '''
+        adds new event type to dict. The key is the type (a string) and the value is a boolean
+        '''
+        eventTypes : dict = self.get("EventTypes")
+        eventTypes.update({type : True})
+
     def addNewCell(self, cell):
         cells: dict = self.get("Cells")
         if not isinstance(cell, Cell):
@@ -70,8 +84,41 @@ class LabelData(dict):
             events.update({event.get("eventID"): event})
 
     def updateMetaData(self):
+        print("UPDATEMETADATA UNIMPLEMENTED")
         pass
     
+    def getFrames(self):
+        '''
+        returns a dictionary of frame objects (also dictionaries) where the key is the frame number and the val is the frame
+        '''
+        return self.get("Frames")
+
+    def getBoundingBoxes(self):
+        '''
+        returns a dictionary of bounding box objects (also dictionaries) where the key is the boxID and the val is the box itself
+        '''
+        return self.get("BoundingBoxes")
+
+    def getCells(self):
+        '''
+        returns a dictionary of Cell objects (also dictionaries) where the key is the cellID and the val is the cell
+        '''
+        return self.get("Cells")
+
+    def getCellTypes(self):
+        return self.get("CellTypes")
+
+    def getEvents(self):
+        '''
+        returns a dictionary of Event objects (also dictionaries) where the key is the eventID and the val is the event
+        '''
+        return self.get("Events")
+    
+    def getEventTypes(self):
+        return self.get("EventTypes")
+
+    def getMetaData(self):
+        return self.get("MetaData")
 
     def getLargestBoxIdVal(self):
         largestValue = 0
@@ -106,8 +153,6 @@ class Frame(dict):
         if eventId in eventIds:
             return
         eventIds[eventId] = True
-
-
 
 class BoundingBox(dict):
     def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):

@@ -33,10 +33,40 @@ class LabelPopupModel():
         
         
     
-    def getCellIDList(self):
-        #FIXME
-        return[]
+    def getCellIDs(self):
+        '''
+        requests the cells dictionary from label data and then returns the keys for that dict as a set
+        '''
+        labelData : LabelData = MasterMemory.getLabelDataModel()
+        cellsDict : dict = labelData.getCells()
+        keys = set(cellsDict.keys())
+
+        return keys
     
-    def getEventIDList(self):
-        #FIXME
-        return []
+    def getCellTypes(self):
+        '''
+        requests the celltype dict from label data and then return the keys as a set
+        '''
+        labelData : LabelData = MasterMemory.getLabelDataModel()
+        typesDict : dict = labelData.getCellTypes()
+        keys = set(typesDict.keys())
+        return keys
+    
+    def getEventTypes(self):
+        '''
+        requests the event type dict from label data and then return the keys as a set
+        '''
+        labelData : LabelData = MasterMemory.getLabelDataModel()
+        typesDict : dict = labelData.getEventTypes()
+        keys = set(typesDict.keys())
+        return keys
+    
+    def getEventIDs(self):
+        '''
+        requests the events dictionary from label data and then returns the keys for that dict as a set
+        '''
+        labelData : LabelData = MasterMemory.getLabelDataModel()
+        eventsDict : dict = labelData.getEvents()
+        keys = set(eventsDict.keys())
+
+        return keys

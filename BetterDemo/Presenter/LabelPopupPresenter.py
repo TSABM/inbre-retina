@@ -18,16 +18,23 @@ class LabelPopupPresenter(AbstractPresenter):
     #self.model isnt the way though, either access label data or go through master mem (probably the latter.)
     def getCellIDs(self):
         # Retrieve the list of cell IDs
-        return list(self.model.data["Cells"].keys())
+        return self.model.getCellIDs()
     
     def getEventIDs(self):
         # Retrieve the list of event IDs
-        return list(self.model.data["Events"].keys())
+        return self.model.getEventIDs()
 
+    '''
     def getBoundingBoxes(self):
         # Retrieve the bounding boxes
-        return self.model.data["BoundingBoxes"]
+        return self.model.get
+    '''
+    def getCellTypes(self):
+        return self.model.getCellTypes()
     
+    def getEventTypes(self):
+        return self.model.getEventTypes()
+
     def getFrames(self):
         # Retrieve the frames
         return self.model.data["Frames"]

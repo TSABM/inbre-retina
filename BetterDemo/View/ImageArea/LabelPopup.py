@@ -16,9 +16,13 @@ class LabelPopup(qtw.QDialog):
 
         self.setLayout(qtw.QVBoxLayout())
 
-        self.existingCells : list= self.presenter.getCellIDList()
-        self.existingEvents : list= self.presenter.getEventIDList()
+        self.existingCells : set= self.presenter.getCellIDs()
+        self.existingEvents : set= self.presenter.getEventIDs()
+        self.existingCellTypes : set = self.presenter.getCellTypes()
+        self.existingEventTypes : set = self.presenter.getEventTypes()
 
+        self.newCellType : str = ""
+        self.newEventType : str = ""
         self.cellToAddToList = None
         self.newCells = set()
         self.selectedCells = set()
@@ -47,7 +51,7 @@ class LabelPopup(qtw.QDialog):
         
         self.newCellTypeLabel = qtw.QLabel("New cell type: ")
         self.newCellTypeField = qtw.QLineEdit()
-        self.newCellTypeField.textChanged.connect() #FIXME?
+        #self.newCellTypeField.textChanged.connect() #FIXME?
 
         self.hideNewCellFields()
 
@@ -73,7 +77,7 @@ class LabelPopup(qtw.QDialog):
         
         self.newEventTypeLabel = qtw.QLabel("New event type: ")
         self.newEventTypeField = qtw.QLineEdit()
-        self.newEventTypeField.textChanged.connect() #FIXME?
+        #self.newEventTypeField.textChanged.connect() #FIXME?
         
         #SUBMIT BUTTON
         #once all data set user presses this to finalize the cell and box
