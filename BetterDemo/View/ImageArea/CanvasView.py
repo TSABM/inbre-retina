@@ -89,8 +89,10 @@ class CanvasView(qtw.QGraphicsView):
                 self.point = QPoint() #resetting selected point data for next draw or select
     
     def openPopUp(self, rect):
+        #creating new box id
         idNum = self.presenter.getLargestBoxID() + 1
         boxID = "box_" + str(idNum)
+        #opening popup
         popup = LabelPopup(boxID, rect)
         popup.setWindowTitle("Enter label info")
         popup.exec()

@@ -9,6 +9,7 @@ working on label drawing. The introduction of the label popup has caused most of
 and write. Since I had to refactor how label data is stored its causing problems.
 Fixing many small problems. Just added type dicts so we can access what cell types and event types are present in the file.
 label popup now appears though nothing renders in it yet.
+Found the issue with rendering in, I forgot to add all widgets to the layout. Fixing now.
 
 Day 71 9/19
 11:00 pm - 11:30 pm

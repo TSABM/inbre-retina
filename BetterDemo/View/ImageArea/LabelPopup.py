@@ -14,7 +14,8 @@ class LabelPopup(qtw.QDialog):
 
         self.rectangle : QRect = rectangle
 
-        self.setLayout(qtw.QVBoxLayout())
+        self.layout : qtw.QLayout = qtw.QVBoxLayout()
+        self.setLayout(self.layout)
 
         self.existingCells : set= self.presenter.getCellIDs()
         self.existingEvents : set= self.presenter.getEventIDs()
@@ -36,6 +37,8 @@ class LabelPopup(qtw.QDialog):
         self.boxIDField = qtw.QLineEdit()
         self.boxIDField.setText(boxID)
         self.boxIDField.setReadOnly(True)
+        self.layout.addWidget(self.boxIDLabel)
+        self.layout.addWidget(self.boxIDField)
 
         #ask for cell(s)
         self.cellsLabel = qtw.QLabel("Add cell(s): ")
@@ -43,6 +46,8 @@ class LabelPopup(qtw.QDialog):
         self.cellsDropdown.addItems(self.existingCells)
         self.cellsDropdown.addItem("Add new cell")
         self.cellsDropdown.currentTextChanged.connect(self.cellSelected)
+        self.layout.addWidget(self.cellsLabel)
+        self.layout.addWidget(self.cellsDropdown)
             
         #Defining a new cell fields
         self.newCellIDLabel = qtw.QLabel("New cell ID: ")
@@ -57,11 +62,13 @@ class LabelPopup(qtw.QDialog):
 
         #list the added cells
         self.cellList = qtw.QListWidget()
+        self.layout.addWidget(self.cellList)
 
         #add cell button
         self.addCellButton = qtw.QPushButton()
         self.addCellButton.setText("Add cell")
         self.addCellButton.pressed.connect(self.addCellToList)
+        self.layout.addWidget(self.addCellButton)
 
         #ask for events(s)
         self.eventsLabel = qtw.QLabel("Add events(s): ")
@@ -69,11 +76,15 @@ class LabelPopup(qtw.QDialog):
         self.eventsDropdown.addItems(self.existingEvents)
         self.eventsDropdown.addItem("Add new event")
         self.eventsDropdown.currentTextChanged.connect(self.eventSelected)
+        self.layout.addWidget(self.eventsLabel)
+        self.layout.addWidget(self.eventsDropdown)
             
         #Defining new event fields
         self.newEventIDLabel = qtw.QLabel("New event ID: ")
         self.newEventIDField = qtw.QLineEdit()
         self.newEventIDField.setReadOnly(True)
+        self.layout.addWidget(self.newEventIDLabel)
+        self.layout.addWidget(self.newEventIDField)
         
         self.newEventTypeLabel = qtw.QLabel("New event type: ")
         self.newEventTypeField = qtw.QLineEdit()
@@ -81,9 +92,10 @@ class LabelPopup(qtw.QDialog):
         
         #SUBMIT BUTTON
         #once all data set user presses this to finalize the cell and box
-        submitButton = qtw.QPushButton()
-        submitButton.setText("Submit label data")
-        submitButton.pressed.connect(self.submitData)
+        self.submitButton = qtw.QPushButton()
+        self.submitButton.setText("Submit label data")
+        self.submitButton.pressed.connect(self.submitData)
+        self.layout.addWidget(self.submitButton)
     
     def generateCellID(self):
         #quickly scan the existing cells and grab the largest number, add 1 then return a new id
