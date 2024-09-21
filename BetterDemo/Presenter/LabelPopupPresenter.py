@@ -11,7 +11,7 @@ class LabelPopupPresenter(AbstractPresenter):
         pass
 
     def submitData(self, data):
-        self.model.submitData()
+        self.model.submitData(boundingBoxes, cellsToAdd, eventsToAdd)
     
 
     #existing data needs to be called up here so label popup can know what data is already existing and assotiated with each displayed item? 

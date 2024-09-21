@@ -180,6 +180,6 @@ class LabelPopup(qtw.QDialog):
         newEventsToAdd = self.newEvents
         eventIDs = self.selectedEvents
 
-        self.presenter.submitData()
+        self.presenter.submitData(boxID, boxDimensions, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs)
                 
         pass
