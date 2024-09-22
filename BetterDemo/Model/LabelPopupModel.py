@@ -9,10 +9,24 @@ class LabelPopupModel():
     def refresh(self):
         pass
 
-    def submitData(self, boundingBoxes : list, newCellsToAdd : list, newEventsToAdd :list):
+    def submitData(self, boxID, frameNumber, boxDimensions, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs):
+        #ok so I need to 1) update existing cells so they know they are assotiated with a new bounding box as well as update
+        #the given frame because this cell will need to be assotiated with it
+        #then I also need to turn the new cells into Cell objects and store them in Label Data (also assotiating them with the frame and such)
+        #the same idea needs to also be done with events
         labelData : LabelData = MasterMemory.getLabelDataModel()
+
+        boundingBoxes = [] 
+        box = BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], boxDimensions[2], boxDimensions[3], cellIDs, eventIDs)
+
+        cells = []
+        for cell in newCellsToAdd:
+            cells.append(Cell(cellIDs))
+
+        events = []
+
         #add new cells to cells list
-        labelData.addNewData(boundingBoxes, newCellsToAdd, newEventsToAdd)
+        labelData.addNewData(boundingBoxes, cells, events)
         
         
     
@@ -53,3 +67,5 @@ class LabelPopupModel():
         keys = set(eventsDict.keys())
 
         return keys
+    
+        

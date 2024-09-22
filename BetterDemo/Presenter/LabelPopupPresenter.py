@@ -1,5 +1,6 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.LabelPopupModel import LabelPopupModel
+from Model.masterMemory import MasterMemory
 
 class LabelPopupPresenter(AbstractPresenter):
     def __init__(self, view):
@@ -10,8 +11,9 @@ class LabelPopupPresenter(AbstractPresenter):
     def refresh(self):
         pass
 
-    def submitData(self, data):
-        self.model.submitData(boundingBoxes, cellsToAdd, eventsToAdd)
+    def submitData(self, boxID, boxDimensions, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs):
+        
+        self.model.submitData(boxID, boxDimensions, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs)
     
 
     #existing data needs to be called up here so label popup can know what data is already existing and assotiated with each displayed item? 
@@ -35,9 +37,9 @@ class LabelPopupPresenter(AbstractPresenter):
     def getEventTypes(self):
         return self.model.getEventTypes()
 
-    def getFrames(self):
+    def getFrameNumber(self):
         # Retrieve the frames
-        return self.model.data["Frames"]
+        return MasterMemory.getCurrentFrameNumber()
 
     def getMetaData(self):
         # Retrieve the metadata

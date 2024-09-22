@@ -16,6 +16,7 @@ class MasterMemory():
     canvas = None
     labelData = None
     interactionMode = "Select label"
+    currentFrameNumber : int = 0
 
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
@@ -29,6 +30,10 @@ class MasterMemory():
     @classmethod
     def getInteractionMode(cls):
         return cls.interactionMode
+
+    @classmethod
+    def getCurrentFrameNumber(cls):
+        return cls.currentFrameNumber
 
     @classmethod
     def setInteractionMode(cls, mode : str):

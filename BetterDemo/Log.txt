@@ -1,6 +1,15 @@
 # internship
 Code and documents for the internship
 
+Day 73 9/21
+12:05 pm - 2:03 pm
+7:12 pm - 7:25 pm 
+7:37 pm - 8:50 pm
+The newest problem is getting the popup data to be turned into genuine bounding boxes cells etc. I'm working on passing in the data but
+the widgets for creating new cells and only including existing ones are overlapping creating some issues. work on changing how types are Added
+in the popup then check in again with the popup-labeldata pipeline.
+recorded a brief showcase of current functionality, it wasnt impressive...
+
 Day 72 9/20
 11:48 - 12:17 pm
 12:28 pm - 12:42pm

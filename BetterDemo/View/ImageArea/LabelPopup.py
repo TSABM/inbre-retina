@@ -17,21 +17,30 @@ class LabelPopup(qtw.QDialog):
         self.layout : qtw.QLayout = qtw.QVBoxLayout()
         self.setLayout(self.layout)
 
+        #definining some quick references to data in label data so users can include existing cells and events in the new bounding box
+        self.frameNum : int = self.presenter.getFrameNumber()
         self.existingCells : set= self.presenter.getCellIDs()
         self.existingEvents : set= self.presenter.getEventIDs()
         self.existingCellTypes : set = self.presenter.getCellTypes()
         self.existingEventTypes : set = self.presenter.getEventTypes()
 
+        #this is where unfinished new cell types are stored before the user submits them
         self.newCellType : str = ""
+        #this variable is a staging ground where either an existing cell type or a new type wait for the user to confirm to assotiate with the bounding box
+        self.cellTypeToAddToList = None
+
         self.newEventType : str = ""
+        self.eventTypeToAddToList = None
+
         self.cellToAddToList = None
-        self.newCells = set()
-        self.selectedCells = set()
+        self.newCells = dict() #store with {id : type}
+        self.allIncludedCells = set()
 
         self.eventToAddToList = None
         self.newEvents = set()
-        self.selectedEvents = set()
+        self.allIncludedEvents = set()
 
+        ###DISPLAY BOX INFO FIELDS###
         #show box ID
         self.boxIDLabel = qtw.QLabel("BoxID: ")
         self.boxIDField = qtw.QLineEdit()
@@ -40,8 +49,8 @@ class LabelPopup(qtw.QDialog):
         self.layout.addWidget(self.boxIDLabel)
         self.layout.addWidget(self.boxIDField)
 
-        #ask for cell(s)
-        self.cellsLabel = qtw.QLabel("Cell(s): ")
+        #allow user to indicate which cell(s) are included in the box
+        self.cellsLabel = qtw.QLabel("Included cell(s): ")
         self.cellsDropdown = qtw.QComboBox()
         self.cellsDropdown.addItems(self.existingCells)
         self.cellsDropdown.addItem("-")
@@ -49,15 +58,22 @@ class LabelPopup(qtw.QDialog):
         self.cellsDropdown.currentTextChanged.connect(self.cellSelected)
         self.layout.addWidget(self.cellsLabel)
         self.layout.addWidget(self.cellsDropdown)
-            
-        #Defining a new cell fields
+        
+        ##TOOLS FOR DEFINING NEW CELLS##
+        #Defining a new cell fields (for making a new unrecorded cell)
         self.newCellIDLabel = qtw.QLabel("New cell ID: ")
         self.newCellIDField = qtw.QLineEdit()
         self.newCellIDField.setReadOnly(True)
         self.layout.addWidget(self.newCellIDLabel)
         self.layout.addWidget(self.newCellIDField)
         
-        self.newCellTypeLabel = qtw.QLabel("New cell type: ")
+        self.newCellTypeLabel = qtw.QLabel("Cell type: ")
+        self.cellTypesDropdown = qtw.QComboBox()
+        self.cellTypesDropdown.addItems(self.existingCellTypes)
+        self.cellTypesDropdown.addItem("-")
+        self.cellTypesDropdown.addItem("Add new cell type")
+        self.cellTypesDropdown.currentTextChanged.connect(self.cellTypeSelected)
+
         self.newCellTypeField = qtw.QLineEdit()
         self.newCellTypeField.textChanged.connect(self.stageCustomCellName) #FIXME?
         self.layout.addWidget(self.newCellTypeLabel)
@@ -65,13 +81,13 @@ class LabelPopup(qtw.QDialog):
 
         self.hideNewCellFields()
 
-        #add cell button
+        #the add cell button (creates a new cell and adds it to the included list)
         self.includeCellButton = qtw.QPushButton()
         self.includeCellButton.setText("Include cell")
-        self.includeCellButton.pressed.connect(self.addCellToList)
+        self.includeCellButton.pressed.connect(self.includeCellInList)
         self.layout.addWidget(self.includeCellButton)
 
-        #list the included cells
+        #a list of the included cells
         self.cellListLabel = qtw.QLabel("Included cells:")
         self.cellList = qtw.QListWidget()
         self.layout.addWidget(self.cellListLabel)
@@ -133,12 +149,18 @@ class LabelPopup(qtw.QDialog):
         self.newCellTypeLabel.hide()
         self.newCellTypeField.hide()
     
-    def addCellToList(self):
+    def includeCellInList(self):
         if self.cellToAddToList != None:
-            self.selectedCells.add(self.cellToAddToList)
+            self.allIncludedCells.add(self.cellToAddToList)
             self.cellList.clear()
-            self.cellList.addItems(self.selectedCells)
+            self.cellList.addItems(self.allIncludedCells)
     
+    def hideNewCellTypesFields(self):
+        pass #FIXME
+
+    def showNewCellTypesFields(self, mode):
+        pass #FIXME
+
     def showNewEventFields(self):
         #get the cell Id
         newID = self.generateCellID()
@@ -162,6 +184,19 @@ class LabelPopup(qtw.QDialog):
             self.hideNewCellFields()
             self.cellToAddToList = mode
 
+    def cellTypeSelected(self, mode):
+        if mode == "-":
+            #do nothing
+            self.hideNewCellFields()
+            self.cellTypeToAddToList = None
+        elif mode == "Add new cell type":
+            #show new cell fields
+            self.showNewCellTypesFields()
+            self.cellTypeToAddToList = None
+        else:
+            self.hideNewCellFields()
+            self.cellTypeToAddToList = mode
+
     def stageCustomCellName(self, customName):
         self.cellToAddToList = customName
 
@@ -172,14 +207,19 @@ class LabelPopup(qtw.QDialog):
         #grab the data
         
         boxID = self.boxIDField.text()
-        boxDimensions = self.rectangle.getRect()
+        boxDimensions : QRect = self.rectangle.getRect()
+        dims = boxDimensions.getRect()
         #cellIDs
         newCellsToAdd = self.newCells
-        cellIDs = self.selectedCells
+        allIncludedCellIds = self.allIncludedCells
         #eventIDs
         newEventsToAdd = self.newEvents
-        eventIDs = self.selectedEvents
+        eventIDs = self.allIncludedEvents
 
-        self.presenter.submitData(boxID, boxDimensions, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs)
-                
-        pass
+        #ok so I need to 1) update existing cells so they know they are assotiated with a new bounding box as well as update
+        #the given frame because this cell will need to be assotiated with it
+        #then I also need to turn the new cells into Cell objects and store them in Label Data (also assotiating them with the frame and such)
+        #the same idea needs to also be done with events
+
+        #self.presenter.submitData(boxID, self.frameNum, dims, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs)
+        self.presenter.submitData(boxID, self.frameNum, dims, newCells, allIncludedCellIds, newEvents, allIncludedEventIds)
