@@ -60,7 +60,7 @@ class CanvasModel():
     def __drawLabels__(self, painter : QPainter):
         labelData = MasterMemory.getLabelDataModel()
         boundingBoxes : dict = labelData.get("BoundingBoxes")
-        boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.get)
+        boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
         if boxIds != None:
             for boxId in boxIds:
                 #if its selected render it blue and with handles
