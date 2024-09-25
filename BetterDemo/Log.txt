@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+Day 74 9/24
+3:10pm - 3:40 pm 
+fixed slight problem with canvas not retrieving current frame.
+
 Day 73 9/21
 12:05 pm - 2:03 pm
 7:12 pm - 7:25 pm 

@@ -9,21 +9,26 @@ class LabelPopupModel():
     def refresh(self):
         pass
 
-    def submitData(self, boxID, frameNumber, boxDimensions, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs):
-        #ok so I need to 1) update existing cells so they know they are assotiated with a new bounding box as well as update
-        #the given frame because this cell will need to be assotiated with it
-        #then I also need to turn the new cells into Cell objects and store them in Label Data (also assotiating them with the frame and such)
-        #the same idea needs to also be done with events
+    def submitData(self, boxID, frameNumber, boxDimensions, newCellsToAdd, cellsDict :dict, eventsToUpdate : dict):
+        #this function is primarily used to upload a new bounding box, this means adding the box, updating the frame, updating events
+        #and adding the new cells
         labelData : LabelData = MasterMemory.getLabelDataModel()
 
         boundingBoxes = [] 
-        box = BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], boxDimensions[2], boxDimensions[3], cellIDs, eventIDs)
+        box = BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], boxDimensions[2], boxDimensions[3], list(cellsDict.keys()), list(eventsToUpdate.keys()))
 
+        #need to add new cells
         cells = []
-        for cell in newCellsToAdd:
-            cells.append(Cell(cellIDs))
+        for cellID in cellsDict.keys():
+            cells.append(Cell(cellID, cellsDict.get(cellID))) #create a cell based on the cell id and the celltype (stored in the dict and found via the key of cell Id)
 
+        #FIXME, here you should be updating events one by one not trying to just upload right? what about events that just had a cell added?
+        #but can a new box be an old event? sure an old event type but the same event? Hmm multi frame events... why not?
         events = []
+        '''
+        for eventIds in eventsDict.keys():
+            events.append(Event(eventID, eventType, boxID, cellIds))
+        '''
 
         #add new cells to cells list
         labelData.addNewData(boundingBoxes, cells, events)
