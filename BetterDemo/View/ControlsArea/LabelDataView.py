@@ -1,7 +1,7 @@
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtGui import QIntValidator
 from Presenter.LabelDataPresenter import LabelDataPresenter
-from Model.LabelData import BoundingBox
+#from Model.LabelData import BoundingBox
 
 class LabelDataView(qtw.QWidget):
     def __init__(self):
