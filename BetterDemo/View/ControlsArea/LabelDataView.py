@@ -6,7 +6,7 @@ from Presenter.LabelDataPresenter import LabelDataPresenter
 class LabelDataView(qtw.QWidget):
     def __init__(self):
         super().__init__()
-        self.labelToDisplay : BoundingBox = None
+        self.labelToDisplay = None #FIXME
         self.presenter = LabelDataPresenter(self)
         self.setLayout(qtw.QVBoxLayout())
         self.showing = False

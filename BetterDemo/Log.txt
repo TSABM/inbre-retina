@@ -3,7 +3,9 @@ Code and documents for the internship
 
 Day 75 9/27
 3:15pm- 3:25 pm
+7:06 pm - 7:52 pm
 working on 1:fixing bugs and finishing the implementation and 2: making a uml diagram to make understanding it all easy.
+refactoring the add data method in label popup model. making the box I think is the last next step for that.
 
 Day 74 9/24
 3:10pm - 3:40 pm 
