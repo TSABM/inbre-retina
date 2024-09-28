@@ -11,9 +11,11 @@ class LabelPopupPresenter(AbstractPresenter):
     def refresh(self):
         pass
 
-    def submitData(self, boxID, boxDimensions, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs):
-        
-        self.model.submitData(boxID, boxDimensions, newCellsToAdd, cellIDs, newEventsToAdd, eventIDs)
+    def submitData(self, boxID : str, frameNumber : int, boxDimensions : list[int, int, int, int], cellsIncludedInBox : dict, eventsIncludedInBox : dict,  newCellTypes : set, newEventTypes : set):
+        '''
+        passes data to the popup model for conversion to proper data types and storage in the master memory
+        '''
+        self.model.submitNewLabelData(boxID, frameNumber, boxDimensions, cellsIncludedInBox, eventsIncludedInBox,  newCellTypes, newEventTypes)
     
 
     #existing data needs to be called up here so label popup can know what data is already existing and assotiated with each displayed item? 

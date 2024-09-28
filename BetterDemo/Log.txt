@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+Day 76 9/28
+12:28 pm - 2:20 pm
+almost done refactoring label popup. The presenter should be ok, but the view needs some work to finish.
+
 Day 75 9/27
 3:15pm- 3:25 pm
 7:06 pm - 7:52 pm

@@ -9,7 +9,7 @@ class LabelPopupModel():
     def refresh(self):
         pass
 
-    def submitNewLabelData(self, boxID, frameNumber, boxDimensions, cellsIncludedInBox :dict, eventsIncludedInBox : dict,  newCellTypes, newEventTypes):
+    def submitNewLabelData(self, boxID : str, frameNumber : int, boxDimensions : list, cellsIncludedInBox :dict, eventsIncludedInBox : dict,  newCellTypes : set, newEventTypes : set):
         '''
         creates new types, cells, and events based on lists of new Ids. Creates a new box object, and then updates label data with all of the new data
         '''
@@ -31,11 +31,10 @@ class LabelPopupModel():
                 labelData.addNewCell(Cell(cellID, cellsIncludedInBox.get(cellID)))
         for eventID in eventsIncludedInBox:
             event : dict = existingEvents.get(eventID, None)
+            boxes : dict = event.get("boxIDs")
             if event != None:
-                #maybe still need to update the existing event? at least box and cellIDs...
-                boxIDs = None
-                cellIds = None
-                pass
+                #make sure the new box is assotiated with the existing event
+                boxes.update({boxID : True})
             else:
                 labelData.addNewEvent(Event(eventID, eventsIncludedInBox.get(eventID), boxID, cellsIncludedInBox))
 

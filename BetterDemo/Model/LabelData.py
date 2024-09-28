@@ -219,13 +219,13 @@ class Cell(dict):
         })
 
 class Event(dict):
-    def __init__(self, eventID : str, eventType : str, boxIDs : dict, cellIds : dict):
+    def __init__(self, eventID : str, eventType : str, boxIDs : dict):
         # defining fields
         super().__init__({
             "eventID": eventID,
             "eventType": eventType,
-            "boxIDs" : boxIDs,
-            "cellIDs": cellIds
+            "boxIDs" : boxIDs
+            #"cellIDs": cellIds #cellIDs was a dict, but maybe redundant since boxes store the cell list too
         })
 class MetaData(dict):
     def __init__(self, fileInfo: str = None, frameTotal: int = None, other: list[str] = None):
