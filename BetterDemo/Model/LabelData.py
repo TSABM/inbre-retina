@@ -219,12 +219,12 @@ class Cell(dict):
         })
 
 class Event(dict):
-    def __init__(self, eventID : str, eventType : str, boxID : str, cellIds : list):
+    def __init__(self, eventID : str, eventType : str, boxIDs : dict, cellIds : dict):
         # defining fields
         super().__init__({
             "eventID": eventID,
             "eventType": eventType,
-            "boxID" : boxID,
+            "boxIDs" : boxIDs,
             "cellIDs": cellIds
         })
 class MetaData(dict):

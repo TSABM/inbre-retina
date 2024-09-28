@@ -9,7 +9,7 @@ class LabelPopupModel():
     def refresh(self):
         pass
 
-    def submitData(self, boxID, frameNumber, boxDimensions, cellsIncludedInBox :dict, eventsIncludedInBox : dict,  newCellTypes, newEventTypes, newCellsToCreate, newEventsToCreate):
+    def submitNewLabelData(self, boxID, frameNumber, boxDimensions, cellsIncludedInBox :dict, eventsIncludedInBox : dict,  newCellTypes, newEventTypes):
         '''
         creates new types, cells, and events based on lists of new Ids. Creates a new box object, and then updates label data with all of the new data
         '''
@@ -22,30 +22,22 @@ class LabelPopupModel():
             labelData.addNewEventType(type)
 
         #Add the new cells and new events
-        cells = []
-        for cellID in newCellsToCreate:
-            #create a cell based on the cell id and the celltype (stored in the dict and found via the key of cell Id)
-            labelData.addNewCell(Cell(cellID, cellsIncludedInBox.get(cellID)))
-        for eventID in newEventsToCreate:
-            labelData.addNewEvent(Event(eventID, eventsIncludedInBox.get(eventID)))
+        existingCells : dict = labelData.getCells()
+        existingEvents :dict = labelData.getEvents()
+        for cellID in cellsIncludedInBox:
+            if existingCells.get(cellID, None) == None:
+                pass
+            else:
+                labelData.addNewCell(Cell(cellID, cellsIncludedInBox.get(cellID)))
+        for eventID in eventsIncludedInBox:
+            if existingEvents.get(eventID, None) == None:
+                #maybe still need to update the existing event? at least box and cellIDs...
+            labelData.addNewEvent(Event(eventID, eventsIncludedInBox.get(eventID), boxID, cellsIncludedInBox))
 
-        #add box to master box list
-        boundingBoxes = [] 
-        box = BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], boxDimensions[2], boxDimensions[3], list(cellsIncludedInBox.keys()), list(eventsIncludedInBox.keys()))
-
-        #need to add new cells
-        
-
-        #FIXME, here you should be updating events one by one not trying to just upload right? what about events that just had a cell added?
-        #but can a new box be an old event? sure an old event type but the same event? Hmm multi frame events... why not?
-        events = []
-        '''
-        for eventIds in eventsDict.keys():
-            events.append(Event(eventID, eventType, boxID, cellIds))
-        '''
-
-        #add new cells to cells list
-        labelData.addNewData(boundingBoxes, cells, events)
+        #add box
+        labelData.addNewBoundingBox(BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], 
+                                                boxDimensions[2], boxDimensions[3], list(cellsIncludedInBox.keys()), 
+                                                list(eventsIncludedInBox.keys())))
 
     def getCellIDs(self):
         '''
