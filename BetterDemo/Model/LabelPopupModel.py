@@ -25,14 +25,19 @@ class LabelPopupModel():
         existingCells : dict = labelData.getCells()
         existingEvents :dict = labelData.getEvents()
         for cellID in cellsIncludedInBox:
-            if existingCells.get(cellID, None) == None:
+            if existingCells.get(cellID, None) != None:
                 pass
             else:
                 labelData.addNewCell(Cell(cellID, cellsIncludedInBox.get(cellID)))
         for eventID in eventsIncludedInBox:
-            if existingEvents.get(eventID, None) == None:
+            event : dict = existingEvents.get(eventID, None)
+            if event != None:
                 #maybe still need to update the existing event? at least box and cellIDs...
-            labelData.addNewEvent(Event(eventID, eventsIncludedInBox.get(eventID), boxID, cellsIncludedInBox))
+                boxIDs = None
+                cellIds = None
+                pass
+            else:
+                labelData.addNewEvent(Event(eventID, eventsIncludedInBox.get(eventID), boxID, cellsIncludedInBox))
 
         #add box
         labelData.addNewBoundingBox(BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], 
