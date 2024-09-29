@@ -3,7 +3,14 @@ Code and documents for the internship
 
 Day 76 9/28
 12:28 pm - 2:20 pm
+3:35 pm - 4:20 pm 
+4:44 pm - 5:25 pm 
+7:23 pm - 9:15 pm
 almost done refactoring label popup. The presenter should be ok, but the view needs some work to finish.
+Label popup view is almost done, working on event creation now. Found several bugs with cell creation and adding. probably need to redo how
+theyre added.
+Unfortunately I didnt get label submitting working like I wanted. The popup needs to fix how it tries to add and create new cells and events.
+Once that is done it should all work (well drawing boxes and having... consistant?, permanent? labels that can be edited and exported)
 
 Day 75 9/27
 3:15pm- 3:25 pm
