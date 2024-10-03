@@ -23,12 +23,11 @@ class LabelData(dict):
         for event in events:
             self.addNewEvent(event)
 
-    def addNewBoundingBox(self, box : "BoundingBox"):
+    def addNewBoundingBox(self, boxID : str, frameNumber : int, dims : QRect, cellIDs : dict = None, eventIDs : dict = None):
         boundingBoxes : dict = self.get("BoundingBoxes")
         frames : dict = self.get("Frames")
         #verify type
-        frameNum : int = box.get("frameNumber")
-        frame : Frame = frames.get(frameNum)
+        frame : Frame = frameNumber
         #verify frameNum is a valid number
         if frameNum is not None:
             try:
@@ -38,19 +37,13 @@ class LabelData(dict):
                 return
         #verify frame is set
         if frame == None:
-            print("Error, couldnt add box: frame number %d was invalid", frameNum)
+            print("Error, couldnt add box: frame number  ", frameNum, " was invalid")
         else:
-            #grab id and record box in frame
-            boxID = box.get_boxID()
             frame.addBoxId(boxID)
-            #grab box event(s) and record in the frame
-            eventIDs = box.get_eventIDs()
-            for event in eventIDs:
+            for event in eventIDs.keys():
                 frame.addEventId(event)
-            #store updated frame (in case it only updated locally)
             frames.update({frameNum : frame})
-            #add the bounding box
-            boundingBoxes.update({box.get_boxID() : box})
+            boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, dims[0], dims[1], dims[2], dims[3], cellIDs, eventIDs)})
 
     def addNewCellType(self, type : str):
         '''

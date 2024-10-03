@@ -33,20 +33,8 @@ class CanvasPresenter(AbstractPresenter):
         MasterMemory.setInteractionMode(mode)
 
     #Handle boxes
-    def addBox(self, boxToAdd): #FIXME
-        #make the box into a label object
-        #boxID
-        #cellID
-        #frame num
-        #cell type
-        #x, y, width, height
-        #events
-        cell = BoundingBox()
-        #label = Label(0, boxToAdd, "testType", "testID", "testDescription") #FIXME
-        #add label to the list of labels
-        #add the label to the model
-        frameLabels = self.model.addBox(key, label)
-        MasterMemory.updateFrame(0, frameLabels)
+    def addBox(self, rectToAdd):
+        frameLabels = self.model.addBox(rectToAdd)
 
 
     def selectBox(self, point):
@@ -76,9 +64,6 @@ class CanvasPresenter(AbstractPresenter):
     def moveBox(self, point):
         self.model.moveBox(point)
         MasterMemory.labelData.re
-    
-    def generateNewBoundingBox(self, rect):
-        pass
 
     def getLargestBoxID(self):
         labelData : LabelData = MasterMemory.getLabelDataModel()

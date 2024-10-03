@@ -11,7 +11,8 @@ class LabelPopup(qtw.QDialog):
         super().__init__()
         self.presenter = LabelPopupPresenter(self)
         self.setWindowTitle("Classify the selection")
-
+        
+        '''
         self.rectangle : QRect = rectangle
 
         self.layout : qtw.QLayout = qtw.QVBoxLayout()
@@ -51,7 +52,7 @@ class LabelPopup(qtw.QDialog):
         self.__addSubmissionButton()
     
 
-    def generateCellID(self): #FIXME: if I added multiple unique cells before submission I'd get duplicate id's! account for staged cells!
+    def getUniqueCellID(self): #FIXME: if I added multiple unique cells before submission I'd get duplicate id's! account for staged cells!
         #quickly scan the existing cells and grab the largest number, add 1 then return a new id
         largestValue = 0
         for id in self.existingCells:
@@ -60,7 +61,7 @@ class LabelPopup(qtw.QDialog):
             if x > largestValue:
                 largestValue = x
         newValue = largestValue + 1
-        newID = "cell_" + str(newValue)
+        newID = "test_cell_" + str(newValue)
         return newID
     
     def generateEventId(self):
@@ -114,18 +115,17 @@ class LabelPopup(qtw.QDialog):
         self.newEventTypeField.show()
 
     def hideNewEventFields(self):
-        #fixme
-        pass
+        self.newEventIDLabel.hide()
+        self.newEventIDField.hide()
+        self.newEventTypeLabel.hide()
     
     def showNewEventTypeFields(self):
-        #FIXME add content here
-        pass
+        self.newEventTypeField.show()
 
     def hideNewEventTypesFields(self):
-        #FIXME
-        pass
+        self.newEventTypeField.hide()
 
-    def cellSelected(self, mode):
+    def includeACell(self, mode):
         if mode == "-":
             #do nothing
             self.cellToAddToList = None
@@ -135,7 +135,7 @@ class LabelPopup(qtw.QDialog):
             newID = self.generateCellID()
             self.newCellIDField.setText(newID)
             self.showNewCellFields()
-            self.cellToAddToList = None
+            self. = None
         else:
             self.hideNewCellFields()
             self.cellToAddToList = mode
@@ -196,13 +196,14 @@ class LabelPopup(qtw.QDialog):
         self.layout.addWidget(self.boxIDLabel)
         self.layout.addWidget(self.boxIDField)
     
+
     def __addCellFields(self):
         self.cellsLabel = qtw.QLabel("Included cell(s): ")
         self.cellsDropdown = qtw.QComboBox()
         self.cellsDropdown.addItems(self.existingCells)
         self.cellsDropdown.addItem("-")
         self.cellsDropdown.addItem("Add new cell")
-        self.cellsDropdown.currentTextChanged.connect(self.cellSelected)
+        self.cellsDropdown.currentTextChanged.connect(self.includeACell)
         self.layout.addWidget(self.cellsLabel)
         self.layout.addWidget(self.cellsDropdown)
 
@@ -258,6 +259,8 @@ class LabelPopup(qtw.QDialog):
         
         self.newEventTypeLabel = qtw.QLabel("New event type: ")
         self.newEventTypeField = qtw.QLineEdit()
+        self.layout.addWidget(self.newEventTypeLabel)
+        self.layout.addWidget(self.newEventTypeField)
         
     
     def __addSubmissionButton(self):
@@ -265,3 +268,4 @@ class LabelPopup(qtw.QDialog):
         self.submitButton.setText("Submit label data")
         self.submitButton.pressed.connect(self.submitData)
         self.layout.addWidget(self.submitButton)
+    '''

@@ -84,8 +84,9 @@ class CanvasView(qtw.QGraphicsView):
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()
                 rect = QRect(self.initialPoint, endPoint).normalized()
-                #self.drawBox(rect)
-                self.openPopUp(rect)
+                newBoxId = self.drawBox(rect)
+                if newBoxId != None:
+                    self.openPopUp(newBoxId)
                 self.point = QPoint() #resetting selected point data for next draw or select
     
     def openPopUp(self, rect):
@@ -98,12 +99,4 @@ class CanvasView(qtw.QGraphicsView):
         popup.exec()
 
     def drawBox(self, rect):
-        boundingBox = self.generateNewBoundingBox(rect)
-        self.presenter.addBox(boundingBox)
-    
-    def generateNewBoundingBox(self):
-        #popup to get 
-        #new bounding box
-        boundingBox = self.presenter.generateNewBoundingBox()
-        #connect to label data view
-        return None
+        self.presenter.addBox(rect)
