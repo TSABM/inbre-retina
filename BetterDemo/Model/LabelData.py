@@ -23,27 +23,28 @@ class LabelData(dict):
         for event in events:
             self.addNewEvent(event)
 
-    def addNewBoundingBox(self, boxID : str, frameNumber : int, dims : QRect, cellIDs : dict = None, eventIDs : dict = None):
+    def getNewBoxID(self):
+        largestId = self.getLargestBoxIdVal()
+        idNum = largestId + 1
+        boxID = "box_" + str(idNum)
+        return boxID
+
+    def addNewBoundingBox(self, boxID : str, frameNumber : int, dims : QRect, cellIDs : dict = None, eventIDs : dict = {}):
         boundingBoxes : dict = self.get("BoundingBoxes")
         frames : dict = self.get("Frames")
-        #verify type
-        frame : Frame = frameNumber
-        #verify frameNum is a valid number
-        if frameNum is not None:
-            try:
-                frameNum = int(frameNum)
-            except ValueError:
-                print("Error: frameNumber is not a valid integer")
-                return
+        rect = dims.getRect()
+
+        frame : Frame = frames.get(frameNumber)
         #verify frame is set
-        if frame == None:
-            print("Error, couldnt add box: frame number  ", frameNum, " was invalid")
-        else:
-            frame.addBoxId(boxID)
-            for event in eventIDs.keys():
-                frame.addEventId(event)
-            frames.update({frameNum : frame})
-            boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, dims[0], dims[1], dims[2], dims[3], cellIDs, eventIDs)})
+        if frame == None: #FIXME for now this just creates a new frame regardless of wether or not the frame number is good
+            print("Error, couldnt add box: frame number  ", frameNumber, " was invalid")
+            frame = Frame()
+        
+        frame.addBoxId(boxID)
+        for event in eventIDs.keys():
+            frame.addEventId(event)
+        frames.update({frameNumber : frame})
+        boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, rect[0], rect[1], rect[2], rect[3], cellIDs, eventIDs)})
 
     def addNewCellType(self, type : str):
         '''
@@ -119,11 +120,11 @@ class LabelData(dict):
         return largestValue
 
 class Frame(dict):
-    def __init__(self):
+    def __init__(self, boxIDs : dict = {}, eventIDs : dict = {}):
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient. 
-            "boxIDs": {},  # Initialize as an empty dictionary
-            "eventIDs": {}  # Initialize as an empty dictionary
+            "boxIDs": boxIDs,  # Initialize as an empty dictionary
+            "eventIDs": eventIDs  # Initialize as an empty dictionary
         })
     
     def addBoxId(self, boxId):

@@ -11,9 +11,9 @@ class SimpleMovie(Displayable):
         #self.label = QLabel #FIXME possibly not needed?
         self.movie : QMovie = None
     
-    def getPixmap(self):
+    def getPixmap(self, frame : int):
         if(self.movie.currentFrameNumber()) == -1:
-            self.movie.jumpToFrame(0)
+            self.movie.jumpToFrame(frame)
         return self.movie.currentPixmap()
 
     def setMovie(self, moviePath):

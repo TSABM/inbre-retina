@@ -3,14 +3,27 @@ from PyQt5.QtCore import Qt, QRect
 from Presenter.LabelPopupPresenter import LabelPopupPresenter
 
 class LabelPopup(qtw.QDialog):
-    '''
-    The popup that appears when a new bounding box is being drawn on the image. If the user fills out the fields a valid label data item can
-    be created.
-    '''
-    def __init__(self, boxID, rectangle : QRect):
+    def __init__(self, boxID : str):
         super().__init__()
         self.presenter = LabelPopupPresenter(self)
         self.setWindowTitle("Classify the selection")
+
+        self.layout : qtw.QLayout = qtw.QVBoxLayout()
+        self.setLayout(self.layout)
+
+        #boxID
+        #frame Number?
+
+        #cell box
+            #list of cell Ids and their types
+            #fields for assotiating existing cells
+            #fields for creating new cells
+        
+        #event box
+            #list of event ids and their types
+            #fields for assotiating existing events
+            #fields for creating new events
+        
         
         '''
         self.rectangle : QRect = rectangle

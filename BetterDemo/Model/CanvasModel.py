@@ -4,7 +4,7 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.LabelData import BoundingBox
+from Model.LabelData import LabelData, BoundingBox
 from Model.AcceptedFormats.Displayable import Displayable
 from Model.masterMemory import MasterMemory
 
@@ -21,6 +21,8 @@ class CanvasModel():
     def __init__(self):
         self.fileToDisplay : Displayable = None
         self.scene : QGraphicsScene = QGraphicsScene()
+
+        self.frameNumber = 0 #FIXME
         
         self.pixmap : QPixmap = None
         #FIXME need to make compatable with videos (gif videos)
@@ -44,10 +46,12 @@ class CanvasModel():
     def setfile(self, file):
         #FIXME verify valid file format before setting (possibly in the presenter)
         self.fileToDisplay = file
+        print("image file set, attempting to refresh")
+        self.updatePixmap()
 
     def __setPixmap__(self):
         if self.fileToDisplay != None:
-            self.pixmap = self.fileToDisplay.getPixmap()
+            self.pixmap = self.fileToDisplay.getPixmap(0)
             self.pixmap_item.setPixmap(self.pixmap)
 
     def updatePixmap(self):
@@ -78,22 +82,22 @@ class CanvasModel():
         self.pixmap_item.setPixmap(self.pixmap)
 
 
-    def getPixmap(self):
-        return self.pixmap
+    #def getPixmap(self):
+    #    return self.pixmap
     
     def getFrameNumber(self):
         return self.frameNumber
     
     ## Handle everything related to the bounding boxes ##
     def addBox(self, rect):    
-        labelData = MasterMemory.getLabelDataModel()
-        newBox = BoundingBox()
+        labelData : LabelData = MasterMemory.getLabelDataModel()
+        boxId = labelData.getNewBoxID()
+        frameNumber = self.getFrameNumber()
 
+        labelData.addNewBoundingBox(boxId, frameNumber, rect)
 
-        #update pixmap so boxes display
         self.updatePixmap()
-        #return labels to update the master mem
-        return self.getLabels()
+        return boxId
 
     def selectBox(self, point):
         labelData = MasterMemory.getLabelDataModel()

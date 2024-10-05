@@ -2,9 +2,18 @@ from Presenter.AbstractPresenter import AbstractPresenter
 from Model.LabelData import LabelData
 from Model.masterMemory import MasterMemory
 from Presenter.CanvasPresenter import CanvasPresenter
+from abc import ABC, abstractmethod
+
+class AbstractLabelData(ABC):
+    @abstractmethod
+    def setLabelToDisplay():
+        pass
+    @abstractmethod
+    def displayLabelData():
+        pass
 
 class LabelDataPresenter(AbstractPresenter):
-    def __init__(self, view):
+    def __init__(self, view : AbstractLabelData):
         super().__init__(view)
         #send label data area to the master memory
         self.model : LabelData = LabelData()

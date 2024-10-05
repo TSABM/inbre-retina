@@ -12,8 +12,6 @@ class CanvasPresenter(AbstractPresenter):
     
     def setFile(self, file):
         self.model.setfile(file)
-        print("image file set, attempting to refresh")
-        self.model.updatePixmap()
     
     def refresh(self):
         super().refresh()
@@ -34,7 +32,8 @@ class CanvasPresenter(AbstractPresenter):
 
     #Handle boxes
     def addBox(self, rectToAdd):
-        frameLabels = self.model.addBox(rectToAdd)
+        addedBoxID = self.model.addBox(rectToAdd)
+        return addedBoxID
 
 
     def selectBox(self, point):

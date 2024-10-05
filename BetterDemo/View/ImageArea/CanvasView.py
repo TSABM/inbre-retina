@@ -87,16 +87,16 @@ class CanvasView(qtw.QGraphicsView):
                 newBoxId = self.drawBox(rect)
                 if newBoxId != None:
                     self.openPopUp(newBoxId)
+                else:
+                    print("Cant open label popup: boundingBox did not generate")
                 self.point = QPoint() #resetting selected point data for next draw or select
     
-    def openPopUp(self, rect):
-        #creating new box id
-        idNum = self.presenter.getLargestBoxID() + 1
-        boxID = "box_" + str(idNum)
+    def openPopUp(self, boxID):
         #opening popup
-        popup = LabelPopup(boxID, rect)
+        popup = LabelPopup(boxID)
         popup.setWindowTitle("Enter label info")
         popup.exec()
 
     def drawBox(self, rect):
-        self.presenter.addBox(rect)
+        boxId = self.presenter.addBox(rect)
+        return boxId
