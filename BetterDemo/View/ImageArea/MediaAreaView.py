@@ -2,7 +2,7 @@ import PyQt5.QtWidgets as qtw
 from View.ImageArea.CanvasView import CanvasView
 #from Model.Canvases.MovieCanvas import MovieCanvas
 #from View.ImageArea.OpenFilesMenu import OpenFilesMenu
-from Presenter.ImageAreaPresenter import ImageAreaPresenter
+#from Presenter.ImageAreaPresenter import ImageAreaPresenter
 from PyQt5.QtGui import QPainter, QMovie
 
 class MediaAreaView(qtw.QWidget):
@@ -11,7 +11,7 @@ class MediaAreaView(qtw.QWidget):
     '''
     def __init__(self):
         super().__init__()
-        self.presenter = ImageAreaPresenter(self)
+        #self.presenter = ImageAreaPresenter(self)
         #Overarching widget that holds the image area together
         self.setLayout(qtw.QVBoxLayout())
         

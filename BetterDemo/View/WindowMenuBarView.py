@@ -38,16 +38,10 @@ class WindowMenuBarView(qtw.QMenuBar):
         imagePath = fileDialog.getOpenFileName()[0]
         print(imagePath)
         #open image
-        self.presenter.openImage(imagePath)
-
-    '''
-    def openFolder(self):
-        #Open file dialog
-        fileDialog = qtw.QFileDialog(self)
-        directoryPath = fileDialog.getExistingDirectory()
-        #Send the directory path off for file list extraction
-        self.presenter.getFilteredFolderContents(directoryPath)
-    '''
+        if imagePath == "":
+            print("No file selected")
+        else:
+            self.presenter.openImage(imagePath)
 
     def importLabels(self):
         pass

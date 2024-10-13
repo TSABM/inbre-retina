@@ -47,8 +47,8 @@ class MasterMemory():
         cls.canvas = canvas
     
     @classmethod
-    def setLabels(cls, labels):
-        cls.labelData = labels
+    def setLabelData(cls, labelData):
+        cls.labelData = labelData
 
     #deal with subscribers
     '''
@@ -81,48 +81,6 @@ class MasterMemory():
         return cls.openNd2Files
     '''
     
-    #deal with labels
-    @classmethod
-    def updateFrame(cls, frameNumber : int, frame : list):
-        cls.frameLabels.update({frameNumber : frame})
-    
-
-    @classmethod
-    def getLabel(cls, key):
-        '''
-        return a specific label by key
-        '''
-        pass
-
-    @classmethod
-    def overrideLabel(cls, key, frame, newLabel):
-        '''
-        replace an existing label with a new one
-        '''
-        pass
-
-    @classmethod
-    def deleteLabel(cls, key):
-        '''
-        '''
-        pass
-
-    @classmethod
-    def getAllBoxIDsForAFrame(cls, frame : int):
-        '''
-        get all the labels for a specific frame of the image
-        '''
-        frames : dict = cls.labelData.getModel().get("Frames")
-        includedBoxes = frames.get(frame)
-        return includedBoxes
-    
-    @classmethod
-    def deleteAllLabelsForAFrame(cls, frame : int):
-        '''
-        delete all the labels for a specific frame of the image
-        '''
-        pass
-    
     @classmethod
     def getLabelDataPresenter(cls):
         return cls.labelData
@@ -134,7 +92,7 @@ class MasterMemory():
     @classmethod
     def deleteAllLabels(cls):
         pass
-
+    
     @classmethod
     def saveAllLabels(cls):
         '''

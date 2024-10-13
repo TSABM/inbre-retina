@@ -4,7 +4,7 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.LabelData import LabelData, BoundingBox
+from Model.LabelData import LabelData, BoundingBox, Frame
 from Model.AcceptedFormats.Displayable import Displayable
 from Model.masterMemory import MasterMemory
 
@@ -43,18 +43,33 @@ class CanvasModel():
     
     ## handle pixmap setting and getting ##  
 
-    def setfile(self, file):
-        #FIXME verify valid file format before setting (possibly in the presenter)
-        self.fileToDisplay = file
-        print("image file set, attempting to refresh")
-        self.updatePixmap()
+    def setfile(self, file : Displayable):
+        '''
+        If the file is type Displayable set it as the file to display and update the pixmap else print a message and return
+        '''
+        if isinstance(file, Displayable):
+            self.fileToDisplay = file
+            #FIXME probably should create LabelData here not elsehwere.
+            MasterMemory.setLabelData(LabelData(file.getFileName(), file.getTotalFrames()))
+
+            print("image file set, attempting to refresh")
+            self.updatePixmap()
+        else: 
+            print("Canvas received a non displayable filetype")
+            return
 
     def __setPixmap__(self):
+        '''
+        If there is a file to display get the pixmap at the current frame number
+        '''
         if self.fileToDisplay != None:
-            self.pixmap = self.fileToDisplay.getPixmap(0)
+            self.pixmap = self.fileToDisplay.getPixmap(self.frameNumber)
             self.pixmap_item.setPixmap(self.pixmap)
 
     def updatePixmap(self):
+        '''
+        if there isnt a defined pixmap call setPixmap else init a QPainter and then call drawLabels
+        '''
         self.__setPixmap__()
         if self.pixmap != None:
             painter = QPainter(self.pixmap)
@@ -62,22 +77,32 @@ class CanvasModel():
             self.__drawLabels__(painter)
 
     def __drawLabels__(self, painter : QPainter):
-        labelData = MasterMemory.getLabelDataModel()
+        '''
+        requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
+        '''
+        labelData : LabelData = MasterMemory.getLabelDataModel()
         boundingBoxes : dict = labelData.get("BoundingBoxes")
-        boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
-        if boxIds != None:
-            for boxId in boxIds:
-                #if its selected render it blue and with handles
-                box : BoundingBox = boundingBoxes.get(boxId)
-                rectangle : QRect = box.get_boundingBox_as_rect()
-                if box == self.selectedItem:
-                    painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
-                    painter.drawRect(rectangle)
-                    self.drawResizeHandles(painter, rectangle)
-                    painter.setPen(QColor(255, 0, 0)) #set painter color back to red for the non selected labels
-                #else render it like normal
-                else:
-                    painter.drawRect(rectangle)
+        #boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
+        frame : Frame = labelData.getFrame(self.frameNumber)
+        if frame == None:
+            print("cannot find requested frame")
+        else:
+            boxIds = frame.getBoxIds()
+            if boxIds == {}:
+                print("Frame ", self.frameNumber, " has no assotiated bounding boxes")
+            else:
+                for boxId in boxIds:
+                    #if its selected render it blue and with handles
+                    box : BoundingBox = boundingBoxes.get(boxId)
+                    rectangle : QRect = box.get_boundingBox_as_rect()
+                    if box == self.selectedItem:
+                        painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
+                        painter.drawRect(rectangle)
+                        self.drawResizeHandles(painter, rectangle)
+                        painter.setPen(QColor(255, 0, 0)) #set painter color back to red for the non selected labels
+                    #else render it like normal
+                    else:
+                        painter.drawRect(rectangle)
         painter.end()
         self.pixmap_item.setPixmap(self.pixmap)
 
@@ -102,9 +127,14 @@ class CanvasModel():
     def selectBox(self, point):
         labelData = MasterMemory.getLabelDataModel()
         boundingBoxes : dict = labelData.get("BoundingBoxes")
-        boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
-        if boxIds == None:
-            print("tried to select a box but boxIDs is none type?")
+        #boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
+        frame : Frame = labelData.getFrame(self.frameNumber)
+        if frame == None:
+            print("unable to select box, frame ", self.frameNumber, " does not exist")
+            return None
+        boxIds = frame.getBoxIds()
+        if boxIds == {}:
+            print("tried to select a box but frame ", self.frameNumber, " boxIDs is empty?")
             return None
         for boxID in boxIds:
             box : BoundingBox = boundingBoxes.get(boxID)

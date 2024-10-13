@@ -1,6 +1,40 @@
 # internship
 Code and documents for the internship
 
+Day 83 10/12
+3:49 pm - 5:14 pm 
+7:47 pm - 09:
+trying to fix the frame and bounding box problem. First step has been trying to make the code not crash if a frame is defined (and instead
+have it just not draw...) this isnt working right now. I tried to use if else to stop it but it seems to run anyway...
+Working on a new solution. the canvas will create Label Data when it opens an image file (since labels shoudl tie directly to an open file)
+meta data info will be set including the file name and number of frames. Frames will then be defined for all possible frames in a video.
+ALSO: I'm commenting out label data view which also means the presenter wont get called. This may have unintended side effects! but is probably
+necissary in the long run.
+removal of Label Data view has resulted in a small error message upon startup followed by crashing if the user interacts with the canvas area.
+I need to go make sure nothing that calls label data will have a problem if no file is opened yet.
+
+
+Day 82 10/11
+2:36 pm - 2:58pm
+5:07 pm - 6:02 pm 
+8:54 pm - 9:53 pm 
+finished most of the design document. Working on  finding the newest wave of bugs. MAster memory has some deprocated functions I'm working on
+removing now. I also need to change how label data (specifically frames) is loaded upon an image opening. right now boxes get added without
+a frame ready to receive them.
+
+
+Day 81 10/10
+1:01 pm - 1:31 pm 
+1:41 pm - 2:21 pm
+
+working on a design document indicating what each class is meant to do and also a little of what it currently does. 
+
+Day 80 10/8
+2:39 pm - 3:43
+4:00 pm - 4:15 pm 
+working on a much more complete uml based on my initial rough draft. Isolating which files are most deprocated and which ones
+are the highest priority to finish and fix.
+
 Day 79 10/4
 12:27 pm - 2:02 pm
 4:41 pm - 6:07 pm 

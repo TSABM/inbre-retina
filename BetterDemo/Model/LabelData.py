@@ -6,14 +6,16 @@ class LabelData(dict):
     '''
     dictionary containing the bounding boxes events and metadata for the file
     '''
-    def __init__(self):
+    def __init__(self, mediaFileName : str, maxFrames : int):
         self.update({"Frames" : dict()})
         self.update({"BoundingBoxes": dict()})
         self.update({"Cells": dict()})
         self.update({"CellTypes" : dict()})
         self.update({"Events": dict()})
         self.update({"EventTypes" : dict()})
-        self.update({"MetaData": MetaData()})
+        self.update({"MetaData": MetaData(mediaFileName, maxFrames)})
+
+        self.initFrames(maxFrames)
     
     def addNewData(self, boundingBoxes, cells, events):
         for box in boundingBoxes:
@@ -68,15 +70,31 @@ class LabelData(dict):
         events: dict = self.get("Events")
         events.update({event.get("eventID"): event})
 
-    def updateMetaData(self):
-        print("UPDATEMETADATA UNIMPLEMENTED")
-        pass
-    
+    def updateMetaData(self, filename, frameTotal):
+        metadata : "MetaData" = self.get("MetaData")
+        metadata.setFileName(filename)
+        metadata.setFrameTotal(frameTotal)
+        
+    def initFrames(self, maxFrames):
+        '''
+        fill Frames with maxFrames amount of empty frames
+        '''
+        frames : dict = self.get("Frames")
+        for i in range(maxFrames):
+            frames.update({i : Frame()})
+
     def getFrames(self):
         '''
         returns a dictionary of frame objects (also dictionaries) where the key is the frame number and the val is the frame
         '''
         return self.get("Frames")
+
+    def getFrame(self, frameNum : int):
+        frames : dict = self.get("Frames")
+        frame = frames.get(frameNum)
+        if frame == None:
+            print("Tried to grab frame (",frameNum, ") that does not exist")
+        return frame
 
     def getBoundingBoxes(self):
         '''
@@ -138,6 +156,9 @@ class Frame(dict):
         if eventId in eventIds:
             return
         eventIds[eventId] = True
+    
+    def getBoxIds(self):
+        return self.get("boxIDs")
 
 class BoundingBox(dict):
     def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):
@@ -222,14 +243,22 @@ class Event(dict):
             #"cellIDs": cellIds #cellIDs was a dict, but maybe redundant since boxes store the cell list too
         })
 class MetaData(dict):
-    def __init__(self, fileInfo: str = None, frameTotal: int = None, other: list[str] = None):
+    def __init__(self, fileName: str = None, frameTotal: int = 0, other: list[str] = None):
         # Ensure other is a list if not provided
         if other is None: #May need fixing as it may be unneeded and unreachable
             other = []
         
         # defining fields
         super().__init__({
-            "fileInfo": fileInfo,
+            "fileName": fileName,
             "frameTotal": frameTotal,
             "other": other,
         })
+    
+    def setFileName(self, fileName: str) -> None:
+        """Set the fileName in the metadata."""
+        self["fileName"] = fileName
+    
+    def setFrameTotal(self, frameTotal: int) -> None:
+        """Set the frameTotal in the metadata."""
+        self["frameTotal"] = frameTotal

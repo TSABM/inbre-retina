@@ -19,14 +19,6 @@ class WindowMenuBarPresenter(AbstractPresenter):
         '''
         #set the open image
         self.model.openImage(imagePath)
-        
-
-    def getFilteredFolderContents(self, directoryPath):
-        '''
-        requests filtered contents of a selected directory
-        '''
-        self.model.openFolder(directoryPath)
-        pass
 
 
     def closeApplication(self):

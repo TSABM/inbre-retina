@@ -10,12 +10,12 @@ class WindowMenuBarModel():
         pass
 
     def openImage(self, imagePath):
-
+        imageName = os.path.basename(imagePath)
         #check the file format
 
         #if gif or other like format
         if ".gif" in imagePath or ".mng" in imagePath or ".apng" in imagePath:
-            acceptedFormat = SimpleMovie()
+            acceptedFormat = SimpleMovie(imageName)
             if acceptedFormat.setMovie(imagePath) == True:
                 #send to canvas?
                 canvas = MasterMemory.getCanvas()
@@ -26,7 +26,7 @@ class WindowMenuBarModel():
             pass
         #if jpeg, png, or jpg
         elif ".jpeg" in imagePath or ".png" in imagePath or ".jpg" in imagePath:
-            print("unimplemented")
+            print("jpeg, png, and jpg opening is unimplemented")
             pass
 
         else:

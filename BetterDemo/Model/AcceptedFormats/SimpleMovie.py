@@ -6,8 +6,8 @@ class SimpleMovie(Displayable):
     '''
     canvas that accepts GIF, MNG, and APNG formats
     '''
-    def __init__(self):
-        super().__init__()
+    def __init__(self, fileName : str):
+        super().__init__(fileName)
         #self.label = QLabel #FIXME possibly not needed?
         self.movie : QMovie = None
     
@@ -15,8 +15,12 @@ class SimpleMovie(Displayable):
         if(self.movie.currentFrameNumber()) == -1:
             self.movie.jumpToFrame(frame)
         return self.movie.currentPixmap()
+    
+    def getTotalFrames(self):
+        super().getTotalFrames()
+        return self.movie.frameCount()
 
-    def setMovie(self, moviePath):
+    def setMovie(self, moviePath): #FIXME movie path and file name are not linked and could in theory be different...make sure its not a problem
         if moviePath != None:
             self.movie = QMovie(moviePath)
             if self.movie.isValid() == False:
