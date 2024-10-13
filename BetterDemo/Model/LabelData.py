@@ -176,10 +176,10 @@ class BoundingBox(dict):
                 })
 
     def get_boundingBox_as_rect(self):
-        boundingBox = self.get("boundingBox")
-        if boundingBox[0] is None:
+        dimensions = self.get("dimensions")
+        if dimensions is None:
             return None
-        return QRect(boundingBox[0], boundingBox[1], boundingBox[2], boundingBox[3])
+        return QRect(dimensions[0], dimensions[1], dimensions[2], dimensions[3])
     
     def get_boxID(self):
         return self.get("boxID")

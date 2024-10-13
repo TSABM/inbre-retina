@@ -3,7 +3,7 @@ Code and documents for the internship
 
 Day 83 10/12
 3:49 pm - 5:14 pm 
-7:47 pm - 09:
+7:47 pm - 09:45 pm
 trying to fix the frame and bounding box problem. First step has been trying to make the code not crash if a frame is defined (and instead
 have it just not draw...) this isnt working right now. I tried to use if else to stop it but it seems to run anyway...
 Working on a new solution. the canvas will create Label Data when it opens an image file (since labels shoudl tie directly to an open file)
@@ -12,7 +12,9 @@ ALSO: I'm commenting out label data view which also means the presenter wont get
 necissary in the long run.
 removal of Label Data view has resulted in a small error message upon startup followed by crashing if the user interacts with the canvas area.
 I need to go make sure nothing that calls label data will have a problem if no file is opened yet.
-
+Master memory used to give a presenter when classes asked for label data. This also had to be changed which is resulting in some crashes.
+EDIT: Fixed the master memory label data calls but it didnt fix the crash for drawing new boxes. Will have to keep working on it.
+Found the draw box error and fixed it. (it was due to a renaming of the bounding box dimensions) drawing sort of works. Selecting still crashes.
 
 Day 82 10/11
 2:36 pm - 2:58pm

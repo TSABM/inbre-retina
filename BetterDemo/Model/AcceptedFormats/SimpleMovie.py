@@ -17,7 +17,7 @@ class SimpleMovie(Displayable):
         return self.movie.currentPixmap()
     
     def getTotalFrames(self):
-        super().getTotalFrames()
+        #super().getTotalFrames()
         return self.movie.frameCount()
 
     def setMovie(self, moviePath): #FIXME movie path and file name are not linked and could in theory be different...make sure its not a problem

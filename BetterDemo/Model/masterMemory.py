@@ -82,12 +82,8 @@ class MasterMemory():
     '''
     
     @classmethod
-    def getLabelDataPresenter(cls):
+    def getLabelData(cls):
         return cls.labelData
-
-    @classmethod
-    def getLabelDataModel(cls):
-        return cls.labelData.getModel()
 
     @classmethod
     def deleteAllLabels(cls):

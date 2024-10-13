@@ -56,7 +56,7 @@ class CanvasPresenter(AbstractPresenter):
         MasterMemory.labelData.re
 
     def getLargestBoxID(self):
-        labelData : LabelData = MasterMemory.getLabelDataModel()
+        labelData : LabelData = MasterMemory.getLabelData()
         return labelData.getLargestBoxIdVal()
         
 

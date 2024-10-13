@@ -80,7 +80,7 @@ class CanvasModel():
         '''
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
-        labelData : LabelData = MasterMemory.getLabelDataModel()
+        labelData : LabelData = MasterMemory.getLabelData()
         boundingBoxes : dict = labelData.get("BoundingBoxes")
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
         frame : Frame = labelData.getFrame(self.frameNumber)
@@ -115,7 +115,7 @@ class CanvasModel():
     
     ## Handle everything related to the bounding boxes ##
     def addBox(self, rect):    
-        labelData : LabelData = MasterMemory.getLabelDataModel()
+        labelData : LabelData = MasterMemory.getLabelData()
         boxId = labelData.getNewBoxID()
         frameNumber = self.getFrameNumber()
 
@@ -125,7 +125,7 @@ class CanvasModel():
         return boxId
 
     def selectBox(self, point):
-        labelData = MasterMemory.getLabelDataModel()
+        labelData = MasterMemory.getLabelData()
         boundingBoxes : dict = labelData.get("BoundingBoxes")
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
         frame : Frame = labelData.getFrame(self.frameNumber)

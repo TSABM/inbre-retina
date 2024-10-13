@@ -13,7 +13,7 @@ class LabelPopupModel():
         '''
         creates new types, cells, and events based on lists of new Ids. Creates a new box object, and then updates label data with all of the new data
         '''
-        labelData : LabelData = MasterMemory.getLabelDataModel()
+        labelData : LabelData = MasterMemory.getLabelData()
 
         #add the new types
         for type in newCellTypes:
@@ -47,7 +47,7 @@ class LabelPopupModel():
         '''
         requests the cells dictionary from label data and then returns the keys for that dict as a set
         '''
-        labelData : LabelData = MasterMemory.getLabelDataModel()
+        labelData : LabelData = MasterMemory.getLabelData()
         cellsDict : dict = labelData.getCells()
         keys = set(cellsDict.keys())
 
@@ -57,7 +57,7 @@ class LabelPopupModel():
         '''
         requests the celltype dict from label data and then return the keys as a set
         '''
-        labelData : LabelData = MasterMemory.getLabelDataModel()
+        labelData : LabelData = MasterMemory.getLabelData()
         typesDict : dict = labelData.getCellTypes()
         keys = set(typesDict.keys())
         return keys
@@ -66,7 +66,7 @@ class LabelPopupModel():
         '''
         requests the event type dict from label data and then return the keys as a set
         '''
-        labelData : LabelData = MasterMemory.getLabelDataModel()
+        labelData : LabelData = MasterMemory.getLabelData()
         typesDict : dict = labelData.getEventTypes()
         keys = set(typesDict.keys())
         return keys
@@ -75,7 +75,7 @@ class LabelPopupModel():
         '''
         requests the events dictionary from label data and then returns the keys for that dict as a set
         '''
-        labelData : LabelData = MasterMemory.getLabelDataModel()
+        labelData : LabelData = MasterMemory.getLabelData()
         eventsDict : dict = labelData.getEvents()
         keys = set(eventsDict.keys())
 
