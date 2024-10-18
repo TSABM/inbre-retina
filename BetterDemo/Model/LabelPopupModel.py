@@ -39,7 +39,7 @@ class LabelPopupModel():
                 labelData.addNewEvent(Event(eventID, eventsIncludedInBox.get(eventID), boxID, cellsIncludedInBox))
 
         #add box
-        labelData.addNewBoundingBox(BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], 
+        labelData.updateBoundingBox(BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], 
                                                 boxDimensions[2], boxDimensions[3], list(cellsIncludedInBox.keys()), 
                                                 list(eventsIncludedInBox.keys())))
 

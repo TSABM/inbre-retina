@@ -1,8 +1,21 @@
 # internship
 Code and documents for the internship
 
+Day 86 10/18
+11:00 am - 12:00 pm
+4:07 pm - 
+Fixed box drawing, selection, moving, and resizing. Moving on to working on displaying selected box data and then allowing edits.
+also there is a crash if the user tries to interact with the canvas while no file is loaded. Fix with a check if a file is open.
+
+Day 85 10/17
+5:00 pm - 6:15 pm 
+in label data add new bounding box probably ought to be replaced with a more general update bounding box method. working on it now. Label
+popup and any other func that adds bounding boxes will likely need updated to use a more general class.
+I have now replaced add new with update. It probably works correctly. I also corrected all calls to add new. Which also probably work maybe.
+
 Day 84 10/14
 5:30 pm - 6:45 pm
+worked on report
 
 Day 83 10/12
 3:49 pm - 5:14 pm 

@@ -19,7 +19,7 @@ class LabelData(dict):
     
     def addNewData(self, boundingBoxes, cells, events):
         for box in boundingBoxes:
-            self.addNewBoundingBox(box)
+            self.updateBoundingBox(box)
         for cell in cells:
             self.addNewCell(cell)
         for event in events:
@@ -30,7 +30,7 @@ class LabelData(dict):
         idNum = largestId + 1
         boxID = "box_" + str(idNum)
         return boxID
-
+    '''
     def addNewBoundingBox(self, boxID : str, frameNumber : int, dims : QRect, cellIDs : dict = None, eventIDs : dict = {}):
         boundingBoxes : dict = self.get("BoundingBoxes")
         frames : dict = self.get("Frames")
@@ -38,15 +38,32 @@ class LabelData(dict):
 
         frame : Frame = frames.get(frameNumber)
         #verify frame is set
-        if frame == None: #FIXME for now this just creates a new frame regardless of wether or not the frame number is good
+        if frame == None:
             print("Error, couldnt add box: frame number  ", frameNumber, " was invalid")
-            frame = Frame()
+            return
         
         frame.addBoxId(boxID)
         for event in eventIDs.keys():
             frame.addEventId(event)
         frames.update({frameNumber : frame})
         boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, rect[0], rect[1], rect[2], rect[3], cellIDs, eventIDs)})
+    '''
+    def updateBoundingBox(self, box : "BoundingBox"):
+        boundingBoxes : dict = self.get("BoundingBoxes")
+        frames : dict = self.get("Frames")
+
+        frame : Frame = frames.get(box.get_frameNumber())
+        #verify frame is set
+        if frame == None:
+            print("Error, couldnt add box: frame number  ", frameNumber, " was invalid")
+            return
+        
+        frame.addBoxId(box.get_boxID())
+        eventIDs : dict = box.get_eventIDs()
+        for event in eventIDs.keys():
+            frame.addEventId(event)
+        frames.update({box.get_frameNumber() : frame})
+        boundingBoxes.update({box.get_boxID() : box})
 
     def addNewCellType(self, type : str):
         '''
@@ -175,7 +192,7 @@ class BoundingBox(dict):
                 "eventIDs" : eventIDs
                 })
 
-    def get_boundingBox_as_rect(self):
+    def get_boundingBox_as_qrect(self):
         dimensions = self.get("dimensions")
         if dimensions is None:
             return None
@@ -189,6 +206,9 @@ class BoundingBox(dict):
     
     def getDims(self):
         return self.get("dimensions")
+    
+    def setDims(self, x, y, width, height):
+        self.update({"dimensions": [x, y, width, height]})
     
     def get_cellIDs(self):
         return self.get("cellIds")

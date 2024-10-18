@@ -53,7 +53,6 @@ class CanvasPresenter(AbstractPresenter):
 
     def moveBox(self, point):
         self.model.moveBox(point)
-        MasterMemory.labelData.re
 
     def getLargestBoxID(self):
         labelData : LabelData = MasterMemory.getLabelData()
