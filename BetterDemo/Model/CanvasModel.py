@@ -145,7 +145,7 @@ class CanvasModel():
 
     def __updateSelectedBoxPosition__(self, rectangle : QRect):
         dims = rectangle.getRect()
-        self.selectedItem.setDims(dims[0], dims[1], dims[2], dims[3])
+        self.selectedItem.setDimensions(dims[0], dims[1], dims[2], dims[3])
 
     def selectBox(self, point):
         if self.isFileOpen() == False:

@@ -204,10 +204,10 @@ class BoundingBox(dict):
     def get_frameNumber(self):
         return self.get("frameNumber")
     
-    def getDims(self):
+    def getDimensions(self):
         return self.get("dimensions")
     
-    def setDims(self, x, y, width, height):
+    def setDimensions(self, x, y, width, height):
         self.update({"dimensions": [x, y, width, height]})
     
     def get_cellIDs(self):

@@ -1,11 +1,42 @@
 # internship
 Code and documents for the internship
 
+Day 87 10/19
+11:30 am - 12:30 pm 
+2:15 pm - 3:30 pm 
+5:27 pm - 6:28 pm 
+10:33 pm - 10:41 pm 
+10:55 pm - 12:00 am
+working on label data view. Current prototype 1 doesnt work and 2 will only display label data fields, not allow editing. Working on this.
+Need to add something to the presenter to update its "model" via master mem?
+added details on frame, boundingbox, and a few other classes to the specs that I forgot to specify.
+
+I'm struggling right now with label view. I want ideally a way for the UI to display all of Label Datas fields but because manu of
+these fields are dicitonaries themselves it makes it complicated. Its been leading me to hard code the display which is exactly what
+made problems earlier after I refactored things. I need to make some reusable method that can almost recursively display the dictionaries
+their sub dictionaries and those sub dicitonaries contents.
+
+If I do this though I dont think I'll be able to make it so the user can edit the values at least not easily. IF the user changed 
+a boxes boxID for example I'd need to 
+1. move the data in the dicitonary (since the boxIDs are for now also the dicitonary keys)
+2. deal with collisions with other boxIds 
+3. update the frame so its boxID list was up to date.
+4. update possibly many events so their assotiated box's is up to date.
+Possible fix idea: Make it so the user can open a popup to edit edit the whole bounding box, then I can just write a couple methods to 
+make sure everything is converted correctly all at once.
+
+working on that reusable method. theres no crashing but it does not yet update when the canvas updates it. The best solution would
+be implementing a publish subscribe model... maybe add a button for now?
+
+Button still not working yet.
+
 Day 86 10/18
 11:00 am - 12:00 pm
-4:07 pm - 
+4:07 pm - 5:00 pm
 Fixed box drawing, selection, moving, and resizing. Moving on to working on displaying selected box data and then allowing edits.
 also there is a crash if the user tries to interact with the canvas while no file is loaded. Fix with a check if a file is open.
+App now ensures an image is open before trying to select or draw bounding boxes.
+now to let the user visualize the labels and put meaningful info into them.
 
 Day 85 10/17
 5:00 pm - 6:15 pm 

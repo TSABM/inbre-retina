@@ -8,96 +8,98 @@ class LabelDataView(qtw.QWidget):
         super().__init__()
         self.labelToDisplay = None #FIXME
         self.presenter = LabelDataPresenter(self)
-        self.setLayout(qtw.QVBoxLayout())
+        self.initUI()
         self.showing = False
 
-        self.loadLabelDataFields()
-    
-    def setLabelToDisplay(self, label):
-        self.labelToDisplay = label
-    
-    def loadLabelDataFields(self):
-        #init labels
-        iDLabel = qtw.QLabel("Label Id: ")
-        typeLabel = qtw.QLabel("Label type: ")
-        frameNumLabel = qtw.QLabel("Label frame number: ")
-        topLeftXLabel = qtw.QLabel("Label corner 1 X: ")
-        topLeftYLabel = qtw.QLabel("Label corner 1 Y: ")
-        bottomRightXLabel = qtw.QLabel("Label corner 2 X: ")
-        bottomRightYLabel = qtw.QLabel("Label corner 2 Y: ")
-
-        #init fields
-        self.iDField = qtw.QLineEdit()
-        self.typeField = qtw.QLineEdit()
-        self.frameNumberField = qtw.QLineEdit()
-        self.topLeftXField = qtw.QLineEdit()
-        self.topLeftYField = qtw.QLineEdit()
-        self.bottomRightXField = qtw.QLineEdit()
-        self.bottomRightYField = qtw.QLineEdit()
-
-        #restrict valid inputs to ints where applicable
-        maxX = self.presenter.getMaxXVal()
-        maxY = self.presenter.getMaxYVal()
-        self.frameNumberField.setValidator(QIntValidator(0, 99999999)) #this validator requires an upper limit, the values I used are arbitrary. To make any int acceptable a custom validator would be required
-        self.topLeftXField.setValidator(QIntValidator(0, maxX))
-        self.topLeftYField.setValidator(QIntValidator(0, maxY))
-        self.bottomRightXField.setValidator(QIntValidator(0, maxX))
-        self.bottomRightYField.setValidator(QIntValidator(0, maxY))
-
-        #connect fields to functions (currently only triggers when a user presses enter in a field)
-        self.iDField.returnPressed.connect(self.publishLabelData)
-        self.typeField.returnPressed.connect(self.publishLabelData)
-        self.frameNumberField.returnPressed.connect(self.publishLabelData)
-        self.topLeftXField.returnPressed.connect(self.publishLabelData)
-        self.topLeftYField.returnPressed.connect(self.publishLabelData)
-        self.bottomRightXField.returnPressed.connect(self.publishLabelData)
-        self.bottomRightYField.returnPressed.connect(self.publishLabelData)
-
-        #add labels and fields to the widget
-        self.layout().addWidget(iDLabel)
-        self.layout().addWidget(self.iDField)
-
-        self.layout().addWidget(typeLabel)
-        self.layout().addWidget(self.typeField)
-
-        self.layout().addWidget(frameNumLabel)
-        self.layout().addWidget(self.frameNumberField)
-
-        self.layout().addWidget(topLeftXLabel)
-        self.layout().addWidget(self.topLeftXField)
-
-        self.layout().addWidget(topLeftYLabel)
-        self.layout().addWidget(self.topLeftYField)
-
-        self.layout().addWidget(bottomRightXLabel)
-        self.layout().addWidget(self.bottomRightXField)
-
-        self.layout().addWidget(bottomRightYLabel)
-        self.layout().addWidget(self.bottomRightYField)
+        #self.loadLabelDataFields()
         
-        #self.hideLabelData()
 
-    def displayLabelData(self):    
-        if self.labelToDisplay != None:
-            #set fields to data vals
-            self.iDField.setText(self.labelToDisplay.itemId)
-            self.typeField.setText(self.labelToDisplay.type)
-            self.frameNumberField.setText(str(self.labelToDisplay.frameNumber))
-            self.topLeftXField.setText(str(self.labelToDisplay.rectangle.topLeft().x()))
-            self.topLeftYField.setText(str(self.labelToDisplay.rectangle.topLeft().y()))
-            self.bottomRightXField.setText(str(self.labelToDisplay.rectangle.bottomRight().x()))
-            self.bottomRightYField.setText(str(self.labelToDisplay.rectangle.bottomRight().y()))
+    def initUI(self):
+        layout = qtw.QVBoxLayout()
 
-        #show the widget
-        self.showing = True
-        self.show()
+        # Metadata Dropdown
+        self.metadataLabel = qtw.QLabel("Select Metadata: ")
+        self.metadataDropdown = qtw.QComboBox()
+        #self.metadataDropdown.addItem("All Metadata")  # You can add specific chunks if needed
+        self.__addItemsToComboBox__(self.metadataDropdown, self.presenter.getMetadata())
+        layout.addWidget(self.metadataLabel)
+        layout.addWidget(self.metadataDropdown)
 
-    def hideLabelData(self):
-        self.showing = False
-        self.hide()
+        # Frames Dropdown
+        self.framesLabel = qtw.QLabel("Select Frames: ")
+        self.framesDropdown = qtw.QComboBox()
+        #self.framesDropdown.addItems()#FIXME
+        self.__addItemsToComboBox__(self.framesDropdown, self.presenter.getFrames())
+        layout.addWidget(self.framesLabel)
+        layout.addWidget(self.framesDropdown)
 
-    def publishLabelData(self):
-        #when the text is changed update the label on the canvas
-        #determine what changed?
-        #call the presenter and ask the canvas to update, may need to send the label back but proabbly not.
-        self.presenter.publishToSubs()
+        # Bounding Boxes Dropdown
+        self.boundingBoxesLabel = qtw.QLabel("Select Bounding Boxes: ")
+        self.boundingBoxesDropdown = qtw.QComboBox()
+        #self.boundingBoxesDropdown.addItems() #FIXME
+        self.__addItemsToComboBox__(self.boundingBoxesDropdown, self.presenter.getBoundingBoxes())
+        layout.addWidget(self.boundingBoxesLabel)
+        layout.addWidget(self.boundingBoxesDropdown)
+
+        # Cells Dropdown
+        self.cellsLabel = qtw.QLabel("Select Cells: ")
+        self.cellsDropdown = qtw.QComboBox()
+        #self.cellsDropdown.addItems() #FIXME
+        self.__addItemsToComboBox__(self.cellsDropdown, self.presenter.getCells())
+        layout.addWidget(self.cellsLabel)
+        layout.addWidget(self.cellsDropdown)
+
+        # Events Dropdown
+        self.eventsLabel = qtw.QLabel("Select Events: ")
+        self.eventsDropdown = qtw.QComboBox()
+        #self.eventsDropdown.addItems() #FIXME
+        self.__addItemsToComboBox__(self.eventsDropdown, self.presenter.getEvents())
+        layout.addWidget(self.eventsLabel)
+        layout.addWidget(self.eventsDropdown)
+
+        # Load Data Button
+        self.refreshDataButton = qtw.QPushButton("Refresh Data")
+        self.refreshDataButton.clicked.connect(self.reloadLabelData)
+
+        #layout.addWidget(self.loadDataButton)
+
+        self.setLayout(layout)
+
+    
+    def reloadLabelData(self):
+        '''
+        reloads data
+        '''
+        # unsure how to handle this
+        self.metadataDropdown.clear()
+        self.framesDropdown.clear()
+        self.boundingBoxesDropdown.clear()
+        self.cellsDropdown.clear()
+        self.eventsDropdown.clear()
+
+        # Re-fetch the updated data from the presenter
+        updated_metadata = self.presenter.getMetadata()
+        updated_frames = self.presenter.getFrames()
+        updated_bounding_boxes = self.presenter.getBoundingBoxes()
+        updated_cells = self.presenter.getCells()
+        updated_events = self.presenter.getEvents()
+
+        # Re-populate the dropdowns with the new data
+        self.__addItemsToComboBox__(self.metadataDropdown, updated_metadata)
+        self.__addItemsToComboBox__(self.framesDropdown, updated_frames)
+        self.__addItemsToComboBox__(self.boundingBoxesDropdown, updated_bounding_boxes)
+        self.__addItemsToComboBox__(self.cellsDropdown, updated_cells)
+        self.__addItemsToComboBox__(self.eventsDropdown, updated_events)    
+        
+    
+    def __addItemsToComboBox__(self, comboBox : qtw.QComboBox, item : dict | None):
+        if item == None:
+            return
+        for field in item:
+            if isinstance(field, dict):
+                self.__addItemsToComboBox__(comboBox, field)
+            else:
+                if isinstance(field, str):
+                    comboBox.addItem(field)
+                elif isinstance(field, int):
+                    comboBox.addItem(str(field))

@@ -16,21 +16,60 @@ class LabelDataPresenter(AbstractPresenter):
     def __init__(self, view : AbstractLabelData):
         super().__init__(view)
         #send label data area to the master memory
-        self.model : LabelData = LabelData()
-        MasterMemory.setLabels(self)
+        self.model : LabelData = None
+        #MasterMemory.setLabels(self)
         #self.registerNewSubscriber("labelData", self)
         #self.addSubscriber("canvas")
 
     def refresh(self):
         super().refresh()
-        #print("attempted to refresh label data")
-        canvasPresenter : CanvasPresenter = MasterMemory.getCanvas()
-        label = canvasPresenter.getSelectedLabel()
-        self.view.setLabelToDisplay(label)
-        self.view.displayLabelData()
+        if self.__verifyFileOpen__() == False:
+            return
+        #FIXME 
 
-    def getModel(self):
-        return self.model
+    def __verifyFileOpen__(self):
+        labelData = MasterMemory.getLabelData()
+        if labelData == None:
+            print("label data model is not initalized")
+            return False
+        else:
+            self.model = labelData
+            return True
+
+    def getFrames(self):
+        if self.__verifyFileOpen__() == False:
+            return
+        return self.model.getFrames()
+
+    def getBoundingBoxes(self):
+        if self.__verifyFileOpen__() == False:
+            return
+        return self.model.getBoundingBoxes()
+
+    def getCells(self):
+        if self.__verifyFileOpen__() == False:
+            return
+        return self.model.getCells()
+
+    def getEvents(self):
+        if self.__verifyFileOpen__() == False:
+            return
+        return self.model.getEvents()
+
+    def getCellTypes(self):
+        if self.__verifyFileOpen__() == False:
+            return
+        return self.model.getCellTypes()
+
+    def getEventTypes(self):
+        if self.__verifyFileOpen__() == False:
+            return
+        return self.model.getEventTypes()
+
+    def getMetadata(self):
+        if self.__verifyFileOpen__() == False:
+            return
+        return self.model.getMetaData()
     
     def setLabelData(self, labelData : LabelData):
         self.model = labelData
