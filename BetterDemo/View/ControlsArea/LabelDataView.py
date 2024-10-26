@@ -18,12 +18,14 @@ class LabelDataView(qtw.QWidget):
         layout = qtw.QVBoxLayout()
 
         # Metadata Dropdown
-        self.metadataLabel = qtw.QLabel("Select Metadata: ")
-        self.metadataDropdown = qtw.QComboBox()
+        #self.metadataLabel = qtw.QLabel("Select Metadata: ")
+        #self.metadataDropdown = qtw.QComboBox()
         #self.metadataDropdown.addItem("All Metadata")  # You can add specific chunks if needed
-        self.__addItemsToComboBox__(self.metadataDropdown, self.presenter.getMetadata())
-        layout.addWidget(self.metadataLabel)
-        layout.addWidget(self.metadataDropdown)
+        #self.__addItemsToComboBox__(self.metadataDropdown, self.presenter.getMetadata())
+        self.fileNameLabel = qtw.QLabel("File name: No file open")
+        self.totalFramesLabel = qtw.QLabel("Total frames: 0")
+        layout.addWidget(self.fileNameLabel)
+        layout.addWidget(self.totalFramesLabel)
 
         # Frames Dropdown
         self.framesLabel = qtw.QLabel("Select Frames: ")
@@ -60,32 +62,32 @@ class LabelDataView(qtw.QWidget):
         # Load Data Button
         self.refreshDataButton = qtw.QPushButton("Refresh Data")
         self.refreshDataButton.clicked.connect(self.reloadLabelData)
+        layout.addWidget(self.refreshDataButton)
 
         #layout.addWidget(self.loadDataButton)
 
         self.setLayout(layout)
 
-    
     def reloadLabelData(self):
         '''
         reloads data
         '''
-        # unsure how to handle this
-        self.metadataDropdown.clear()
+        #clearing previous entries
         self.framesDropdown.clear()
         self.boundingBoxesDropdown.clear()
         self.cellsDropdown.clear()
         self.eventsDropdown.clear()
 
         # Re-fetch the updated data from the presenter
-        updated_metadata = self.presenter.getMetadata()
+        #updated_metadata = self.presenter.getMetadata()
         updated_frames = self.presenter.getFrames()
         updated_bounding_boxes = self.presenter.getBoundingBoxes()
         updated_cells = self.presenter.getCells()
         updated_events = self.presenter.getEvents()
 
         # Re-populate the dropdowns with the new data
-        self.__addItemsToComboBox__(self.metadataDropdown, updated_metadata)
+        self.fileNameLabel.setText("File name: " + self.getFileName())
+        self.totalFramesLabel.setText("Total frames: " + self.getFrameCount())
         self.__addItemsToComboBox__(self.framesDropdown, updated_frames)
         self.__addItemsToComboBox__(self.boundingBoxesDropdown, updated_bounding_boxes)
         self.__addItemsToComboBox__(self.cellsDropdown, updated_cells)
@@ -103,3 +105,28 @@ class LabelDataView(qtw.QWidget):
                     comboBox.addItem(field)
                 elif isinstance(field, int):
                     comboBox.addItem(str(field))
+    
+    def getFileName(self):
+        filename = "No file open" #default
+        metadata : dict = self.presenter.getMetadata()
+        if metadata is None:
+            pass
+        else:
+            storedName = metadata.get("fileName")
+            if storedName != None:
+                filename = storedName
+
+        return filename
+    
+    def getFrameCount(self):
+        frames = "0"  # Default frame count
+        metadata: dict = self.presenter.getMetadata()
+    
+        if metadata is None:
+            pass
+        else:
+            storedFrames = metadata.get("frameTotal")
+            if storedFrames is not None:
+                frames = str(storedFrames)
+    
+        return frames
