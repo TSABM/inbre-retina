@@ -1,9 +1,16 @@
 # internship
 Code and documents for the internship
 
+Day 89 10/26
+10:00 am - 11:37 am
+11:51 am - 
+working on label data popup. Still cannabalizing the old code for it, trying to leave behind what cant be salvaged.
+
 Day 88 10/25
 5:30 pm - 6:20 pm 
-9:40 pm -
+9:40 pm - 11:00 pm
+fixed up label data view, currently uses a button to update things, need to change this later to use the publish-subscribe model
+so it updates automatically when an image is added or label data is updated.
 
 Day 87 10/19
 11:30 am - 12:30 pm 

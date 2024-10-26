@@ -20,6 +20,7 @@ class LabelPopupPresenter(AbstractPresenter):
 
     #existing data needs to be called up here so label popup can know what data is already existing and assotiated with each displayed item? 
     #self.model isnt the way though, either access label data or go through master mem (probably the latter.)
+
     def getCellIDs(self):
         # Retrieve the list of cell IDs
         return self.model.getCellIDs()

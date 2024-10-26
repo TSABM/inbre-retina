@@ -42,7 +42,7 @@ class LabelPopupModel():
         labelData.updateBoundingBox(BoundingBox(boxID, frameNumber, boxDimensions[0], boxDimensions[1], 
                                                 boxDimensions[2], boxDimensions[3], list(cellsIncludedInBox.keys()), 
                                                 list(eventsIncludedInBox.keys())))
-
+    
     def getCellIDs(self):
         '''
         requests the cells dictionary from label data and then returns the keys for that dict as a set
@@ -80,5 +80,3 @@ class LabelPopupModel():
         keys = set(eventsDict.keys())
 
         return keys
-    
-        
