@@ -1,9 +1,16 @@
 # internship
 Code and documents for the internship
 
+Day 90 10/29
+3:15 pm - 4:15 pm 
+
+
 Day 89 10/26
 10:00 am - 11:37 am
-11:51 am - 
+11:51 am - 01:00 pm
+1:43 pm - 2:00 pm
+3:08 pm - 3:10, 3:13 pm - 3:19,5:22 - 5:33 pm, 5:34 pm - 5:47
+
 working on label data popup. Still cannabalizing the old code for it, trying to leave behind what cant be salvaged.
 
 Day 88 10/25
