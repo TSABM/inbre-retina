@@ -16,24 +16,20 @@ class LabelPopup(qtw.QDialog):
         #frame Number?
         self.__displayBoxInfo()
         self.frameNum : int = self.presenter.getFrameNumber()
+        
+        self.tempCells : list = []
+        self.tempEvents : list = []
+        
         self.existingCells : set= self.presenter.getCellIDs()
         self.existingEvents : set= self.presenter.getEventIDs()
         self.existingCellTypes : set = self.presenter.getCellTypes()
         self.existingEventTypes : set = self.presenter.getEventTypes()
 
-        #cell box
-            #list of cell Ids and their types
-            
-            #fields for assotiating existing cells
-            #fields for creating new cells
         self.__addCellFields()
-        
-        #event box
-            #list of event ids and their types
-            #fields for assotiating existing events
-            #fields for creating new events
         #self.__addEventsFields()
-        
+    
+    '''methods below for adding main content'''
+       
     def __displayBoxInfo(self):
         self.boxIdLabel = qtw.QLabel("Box Id: "+ self.boxId)
         self.currFrameLabel = qtw.QLabel("Current frame: " + str(self.presenter.getFrameNumber()))
@@ -43,10 +39,9 @@ class LabelPopup(qtw.QDialog):
     def __addCellFields(self):
         self.__addListOfExistingCells()
         self.__addCellDropdown()
-        self.__addNewCellCreationFields()
+        self.__addNewCellFields()
         self.__addIncludeCellButton()
-         
-        
+                
     def __addListOfExistingCells(self):
         self.cellListLabel = qtw.QLabel("Included cells:")
         self.cellList = qtw.QListWidget()
@@ -60,19 +55,19 @@ class LabelPopup(qtw.QDialog):
         self.cellsDropdown.addItems(self.existingCells)
         self.cellsDropdown.addItem("-")
         self.cellsDropdown.addItem("Add new cell")
-        self.cellsDropdown.currentTextChanged.connect(self.__includeCellSelection)
+        self.cellsDropdown.currentTextChanged.connect(self.__cellDropdownController)
         
         self.layout.addWidget(self.addCellsLabel)
         self.layout.addWidget(self.cellsDropdown)
 
-    def __addNewCellCreationFields(self):
+    def __addNewCellFields(self):
         '''
         add all fields needed for defining new cells
         '''
         #new cell creation fields
         self.newCellIDLabel = qtw.QLabel("New cell ID: ")
-        self.newCellIDField = qtw.QLineEdit()
-        self.newCellIDField.setReadOnly(True)
+        #self.newCellIDField = qtw.QLineEdit()
+        #self.newCellIDField.setReadOnly(True)
         self.layout.addWidget(self.newCellIDLabel)
         self.layout.addWidget(self.newCellIDField)
         
@@ -82,80 +77,6 @@ class LabelPopup(qtw.QDialog):
         self.newCellTypeField = qtw.QLineEdit()
         self.layout.addWidget(self.newCellTypeField)
         self.__hideNewCellFields()
-
-    def __addNewCellTypeDropdown(self):
-        '''
-        add a dropdown for selecting a new cell type
-        '''
-        self.newCellTypeLabel = qtw.QLabel("Cell type: ")
-        self.cellTypesDropdown = qtw.QComboBox()
-        self.cellTypesDropdown.addItem("-")
-        self.cellTypesDropdown.addItems(self.existingCellTypes)
-        self.cellTypesDropdown.addItem("Add new cell type")
-        self.cellTypesDropdown.currentTextChanged.connect(self.__selectCellType)
-        self.layout.addWidget(self.newCellTypeLabel)
-        self.layout.addWidget(self.cellTypesDropdown)
-    
-    def __showNewCellFields(self):
-        #show the fields
-        self.newCellIDLabel.show()
-        self.newCellIDField.show()
-        self.cellTypesDropdown.show()
-        self.newCellTypeLabel.show()
-        #self.newCellTypeField.show()
-    
-    def __hideNewCellFields(self):
-        self.newCellIDLabel.hide()
-        self.newCellIDField.hide()
-        self.cellTypesDropdown.hide()
-        self.newCellTypeLabel.hide()
-        self.newCellTypeField.hide()
-    
-    def __showNewCellTypeFields(self):
-        self.newCellTypeField.show()
-
-    def __hideNewCellTypeFields(self):
-        self.newCellTypeField.hide()
-        
-
-    def __addIncludeCellButton(self):
-        self.includeCellButton = qtw.QPushButton()
-        self.includeCellButton.setText("Include cell")
-        self.includeCellButton.pressed.connect(self.__includeCellSelection)
-        self.layout.addWidget(self.includeCellButton)   
-
-    def __includeCellSelection(self, mode):
-        print("tried to include a cell")
-        '''
-        if mode == "-":
-            #do nothing
-            self.cellToAddToList = None
-        elif mode == "Add new cell":
-            #show new cell fields
-            #get the cell Id
-            newID = self.generateCellID()
-            self.newCellIDField.setText(newID)
-            self.showNewCellFields()
-            self. = None
-        else:
-            self.hideNewCellFields()
-            self.cellToAddToList = mode
-        '''
-    def __selectCellType(self, mode):
-        print("tried to set the cell type")
-        '''
-        if mode == "-":
-            #do nothing
-            self.hideNewCellTypesFields()
-            self.cellTypeToAdd = None
-        elif mode == "Add new cell type":
-            #show new cell fields
-            self.showNewCellTypesFields()
-            self.cellTypeToAdd = None
-        else:
-            self.hideNewCellTypesFields()
-            self.cellTypeToAdd = mode
-        '''
 
     def __addEventsFields(self):
         self.eventsLabel = qtw.QLabel("Include Event(s): ")
@@ -178,6 +99,107 @@ class LabelPopup(qtw.QDialog):
         self.newEventTypeField = qtw.QLineEdit()
         self.layout.addWidget(self.newEventTypeLabel)
         self.layout.addWidget(self.newEventTypeField)
+    
+    #def __addEventDropdown(self):
+    
+    #def __addNewEventCreationFields(self):
+    
+    def __addNewCellTypeDropdown(self):
+        '''
+        add a dropdown for selecting a new cell type
+        '''
+        self.newCellTypeLabel = qtw.QLabel("Cell type: ")
+        self.cellTypesDropdown = qtw.QComboBox()
+        self.cellTypesDropdown.addItem("-")
+        self.cellTypesDropdown.addItems(self.existingCellTypes)
+        self.cellTypesDropdown.addItem("Add new cell type")
+        self.cellTypesDropdown.currentTextChanged.connect(self.__selectCellType)
+        self.layout.addWidget(self.newCellTypeLabel)
+        self.layout.addWidget(self.cellTypesDropdown)
+    
+    def __addIncludeCellButton(self):
+        self.includeCellButton = qtw.QPushButton()
+        self.includeCellButton.setText("Include cell")
+        self.includeCellButton.pressed.connect(self.__includeCellSelection)
+        self.layout.addWidget(self.includeCellButton)   
+    
+    '''methods below for controlling some of the variable fields'''
+    
+    def __cellDropdownController(self, mode):
+        if mode == "-":
+            self.cellToAddToList = None
+        elif mode == "Add new cell":
+            self.__showNewCellFields()
+        else:
+            self.__hideNewCellFields()
+            self.cellToAddToList = mode
+        pass
+    
+    #def __eventDropdownController(self)
+    
+    def __showNewCellFields(self):
+        #show the fields
+        self.newCellIDLabel.show()
+        self.newCellIDField.show()
+        self.cellTypesDropdown.show()
+        self.newCellTypeLabel.show()
+        #self.newCellTypeField.show()
+    
+    def __hideNewCellFields(self):
+        self.newCellIDLabel.hide()
+        self.newCellIDField.hide()
+        self.cellTypesDropdown.hide()
+        self.newCellTypeLabel.hide()
+        self.newCellTypeField.hide()
+    
+    def __showNewCellTypeFields(self):
+        self.newCellTypeField.show()
+
+    def __hideNewCellTypeFields(self):
+        self.newCellTypeField.hide()
+        
+    '''other methods'''
+
+    def __genTempID(self, type : str, tempIdList : list):
+        newValue = len(tempIdList) + 1
+        newID = "tempID_" + type + str(newValue)
+        return newID
+
+    def __includeCellSelection(self, mode):
+        print("tried to include a cell")
+        '''
+        if mode == "-":
+            #do nothing
+            self.cellToAddToList = None
+        elif mode == "Add new cell":
+            #show new cell fields
+            #get the cell Id
+            newID = self.generateCellID()
+            self.newCellIDField.setText(newID)
+            self.showNewCellFields()
+            self. = None
+        else:
+            self.hideNewCellFields()
+            self.cellToAddToList = mode
+        '''
+    
+    def __selectCellType(self, mode):
+        print("tried to set the cell type")
+        '''
+        if mode == "-":
+            #do nothing
+            self.hideNewCellTypesFields()
+            self.cellTypeToAdd = None
+        elif mode == "Add new cell type":
+            #show new cell fields
+            self.showNewCellTypesFields()
+            self.cellTypeToAdd = None
+        else:
+            self.hideNewCellTypesFields()
+            self.cellTypeToAdd = mode
+        '''
+
+    
         
 
         '''

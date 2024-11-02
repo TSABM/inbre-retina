@@ -3,7 +3,7 @@ import PyQt5.QtWidgets as qtw
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
 from Presenter.CanvasPresenter import CanvasPresenter
 from PyQt5.QtGui import QPixmap, QPainter, QColor
-from View.ImageArea.LabelPopup import LabelPopup
+#from View.ImageArea.LabelPopup import LabelPopup
 
 class CanvasView(qtw.QGraphicsView):
     '''
@@ -92,10 +92,12 @@ class CanvasView(qtw.QGraphicsView):
                 self.point = QPoint() #resetting selected point data for next draw or select
     
     def openPopUp(self, boxID):
+        print("tried to open popup")
         #opening popup
-        popup = LabelPopup(boxID)
-        popup.setWindowTitle("Enter label info")
-        popup.exec()
+        #popup = LabelPopup(boxID)
+        #popup.setWindowTitle("Enter label info")
+        #popup.exec()
+        pass
 
     def drawBox(self, rect):
         boxId = self.presenter.addBox(rect)

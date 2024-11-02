@@ -1,6 +1,22 @@
 # internship
 Code and documents for the internship
 
+day 92 11/2
+12:33 pm - 1:26 pm 
+2:49 pm - 4:40 pm 
+I;m trying to figure out how to get this ui working better. The popup is not a very good solution. It would be better if somewhow that
+label data ui I wrote could let me change data directly. The popup also will have a big problem, I cant use it for selection alone
+because then the user wont be able to resize the box, which is a problem. 
+
+Day 91 11/1
+1:00 pm - 1:41 pm 
+2:39 pm - 3:16 pm 
+6:24 pm - 7:22 pm 
+8:58 pm - 9:19 pm 
+create new cell fields need streamlined. store the new cells and then have label data make the actual cell ID instead of 
+writing the algorithm in the popup. ok I need a better plan for this. Seperate the widget itno different boxes seperated by responsability.
+
+
 Day 90 10/29
 3:15 pm - 4:15 pm 
 

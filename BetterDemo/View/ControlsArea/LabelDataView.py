@@ -1,6 +1,8 @@
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtGui import QIntValidator
 from Presenter.LabelDataPresenter import LabelDataPresenter
+from PyQt5.QtGui import QColor, QPalette
+from abc import ABC, abstractmethod
 #from Model.LabelData import BoundingBox
 
 class LabelDataView(qtw.QWidget):
@@ -18,10 +20,6 @@ class LabelDataView(qtw.QWidget):
         layout = qtw.QVBoxLayout()
 
         # Metadata Dropdown
-        #self.metadataLabel = qtw.QLabel("Select Metadata: ")
-        #self.metadataDropdown = qtw.QComboBox()
-        #self.metadataDropdown.addItem("All Metadata")  # You can add specific chunks if needed
-        #self.__addItemsToComboBox__(self.metadataDropdown, self.presenter.getMetadata())
         self.fileNameLabel = qtw.QLabel("File name: No file open")
         self.totalFramesLabel = qtw.QLabel("Total frames: 0")
         layout.addWidget(self.fileNameLabel)
@@ -35,6 +33,10 @@ class LabelDataView(qtw.QWidget):
         layout.addWidget(self.framesLabel)
         layout.addWidget(self.framesDropdown)
 
+        #Frame info display
+        self.frameInfoBox = FrameInfoDisplay()
+        layout.addWidget(self.frameInfoBox)
+
         # Bounding Boxes Dropdown
         self.boundingBoxesLabel = qtw.QLabel("Select Bounding Boxes: ")
         self.boundingBoxesDropdown = qtw.QComboBox()
@@ -42,6 +44,8 @@ class LabelDataView(qtw.QWidget):
         self.__addItemsToComboBox__(self.boundingBoxesDropdown, self.presenter.getBoundingBoxes())
         layout.addWidget(self.boundingBoxesLabel)
         layout.addWidget(self.boundingBoxesDropdown)
+        
+        #BoundingBox info Display
 
         # Cells Dropdown
         self.cellsLabel = qtw.QLabel("Select Cells: ")
@@ -51,6 +55,8 @@ class LabelDataView(qtw.QWidget):
         layout.addWidget(self.cellsLabel)
         layout.addWidget(self.cellsDropdown)
 
+        #Cell info Display
+
         # Events Dropdown
         self.eventsLabel = qtw.QLabel("Select Events: ")
         self.eventsDropdown = qtw.QComboBox()
@@ -58,6 +64,8 @@ class LabelDataView(qtw.QWidget):
         self.__addItemsToComboBox__(self.eventsDropdown, self.presenter.getEvents())
         layout.addWidget(self.eventsLabel)
         layout.addWidget(self.eventsDropdown)
+
+        #Event info Display
 
         # Load Data Button
         self.refreshDataButton = qtw.QPushButton("Refresh Data")
@@ -118,7 +126,7 @@ class LabelDataView(qtw.QWidget):
 
         return filename
     
-    def getFrameCount(self):
+    def getFrameCount(self): 
         frames = "0"  # Default frame count
         metadata: dict = self.presenter.getMetadata()
     
@@ -130,3 +138,45 @@ class LabelDataView(qtw.QWidget):
                 frames = str(storedFrames)
     
         return frames
+    
+    def __showFrameInfoDisplay():
+        pass
+
+class InfoDisplay(qtw.QWidget):
+    def __init__(self, addDisplayContentFunction):
+        self.layout = qtw.QVBoxLayout()
+        
+        #set a grey background
+        palette = self.palette()
+        palette.setColor(QPalette.Window, QColor("grey"))
+        self.setPalette(palette)
+        
+        addDisplayContentFunction()
+        
+        self.setLayout(self.layout)
+
+
+class FrameInfoDisplay (InfoDisplay):
+    def __init__(self):
+        super.__init__(self.__addDisplayContent)
+    
+    def __addDisplayContent(self):
+        self.frameNumberLabel = qtw.QLabel("Frame: ")
+        self.boxIDsLabel = qtw.QLabel("Box Ids: ")
+        self.boxIDList = qtw.QListWidget()
+        
+        self.eventIDsLabel = qtw.QLabel("Event Ids: ")
+        self.eventIDList = qtw.QListWidget()
+        
+        self.layout().addWidget(self.frameNumberLabel)
+        self.layout().addWidget(self.boxIDsLabel)
+        self.layout().addWidget(self.boxIDList)
+        self.layout().addWidget(self.eventIDsLabel)
+        self.layout().addWidget(self.eventIDList)
+    
+    def refreshContents():
+        #update frame number label
+        #update box id list
+        #update eventid list
+        pass
+        
