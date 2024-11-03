@@ -1,8 +1,7 @@
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtGui import QIntValidator
 from Presenter.LabelDataPresenter import LabelDataPresenter
-from PyQt5.QtGui import QColor, QPalette
-from abc import ABC, abstractmethod
+from DataInfoDisplays.FrameInfoDisplay import FrameInfoDisplay
 #from Model.LabelData import BoundingBox
 
 class LabelDataView(qtw.QWidget):
@@ -28,6 +27,7 @@ class LabelDataView(qtw.QWidget):
         # Frames Dropdown
         self.framesLabel = qtw.QLabel("Select Frames: ")
         self.framesDropdown = qtw.QComboBox()
+        self.framesDropdown.currentTextChanged.connect(self.__frameComboBoxController)
         #self.framesDropdown.addItems()#FIXME
         self.__addItemsToComboBox__(self.framesDropdown, self.presenter.getFrames())
         layout.addWidget(self.framesLabel)
@@ -139,44 +139,21 @@ class LabelDataView(qtw.QWidget):
     
         return frames
     
+    def __frameComboBoxController(self, mode):
+        #if no frame is selected?
+        #if frame is selected
+        pass
+        
+    
     def __showFrameInfoDisplay():
         pass
-
-class InfoDisplay(qtw.QWidget):
-    def __init__(self, addDisplayContentFunction):
-        self.layout = qtw.QVBoxLayout()
-        
-        #set a grey background
-        palette = self.palette()
-        palette.setColor(QPalette.Window, QColor("grey"))
-        self.setPalette(palette)
-        
-        addDisplayContentFunction()
-        
-        self.setLayout(self.layout)
-
-
-class FrameInfoDisplay (InfoDisplay):
-    def __init__(self):
-        super.__init__(self.__addDisplayContent)
     
-    def __addDisplayContent(self):
-        self.frameNumberLabel = qtw.QLabel("Frame: ")
-        self.boxIDsLabel = qtw.QLabel("Box Ids: ")
-        self.boxIDList = qtw.QListWidget()
-        
-        self.eventIDsLabel = qtw.QLabel("Event Ids: ")
-        self.eventIDList = qtw.QListWidget()
-        
-        self.layout().addWidget(self.frameNumberLabel)
-        self.layout().addWidget(self.boxIDsLabel)
-        self.layout().addWidget(self.boxIDList)
-        self.layout().addWidget(self.eventIDsLabel)
-        self.layout().addWidget(self.eventIDList)
-    
-    def refreshContents():
-        #update frame number label
-        #update box id list
-        #update eventid list
+    def __hideFrameInfoDisplay():
         pass
+
+
+
+
+
+    
         

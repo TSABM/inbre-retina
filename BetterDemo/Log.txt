@@ -4,9 +4,19 @@ Code and documents for the internship
 day 92 11/2
 12:33 pm - 1:26 pm 
 2:49 pm - 4:40 pm 
+7:04 pm - 9:04
 I;m trying to figure out how to get this ui working better. The popup is not a very good solution. It would be better if somewhow that
 label data ui I wrote could let me change data directly. The popup also will have a big problem, I cant use it for selection alone
 because then the user wont be able to resize the box, which is a problem. 
+frames now store their frame number internally.
+Ok I've gone ahead and made a class for the first info display (frame info display). It is partially hooked up in the label data view
+but isnt triggered to show yet or hide. 
+This display does not actually allow the user to change data but ti should let them soon show the contents of the data picked in the
+dropdown.
+Finish frame info and showing/hiding it then move onto bounding box (the most important one). that one will need at least cellIds and
+eventIds to be editable (you'll need to be able to define new ones.)
+cell and event only need their type edited (and any list contained in them)
+
 
 Day 91 11/1
 1:00 pm - 1:41 pm 

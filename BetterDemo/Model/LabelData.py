@@ -98,7 +98,7 @@ class LabelData(dict):
         '''
         frames : dict = self.get("Frames")
         for i in range(maxFrames):
-            frames.update({i : Frame()})
+            frames.update({i : Frame(i)})
 
     def getFrames(self):
         '''
@@ -155,9 +155,10 @@ class LabelData(dict):
         return largestValue
 
 class Frame(dict):
-    def __init__(self, boxIDs : dict = {}, eventIDs : dict = {}):
+    def __init__(self, frameNumber : int = -1, boxIDs : dict = {}, eventIDs : dict = {}):
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient. 
+            "frameNumber" : int,
             "boxIDs": boxIDs,  # Initialize as an empty dictionary
             "eventIDs": eventIDs  # Initialize as an empty dictionary
         })
@@ -174,8 +175,14 @@ class Frame(dict):
             return
         eventIds[eventId] = True
     
+    def getFrameNumber(self):
+        return self.get("frameNumber")
+    
     def getBoxIds(self):
         return self.get("boxIDs")
+    
+    def getEventIds(self):
+        return self.get("eventIDs")
 
 class BoundingBox(dict):
     def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):
