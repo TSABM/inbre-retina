@@ -34,7 +34,7 @@ class LabelDataView(qtw.QWidget):
         layout.addWidget(self.framesDropdown)
 
         #Frame info display
-        self.frameInfoBox = FrameInfoDisplay()
+        self.frameInfoBox = FrameInfoDisplay(frame)
         layout.addWidget(self.frameInfoBox)
 
         # Bounding Boxes Dropdown
@@ -152,11 +152,11 @@ class LabelDataView(qtw.QWidget):
             self.__showFrameInfoDisplay()
         
     
-    def __showFrameInfoDisplay():
-        pass
+    def __showFrameInfoDisplay(self):
+        self.frameInfoBox.show()
     
-    def __hideFrameInfoDisplay():
-        pass
+    def __hideFrameInfoDisplay(self):
+        self.frameInfoBox.hide()
 
 
 
