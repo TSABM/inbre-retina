@@ -4,7 +4,7 @@ Code and documents for the internship
 day 92 11/2
 12:33 pm - 1:26 pm 
 2:49 pm - 4:40 pm 
-7:04 pm - 9:04
+7:04 pm - 9:17 pm
 I;m trying to figure out how to get this ui working better. The popup is not a very good solution. It would be better if somewhow that
 label data ui I wrote could let me change data directly. The popup also will have a big problem, I cant use it for selection alone
 because then the user wont be able to resize the box, which is a problem. 
