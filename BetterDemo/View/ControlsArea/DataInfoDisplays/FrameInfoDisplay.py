@@ -1,12 +1,12 @@
-from InfoDisplay import InfoDisplay
+from View.ControlsArea.DataInfoDisplays.InfoDisplay import InfoDisplay
 import PyQt5.QtWidgets as qtw
 from Model.LabelData import Frame
 
 
 class FrameInfoDisplay(InfoDisplay):
-    def __init__(self, frame):
+    def __init__(self, frame = None):
         super.__init__(self.__addDisplayContent)
-        self.frame : Frame = frame
+        self.frame = frame
     
     def __addDisplayContent(self):
         self.frameNumberLabel = qtw.QLabel("Frame: ")
@@ -25,6 +25,9 @@ class FrameInfoDisplay(InfoDisplay):
     def refreshContents(self):
         #FIXME grab an updated version of frame the curr one may be outdated presenter.updateCurrFrame?
         #update frame number label
+        if self.frame == None:
+            print("cannot refresh frame info fields, current frame is not set")
+            return
         self.frameNumberLabel.setText("Frame : " + self.frame.getFrameNumber())
         #update box id list
         boxIDs = self.frame.getBoxIds()

@@ -1,7 +1,7 @@
 import PyQt5.QtWidgets as qtw
 from PyQt5.QtGui import QIntValidator
 from Presenter.LabelDataPresenter import LabelDataPresenter
-from DataInfoDisplays.FrameInfoDisplay import FrameInfoDisplay
+from View.ControlsArea.DataInfoDisplays.FrameInfoDisplay import FrameInfoDisplay
 #from Model.LabelData import BoundingBox
 
 class LabelDataView(qtw.QWidget):
@@ -34,8 +34,8 @@ class LabelDataView(qtw.QWidget):
         layout.addWidget(self.framesDropdown)
 
         #Frame info display
-        self.frameInfoBox = FrameInfoDisplay(frame)
-        layout.addWidget(self.frameInfoBox)
+        #self.frameInfoBox = FrameInfoDisplay()
+        #layout.addWidget(self.frameInfoBox)
 
         # Bounding Boxes Dropdown
         self.boundingBoxesLabel = qtw.QLabel("Select Bounding Boxes: ")
@@ -153,10 +153,12 @@ class LabelDataView(qtw.QWidget):
         
     
     def __showFrameInfoDisplay(self):
-        self.frameInfoBox.show()
+        #self.frameInfoBox.show()
+        pass
     
     def __hideFrameInfoDisplay(self):
-        self.frameInfoBox.hide()
+        #self.frameInfoBox.hide()
+        pass
 
 
 

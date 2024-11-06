@@ -1,6 +1,14 @@
 # internship
 Code and documents for the internship
 
+Day 93 11/5
+5:31 pm - 6:06pm
+commented out frame info code temporarily to allow for opening the file while the class is being fixed. Going to need to let frame be nothing so 
+other frame info methods need to abort if the frame isnt initalized.
+Had a meeting and got a better idea about the files that will need to be worked with. Another team is segmenting the image I need addibale,
+editable, deletable, exportable bounding boxes to be ready as soon as I can get them working. I also need to refactor image rendering. 
+We are going back to the folder of images format which means I will need to resurrect some old code and refactor current code to deal with this.
+
 day 92 11/2
 12:33 pm - 1:26 pm 
 2:49 pm - 4:40 pm 
