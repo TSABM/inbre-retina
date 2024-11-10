@@ -34,8 +34,9 @@ class LabelDataView(qtw.QWidget):
         layout.addWidget(self.framesDropdown)
 
         #Frame info display
-        #self.frameInfoBox = FrameInfoDisplay()
-        #layout.addWidget(self.frameInfoBox)
+        self.frameInfoBox : FrameInfoDisplay = FrameInfoDisplay()
+        layout.addWidget(self.frameInfoBox)
+        self.__hideFrameInfoDisplay()
 
         # Bounding Boxes Dropdown
         self.boundingBoxesLabel = qtw.QLabel("Select Bounding Boxes: ")
@@ -145,19 +146,20 @@ class LabelDataView(qtw.QWidget):
         if mode == None: #FIXME I dont think this can ever happen
             self.__hideFrameInfoDisplay()
         
-        #if frame is selected
-            #set frame info display to current frame (maybe the display can do this on its own?)
-            #show frame info display
         else:
+            frameText = self.framesDropdown.currentText()
+            frameNum = int(frameText)
+            print(frameNum)
+            self.frameInfoBox.setFrame(frameNum)
             self.__showFrameInfoDisplay()
         
     
     def __showFrameInfoDisplay(self):
-        #self.frameInfoBox.show()
+        self.frameInfoBox.show()
         pass
     
     def __hideFrameInfoDisplay(self):
-        #self.frameInfoBox.hide()
+        self.frameInfoBox.hide()
         pass
 
 

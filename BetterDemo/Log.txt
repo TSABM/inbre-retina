@@ -1,6 +1,14 @@
 # internship
 Code and documents for the internship
 
+Day 94 11/9
+2:50 pm - 4:45 pm 
+5:14 pm - 5:48 pm 
+7:33 pm - 
+Working on the frame fields.
+Frame box now renders. It loads boxids as it should the first time, but crashes if you add more boxes and refresh it. Work on this.
+refreshing in general with or without new boxes causes crashes. check reloadLabelData
+
 Day 93 11/5
 5:31 pm - 6:06pm
 commented out frame info code temporarily to allow for opening the file while the class is being fixed. Going to need to let frame be nothing so 

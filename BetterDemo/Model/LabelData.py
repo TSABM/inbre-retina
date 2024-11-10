@@ -158,7 +158,7 @@ class Frame(dict):
     def __init__(self, frameNumber : int = -1, boxIDs : dict = {}, eventIDs : dict = {}):
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient. 
-            "frameNumber" : int,
+            "frameNumber" : frameNumber,
             "boxIDs": boxIDs,  # Initialize as an empty dictionary
             "eventIDs": eventIDs  # Initialize as an empty dictionary
         })
