@@ -1,10 +1,15 @@
 # internship
 Code and documents for the internship
 
+Day 95 11/12
+5:45pm - 6:00 pm
+quick meeting with boyu. The other teams are starting to make progress, I need to make sure it will be easy to 
+implement their code with mine when the time comes. No deadline yet.
+
 Day 94 11/9
 2:50 pm - 4:45 pm 
 5:14 pm - 5:48 pm 
-7:33 pm - 
+7:33 pm - 9:00 pm 
 Working on the frame fields.
 Frame box now renders. It loads boxids as it should the first time, but crashes if you add more boxes and refresh it. Work on this.
 refreshing in general with or without new boxes causes crashes. check reloadLabelData
