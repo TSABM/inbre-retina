@@ -23,7 +23,7 @@ class FrameInfoDisplay(InfoDisplay):
         self.layout.addWidget(self.eventIDList)
     
     def refreshContents(self):
-        #FIXME grab an updated version of frame the curr one may be outdated presenter.updateCurrFrame?
+        #FIXME grab an updated version of frame the curr one may be outdated? presenter.updateCurrFrame?
         #update frame number label
         if self.frame == None:
             print("cannot refresh frame info fields, current frame is not set")

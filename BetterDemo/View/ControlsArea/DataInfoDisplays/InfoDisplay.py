@@ -17,3 +17,5 @@ class InfoDisplay(qtw.QWidget):
         addDisplayContentMethod()
         
         self.setLayout(self.layout)
+    
+    

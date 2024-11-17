@@ -143,7 +143,7 @@ class LabelDataView(qtw.QWidget):
     def __frameComboBoxController(self, mode):
         #if no frame is selected?
             #hide frame info display
-        if mode == None: #FIXME I dont think this can ever happen
+        if mode == None or mode == "":
             self.__hideFrameInfoDisplay()
         
         else:
@@ -152,8 +152,7 @@ class LabelDataView(qtw.QWidget):
             print(frameNum)
             self.frameInfoBox.setFrame(frameNum)
             self.__showFrameInfoDisplay()
-        
-    
+            
     def __showFrameInfoDisplay(self):
         self.frameInfoBox.show()
         pass
