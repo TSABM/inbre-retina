@@ -9,64 +9,37 @@ class LabelDataView(qtw.QWidget):
         super().__init__()
         self.labelToDisplay = None #FIXME
         self.presenter = LabelDataPresenter(self)
-        self.initUI()
+        self.__initUI()
         self.showing = False
 
         #self.loadLabelDataFields()
         
+    ###Init helper methods ###
 
-    def initUI(self):
+    def __initUI(self):
         layout = qtw.QVBoxLayout()
+        self.setLayout(layout)
 
         # Metadata Dropdown
-        self.fileNameLabel = qtw.QLabel("File name: No file open")
-        self.totalFramesLabel = qtw.QLabel("Total frames: 0")
-        layout.addWidget(self.fileNameLabel)
-        layout.addWidget(self.totalFramesLabel)
+        self.__initMetadataFields()
+        self.__addMetadataFieldsToLayout()
 
         # Frames Dropdown
-        self.framesLabel = qtw.QLabel("Select Frames: ")
-        self.framesDropdown = qtw.QComboBox()
-        self.framesDropdown.currentTextChanged.connect(self.__frameComboBoxController)
-        #self.framesDropdown.addItems()#FIXME
-        self.__addItemsToComboBox__(self.framesDropdown, self.presenter.getFrames())
-        layout.addWidget(self.framesLabel)
-        layout.addWidget(self.framesDropdown)
-
-        #Frame info display
-        self.frameInfoBox : FrameInfoDisplay = FrameInfoDisplay()
-        layout.addWidget(self.frameInfoBox)
-        self.__hideFrameInfoDisplay()
+        self.__initFrameDataFields()
+        self.__addFramedataFieldsToLayout()
 
         # Bounding Boxes Dropdown
-        self.boundingBoxesLabel = qtw.QLabel("Select Bounding Boxes: ")
-        self.boundingBoxesDropdown = qtw.QComboBox()
-        #self.boundingBoxesDropdown.addItems() #FIXME
-        self.__addItemsToComboBox__(self.boundingBoxesDropdown, self.presenter.getBoundingBoxes())
-        layout.addWidget(self.boundingBoxesLabel)
-        layout.addWidget(self.boundingBoxesDropdown)
-        
-        #BoundingBox info Display
+        self.__initBoundingBoxDataFields()
+        self.__addBoundingBoxDataFieldsToLayout()
 
         # Cells Dropdown
-        self.cellsLabel = qtw.QLabel("Select Cells: ")
-        self.cellsDropdown = qtw.QComboBox()
-        #self.cellsDropdown.addItems() #FIXME
-        self.__addItemsToComboBox__(self.cellsDropdown, self.presenter.getCells())
-        layout.addWidget(self.cellsLabel)
-        layout.addWidget(self.cellsDropdown)
-
-        #Cell info Display
+        self.__initCellDataFields()
+        self.__addCellDataFieldsToLayout()
 
         # Events Dropdown
-        self.eventsLabel = qtw.QLabel("Select Events: ")
-        self.eventsDropdown = qtw.QComboBox()
-        #self.eventsDropdown.addItems() #FIXME
-        self.__addItemsToComboBox__(self.eventsDropdown, self.presenter.getEvents())
-        layout.addWidget(self.eventsLabel)
-        layout.addWidget(self.eventsDropdown)
-
-        #Event info Display
+        self.__initEventDataFields()
+        self.__addEventDataFieldsToLayout()
+        
 
         # Load Data Button
         self.refreshDataButton = qtw.QPushButton("Refresh Data")
@@ -74,8 +47,66 @@ class LabelDataView(qtw.QWidget):
         layout.addWidget(self.refreshDataButton)
 
         #layout.addWidget(self.loadDataButton)
+        
+    def __initMetadataFields(self):
+        self.fileNameLabel = qtw.QLabel("File name: No file open")
+        self.totalFramesLabel = qtw.QLabel("Total frames: 0")
+       
+    def __initFrameDataFields(self):
+        self.framesLabel = qtw.QLabel("Select Frames: ")
+        self.framesDropdown = qtw.QComboBox()
+        self.framesDropdown.currentTextChanged.connect(self.__frameComboBoxController)
+        #self.framesDropdown.addItems()#FIXME
+        self.__addItemsToComboBox(self.framesDropdown, self.presenter.getFrames())
+        #Frame info display
+        self.frameInfoBox : FrameInfoDisplay = FrameInfoDisplay()
+        
+    def __initBoundingBoxDataFields(self):
+        self.boundingBoxesLabel = qtw.QLabel("Select Bounding Boxes: ")
+        self.boundingBoxesDropdown = qtw.QComboBox()
+        #self.boundingBoxesDropdown.addItems() #FIXME
+        self.__addItemsToComboBox(self.boundingBoxesDropdown, self.presenter.getBoundingBoxes())
+        #BoundingBox info Display
+        
+    def __initCellDataFields(self):
+        self.cellsLabel = qtw.QLabel("Select Cells: ")
+        self.cellsDropdown = qtw.QComboBox()
+        #self.cellsDropdown.addItems() #FIXME
+        self.__addItemsToComboBox(self.cellsDropdown, self.presenter.getCells())
+        
+    def __initEventDataFields(self):
+        self.eventsLabel = qtw.QLabel("Select Events: ")
+        self.eventsDropdown = qtw.QComboBox()
+        #self.eventsDropdown.addItems() #FIXME
+        self.__addItemsToComboBox(self.eventsDropdown, self.presenter.getEvents())
+    
+    ###Layout helper methods ###
+     
+    def __addMetadataFieldsToLayout(self):
+        if not hasattr(self, "fileNameLabel"): return #FIXME you can make a more robust safety check than this
+        self.layout.addWidget(self.fileNameLabel)
+        self.layout.addWidget(self.totalFramesLabel)
+    
+    def __addFramedataFieldsToLayout(self):
+        self.layout.addWidget(self.framesLabel)
+        self.layout.addWidget(self.framesDropdown)
+        self.layout.addWidget(self.frameInfoBox)
+        self.__hideFrameInfoDisplay()
+    
+    def __addBoundingBoxDataFieldsToLayout(self):
+        self.layout.addWidget(self.boundingBoxesLabel)
+        self.layout.addWidget(self.boundingBoxesDropdown)
+    
+    def __addCellDataFieldsToLayout(self):
+        self.layout.addWidget(self.cellsLabel)
+        self.layout.addWidget(self.cellsDropdown)
 
-        self.setLayout(layout)
+        #Cell info Display
+    def __addEventDataFieldsToLayout(self):
+        self.layout.addWidget(self.eventsLabel)
+        self.layout.addWidget(self.eventsDropdown)
+    
+    ### ###
 
     def reloadLabelData(self):
         '''
@@ -97,18 +128,18 @@ class LabelDataView(qtw.QWidget):
         # Re-populate the dropdowns with the new data
         self.fileNameLabel.setText("File name: " + self.getFileName())
         self.totalFramesLabel.setText("Total frames: " + self.getFrameCount())
-        self.__addItemsToComboBox__(self.framesDropdown, updated_frames)
-        self.__addItemsToComboBox__(self.boundingBoxesDropdown, updated_bounding_boxes)
-        self.__addItemsToComboBox__(self.cellsDropdown, updated_cells)
-        self.__addItemsToComboBox__(self.eventsDropdown, updated_events)    
+        self.__addItemsToComboBox(self.framesDropdown, updated_frames)
+        self.__addItemsToComboBox(self.boundingBoxesDropdown, updated_bounding_boxes)
+        self.__addItemsToComboBox(self.cellsDropdown, updated_cells)
+        self.__addItemsToComboBox(self.eventsDropdown, updated_events)    
         
     
-    def __addItemsToComboBox__(self, comboBox : qtw.QComboBox, item : dict | None):
+    def __addItemsToComboBox(self, comboBox : qtw.QComboBox, item : dict | None):
         if item == None:
             return
         for field in item:
             if isinstance(field, dict):
-                self.__addItemsToComboBox__(comboBox, field)
+                self.__addItemsToComboBox(comboBox, field)
             else:
                 if isinstance(field, str):
                     comboBox.addItem(field)
