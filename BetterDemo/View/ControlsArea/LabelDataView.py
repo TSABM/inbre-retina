@@ -84,27 +84,27 @@ class LabelDataView(qtw.QWidget):
      
     def __addMetadataFieldsToLayout(self):
         if not hasattr(self, "fileNameLabel"): return #FIXME you can make a more robust safety check than this
-        self.layout.addWidget(self.fileNameLabel)
-        self.layout.addWidget(self.totalFramesLabel)
+        self.layout().addWidget(self.fileNameLabel)
+        self.layout().addWidget(self.totalFramesLabel)
     
     def __addFramedataFieldsToLayout(self):
-        self.layout.addWidget(self.framesLabel)
-        self.layout.addWidget(self.framesDropdown)
-        self.layout.addWidget(self.frameInfoBox)
+        self.layout().addWidget(self.framesLabel)
+        self.layout().addWidget(self.framesDropdown)
+        self.layout().addWidget(self.frameInfoBox)
         self.__hideFrameInfoDisplay()
     
     def __addBoundingBoxDataFieldsToLayout(self):
-        self.layout.addWidget(self.boundingBoxesLabel)
-        self.layout.addWidget(self.boundingBoxesDropdown)
+        self.layout().addWidget(self.boundingBoxesLabel)
+        self.layout().addWidget(self.boundingBoxesDropdown)
     
     def __addCellDataFieldsToLayout(self):
-        self.layout.addWidget(self.cellsLabel)
-        self.layout.addWidget(self.cellsDropdown)
+        self.layout().addWidget(self.cellsLabel)
+        self.layout().addWidget(self.cellsDropdown)
 
         #Cell info Display
     def __addEventDataFieldsToLayout(self):
-        self.layout.addWidget(self.eventsLabel)
-        self.layout.addWidget(self.eventsDropdown)
+        self.layout().addWidget(self.eventsLabel)
+        self.layout().addWidget(self.eventsDropdown)
     
     ### ###
 
