@@ -47,7 +47,26 @@ class LabelDataView(qtw.QWidget):
         layout.addWidget(self.refreshDataButton)
 
         #layout.addWidget(self.loadDataButton)
-        
+    
+    def __addItemsToComboBox(self, comboBox : qtw.QComboBox, item : dict | None):
+        #clear combobox?
+        comboBox.clear()
+        #add in "-"
+        comboBox.insertItem(0, "-")
+        self.__readItemsIntoComboBox(comboBox, item)
+    
+    def __readItemsIntoComboBox(self, comboBox : qtw.QComboBox, item : dict | None):
+        if item == None:
+            return
+        for field in item:
+            if isinstance(field, dict): #since much of the data is stored in sub dictionaries if you hit a dictionary call this method again to list the contents
+                self.__addItemsToComboBox(comboBox, field)
+            else:
+                if isinstance(field, str):
+                    comboBox.addItem(field)
+                elif isinstance(field, int):
+                    comboBox.addItem(str(field))
+    
     def __initMetadataFields(self):
         self.fileNameLabel = qtw.QLabel("File name: No file open")
         self.totalFramesLabel = qtw.QLabel("Total frames: 0")
@@ -56,7 +75,6 @@ class LabelDataView(qtw.QWidget):
         self.framesLabel = qtw.QLabel("Select Frames: ")
         self.framesDropdown = qtw.QComboBox()
         self.framesDropdown.currentTextChanged.connect(self.__frameComboBoxController)
-        #self.framesDropdown.addItems()#FIXME
         self.__addItemsToComboBox(self.framesDropdown, self.presenter.getFrames())
         #Frame info display
         self.frameInfoBox : FrameInfoDisplay = FrameInfoDisplay()
@@ -67,6 +85,7 @@ class LabelDataView(qtw.QWidget):
         #self.boundingBoxesDropdown.addItems() #FIXME
         self.__addItemsToComboBox(self.boundingBoxesDropdown, self.presenter.getBoundingBoxes())
         #BoundingBox info Display
+        #self.boundingBoxInfoBox  = BoundingBoxInfoDisplay()
         
     def __initCellDataFields(self):
         self.cellsLabel = qtw.QLabel("Select Cells: ")
@@ -133,19 +152,6 @@ class LabelDataView(qtw.QWidget):
         self.__addItemsToComboBox(self.cellsDropdown, updated_cells)
         self.__addItemsToComboBox(self.eventsDropdown, updated_events)    
         
-    
-    def __addItemsToComboBox(self, comboBox : qtw.QComboBox, item : dict | None):
-        if item == None:
-            return
-        for field in item:
-            if isinstance(field, dict):
-                self.__addItemsToComboBox(comboBox, field)
-            else:
-                if isinstance(field, str):
-                    comboBox.addItem(field)
-                elif isinstance(field, int):
-                    comboBox.addItem(str(field))
-    
     def getFileName(self):
         filename = "No file open" #default
         metadata : dict = self.presenter.getMetadata()
@@ -174,7 +180,8 @@ class LabelDataView(qtw.QWidget):
     def __frameComboBoxController(self, mode):
         #if no frame is selected?
             #hide frame info display
-        if mode == None or mode == "":
+        if mode == None or mode == "" or mode == "-":
+            if not hasattr(self, "frameInfoBox"): return
             self.__hideFrameInfoDisplay()
         
         else:
