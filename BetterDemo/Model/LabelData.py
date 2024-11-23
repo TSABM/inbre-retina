@@ -59,14 +59,27 @@ class LabelData(dict):
             return
         
         frame.addBoxId(box.get_boxID())
-        eventIDs : dict = box.get_eventIDs()
-        for event in eventIDs.keys():
-            frame.addEventId(event)
         frames.update({box.get_frameNumber() : frame})
         boundingBoxes.update({box.get_boxID() : box})
 
-    def deleteBoundingBox(self):
-        
+    def deleteBoundingBox(self, boxID : str):
+        #grab the bounding box in question
+        boxes : dict = self.getBoundingBoxes()
+        box : BoundingBox = boxes.get(boxID)
+        #verify it still exists
+        if box == None: 
+            print("Cannot delete box. Box not found in data object")
+            return
+        #remove its reference from the frame
+        frames : dict = self.getFrames()
+        frame : Frame = frames.get(box.get_frameNumber())
+        frameBoxIDs : dict = frame.getBoxIds(boxID)
+        del frameBoxIDs[boxID]
+        #for each event assotiated with it
+        for eventID in box.get_eventIDs():
+            #remove the assotiation with the box being deleted
+            
+        #delete the bounding box
         pass
 
     def addNewCellType(self, type : str):
@@ -159,12 +172,11 @@ class LabelData(dict):
         return largestValue
 
 class Frame(dict):
-    def __init__(self, frameNumber : int = -1, boxIDs : dict = {}, eventIDs : dict = {}):
+    def __init__(self, frameNumber : int = -1, boxIDs : dict = {}):
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient. 
             "frameNumber" : frameNumber,
-            "boxIDs": boxIDs,  # Initialize as an empty dictionary
-            "eventIDs": eventIDs  # Initialize as an empty dictionary
+            "boxIDs": boxIDs  # Initialize as an empty dictionary
         })
     
     def addBoxId(self, boxId):
@@ -173,20 +185,11 @@ class Frame(dict):
             return
         boxIds[boxId] = True
     
-    def addEventId(self, eventId):
-        eventIds: dict = self.get("eventIDs")
-        if eventId in eventIds:
-            return
-        eventIds[eventId] = True
-    
     def getFrameNumber(self):
         return self.get("frameNumber")
     
     def getBoxIds(self):
         return self.get("boxIDs")
-    
-    def getEventIds(self):
-        return self.get("eventIDs")
 
 class BoundingBox(dict):
     def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):

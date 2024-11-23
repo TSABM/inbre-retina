@@ -36,9 +36,6 @@ class FrameInfoDisplay(InfoDisplay):
         #update box id list
         boxIDs = self.frame.getBoxIds()
         self.boxIDList.addItems(boxIDs)
-        #update eventid list
-        eventIDs = self.frame.getEventIds()
-        self.eventIDList.addItems(eventIDs)
     
     def setFrame(self, frameNumber : int):
         self.frame = self.presenter.getFrame(frameNumber)

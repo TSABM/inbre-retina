@@ -5,6 +5,11 @@ Day 99
  5:27 pm - 
 slight problem. Most bugs have been fixed with the frame info display but for some reason every frame seems to have the boxes drawn on one frame.
 Debug mode confirms that all frames do in fact have the duplicate data.
+removed event list in frames. While it would have been convineient that data was already stored in a slightly less accessible way by storing
+the boxIDs. Keeping it complicated deleting a box from a frame because events can be assotiated with multiple boxes, it meant it was really hard
+to tell if an event should be removed from a frame or not when deleting a box. This way its no problem and if you want all event data for a frame
+you can just scan all the included bounding boxes which is a little harder but considering we will only ever have less than 2 dozen boxes on any one
+frame it shouldnt even be noticeable.
 
 Day 98
 12:22 pm - 1:20 pm
