@@ -37,6 +37,7 @@ class CanvasModel():
         self.updatePixmap()
         self.scene.addItem(self.pixmap_item)
     
+    ### necissary methods, sort of miscallanious though
     def getScene(self):
         return self.scene
     
@@ -49,8 +50,11 @@ class CanvasModel():
             return False
         else:
             return True
-    ## handle pixmap setting and getting ##  
-
+    
+    def __getFrameNumber__(self):
+        return self.frameNumber
+    
+    ### handle pixmap 
     def setfile(self, file : Displayable):
         '''
         If the file is type Displayable set it as the file to display and update the pixmap else print a message and return
@@ -73,18 +77,6 @@ class CanvasModel():
         if self.fileToDisplay != None:
             self.pixmap = self.fileToDisplay.getPixmap(self.frameNumber)
             self.pixmap_item.setPixmap(self.pixmap)
-
-    def updatePixmap(self):
-        '''
-        if there isnt a defined pixmap call setPixmap else init a QPainter and then call drawLabels
-        '''
-        if self.isFileOpen() == False:
-            return
-        self.__setPixmap__()
-        if self.pixmap != None:
-            painter = QPainter(self.pixmap)
-            painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
-            self.__drawLabels__(painter)
 
     def __drawLabels__(self, painter : QPainter):
         '''
@@ -115,15 +107,20 @@ class CanvasModel():
                         painter.drawRect(rectangle)
         painter.end()
         self.pixmap_item.setPixmap(self.pixmap)
-
-
-    #def getPixmap(self):
-    #    return self.pixmap
     
-    def __getFrameNumber__(self):
-        return self.frameNumber
+    def updatePixmap(self):
+        '''
+        if there isnt a defined pixmap call setPixmap else init a QPainter and then call drawLabels
+        '''
+        if self.isFileOpen() == False:
+            return
+        self.__setPixmap__()
+        if self.pixmap != None:
+            painter = QPainter(self.pixmap)
+            painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
+            self.__drawLabels__(painter)
     
-    ## Handle everything related to the bounding boxes ##
+    ### Handle everything related to the bounding boxes ##
     def addBox(self, rect : QRect):  
         if self.isFileOpen() == False:
             return  
@@ -139,9 +136,34 @@ class CanvasModel():
         self.updatePixmap()
         return boxId
     
+    def deleteBox(self):
+        #check if a box is currently selected
+        #if yes: 
+            #grab the box info? (maybe not needed)
+            #send a delete request to label data
+        #else:
+            #print a message
+            #return
+        if self.isFileOpen() == False:
+            return  
+        elif self.selectedItem == None:
+            print("Unable to delete box: Canvas has no box selected")
+            return
+        else:
+            #print("Attempting to delete selected box")
+            
+            return
+            
+        pass
+    
     def __sendBoxUpdate__(self, boxToUpdate):
         labelData : LabelData = MasterMemory.getLabelData()
         labelData.updateBoundingBox(boxToUpdate)
+    
+    def __sendBoxDeleteRequest__(self):
+        labelData : LabelData = MasterMemory.getLabelData()
+        
+        pass
 
     def __updateSelectedBoxPosition__(self, rectangle : QRect):
         dims = rectangle.getRect()
@@ -183,6 +205,16 @@ class CanvasModel():
         self.selectedItem = None
         self.updatePixmap()
     
+    def moveBox(self, point):
+        if self.isFileOpen() == False:
+            return
+        
+        rectangle : QRect = self.selectedItem.get_boundingBox_as_qrect()
+        rectangle.moveCenter(point)
+        self.__updateSelectedBoxPosition__(rectangle)
+        self.updatePixmap()
+
+    ### methods on box resizing
     def resizeBox(self, point, corner): 
         if self.isFileOpen() == False:
             return
@@ -202,16 +234,7 @@ class CanvasModel():
         self.__updateSelectedBoxPosition__(rectangle)
         #self.sendBoxUpdate()#this is maybe unneeded the line above may update label data if it just copies by ref...
         self.updatePixmap()
-    
-    def moveBox(self, point):
-        if self.isFileOpen() == False:
-            return
         
-        rectangle : QRect = self.selectedItem.get_boundingBox_as_qrect()
-        rectangle.moveCenter(point)
-        self.__updateSelectedBoxPosition__(rectangle)
-        self.updatePixmap()
-
     def __drawResizeHandles__(self, painter : QPainter, rectangle):
         handles = self.__getResizeHandles__(rectangle)
         painter.setBrush(QColor(0, 0, 255)) #blue handle fill
@@ -243,5 +266,6 @@ class CanvasModel():
                 if handles[index].contains(point):
                     return index
     
+    ### possibly deprocated methods below here. FIXME 
     def getSelectedLabel(self):
         return self.selectedItem

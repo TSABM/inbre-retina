@@ -26,6 +26,7 @@ class FrameInfoDisplay(InfoDisplay):
         #FIXME grab an updated version of frame the curr one may be outdated? presenter.updateCurrFrame?
         #update frame number label
         #clear contents before re-adding
+        print("trying to refresh frameInfo display. Current frame is: ", self.frame)
         self.boxIDList.clear()
         self.eventIDList.clear()
         if self.frame == None:

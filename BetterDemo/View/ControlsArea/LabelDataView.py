@@ -185,10 +185,13 @@ class LabelDataView(qtw.QWidget):
             self.__hideFrameInfoDisplay()
         
         else:
+            #grab the current frame number selected
             frameText = self.framesDropdown.currentText()
             frameNum = int(frameText)
             print(frameNum)
+            #set frameInfoBoxes frame number
             self.frameInfoBox.setFrame(frameNum)
+            #show a valid frames frame info
             self.__showFrameInfoDisplay()
             
     def __showFrameInfoDisplay(self):

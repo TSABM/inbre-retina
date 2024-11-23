@@ -65,6 +65,10 @@ class LabelData(dict):
         frames.update({box.get_frameNumber() : frame})
         boundingBoxes.update({box.get_boxID() : box})
 
+    def deleteBoundingBox(self):
+        
+        pass
+
     def addNewCellType(self, type : str):
         '''
         adds new cell type to the dict of existing cell types. the key is the Type (which is a string), a boolean "True" is stored as the value
