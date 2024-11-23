@@ -66,21 +66,32 @@ class LabelData(dict):
         #grab the bounding box in question
         boxes : dict = self.getBoundingBoxes()
         box : BoundingBox = boxes.get(boxID)
+        
         #verify it still exists
         if box == None: 
             print("Cannot delete box. Box not found in data object")
             return
+        
         #remove its reference from the frame
         frames : dict = self.getFrames()
         frame : Frame = frames.get(box.get_frameNumber())
         frameBoxIDs : dict = frame.getBoxIds(boxID)
         del frameBoxIDs[boxID]
+        
         #for each event assotiated with it
+        events : dict = self.getEvents()
         for eventID in box.get_eventIDs():
+            event : Event = events.get(eventID)
             #remove the assotiation with the box being deleted
+            eventBoxIds : dict = event.getBoxIDs()
+            del eventBoxIds[eventID]
+            #if the event has no box assotiated then delete it
+            if len(eventBoxIds) == 0:
+                del events[eventID]
             
         #delete the bounding box
-        pass
+        del boxes[boxID]
+        print("deleted bounding box")
 
     def addNewCellType(self, type : str):
         '''
@@ -276,6 +287,13 @@ class Event(dict):
             "boxIDs" : boxIDs
             #"cellIDs": cellIds #cellIDs was a dict, but maybe redundant since boxes store the cell list too
         })
+    def getEventID(self):
+        return self.get("eventID")
+    def getEventType(self):
+        return self.get("eventType")
+    def getBoxIDs(self):
+        return self.get("boxIDs")
+        
 class MetaData(dict):
     def __init__(self, fileName: str = None, frameTotal: int = 0, other: list[str] = None):
         # Ensure other is a list if not provided

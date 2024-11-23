@@ -1,7 +1,7 @@
 # internship
 Code and documents for the internship
 
-Day 99
+Day 99 11/22
  5:27 pm - 
 slight problem. Most bugs have been fixed with the frame info display but for some reason every frame seems to have the boxes drawn on one frame.
 Debug mode confirms that all frames do in fact have the duplicate data.
@@ -11,7 +11,7 @@ to tell if an event should be removed from a frame or not when deleting a box. T
 you can just scan all the included bounding boxes which is a little harder but considering we will only ever have less than 2 dozen boxes on any one
 frame it shouldnt even be noticeable.
 
-Day 98
+Day 98 11/19
 12:22 pm - 1:20 pm
 4:19 pm - 4:45 pm
 added a "-" option on the dropdowns which is now selected by default and when it is selected the infoDisplays 
