@@ -39,6 +39,7 @@ class CanvasView(qtw.QGraphicsView):
         if event.button() == Qt.LeftButton:
             mode = self.presenter.getInteractionMode()
             self.initialPoint = self.mapToScene(event.pos()).toPoint()
+            
             if mode == "Select label":
                 selectedBox = self.presenter.selectBox(self.initialPoint)
                 if selectedBox != None:
@@ -55,6 +56,10 @@ class CanvasView(qtw.QGraphicsView):
                 #begin rubber band box
                 self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), QSize())) #note the new QSize object has width and height of 0
                 self.rubberBand.show()
+            
+            elif mode == "Erase":
+                print("Erase has not yet been implemented")
+            
             else:
                 print("invalid interaction mode ", mode)
      
@@ -90,6 +95,8 @@ class CanvasView(qtw.QGraphicsView):
                 else:
                     print("Cant open label popup: boundingBox did not generate")
                 self.point = QPoint() #resetting selected point data for next draw or select
+            elif mode == "Erase":
+                
     
     def openPopUp(self, boxID):
         print("tried to open popup")
@@ -102,3 +109,6 @@ class CanvasView(qtw.QGraphicsView):
     def drawBox(self, rect):
         boxId = self.presenter.addBox(rect)
         return boxId
+    
+    def deleteBox(self):
+        self.presenter.

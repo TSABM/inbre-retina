@@ -35,6 +35,9 @@ class CanvasPresenter(AbstractPresenter):
         addedBoxID = self.model.addBox(rectToAdd)
         return addedBoxID
 
+    def deleteBox(self, point):
+        self.model.deleteBox(point)
+        
 
     def selectBox(self, point):
         selectedBox = self.model.selectBox(point)

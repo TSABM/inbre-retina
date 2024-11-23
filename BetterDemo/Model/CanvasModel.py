@@ -136,14 +136,15 @@ class CanvasModel():
         self.updatePixmap()
         return boxId
     
-    def deleteBox(self):
+    def deleteBySelection(self, point):
+        #handle selection
+        #handle deletion
+        self.deleteBox()
+    
+    def deleteBox(self, boxID):
+        #check if a box is at the point (if so select it)
+        
         #check if a box is currently selected
-        #if yes: 
-            #grab the box info? (maybe not needed)
-            #send a delete request to label data
-        #else:
-            #print a message
-            #return
         if self.isFileOpen() == False:
             return  
         elif self.selectedItem == None:
@@ -151,19 +152,16 @@ class CanvasModel():
             return
         else:
             #print("Attempting to delete selected box")
-            
+            self.__sendBoxDeleteRequest__(self.selectedItem.get_boxID())
             return
-            
-        pass
     
     def __sendBoxUpdate__(self, boxToUpdate):
         labelData : LabelData = MasterMemory.getLabelData()
         labelData.updateBoundingBox(boxToUpdate)
     
-    def __sendBoxDeleteRequest__(self):
+    def __sendBoxDeleteRequest__(self, boxIdToDelete : str):
         labelData : LabelData = MasterMemory.getLabelData()
-        
-        pass
+        labelData.deleteBoundingBox(boxIdToDelete)
 
     def __updateSelectedBoxPosition__(self, rectangle : QRect):
         dims = rectangle.getRect()
