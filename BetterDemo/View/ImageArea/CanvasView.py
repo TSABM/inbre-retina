@@ -96,7 +96,7 @@ class CanvasView(qtw.QGraphicsView):
                     print("Cant open label popup: boundingBox did not generate")
                 self.point = QPoint() #resetting selected point data for next draw or select
             elif mode == "Erase":
-                
+                #send a hybrid select/erase request that identifies a box at a point and deletes it
     
     def openPopUp(self, boxID):
         print("tried to open popup")

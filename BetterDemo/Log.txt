@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+Day 100
+11:00 pm - 11:30 pm
+only had a few mins to work on fixing errors with delete. Still not complete. the delete in model needs finishing, then in view
+then it must be tested.
+
 Day 99 11/22
  5:27 pm - 8:37pm
  9:12 pm - 9:45 pm 
