@@ -1,7 +1,13 @@
 # internship
 Code and documents for the internship
 
-Day 100
+Day 101 12/10
+11:34 am - 12:45 pm 
+New priorities: 1) export data to json file format, 2) finish data control (edit and delete of data fields), 3) import exported data
+worke on it and made a first draft of the export command. It is so far untested and may need refactoring for more versatile use
+(right now the user cant choose where the exported file is saved)
+
+Day 100 12/3
 11:00 pm - 11:30 pm
 only had a few mins to work on fixing errors with delete. Still not complete. the delete in model needs finishing, then in view
 then it must be tested.

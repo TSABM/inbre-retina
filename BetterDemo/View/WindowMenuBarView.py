@@ -47,6 +47,8 @@ class WindowMenuBarView(qtw.QMenuBar):
         pass
 
     def exportLabels(self):
+        print("user export request received, attempting to pass along ")
+        self.presenter.exportLabelData()
         pass
 
     def closeApplication(self):

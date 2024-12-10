@@ -314,3 +314,10 @@ class MetaData(dict):
     def setFrameTotal(self, frameTotal: int) -> None:
         """Set the frameTotal in the metadata."""
         self["frameTotal"] = frameTotal
+    
+    def getFileName(self):
+        """Get the stored filename as a string or NONE"""
+        return self.get("fileName")
+    
+    def getFrameTotal(self):
+        return self.get("frameTotal")

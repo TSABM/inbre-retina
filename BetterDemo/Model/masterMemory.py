@@ -90,14 +90,14 @@ class MasterMemory():
         pass
     
     @classmethod
-    def saveAllLabels(cls):
+    def exportLabelData(cls):
         '''
         take all labels and save them into a file
         '''
         pass
 
     @classmethod
-    def readLabelsFromFile(cls):
+    def importLabelData(cls):
         '''
         given a file containing label data extract all the labels for display
         '''
