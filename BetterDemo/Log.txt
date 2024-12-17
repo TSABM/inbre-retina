@@ -1,6 +1,23 @@
 # internship
 Code and documents for the internship
 
+Day 102 12/16
+4:20 pm - 4:28
+4:37 pm - 5:10 pm 
+7:30 pm - 
+testing previously made export code. some incomplete delete code I had started but never finished needed quick fixing before the code would compile.
+Delete will need rework, right now it tries to scan for a valid box and delete, isolate tasks.
+export label data has some fundimental problems, working on fixign them.
+Ok export worked after some fixes. It has some problems I should work on:
+1) Frames are currently written to every frame of a video, this ought not to be
+2) *DONE* Metadata should be moved to the top of the output file
+3) the booleans stored with the frame objects make the data confusing, replace this to maybe store the type or otherwise simplify it
+4) the destination is currently hardcoded as well as the file name, fix this so the user can choose or at least give a directory to hold
+    them.
+
+moved metadata but I cant seem to find the source of the data duplication problem. The canvas seems to send the frame over to be recorded
+but it only ever seems to send one and only one. It coudl be a quirk of how I update the dictionary.. I am unsure.
+
 Day 101 12/10
 11:34 am - 12:45 pm 
 New priorities: 1) export data to json file format, 2) finish data control (edit and delete of data fields), 3) import exported data

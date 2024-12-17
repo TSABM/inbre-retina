@@ -7,17 +7,20 @@ class LabelData(dict):
     dictionary containing the bounding boxes events and metadata for the file
     '''
     def __init__(self, mediaFileName : str, maxFrames : int):
-        self.update({"Frames" : dict()})
+        self.update({"MetaData": MetaData(mediaFileName, maxFrames)})
         self.update({"BoundingBoxes": dict()})
         self.update({"Cells": dict()})
         self.update({"CellTypes" : dict()})
         self.update({"Events": dict()})
         self.update({"EventTypes" : dict()})
-        self.update({"MetaData": MetaData(mediaFileName, maxFrames)})
+        self.update({"Frames" : dict()})  
 
         self.initFrames(maxFrames)
     
     def addNewData(self, boundingBoxes, cells, events):
+        '''
+        add or update box, cell, and event data
+        '''
         for box in boundingBoxes:
             self.updateBoundingBox(box)
         for cell in cells:
@@ -49,15 +52,20 @@ class LabelData(dict):
         boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, rect[0], rect[1], rect[2], rect[3], cellIDs, eventIDs)})
     '''
     def updateBoundingBox(self, box : "BoundingBox"):
+        '''
+        give a bounding box you want to update, then update the frame and bounding box containers with that box
+        '''
+        #grab the bounding box and frame fields so we can update them
         boundingBoxes : dict = self.get("BoundingBoxes")
         frames : dict = self.get("Frames")
 
+        #grab the frame the box belongs in
         frame : Frame = frames.get(box.get_frameNumber())
         #verify frame is set
         if frame == None:
             print("Error, couldnt add box: frame number  ", frameNumber, " was invalid")
             return
-        
+        #add boxid to frame, and update the bounding box dictionary
         frame.addBoxId(box.get_boxID())
         frames.update({box.get_frameNumber() : frame})
         boundingBoxes.update({box.get_boxID() : box})

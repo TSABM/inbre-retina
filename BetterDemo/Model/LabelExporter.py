@@ -1,20 +1,20 @@
 import json
 import os
 from Model.masterMemory import MasterMemory
-from LabelData import LabelData, MetaData
+from Model.LabelData import LabelData, MetaData
 
 class LabelExporter():
     """Converts label data to JSON and then exports it as a new JSON file"""
-    def __init__():
+    def __init__(self):
         #get all labels
         pass
 
-    def __convertLabelsToJson__():
-        labelData = MasterMemory.getAllLabels()
+    def __convertLabelsToJson__(self):
+        labelData = MasterMemory.getLabelData()
         json_data = json.dumps(labelData, indent = 4)
         return json_data
     
-    def __getFileName__():
+    def __getFileName__(self):
         labelData : LabelData = MasterMemory.getLabelData()
         metadata : MetaData = labelData.getMetaData()
         fileName : str | None = metadata.getFileName()

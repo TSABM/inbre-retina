@@ -97,6 +97,8 @@ class CanvasView(qtw.QGraphicsView):
                 self.point = QPoint() #resetting selected point data for next draw or select
             elif mode == "Erase":
                 #send a hybrid select/erase request that identifies a box at a point and deletes it
+                self.deleteBox(None) #FIXME move this into the select logic and have it delete actively selected boxes
+                #also having a delete queue would be nice so people can undo deletes if they change their mind
     
     def openPopUp(self, boxID):
         print("tried to open popup")
@@ -110,5 +112,6 @@ class CanvasView(qtw.QGraphicsView):
         boxId = self.presenter.addBox(rect)
         return boxId
     
-    def deleteBox(self):
-        self.presenter.
+    def deleteBox(self, box):
+        #FIXME instead of deleting by point select make this flexible by being able to delete already selected boxes.
+        self.presenter.deleteBox(box)
