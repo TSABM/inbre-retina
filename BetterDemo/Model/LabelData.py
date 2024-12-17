@@ -55,6 +55,7 @@ class LabelData(dict):
         '''
         give a bounding box you want to update, then update the frame and bounding box containers with that box
         '''
+        print("attempting to update frame and boxes with new bounding box")
         #grab the bounding box and frame fields so we can update them
         boundingBoxes : dict = self.get("BoundingBoxes")
         frames : dict = self.get("Frames")
@@ -63,11 +64,11 @@ class LabelData(dict):
         frame : Frame = frames.get(box.get_frameNumber())
         #verify frame is set
         if frame == None:
-            print("Error, couldnt add box: frame number  ", frameNumber, " was invalid")
+            print("Error, couldnt add box: frame number  ", box.get_frameNumber(), " was invalid")
             return
         #add boxid to frame, and update the bounding box dictionary
         frame.addBoxId(box.get_boxID())
-        frames.update({box.get_frameNumber() : frame})
+        #frames.update({box.get_frameNumber() : frame}) #redunant
         boundingBoxes.update({box.get_boxID() : box})
 
     def deleteBoundingBox(self, boxID : str):
@@ -130,11 +131,13 @@ class LabelData(dict):
         
     def initFrames(self, maxFrames):
         '''
-        fill Frames with maxFrames amount of empty frames
+        fill Frames with maxFrames amount of new empty frames
         '''
+        #grab a reference to frames data pool
         frames : dict = self.get("Frames")
+        #for the range of maxframes define a new frame obejct for each framnumber
         for i in range(maxFrames):
-            frames.update({i : Frame(i)})
+            frames[i] = Frame(i)
 
     def getFrames(self):
         '''
@@ -191,7 +194,9 @@ class LabelData(dict):
         return largestValue
 
 class Frame(dict):
-    def __init__(self, frameNumber : int = -1, boxIDs : dict = {}):
+    def __init__(self, frameNumber : int = -1, boxIDs : dict = None):
+        if boxIDs is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
+            boxIDs = {}  # Create a new dictionary for each instance
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient. 
             "frameNumber" : frameNumber,
@@ -202,7 +207,7 @@ class Frame(dict):
         boxIds: dict = self.get("boxIDs")
         if boxId in boxIds: #if the boxID is already stored just return
             return
-        boxIds[boxId] = True
+        boxIds[boxId] = boxId
     
     def getFrameNumber(self):
         return self.get("frameNumber")

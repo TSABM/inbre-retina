@@ -1,15 +1,30 @@
 # internship
 Code and documents for the internship
 
+Day 103 12/17
+1:10 pm - 2:20 pm 
+4:15 pm - 
+plan: figure out why the data is being duplicated
+fix said duplication
+fix the data displays so the user can see and edit data as needed (ideally make them auto update)
+finish and fix data editing and deleting
+
+there are no loops or aything obvious that could cause the dups, it must be a data reference thing. Somehow overwriting one must be
+overwriting them all?'Its for sure not the initial filling of the dictionary, everything in there should be unique. I'm checking again my
+individual update function. No progress made yet, everything looks fine. I'll probably add some print statements to check some things.
+print statements confirm the update code only ever gets run once per box drawn so the dup data must be a copy by reference issue
+Found the problem. in python if you init a class with something like beans = {} as a default parameter if you dont define beans each time
+they get set to a one shared object not seperate ones.
+
 Day 102 12/16
 4:20 pm - 4:28
 4:37 pm - 5:10 pm 
-7:30 pm - 
+7:30 pm - 8:45 pm 
 testing previously made export code. some incomplete delete code I had started but never finished needed quick fixing before the code would compile.
 Delete will need rework, right now it tries to scan for a valid box and delete, isolate tasks.
 export label data has some fundimental problems, working on fixign them.
 Ok export worked after some fixes. It has some problems I should work on:
-1) Frames are currently written to every frame of a video, this ought not to be
+1) *DONE* Frames are currently written to every frame of a video, this ought not to be
 2) *DONE* Metadata should be moved to the top of the output file
 3) the booleans stored with the frame objects make the data confusing, replace this to maybe store the type or otherwise simplify it
 4) the destination is currently hardcoded as well as the file name, fix this so the user can choose or at least give a directory to hold

@@ -52,6 +52,7 @@ class CanvasModel():
             return True
     
     def __getFrameNumber__(self):
+        '''returns the current frames number'''
         return self.frameNumber
     
     ### handle pixmap 
@@ -112,6 +113,7 @@ class CanvasModel():
         '''
         if there isnt a defined pixmap call setPixmap else init a QPainter and then call drawLabels
         '''
+        print("updating canvas")
         if self.isFileOpen() == False:
             return
         self.__setPixmap__()
@@ -122,7 +124,12 @@ class CanvasModel():
     
     ### Handle everything related to the bounding boxes ##
     def addBox(self, rect : QRect):  
+        '''
+        takes a Qrect and creates a new bounding box instance, then sends that box to label data to be recorded, then updates the canvas
+        '''
+        print("attempting to create new box object and add it to label data")
         if self.isFileOpen() == False:
+            print("file is not open, aborting add box operation")
             return  
         
         labelData : LabelData = MasterMemory.getLabelData()
