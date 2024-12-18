@@ -4,19 +4,19 @@ class Displayable(ABC):
     '''
     an abstract class. Any other class that inherits or extends this abstract ought to be able to be displayed in the app
     '''
-    fileName : str = None
+    sourceName : str = None
 
     @abstractmethod
     def __init__(self, fileName):
-        self.fileName = fileName
+        self.sourceName = fileName
         pass
 
     @abstractmethod
     def getPixmap():
         pass
 
-    def getFileName(self):
-        return self.fileName
+    def getSourceName(self):
+        return self.sourceName
 
     @abstractmethod
     def getTotalFrames():

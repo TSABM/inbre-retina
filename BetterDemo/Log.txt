@@ -1,6 +1,10 @@
 # internship
 Code and documents for the internship
 
+Day 104 12/18
+01:53 pm - 
+plan: fix metadata setting and references, then work on data manipulation ui and prep for todays report.
+
 Day 103 12/17
 1:10 pm - 2:20 pm 
 4:15 pm - 5:10 pm 

@@ -19,7 +19,7 @@ class CanvasModel():
     a canvas which renders a static image and accepts labels
     '''
     def __init__(self):
-        self.fileToDisplay : Displayable = None
+        self.sourceToDisplay : Displayable = None
         self.scene : QGraphicsScene = QGraphicsScene()
 
         self.frameNumber = 0 #FIXME
@@ -56,14 +56,14 @@ class CanvasModel():
         return self.frameNumber
     
     ### handle pixmap 
-    def setfile(self, file : Displayable): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
+    def setSource(self, source : Displayable): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
         '''
-        If the file is type Displayable set it as the file to display and update the pixmap else print a message and return
+        If the source is type Displayable set it as the file to display and update the pixmap else print a message and return
         '''
-        if isinstance(file, Displayable):
-            self.fileToDisplay = file
+        if isinstance(source, Displayable):
+            self.sourceToDisplay = source
             #FIXME probably should create LabelData here not elsehwere.
-            MasterMemory.setLabelData(LabelData(file.getFileName(), file.getTotalFrames()))
+            MasterMemory.setLabelData(LabelData(source.getSourceName(), source.getTotalFrames()))
 
             print("image file set, attempting to refresh")
             self.updatePixmap()
@@ -75,8 +75,8 @@ class CanvasModel():
         '''
         If there is a file to display get the pixmap at the current frame number
         '''
-        if self.fileToDisplay != None:
-            self.pixmap = self.fileToDisplay.getPixmap(self.frameNumber)
+        if self.sourceToDisplay != None:
+            self.pixmap = self.sourceToDisplay.getPixmap(self.frameNumber)
             self.pixmap_item.setPixmap(self.pixmap)
 
     def __drawLabels__(self, painter : QPainter):

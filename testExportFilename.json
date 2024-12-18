@@ -1,7 +1,10 @@
 {
     "MetaData": {
-        "fileName": "Developmental Apoptosis movie 1_channel_13.gif",
-        "frameTotal": 201,
+        "sourceName": "Developmental Apoptosis movie 1_channel_13.gif",
+        "projectName": 201,
+        "frameTotal": 0,
+        "maxWidth": 0,
+        "maxHeight": 0,
         "other": []
     },
     "BoundingBoxes": {
@@ -9,10 +12,10 @@
             "boxID": "box_1",
             "frameNumber": 0,
             "dimensions": [
-                162,
-                104,
-                20,
-                49
+                159,
+                110,
+                26,
+                35
             ],
             "cellIds": {},
             "eventIDs": {}
@@ -21,10 +24,10 @@
             "boxID": "box_2",
             "frameNumber": 0,
             "dimensions": [
-                205,
-                130,
-                12,
-                28
+                206,
+                135,
+                15,
+                26
             ],
             "cellIds": {},
             "eventIDs": {}
@@ -33,10 +36,10 @@
             "boxID": "box_3",
             "frameNumber": 0,
             "dimensions": [
-                217,
-                94,
-                31,
-                24
+                232,
+                95,
+                14,
+                32
             ],
             "cellIds": {},
             "eventIDs": {}
