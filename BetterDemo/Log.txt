@@ -2,8 +2,16 @@
 Code and documents for the internship
 
 Day 104 12/18
-01:53 pm - 
+01:53 pm - 3:45 pm 
 plan: fix metadata setting and references, then work on data manipulation ui and prep for todays report.
+meeting notes: 
+*I was shown some mask data I will need to merge into my current data types. This means I will need to change some things
+And will need to wait to write some gui data display code since I will have more and different data fields to show and interact with
+*I will need to generate bounding boxes from the masks given.
+*Also in my canvas code I ought to seperate out bounding box and the future masks onto their own layers so they can be viewed and interacted
+with seperately. 
+*Also While I'm at that I should probably just go ahead and make mask and box color and line width customizable by the user
+*Lastly I need to submit all this weeks hours by friday since christmas is approaching.
 
 Day 103 12/17
 1:10 pm - 2:20 pm 

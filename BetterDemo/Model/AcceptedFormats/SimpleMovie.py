@@ -4,7 +4,7 @@ from Model.AcceptedFormats.Displayable import Displayable
 
 class SimpleMovie(Displayable):
     '''
-    canvas that accepts GIF, MNG, and APNG formats
+    class that accepts GIF, MNG, and APNG formats
     '''
     def __init__(self, fileName : str):
         super().__init__(fileName)
