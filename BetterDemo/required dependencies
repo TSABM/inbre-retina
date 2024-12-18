@@ -4,3 +4,6 @@ pyqt5
 
 numpy
 
+os
+
+re
