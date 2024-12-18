@@ -31,7 +31,7 @@ class LabelExporter():
         #fileName : str | None = self.__getFileName__()
         
         #if name is not a string
-        if self.__is_valid_filename(exportFileName):
+        if not self.__is_valid_filename(exportFileName):
             print("Export error: proposed export filename, " + exportFileName + ",is not valid")
             return
         
@@ -55,7 +55,7 @@ class LabelExporter():
         except IOError as e:
             print(f"Export error: failed to write to file. {e}")
     
-    def __is_valid_filename(filename: str) -> bool:
+    def __is_valid_filename(self, filename: str) -> bool:
         
         if not isinstance(filename, str):
             print("Given filename is not a string")

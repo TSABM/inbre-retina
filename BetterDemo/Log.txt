@@ -21,6 +21,10 @@ they get set to a one shared dictionary not seperate new ones... good to know
 refactored the export code to now require info for export. Need to change the presenter and view, neither will work at the moment.
 Code also needs testing.
 
+just refactored it for the first phase of changeable save destinations. It crashes. Fixed the crash. Also fixed a boolen check that was backwards
+
+exports work again. The user interface is not done so it still saves hardcoded but the back end should be ready for dynamic save locations
+
 
 Day 102 12/16
 4:20 pm - 4:28
