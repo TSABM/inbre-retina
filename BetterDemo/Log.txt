@@ -4,7 +4,7 @@ Code and documents for the internship
 Day 103 12/17
 1:10 pm - 2:20 pm 
 4:15 pm - 5:10 pm 
-8:00 pm - 
+8:00 pm - 10:00 pm
 plan: figure out why the data is being duplicated
 fix said duplication
 fix the data displays so the user can see and edit data as needed (ideally make them auto update)
@@ -20,11 +20,17 @@ they get set to a one shared dictionary not seperate new ones... good to know
 
 refactored the export code to now require info for export. Need to change the presenter and view, neither will work at the moment.
 Code also needs testing.
-
 just refactored it for the first phase of changeable save destinations. It crashes. Fixed the crash. Also fixed a boolen check that was backwards
-
 exports work again. The user interface is not done so it still saves hardcoded but the back end should be ready for dynamic save locations
 
+Metadata is now out of date. Before I just used the open gif as my filename that distinguished the project. Now that the user ought to be able
+to choose a project name and also given I kno wwe will be moving to a model of reading images from a folder instead of a gif I should 
+instead store the name of the source of the images, as well as the project name, and maybe lastly the images shape. With this information
+I could ensure data from one project doesnt get wrongfully assotiated wiht the wrong images even if they have the same name. Theyd need the
+same name, same frame count, and same image dimensions, or a mix of these if I dont want to require all of them. That is a safer design.
+
+canvas setFile needs to be fixed. Because we will be using folders of images trying to grab a filename for metadata is wrong. Review 
+the Displayable classes and probably just implement the file opening.
 
 Day 102 12/16
 4:20 pm - 4:28
@@ -37,7 +43,7 @@ Ok export worked after some fixes. It has some problems I should work on:
 1) *DONE* Frames are currently written to every frame of a video, this ought not to be
 2) *DONE* Metadata should be moved to the top of the output file
 3) *DONE* the booleans stored with the frame objects make the data confusing, replace this to maybe store the type or otherwise simplify it. (just storing the key)
-4) the destination is currently hardcoded as well as the file name, fix this so the user can choose or at least give a directory to hold
+4) *almost done* the destination is currently hardcoded as well as the file name, fix this so the user can choose or at least give a directory to hold
     them.
 
 moved metadata but I cant seem to find the source of the data duplication problem. The canvas seems to send the frame over to be recorded

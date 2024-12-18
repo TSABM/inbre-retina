@@ -56,7 +56,7 @@ class CanvasModel():
         return self.frameNumber
     
     ### handle pixmap 
-    def setfile(self, file : Displayable):
+    def setfile(self, file : Displayable): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
         '''
         If the file is type Displayable set it as the file to display and update the pixmap else print a message and return
         '''

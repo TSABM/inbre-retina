@@ -6,8 +6,8 @@ class LabelData(dict):
     '''
     dictionary containing the bounding boxes events and metadata for the file
     '''
-    def __init__(self, mediaFileName : str, maxFrames : int):
-        self.update({"MetaData": MetaData(mediaFileName, maxFrames)})
+    def __init__(self, mediaSourceName : str, maxFrames : int):
+        self.update({"MetaData": MetaData(mediaSourceName, maxFrames)})
         self.update({"BoundingBoxes": dict()})
         self.update({"Cells": dict()})
         self.update({"CellTypes" : dict()})
@@ -124,9 +124,9 @@ class LabelData(dict):
         events: dict = self.get("Events")
         events.update({event.get("eventID"): event})
 
-    def updateMetaData(self, filename, frameTotal):
+    def updateMetaData(self, sourceName, frameTotal):
         metadata : "MetaData" = self.get("MetaData")
-        metadata.setFileName(filename)
+        metadata.setsourceName(sourceName)
         metadata.setFrameTotal(frameTotal)
         
     def initFrames(self, maxFrames):
@@ -307,30 +307,40 @@ class Event(dict):
     def getBoxIDs(self):
         return self.get("boxIDs")
         
-class MetaData(dict):
-    def __init__(self, fileName: str = None, frameTotal: int = 0, other: list[str] = None):
+class MetaData(dict): #FIXME need to 
+    def __init__(self, sourceName: str = None, projectName : str = None, frameTotal: int = 0, maxWidth : int = 0, maxHeight : int = 0, other: list[str] = None):
         # Ensure other is a list if not provided
         if other is None: #May need fixing as it may be unneeded and unreachable
             other = []
         
         # defining fields
         super().__init__({
-            "fileName": fileName,
+            "sourceName": sourceName,
+            "projectName" : projectName,
             "frameTotal": frameTotal,
+            "maxWidth" : maxWidth,
+            "maxHeight" : maxHeight,
             "other": other,
         })
     
-    def setFileName(self, fileName: str) -> None:
-        """Set the fileName in the metadata."""
-        self["fileName"] = fileName
+    def setSourceName(self, sourceName: str) -> None:
+        """Set the sourceName in the metadata."""
+        self["sourceName"] = sourceName
     
     def setFrameTotal(self, frameTotal: int) -> None:
         """Set the frameTotal in the metadata."""
         self["frameTotal"] = frameTotal
     
-    def getFileName(self):
-        """Get the stored filename as a string or NONE"""
-        return self.get("fileName")
+    def getSourceName(self):
+        """Get the stored sourceName as a string or NONE"""
+        return self.get("sourceName")
     
     def getFrameTotal(self):
         return self.get("frameTotal")
+    
+    def getProjectName(self):
+        return self.get("projectName")
+    
+    def getMaxDimensions(self):
+        '''returns [width, height] values will be integer or None'''
+        return [self.get("maxWidth"), self.get("maxHeight")]
