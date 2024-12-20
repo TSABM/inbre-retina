@@ -1,6 +1,26 @@
 # internship
 Code and documents for the internship
 
+Day 105 12/19
+02:13 pm - 3:13 pm 
+4:56pm - 5:11 pm
+Ok the new data seems to be split up into frame specific data fields, annotation data fields, and then point data fields.
+The exprted data is a zip with the json data in one file and the image in the other. The json data then has one frameData object that is
+essentially a dicitonary inside of a list (not sure why its a list considering it only holds the dicitonary item). The dicitonary has
+its own unique fields I'll need to store and a sub list holding annotations.
+Annotations are a data type that is also essentially a dicitonary with a few unique data fields. This annotation holds one last list 
+containing point values, which are lists with an x and y value and that is it. The whole of the list defines the mask, though wether it 
+defines every point or just the hull of the mask I am uncertain.
+Given this I think these changes are in order:
+* alter my current code instead of having some master bounding box list go to the model of having it be frame based only. 
+* Create an area for storing this mask data with each frame.
+* Create a  mask data type to hold the points
+* write an import function to convert the given code into my desired structure
+* update the master mem to deal with the new label data shape
+* update canvas to display a box layer and a mask layer
+* write some code to auto generate boxes based on a given mask
+* stretch goal: write an export by frame function that lets you export either it all frame by frame or lets you export just one frames data.
+
 Day 104 12/18
 01:53 pm - 3:45 pm 
 plan: fix metadata setting and references, then work on data manipulation ui and prep for todays report.

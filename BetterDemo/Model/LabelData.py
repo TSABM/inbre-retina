@@ -8,12 +8,12 @@ class LabelData(dict):
     '''
     def __init__(self, mediaSourceName : str, maxFrames : int):
         self.update({"MetaData": MetaData(mediaSourceName, maxFrames)})
-        self.update({"BoundingBoxes": dict()})
+        #self.update({"BoundingBoxes": dict()})
         self.update({"Cells": dict()})
         self.update({"CellTypes" : dict()})
         self.update({"Events": dict()})
         self.update({"EventTypes" : dict()})
-        self.update({"Frames" : dict()})  
+        self.update({"Frames" : dict()})
 
         self.initFrames(maxFrames)
     
@@ -152,11 +152,13 @@ class LabelData(dict):
             print("Tried to grab frame (",frameNum, ") that does not exist")
         return frame
 
-    def getBoundingBoxes(self):
-        '''
-        returns a dictionary of bounding box objects (also dictionaries) where the key is the boxID and the val is the box itself
-        '''
-        return self.get("BoundingBoxes")
+    
+    #def getBoundingBoxes(self):
+    #    '''
+    #    returns a dictionary of bounding box objects (also dictionaries) where the key is the boxID and the val is the box itself
+    #    '''
+    #    return self.get("BoundingBoxes")
+    
 
     def getCells(self):
         '''
@@ -194,13 +196,15 @@ class LabelData(dict):
         return largestValue
 
 class Frame(dict):
-    def __init__(self, frameNumber : int = -1, boxIDs : dict = None):
+    def __init__(self, frameNumber : int = -1, boundingBoxes : dict = None):
         if boxIDs is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
             boxIDs = {}  # Create a new dictionary for each instance
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient. 
+            "projectID" : 
             "frameNumber" : frameNumber,
-            "boxIDs": boxIDs  # Initialize as an empty dictionary
+            "boundingBoxes": boundingBoxes,  # Initialize as an empty dictionary
+            "maskData" : maskData
         })
     
     def addBoxId(self, boxId):
