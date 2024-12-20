@@ -196,15 +196,16 @@ class LabelData(dict):
         return largestValue
 
 class Frame(dict):
-    def __init__(self, frameNumber : int = -1, boundingBoxes : dict = None):
+    def __init__(self, projectID : str = "", frameNumber : int = -1, boundingBoxes : dict = None, maskAnnotations : dict = None):
         if boxIDs is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
             boxIDs = {}  # Create a new dictionary for each instance
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient. 
-            "projectID" : 
-            "frameNumber" : frameNumber,
+            "projectID" : projectID,
+            "frameID" : frameNumber,
+            "projectName" : projectName,
             "boundingBoxes": boundingBoxes,  # Initialize as an empty dictionary
-            "maskData" : maskData
+            "maskAnnotations" : maskAnnotations
         })
     
     def addBoxId(self, boxId):
@@ -220,13 +221,15 @@ class Frame(dict):
         return self.get("boxIDs")
 
 class BoundingBox(dict):
-    def __init__(self, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):
+    def __init__(self, projectID : int, frameID : int, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):
         if cellIDs is None:
             cellIDs = {}
         if eventIDs is None:
             eventIDs = {}
         #defining fields
         super().__init__({
+                "projectID" : projectID,
+                "frameID" : frameID,
                 "boxID" : boxID, 
                 "frameNumber" : frameNumber,
                 "dimensions": [xCoord, yCoord, width, height],
@@ -287,6 +290,60 @@ class BoundingBox(dict):
 
     def addEvent(self, eventID):
         self["eventIDs"].update({eventID : True})
+
+class MaskAnnotation(dict):
+    def __init__(self, projectID: int, frameID: int, created_by: str, creationTimestamp: str, approved: bool, values: dict):
+        super().__init__({
+            "projectID": projectID,
+            "frameID": frameID,
+            "created_by": created_by,
+            "creationTimestamp": creationTimestamp,
+            "approved": approved,
+            "values": values
+        })
+
+    # Getter and setter for projectID
+    def get_projectID(self) -> int:
+        return self["projectID"]
+
+    def set_projectID(self, projectID: int) -> None:
+        self["projectID"] = projectID
+
+    # Getter and setter for frameID
+    def get_frameID(self) -> int:
+        return self["frameID"]
+
+    def set_frameID(self, frameID: int) -> None:
+        self["frameID"] = frameID
+
+    # Getter and setter for created_by
+    def get_created_by(self) -> str:
+        return self["created_by"]
+
+    def set_created_by(self, created_by: str) -> None:
+        self["created_by"] = created_by
+
+    # Getter and setter for creationTimestamp
+    def get_creationTimestamp(self) -> str:
+        return self["creationTimestamp"]
+
+    def set_creationTimestamp(self, creationTimestamp: str) -> None:
+        self["creationTimestamp"] = creationTimestamp
+
+    # Getter and setter for approved
+    def get_approved(self) -> bool:
+        return self["approved"]
+
+    def set_approved(self, approved: bool) -> None:
+        self["approved"] = approved
+
+    # Getter and setter for values
+    def get_values(self) -> dict:
+        return self["values"]
+
+    def set_values(self, values: dict) -> None:
+        self["values"] = values
+
 
 class Cell(dict):
     def __init__(self, cellID : str, cellType : str):
