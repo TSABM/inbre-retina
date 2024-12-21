@@ -4,6 +4,8 @@ Code and documents for the internship
 Day 106 12/20
 12:40 pm - 1:30 pm 
 1:53 pm - 2:48 pm 
+4:07 pm - 4:18 pm
+4:40 pm - 05:15 pm
 working on label data refactors. Still working on it, its requring some refactoring of old data and creation of new kinds.
 
 Day 105 12/19
