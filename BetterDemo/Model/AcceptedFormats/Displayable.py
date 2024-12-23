@@ -7,8 +7,8 @@ class Displayable(ABC):
     sourceName : str = None
 
     @abstractmethod
-    def __init__(self, fileName):
-        self.sourceName = fileName
+    def __init__(self, sourceName):
+        self.sourceName = sourceName
         pass
 
     @abstractmethod

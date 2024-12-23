@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QLabel
-from PyQt5.QtGui import QMovie
+from PyQt5.QtGui import QMovie, QPixmap
 from Model.AcceptedFormats.Displayable import Displayable
 
 class SimpleMovie(Displayable):
@@ -11,16 +11,23 @@ class SimpleMovie(Displayable):
         #self.label = QLabel #FIXME possibly not needed?
         self.movie : QMovie = None
     
-    def getPixmap(self, frame : int):
+    def getPixmap(self, frame : int) -> QPixmap | None:
+        '''returns a pixmap or none'''
+        #verify there is a movie
+        if self.movie == None:
+            print("movie was not set")
+            return
+        #if current frame isnt set jump to the requested frame first
         if(self.movie.currentFrameNumber()) == -1:
             self.movie.jumpToFrame(frame)
+        #return pixmap
         return self.movie.currentPixmap()
     
     def getTotalFrames(self):
         #super().getTotalFrames()
         return self.movie.frameCount()
 
-    def setMovie(self, moviePath): #FIXME movie path and file name are not linked and could in theory be different...make sure its not a problem
+    def setMovie(self, moviePath : str) -> bool: #FIXME movie path and file name are not linked and could in theory be different...make sure its not a problem
         if moviePath != None:
             self.movie = QMovie(moviePath)
             if self.movie.isValid() == False:

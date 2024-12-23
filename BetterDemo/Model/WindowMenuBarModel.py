@@ -4,6 +4,7 @@ from Model.masterMemory import MasterMemory
 from Model.CanvasModel import CanvasModel
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage
 from Model.AcceptedFormats.SimpleMovie import SimpleMovie
+from Model.AcceptedFormats.StandardImage import StandardImage
 
 class WindowMenuBarModel():
     def __init__(self):
@@ -25,8 +26,10 @@ class WindowMenuBarModel():
                 pass
             pass
         #if jpeg, png, or jpg
-        elif ".jpeg" in imagePath or ".png" in imagePath or ".jpg" in imagePath:
+        elif ".jpeg" in imagePath or ".png" in imagePath or ".jpg" in imagePath or ".bmp" in imagePath or ".ppm" in imagePath or ".tiff" in imagePath:
             print("jpeg, png, and jpg opening is unimplemented")
+            acceptedFormat = StandardImage(imageName)
+            
             pass
 
         else:
