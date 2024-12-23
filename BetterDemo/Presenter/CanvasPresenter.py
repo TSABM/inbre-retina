@@ -7,7 +7,7 @@ class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
         self.model = CanvasModel()
-        MasterMemory.setCanvas(self)
+        MasterMemory.setCanvas(self.model)
         #subs? label data? control view?
     
     def setFile(self, file):

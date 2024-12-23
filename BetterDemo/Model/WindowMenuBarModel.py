@@ -21,17 +21,15 @@ class WindowMenuBarModel():
                 #send to canvas?
                 canvas : CanvasModel= MasterMemory.getCanvas()
                 canvas.setSource(acceptedFormat)
-                pass
             else:
                 pass
             pass
         #if jpeg, png, or jpg
         elif ".jpeg" in imagePath or ".png" in imagePath or ".jpg" in imagePath or ".bmp" in imagePath or ".ppm" in imagePath or ".tiff" in imagePath:
-            print("jpeg, png, and jpg opening is unimplemented")
             acceptedFormat = StandardImage(imageName)
-            
-            pass
-
+            if acceptedFormat.setImage(imagePath) == True:
+                canvas : CanvasModel = MasterMemory.getCanvas()
+                canvas.setSource(acceptedFormat)
         else:
             pass
         '''
