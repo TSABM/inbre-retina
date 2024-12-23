@@ -196,9 +196,9 @@ class LabelData(dict):
         return largestValue
 
 class Frame(dict):
-    def __init__(self, frameID : int, frameNumber : int, projectName : str, projectID : str = "", boundingBoxes : dict = None, maskAnnotations : dict = None):
-        if boxIDs is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
-            boxIDs = {}  # Create a new dictionary for each instance
+    def __init__(self, frameNumber : int, frameID : int = -1, projectName : str = "", projectID : str = "", boundingBoxes : dict = None, maskAnnotations : dict = None):
+        if boundingBoxes is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
+            boundingBoxes = {}  # Create a new dictionary for each instance
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient.
             "projectID" : projectID,
@@ -209,19 +209,24 @@ class Frame(dict):
             "maskAnnotations" : maskAnnotations
         })
     
-    def addBoxId(self, boxId):
-        boxIds: dict = self.get("boxIDs")
-        if boxId in boxIds: #if the boxID is already stored just return
+    def addBoundingBox(self, boundingBox : "BoundingBox"):
+        boxes: dict = self.get("boundingBoxes")
+        boxID = boundingBox.get_boxID()
+        if boxID in boxes: #if the boxID is already stored just return
             return
-        boxIds[boxId] = boxId
+        boxes[boxID] = boundingBox
     def getFrameNumber(self):
         return self.get("frameNumber")
-    def getBoxIds(self):
-        return self.get("boxIDs")
+    def getBoundingBoxes(self):
+        return self.get("boundingBoxes")
     def getProjectId(self):
         return self.get("projectID")
     def setProjectId (self, newID):
         self["projectID"] = newID
+    def getProjectName(self):
+        return self["projectName"]
+    def setProjectName(self, newName):
+        self["projectName"] = newName
 
     
     

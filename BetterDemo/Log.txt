@@ -3,8 +3,14 @@ Code and documents for the internship
 
 Day 107 12/23
 10:58 am - 12:05pm
-12:34 pm - 
+12:34 pm - 12:56
+2:56 pm - 3:27 pm 
+3:37 pm - 
 working on image formats. Opening it needs work and folders dont work yet, much less project zips.
+program crashes due to changes made to frames and bounding boxes. refactoring to account for new changes.
+gif image opening works, bounding box drawing does not.
+opening jpegs does not work yet
+fixed some things. Movie decrementing is not yet ready and is not safe against negative values.
 
 Day 106 12/20
 12:40 pm - 1:30 pm 

@@ -11,15 +11,16 @@ class SimpleMovie(Displayable):
         #self.label = QLabel #FIXME possibly not needed?
         self.movie : QMovie = None
     
-    def getPixmap(self, frame : int) -> QPixmap | None:
+    def getPixmap(self) -> QPixmap | None:
         '''returns a pixmap or none'''
         #verify there is a movie
         if self.movie == None:
             print("movie was not set")
             return
         #if current frame isnt set jump to the requested frame first
-        if(self.movie.currentFrameNumber()) == -1:
-            self.movie.jumpToFrame(frame)
+        if not self.movie.isValid():
+            print("warning current movie is invalid")
+            return
         #return pixmap
         return self.movie.currentPixmap()
     
@@ -45,7 +46,7 @@ class SimpleMovie(Displayable):
         pass
     
     def stepFrameForward(self):
-        pass
+        self.movie.jumpToNextFrame()
 
     def stepFrameBackward(self):
         pass

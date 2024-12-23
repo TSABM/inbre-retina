@@ -84,19 +84,20 @@ class CanvasModel():
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
         labelData : LabelData = MasterMemory.getLabelData()
-        boundingBoxes : dict = labelData.get("BoundingBoxes")
+        #boundingBoxes : dict = labelData.get("BoundingBoxes")
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
         frame : Frame = labelData.getFrame(self.frameNumber)
         if frame == None:
             print("cannot find requested frame")
         else:
-            boxIds = frame.getBoxIds()
-            if boxIds == {}:
+            boxes : dict = frame.getBoundingBoxes()
+            boxIds = boxes.keys()
+            if boxIds.__len__ == 0:
                 print("Frame ", self.frameNumber, " has no assotiated bounding boxes")
             else:
                 for boxId in boxIds:
                     #if its selected render it blue and with handles
-                    box : BoundingBox = boundingBoxes.get(boxId)
+                    box : BoundingBox = boxes.get(boxId)
                     rectangle : QRect = box.get_boundingBox_as_qrect()
                     if box == self.selectedItem:
                         painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
