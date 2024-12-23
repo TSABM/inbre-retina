@@ -3,6 +3,7 @@ Code and documents for the internship
 
 Day 107 12/23
 10:58 am - 12:05pm
+12:34 pm - 
 working on image formats. Opening it needs work and folders dont work yet, much less project zips.
 
 Day 106 12/20
