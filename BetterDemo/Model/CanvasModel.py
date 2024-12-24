@@ -76,7 +76,8 @@ class CanvasModel():
         If there is a file to display get the pixmap at the current frame number
         '''
         if self.sourceToDisplay != None:
-            self.pixmap = self.sourceToDisplay.getPixmap(self.frameNumber)
+            print("trying to set pixmap")
+            self.pixmap = self.sourceToDisplay.getPixmap()
             self.pixmap_item.setPixmap(self.pixmap)
 
     def __drawLabels__(self, painter : QPainter):
@@ -116,12 +117,20 @@ class CanvasModel():
         '''
         print("updating canvas")
         if self.isFileOpen() == False:
+            print("file not opened aborting pixmap update")
             return
         self.__setPixmap__()
         if self.pixmap != None:
             painter = QPainter(self.pixmap)
-            painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
-            self.__drawLabels__(painter)
+            if painter.isActive():
+                painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
+                self.__drawLabels__(painter)
+            else:
+                print("error: painter could not initalize. The pixmap: ", self.pixmap, " did not work")
+                return
+        else:
+            print("pixmap == None, aborting update")
+            return
     
     ### Handle everything related to the bounding boxes ##
     def addBox(self, rect : QRect):  
