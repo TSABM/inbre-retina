@@ -77,7 +77,7 @@ class CanvasModel():
         '''
         if self.sourceToDisplay != None:
             print("trying to set pixmap")
-            self.pixmap = self.sourceToDisplay.getPixmap()
+            self.pixmap = self.sourceToDisplay.getPixmap(self.frameNumber)
             self.pixmap_item.setPixmap(self.pixmap)
 
     def __drawLabels__(self, painter : QPainter):

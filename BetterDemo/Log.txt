@@ -1,9 +1,21 @@
 # internship
 Code and documents for the internship
 
-Day 108 12/26
-12:30 - 1:30
+Day 109 12/27
+12:36 pm - 
+opening single images work, drawing does not, gifs continue to be broken... hmmmm
+fixed it. It was a problem with how I tried to remove the need for specifying a frame, it led to an invalid current frame being used
+Now to fix box drawing causing a crash, the core problem is that I gutted out the boundingBoxes data field. see if you can make this
+less error prone in the future if you need to change something again.
 
+Day 108 12/26
+12:30 pm - 1:30 pm
+4:05pm - 5:02 pm
+looking for the cause of the painter issue, the image should be properly loaded so the issue must be near the painter?
+problem is probably lines 124-125 in canvas model. A genuine displayable object is loaded in but the painter wont accept it
+something is wrong.
+Havent been able to find the problem yet. Been digging through my old code to see whats wrong. Maybe the painter just isnt initing?
+Or maybe the file path reall is just not correct?
 
 Day 107 12/23
 10:58 am - 12:05pm
