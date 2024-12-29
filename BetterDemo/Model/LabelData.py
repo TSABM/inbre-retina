@@ -55,9 +55,10 @@ class LabelData(dict):
         '''
         give a bounding box you want to update, then update the frame and bounding box containers with that box
         '''
+        '''
         print("attempting to update frame and boxes with new bounding box")
         #grab the bounding box and frame fields so we can update them
-        boundingBoxes : dict = self.get("BoundingBoxes")
+        #boundingBoxes : dict = self.get("BoundingBoxes")
         frames : dict = self.get("Frames")
 
         #grab the frame the box belongs in
@@ -70,6 +71,23 @@ class LabelData(dict):
         frame.addBoxId(box.get_boxID())
         #frames.update({box.get_frameNumber() : frame}) #redunant
         boundingBoxes.update({box.get_boxID() : box})
+        '''
+        #ok this all needs redone:
+        #for a box
+        #find its frame
+        #place it in the frame
+        frames : dict = self.get("Frames")
+        currFrameNum = box.get_frameNumber()
+        if isinstance(currFrameNum, int):
+            currFrame : "Frame" = frames.get(currFrameNum)
+            if currFrame == None:
+                print("couldnt find frame: ", currFrameNum)
+                return
+            else:
+                print("Frame found, updating box")
+                currFrame.
+        else:
+            print("error box being added did not have a valid frame number: ", currFrameNum)
 
     def deleteBoundingBox(self, boxID : str):
         #grab the bounding box in question
@@ -181,8 +199,9 @@ class LabelData(dict):
     def getMetaData(self):
         return self.get("MetaData")
 
-    def getLargestBoxIdVal(self):
+    def getLargestBoxIdVal(self): #This will need changed, there is no global box storage
         largestValue = 0
+        #FIXME
         boxes : dict = self.get("BoundingBoxes")
         for key in boxes.keys():
             if not isinstance(key, str):
@@ -209,7 +228,7 @@ class Frame(dict):
             "maskAnnotations" : maskAnnotations
         })
     
-    def addBoundingBox(self, boundingBox : "BoundingBox"):
+    def addBoundingBox(self, boundingBox : "BoundingBox"): #FIXME change this, it still focuses on boxID lists
         boxes: dict = self.get("boundingBoxes")
         boxID = boundingBox.get_boxID()
         if boxID in boxes: #if the boxID is already stored just return

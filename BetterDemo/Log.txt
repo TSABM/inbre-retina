@@ -1,8 +1,15 @@
 # internship
 Code and documents for the internship
 
+Day 110 12/28
+1:00 pm - 1:27 pm 
+2:38 pm - 2:45 pm 
+5:22 pm - 5:47 pm 
+Just got my new work laptop. Working on setting it up and transferring the project there.
+
 Day 109 12/27
-12:36 pm - 
+12:36 pm - 1:35 pm 
+2:00 pm - 2:30 pm
 opening single images work, drawing does not, gifs continue to be broken... hmmmm
 fixed it. It was a problem with how I tried to remove the need for specifying a frame, it led to an invalid current frame being used
 Now to fix box drawing causing a crash, the core problem is that I gutted out the boundingBoxes data field. see if you can make this
