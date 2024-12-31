@@ -85,9 +85,9 @@ class LabelData(dict):
                 return
             else:
                 print("Frame found, updating box")
-                currFrame.
+                currFrame.updateBoundingBox(box)
         else:
-            print("error box being added did not have a valid frame number: ", currFrameNum)
+            print("error: box being added did not have a valid frame number: ", currFrameNum)
 
     def deleteBoundingBox(self, boxID : str):
         #grab the bounding box in question
@@ -228,11 +228,10 @@ class Frame(dict):
             "maskAnnotations" : maskAnnotations
         })
     
-    def addBoundingBox(self, boundingBox : "BoundingBox"): #FIXME change this, it still focuses on boxID lists
+    def updateBoundingBox(self, boundingBox : "BoundingBox"):
+        #FIXME might want to add some checks to be sure I'm ot overriding something I shouldnt be...
         boxes: dict = self.get("boundingBoxes")
         boxID = boundingBox.get_boxID()
-        if boxID in boxes: #if the boxID is already stored just return
-            return
         boxes[boxID] = boundingBox
     def getFrameNumber(self):
         return self.get("frameNumber")
