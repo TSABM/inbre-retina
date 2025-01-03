@@ -17,7 +17,3 @@ class Displayable(ABC):
 
     def getSourceName(self):
         return self.sourceName
-
-    @abstractmethod
-    def getTotalFrames():
-        pass

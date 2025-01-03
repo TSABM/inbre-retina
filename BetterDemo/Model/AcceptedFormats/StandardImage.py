@@ -27,7 +27,3 @@ class StandardImage(Displayable):
         else:
             return None
     
-    def getTotalFrames(self):
-        '''returns 1. Single images only have 1 frame'''
-        return 1
-    

@@ -11,7 +11,11 @@ class SimpleMovie(Displayable):
         #self.label = QLabel #FIXME possibly not needed?
         self.movie : QMovie = None
     
-    def getPixmap(self, frame = 0) -> QPixmap | None:
+    def setFrame(self, frame : int):
+        '''set current frame'''
+        self.movie.jumpToFrame(frame)
+        
+    def getPixmap(self) -> QPixmap | None:
         '''returns a pixmap or none'''
         #verify there is a movie
         if self.movie == None:
@@ -22,7 +26,7 @@ class SimpleMovie(Displayable):
             return
         #if current frame isnt set jump to the requested frame first
         if(self.movie.currentFrameNumber()) == -1:
-            self.movie.jumpToFrame(frame)
+            self.movie.jumpToFrame(0)
         #return pixmap
         return self.movie.currentPixmap()
     

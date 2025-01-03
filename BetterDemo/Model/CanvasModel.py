@@ -6,6 +6,7 @@ from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
 from Model.LabelData import LabelData, BoundingBox, Frame
 from Model.AcceptedFormats.Displayable import Displayable
+from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 from Model.masterMemory import MasterMemory
 
 ## temporary default values ##
@@ -77,7 +78,9 @@ class CanvasModel():
         '''
         if self.sourceToDisplay != None:
             print("trying to set pixmap")
-            self.pixmap = self.sourceToDisplay.getPixmap(self.frameNumber)
+            if isinstance(self.sourceToDisplay, SimpleMovie):
+                self.sourceToDisplay.setFrame(self.frameNumber)
+            self.pixmap = self.sourceToDisplay.getPixmap()
             self.pixmap_item.setPixmap(self.pixmap)
 
     def __drawLabels__(self, painter : QPainter):
