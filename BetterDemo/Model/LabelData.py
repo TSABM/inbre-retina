@@ -201,8 +201,7 @@ class LabelData(dict):
 
     def getLargestBoxIdVal(self): #This will need changed, there is no global box storage
         largestValue = 0
-        #FIXME
-        boxes : dict = self.get("BoundingBoxes")
+        #boxes : dict = self.get("BoundingBoxes") #FIXME
         for key in boxes.keys():
             if not isinstance(key, str):
                 print("error bounding box key is not a string")

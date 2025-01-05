@@ -64,7 +64,10 @@ class CanvasModel():
         if isinstance(source, Displayable):
             self.sourceToDisplay = source
             #FIXME probably should create LabelData here not elsehwere.
-            MasterMemory.setLabelData(LabelData(source.getSourceName(), source.getTotalFrames()))
+            totalFrames : int = 0
+            if isinstance(source, SimpleMovie):
+                totalFrames = source.getTotalFrames()
+            MasterMemory.setLabelData(LabelData(source.getSourceName(), totalFrames))
 
             print("image file set, attempting to refresh")
             self.updatePixmap()
@@ -88,7 +91,7 @@ class CanvasModel():
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
         labelData : LabelData = MasterMemory.getLabelData()
-        #boundingBoxes : dict = labelData.get("BoundingBoxes")
+        #boundingBoxes : dict = labelData.get("BoundingBoxes") #FIXME ? will this work?
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
         frame : Frame = labelData.getFrame(self.frameNumber)
         if frame == None:
@@ -198,7 +201,7 @@ class CanvasModel():
             return
         
         labelData = MasterMemory.getLabelData()
-        boundingBoxes : dict = labelData.get("BoundingBoxes")
+        #boundingBoxes : dict = labelData.get("BoundingBoxes") #FIXME
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
         frame : Frame = labelData.getFrame(self.frameNumber)
         if frame == None:

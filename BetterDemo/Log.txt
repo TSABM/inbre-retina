@@ -2,8 +2,10 @@
 Code and documents for the internship
 
 Day 112 1/3/25
-2:12 pm - 
+2:12 pm - 3:49 pm 
 got pushing working earlier. image pushing fails because it sends a frame number when it shouldnt...
+loading images should work now. PNG's do. Drawing still crashes, related to the removal of boundingBoxes.
+getLargestBoxIdVal is broken, it will need changing, and maybe moving to another class...
 
 Day 111 12/30
 2:15 pm - 2:48
