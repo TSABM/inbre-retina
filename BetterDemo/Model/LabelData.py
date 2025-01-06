@@ -1,4 +1,5 @@
 from PyQt5.QtCore import QRect
+from collections.abc import Iterable
 
 
 
@@ -7,7 +8,7 @@ class LabelData(dict):
     dictionary containing the bounding boxes events and metadata for the file
     '''
     def __init__(self, mediaSourceName : str, maxFrames : int):
-        self.update({"MetaData": MetaData(mediaSourceName, maxFrames)})
+        self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID)})
         #self.update({"BoundingBoxes": dict()})
         self.update({"Cells": dict()})
         self.update({"CellTypes" : dict()})
@@ -28,11 +29,13 @@ class LabelData(dict):
         for event in events:
             self.addNewEvent(event)
 
-    def getNewBoxID(self):
-        largestId = self.getLargestBoxIdVal()
-        idNum = largestId + 1
-        boxID = "box_" + str(idNum)
-        return boxID
+    def getNewBoxID(self) -> int:
+        metadata : MetaData = self["MetaData"]
+        largestID : int = metadata.getLargestID()
+        if largestID == -1:
+            largestId = self.getLargestBoxIdVal()
+        newID = largestId + 1
+        return newID
     '''
     def addNewBoundingBox(self, boxID : str, frameNumber : int, dims : QRect, cellIDs : dict = None, eventIDs : dict = {}):
         boundingBoxes : dict = self.get("BoundingBoxes")
@@ -155,7 +158,7 @@ class LabelData(dict):
         frames : dict = self.get("Frames")
         #for the range of maxframes define a new frame obejct for each framnumber
         for i in range(maxFrames):
-            frames[i] = Frame(i)
+            frames[i] = Frame(i, frameID, projectName, projectID)
 
     def getFrames(self):
         '''
@@ -199,22 +202,39 @@ class LabelData(dict):
     def getMetaData(self):
         return self.get("MetaData")
 
-    def getLargestBoxIdVal(self): #This will need changed, there is no global box storage
-        largestValue = 0
-        #boxes : dict = self.get("BoundingBoxes") #FIXME
-        for key in boxes.keys():
-            if not isinstance(key, str):
-                print("error bounding box key is not a string")
-                return None
+    def getLargestBoxIdVal(self) -> int:
+        '''
+        checks the project ID, frameIDs, and boxIDs and returns the largest of them
+        '''
+        metadata : MetaData = self["MetaData"]
+        frames : dict[Frame] = self["Frames"]
+        largestID : int = metadata.getLargestID()
+        #check projectID
+        projID : int = metadata.getProjectID()
+        if projID > largestID:
+            largestID = projID
+        #check each frames id and boxIDs
+        for frame in frames:
+            frameLargest = 0
+            #check frameID's
+            frameID = frame.getFrameID()
+            if frameID > frameLargest: frameLargest = frameID
+            #check boxKeys
+            boxKeys = frame.getBoxKeys()
+            if isinstance(boxKeys, Iterable):
+                largestBoxKey = max(boxKeys)
+                if largestBoxKey > frameLargest: frameLargest = largestBoxKey
             else:
-                x = key.split('_')[1]
-                x = int(x)
-                if x > largestValue:
-                    largestValue = x
-        return largestValue
+                if boxKeys == None: print("Could not get boxIds from a frame got None instead from frame: ", frame.getFrameNumber())
+                else: print("unknown error occured when grabbing box keys for frame number: ", frame.getFrameNumber())
+                break
+            #compare frame largest to global largest
+            if frameLargest > largestID: largestID = frameLargest
+        
+        return largestID
 
 class Frame(dict):
-    def __init__(self, frameNumber : int, frameID : int = -1, projectName : str = "", projectID : str = "", boundingBoxes : dict = None, maskAnnotations : dict = None):
+    def __init__(self, frameNumber : int, frameID : int, projectName : str = "", projectID : str = "", boundingBoxes : dict = None, maskAnnotations : dict = None):
         if boundingBoxes is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
             boundingBoxes = {}  # Create a new dictionary for each instance
         super().__init__({
@@ -232,23 +252,33 @@ class Frame(dict):
         boxes: dict = self.get("boundingBoxes")
         boxID = boundingBox.get_boxID()
         boxes[boxID] = boundingBox
+    def getFrameID(self) -> int:
+        return self["frameID"]
     def getFrameNumber(self):
         return self.get("frameNumber")
     def getBoundingBoxes(self):
         return self.get("boundingBoxes")
+    def getBoxKeys(self):
+        boundingBoxes : dict = self["boundingBoxes"]
+        if boundingBoxes == None:
+            return None
+        return boundingBoxes.keys()
     def getProjectId(self):
         return self.get("projectID")
-    def setProjectId (self, newID):
-        self["projectID"] = newID
     def getProjectName(self):
         return self["projectName"]
+    
+    def setFrameID(self, newID):
+        self["frameID"] = newID
+    def setProjectId (self, newID):
+        self["projectID"] = newID
     def setProjectName(self, newName):
         self["projectName"] = newName
 
     
     
 class BoundingBox(dict):
-    def __init__(self, projectID : int, frameID : int, boxID : str = None, frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):
+    def __init__(self, projectID : int, frameID : int, boxID : int , frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):
         if cellIDs is None:
             cellIDs = {}
         if eventIDs is None:
@@ -371,7 +401,6 @@ class MaskAnnotation(dict):
     def set_values(self, values: dict) -> None:
         self["values"] = values
 
-
 class Cell(dict):
     def __init__(self, cellID : str, cellType : str):
         super().__init__({
@@ -396,7 +425,7 @@ class Event(dict):
         return self.get("boxIDs")
         
 class MetaData(dict): #FIXME need to 
-    def __init__(self, sourceName: str, frameTotal: int, maxWidth : int = 0, maxHeight : int = 0, other: list[str] = None, projectName : str = ""):
+    def __init__(self, sourceName: str, frameTotal: int, projectID : int, maxWidth : int = 0, maxHeight : int = 0, other: list[str] = None, projectName : str = ""):
         # Ensure other is a list if not provided
         if other is None: #May need fixing as it may be unneeded and unreachable
             other = []
@@ -405,9 +434,11 @@ class MetaData(dict): #FIXME need to
         super().__init__({
             "sourceName": sourceName,
             "projectName" : projectName,
+            "projectID" : projectID,
             "frameTotal": frameTotal,
             "maxWidth" : maxWidth,
             "maxHeight" : maxHeight,
+            "largestID" : -1,
             "other": other,
         })
     
@@ -415,9 +446,15 @@ class MetaData(dict): #FIXME need to
         """Set the sourceName in the metadata."""
         self["sourceName"] = sourceName
     
+    def setProjectID(self, projectID : int) -> None:
+        self["projectID"] = projectID
+    
     def setFrameTotal(self, frameTotal: int) -> None:
         """Set the frameTotal in the metadata."""
         self["frameTotal"] = frameTotal
+    
+    def setLargestID(self, largestID : int):
+        self["largestID"] = largestID
     
     def getSourceName(self):
         """Get the stored sourceName as a string or NONE"""
@@ -426,9 +463,15 @@ class MetaData(dict): #FIXME need to
     def getFrameTotal(self):
         return self.get("frameTotal")
     
+    def getProjectID(self) -> int:
+        return self["projectID"]
+    
     def getProjectName(self):
         return self.get("projectName")
     
     def getMaxDimensions(self):
         '''returns [width, height] values will be integer or None'''
         return [self.get("maxWidth"), self.get("maxHeight")]
+    
+    def getLargestID(self):
+        return self["largestID"]

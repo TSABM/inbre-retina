@@ -153,7 +153,7 @@ class CanvasModel():
         frameNumber = self.__getFrameNumber__()
         dims = rect.getRect()
 
-        newBox = BoundingBox(boxId, frameNumber, dims[0], dims[1], dims[2], dims[3])
+        newBox = BoundingBox(projectID, frameID, boxId, frameNumber, dims[0], dims[1], dims[2], dims[3])
         self.__sendBoxUpdate__(newBox)
 
         self.updatePixmap()
@@ -203,7 +203,7 @@ class CanvasModel():
         labelData = MasterMemory.getLabelData()
         #boundingBoxes : dict = labelData.get("BoundingBoxes") #FIXME
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
-        frame : Frame = labelData.getFrame(self.frameNumber)
+        frame : Frame = labelData.getFrame(self.frameNumber) #FIXME?
         if frame == None:
             print("unable to select box, frame ", self.frameNumber, " does not exist")
             return None

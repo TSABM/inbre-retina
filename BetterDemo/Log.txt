@@ -1,6 +1,24 @@
 # internship
 Code and documents for the internship
 
+Day 113 1/6/25
+12:05 pm - 
+current problem I'm facing is before I incremented the box values so I never got duplicates. The new vals from the imported mask data
+dont follow this rule making it harder to ensure I wont increment into a taken ID. I'd like to keep all id's unique if I can even between
+frames but searching every boxid in every frame every time I make a new one seems inefficient. Brainstorming a solution... Right now I
+think my options are 1) for each new id check if its used anywhere else by using dictionary searching to save on complexity if its taken
+add 1 and try again. 2)allow id's to be the same in between different frames greatly simplifying searching on videos this also is easier
+
+plan: I will do the first for now. It will be more intensive but dicts help it a bit, and it will probably be a safer guess in the long
+run.
+
+plan didnt work qhite like I thought. I didnt want to check each time I added a box if it was already existing so I instead wrote
+a less efficient max id finder that should only have to run once. its about O(n*m) where n is frames and m is boxes in each frame.
+(this isnt quite right as m will vary but its close enough.) its untested but looks good in theory.
+
+Other things need refactored given the changes I've made to metadata and frame. right now they arent created correctly. Also the max id
+should probably be stored so I dont have to make that expensive check again, I started that but I dont think its finished.
+
 Day 112 1/3/25
 2:12 pm - 3:49 pm 
 got pushing working earlier. image pushing fails because it sends a frame number when it shouldnt...
