@@ -1,8 +1,11 @@
 # internship
 Code and documents for the internship
 
+Day 114 1/7/25
+1:15 pm - 1:37 pm
+
 Day 113 1/6/25
-12:05 pm - 
+12:05 pm - 2:51 pm
 current problem I'm facing is before I incremented the box values so I never got duplicates. The new vals from the imported mask data
 dont follow this rule making it harder to ensure I wont increment into a taken ID. I'd like to keep all id's unique if I can even between
 frames but searching every boxid in every frame every time I make a new one seems inefficient. Brainstorming a solution... Right now I
