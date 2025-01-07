@@ -3,6 +3,11 @@ Code and documents for the internship
 
 Day 114 1/7/25
 1:15 pm - 1:37 pm
+1:40 - 1:50
+2:15 pm - 2:44 pm
+
+Had a meeting. Need to fix all the crashes and make sure you can draw boxes, edit boxes, and delete boxes. then write the code for drawing
+the masks. Then I need to make it possible to open projects then import projects.
 
 Day 113 1/6/25
 12:05 pm - 2:51 pm

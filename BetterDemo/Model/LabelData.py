@@ -1,15 +1,16 @@
 from PyQt5.QtCore import QRect
 from collections.abc import Iterable
-
+import random
 
 
 class LabelData(dict):
     '''
     dictionary containing the bounding boxes events and metadata for the file
     '''
-    def __init__(self, mediaSourceName : str, maxFrames : int):
-        self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID)})
-        #self.update({"BoundingBoxes": dict()})
+    def __init__(self, mediaSourceName : str, maxFrames : int, projectName : int, projectID : int = None):
+        if projectID == None:
+            projectID = self.generateNewProjectId()
+        self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID, projectName)})
         self.update({"Cells": dict()})
         self.update({"CellTypes" : dict()})
         self.update({"Events": dict()})
@@ -18,6 +19,11 @@ class LabelData(dict):
 
         self.initFrames(maxFrames)
     
+    def generateNewProjectId(self) -> int:
+        '''returns a 1-4 digit project ID'''
+        random_number = random.randint(0, 5000)
+        return random_number
+
     def addNewData(self, boundingBoxes, cells, events):
         '''
         add or update box, cell, and event data
@@ -425,9 +431,9 @@ class Event(dict):
         return self.get("boxIDs")
         
 class MetaData(dict): #FIXME need to 
-    def __init__(self, sourceName: str, frameTotal: int, projectID : int, maxWidth : int = 0, maxHeight : int = 0, other: list[str] = None, projectName : str = ""):
+    def __init__(self, sourceName: str, frameTotal: int, projectID : int, projectName : str, maxWidth : int = 0, maxHeight : int = 0, other: list[str] = None):
         # Ensure other is a list if not provided
-        if other is None: #May need fixing as it may be unneeded and unreachable
+        if other is None:
             other = []
         
         # defining fields
