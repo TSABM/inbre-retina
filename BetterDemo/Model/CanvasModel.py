@@ -153,8 +153,7 @@ class CanvasModel():
         frameNumber = self.__getFrameNumber__()
         dims = rect.getRect()
 
-        newBox = BoundingBox(projectID, frameID, boxId, frameNumber, dims[0], dims[1], dims[2], dims[3])
-        self.__sendBoxUpdate__(newBox)
+        self.__sendBoxUpdate__(boxId, frameNumber, dims[0], dims[1], dims[2], dims[3])
 
         self.updatePixmap()
         return boxId
@@ -184,9 +183,9 @@ class CanvasModel():
             self.__sendBoxDeleteRequest__(self.selectedItem.get_boxID())
             return
     
-    def __sendBoxUpdate__(self, boxToUpdate):
+    def __sendBoxUpdate__(self, boxId, frameNumber, x, y, w, h):
         labelData : LabelData = MasterMemory.getLabelData()
-        labelData.updateBoundingBox(boxToUpdate)
+        labelData.updateBoundingBox(boxId, frameNumber, x, y, w, h)
     
     def __sendBoxDeleteRequest__(self, boxIdToDelete : str):
         labelData : LabelData = MasterMemory.getLabelData()
@@ -200,19 +199,18 @@ class CanvasModel():
         if self.isFileOpen() == False:
             return
         
-        labelData = MasterMemory.getLabelData()
+        labelData : LabelData = MasterMemory.getLabelData()
         #boundingBoxes : dict = labelData.get("BoundingBoxes") #FIXME
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
         frame : Frame = labelData.getFrame(self.frameNumber) #FIXME?
         if frame == None:
             print("unable to select box, frame ", self.frameNumber, " does not exist")
             return None
-        boxIds = frame.getBoxIds()
-        if boxIds == {}:
-            print("tried to select a box but frame ", self.frameNumber, " boxIDs is empty?")
+        boxes : dict[BoundingBox] = frame.getBoundingBoxes()
+        if boxes == {}:
+            print("tried to select a box but frame ", self.frameNumber, " box contianer is empty?")
             return None
-        for boxID in boxIds:
-            box : BoundingBox = boundingBoxes.get(boxID)
+        for box in boxes:
             rectangle : QRect = box.get_boundingBox_as_qrect()
             if rectangle == None:
                 print("ERROR: no rectangle assigned to this label")

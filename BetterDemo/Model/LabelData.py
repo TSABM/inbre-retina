@@ -7,7 +7,7 @@ class LabelData(dict):
     '''
     dictionary containing the bounding boxes events and metadata for the file
     '''
-    def __init__(self, mediaSourceName : str, maxFrames : int, projectName : int, projectID : int = None):
+    def __init__(self, mediaSourceName : str, maxFrames : int, projectName : int, projectID : int = None): #FIXME
         if projectID == None:
             projectID = self.generateNewProjectId()
         self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID, projectName)})
@@ -17,7 +17,7 @@ class LabelData(dict):
         self.update({"EventTypes" : dict()})
         self.update({"Frames" : dict()})
 
-        self.initFrames(maxFrames)
+        self.initFrames(maxFrames) #FIXME
     
     def generateNewProjectId(self) -> int:
         '''returns a 1-4 digit project ID'''
@@ -60,40 +60,21 @@ class LabelData(dict):
         frames.update({frameNumber : frame})
         boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, rect[0], rect[1], rect[2], rect[3], cellIDs, eventIDs)})
     '''
-    def updateBoundingBox(self, box : "BoundingBox"):
-        '''
-        give a bounding box you want to update, then update the frame and bounding box containers with that box
-        '''
-        '''
-        print("attempting to update frame and boxes with new bounding box")
-        #grab the bounding box and frame fields so we can update them
-        #boundingBoxes : dict = self.get("BoundingBoxes")
-        frames : dict = self.get("Frames")
-
-        #grab the frame the box belongs in
-        frame : Frame = frames.get(box.get_frameNumber())
-        #verify frame is set
-        if frame == None:
-            print("Error, couldnt add box: frame number  ", box.get_frameNumber(), " was invalid")
-            return
-        #add boxid to frame, and update the bounding box dictionary
-        frame.addBoxId(box.get_boxID())
-        #frames.update({box.get_frameNumber() : frame}) #redunant
-        boundingBoxes.update({box.get_boxID() : box})
-        '''
-        #ok this all needs redone:
-        #for a box
-        #find its frame
-        #place it in the frame
-        frames : dict = self.get("Frames")
-        currFrameNum = box.get_frameNumber()
-        if isinstance(currFrameNum, int):
-            currFrame : "Frame" = frames.get(currFrameNum)
+    def updateBoundingBox(self, boxId : int, frameNumber : int, x : int, y : int, w : int, h : int):
+        metadata : MetaData = self.getMetaData()
+        frames : dict = self.getFrames()
+        #currFrameNum = box.get_frameNumber()
+        projectID = metadata.getProjectID()
+        
+        if isinstance(frameNumber, int):
+            currFrame : "Frame" = frames.get(frameNumber)
             if currFrame == None:
                 print("couldnt find frame: ", currFrameNum)
                 return
             else:
                 print("Frame found, updating box")
+                frameID : int = currFrame.getFrameID()
+                box : BoundingBox = BoundingBox(projectID, frameID, boxId, frameNumber, x, y, w, h)
                 currFrame.updateBoundingBox(box)
         else:
             print("error: box being added did not have a valid frame number: ", currFrameNum)
@@ -160,11 +141,16 @@ class LabelData(dict):
         '''
         fill Frames with maxFrames amount of new empty frames
         '''
+        metadata = self.getMetaData()
+        if metadata == None:
+            print("metadata was uninitalized when frames were being initalized")
+        projectName = metadata.getProjectName()
+        projectID = metadata.getProjectID()
         #grab a reference to frames data pool
         frames : dict = self.get("Frames")
         #for the range of maxframes define a new frame obejct for each framnumber
         for i in range(maxFrames):
-            frames[i] = Frame(i, frameID, projectName, projectID)
+            frames[i] = Frame(i, i, projectName, projectID) #for now te frameID will also just be the frame number. This may need to be changed later
 
     def getFrames(self):
         '''
@@ -205,7 +191,7 @@ class LabelData(dict):
     def getEventTypes(self):
         return self.get("EventTypes")
 
-    def getMetaData(self):
+    def getMetaData(self) -> "MetaData" | None:
         return self.get("MetaData")
 
     def getLargestBoxIdVal(self) -> int:

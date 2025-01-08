@@ -5,9 +5,15 @@ Day 114 1/7/25
 1:15 pm - 1:37 pm
 1:40 - 1:50
 2:15 pm - 2:44 pm
-
+6:24 pm - 
 Had a meeting. Need to fix all the crashes and make sure you can draw boxes, edit boxes, and delete boxes. then write the code for drawing
 the masks. Then I need to make it possible to open projects then import projects.
+
+So my label data creation only works when creating label data from scratch. Opening a file in this format or importing from that dataset
+would result in frames being written wrong (with the frameID's never being defined. I need to pass in existing data if it exists and only
+do new generation when appropriate)
+
+refactored box adding and selection. Needs testing though.
 
 Day 113 1/6/25
 12:05 pm - 2:51 pm
