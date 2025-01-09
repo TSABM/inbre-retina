@@ -20,7 +20,7 @@ class WindowMenuBarModel():
             if acceptedFormat.setMovie(imagePath) == True:
                 #send to canvas?
                 canvas : CanvasModel= MasterMemory.getCanvas()
-                canvas.setSource(acceptedFormat)
+                canvas.setSource(acceptedFormat, projectName, projectId)
             else:
                 pass
             pass
@@ -29,7 +29,7 @@ class WindowMenuBarModel():
             acceptedFormat = StandardImage(imageName)
             if acceptedFormat.setImage(imagePath) == True:
                 canvas : CanvasModel = MasterMemory.getCanvas()
-                canvas.setSource(acceptedFormat)
+                canvas.setSource(acceptedFormat, projectName, projectId)
         else:
             pass
         '''

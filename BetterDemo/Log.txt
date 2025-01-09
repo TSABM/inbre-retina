@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+Day 115 1/9/25
+8:40 am - 9:17
+worked on bug fixes. refactoring menu bar presenter so label data gets initilized properly. Also deleted popup classes that are no longer
+needed.
+
 Day 114 1/7/25
 1:15 pm - 1:37 pm
 1:40 - 1:50

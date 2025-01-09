@@ -27,3 +27,6 @@ class StandardImage(Displayable):
         else:
             return None
     
+    def getTotalFrames(self) -> int:
+        super().getTotalFrames()
+        return 0

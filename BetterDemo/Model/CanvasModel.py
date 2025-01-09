@@ -57,17 +57,16 @@ class CanvasModel():
         return self.frameNumber
     
     ### handle pixmap 
-    def setSource(self, source : Displayable): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
+    def setSource(self, source : Displayable, projectName : str, projectID : int | None): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
         '''
         If the source is type Displayable set it as the file to display and update the pixmap else print a message and return
         '''
         if isinstance(source, Displayable):
             self.sourceToDisplay = source
-            #FIXME probably should create LabelData here not elsehwere.
-            totalFrames : int = 0
+            totalFrames : int = source.getTotalFrames()
             if isinstance(source, SimpleMovie):
                 totalFrames = source.getTotalFrames()
-            MasterMemory.setLabelData(LabelData(source.getSourceName(), totalFrames))
+            MasterMemory.setLabelData(LabelData(source.getSourceName(), totalFrames, projectName, projectID))
 
             print("image file set, attempting to refresh")
             self.updatePixmap()

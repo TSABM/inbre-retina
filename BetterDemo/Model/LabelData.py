@@ -7,7 +7,7 @@ class LabelData(dict):
     '''
     dictionary containing the bounding boxes events and metadata for the file
     '''
-    def __init__(self, mediaSourceName : str, maxFrames : int, projectName : int, projectID : int = None): #FIXME
+    def __init__(self, mediaSourceName : str, maxFrames : int, projectName : int, projectID : int = None): #FIXME right now this class is incompatable with opening existing label datas
         if projectID == None:
             projectID = self.generateNewProjectId()
         self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID, projectName)})
@@ -191,7 +191,7 @@ class LabelData(dict):
     def getEventTypes(self):
         return self.get("EventTypes")
 
-    def getMetaData(self) -> "MetaData" | None:
+    def getMetaData(self):
         return self.get("MetaData")
 
     def getLargestBoxIdVal(self) -> int:

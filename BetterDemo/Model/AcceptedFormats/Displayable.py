@@ -14,6 +14,10 @@ class Displayable(ABC):
     @abstractmethod
     def getPixmap():
         pass
+    
+    @abstractmethod
+    def getTotalFrames(self):
+        pass
 
     def getSourceName(self):
         return self.sourceName
