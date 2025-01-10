@@ -41,7 +41,7 @@ class WindowMenuBarView(qtw.QMenuBar):
         if imagePath == "":
             print("No file selected")
         else:
-            self.presenter.openImage(imagePath)
+            self.presenter.openImage(imagePath, "testProjectName")
 
     def importLabels(self):
         pass

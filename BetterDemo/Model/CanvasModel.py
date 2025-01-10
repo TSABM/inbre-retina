@@ -1,6 +1,7 @@
 '''
 The QGraphics Scene that all drawing takes place
 '''
+# pylint: disable = no-name-in-module
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
@@ -159,7 +160,7 @@ class CanvasModel():
     
     def selectAndDelete(self, point):
         #handle selection
-        clickedBox = self.selectBox()
+        clickedBox = self.selectBox(point)
         if clickedBox == None:
             print("could not delete, no box found at clicked location")
             return

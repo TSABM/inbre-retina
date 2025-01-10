@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QLabel
+# pylint: disable = no-name-in-module
+#from PyQt5.QtWidgets import QLabel
 from PyQt5.QtGui import QMovie, QPixmap
 from Model.AcceptedFormats.Displayable import Displayable
 

@@ -15,12 +15,12 @@ class WindowMenuBarPresenter(AbstractPresenter):
     def refresh(self):
         super().refresh()
 
-    def openImage(self, imagePath):
+    def openImage(self, imagePath, projectName):
         '''
         opens a dialog and returns one selected image
         '''
         #set the open image
-        self.__generalModel.openImage(imagePath)
+        self.__generalModel.openImage(imagePath, projectName)
 
     def exportLabelData(self, exportFileName : str, desinationPath : str, overwriteMode : bool):
         #FIXME add error catching

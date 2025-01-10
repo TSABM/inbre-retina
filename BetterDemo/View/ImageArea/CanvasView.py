@@ -1,5 +1,5 @@
+# pylint: disable = no-name-in-module
 import PyQt5.QtWidgets as qtw
-
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
 from Presenter.CanvasPresenter import CanvasPresenter
 from PyQt5.QtGui import QPixmap, QPainter, QColor

@@ -1,3 +1,4 @@
+# pylint: disable = no-name-in-module
 from PyQt5.QtGui import QColor, QPalette
 import PyQt5.QtWidgets as qtw
 from Presenter.InfoDisplayPresenter import InfoDisplayPresenter

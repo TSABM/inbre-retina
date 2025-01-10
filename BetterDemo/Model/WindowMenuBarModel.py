@@ -10,7 +10,10 @@ class WindowMenuBarModel():
     def __init__(self):
         pass
 
-    def openImage(self, imagePath):
+    def openImage(self, imagePath, projectName : str):
+        '''
+        opens a single image or "simple movie" (such as a gif) and creates a data object to hold annotation info
+        '''
         imageName = os.path.basename(imagePath)
         #check the file format
 
@@ -20,7 +23,7 @@ class WindowMenuBarModel():
             if acceptedFormat.setMovie(imagePath) == True:
                 #send to canvas?
                 canvas : CanvasModel= MasterMemory.getCanvas()
-                canvas.setSource(acceptedFormat, projectName, projectId)
+                canvas.setSource(acceptedFormat, projectName, None)
             else:
                 pass
             pass
@@ -29,21 +32,13 @@ class WindowMenuBarModel():
             acceptedFormat = StandardImage(imageName)
             if acceptedFormat.setImage(imagePath) == True:
                 canvas : CanvasModel = MasterMemory.getCanvas()
-                canvas.setSource(acceptedFormat, projectName, projectId)
+                canvas.setSource(acceptedFormat, projectName, None)
         else:
             pass
-        '''
-        #open file at image location
-        file =  
-        #place file in memory
-        MasterMemory.setOpenFile(file)
-        #convert to QImage compatable format
-        frame = file.grabcurrentFrame()
-
-        #Return QImage to presenter where it can be sent off to the master memory and view
-        return frame
-        '''
         
+    def openProject(self):
+        #FIXME I need to be defined!
+        pass
 
     def filterFileList(self, fileList):
         '''

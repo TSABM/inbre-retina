@@ -2,9 +2,15 @@
 Code and documents for the internship
 
 Day 115 1/9/25
-8:40 am - 9:17
+8:40 am - 9:17 am
+4:20 pm - 
 worked on bug fixes. refactoring menu bar presenter so label data gets initilized properly. Also deleted popup classes that are no longer
 needed.
+
+After fixing some more problems it crashed again. I did some research and discovered linters and am now using one to hopefully help
+make refactoring easier.
+
+changed some pylint settings to allow camel case. Also looked at delete. Its faulty right now.
 
 Day 114 1/7/25
 1:15 pm - 1:37 pm

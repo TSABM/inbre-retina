@@ -9,10 +9,9 @@ class Displayable(ABC):
     @abstractmethod
     def __init__(self, sourceName):
         self.sourceName = sourceName
-        pass
 
     @abstractmethod
-    def getPixmap():
+    def getPixmap(self):
         pass
     
     @abstractmethod

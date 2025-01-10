@@ -69,7 +69,7 @@ class LabelData(dict):
         if isinstance(frameNumber, int):
             currFrame : "Frame" = frames.get(frameNumber)
             if currFrame == None:
-                print("couldnt find frame: ", currFrameNum)
+                print("couldnt find frame: ", frameNumber)
                 return
             else:
                 print("Frame found, updating box")
@@ -77,7 +77,7 @@ class LabelData(dict):
                 box : BoundingBox = BoundingBox(projectID, frameID, boxId, frameNumber, x, y, w, h)
                 currFrame.updateBoundingBox(box)
         else:
-            print("error: box being added did not have a valid frame number: ", currFrameNum)
+            print("error: box being added did not have a valid frame number: ", frameNumber)
 
     def deleteBoundingBox(self, boxID : str):
         #grab the bounding box in question
