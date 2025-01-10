@@ -158,6 +158,7 @@ class CanvasModel():
         self.updatePixmap()
         return boxId
     
+    '''
     def selectAndDelete(self, point):
         #handle selection
         clickedBox = self.selectBox(point)
@@ -166,8 +167,9 @@ class CanvasModel():
             return
         #handle deletion
         #FIXME
-        self.deleteBox()
+        self.deleteBox(boxID)
         self.deselectBox()
+    '''
     
     def deleteBox(self, boxID):
         #check if a box is at the point (if so select it)

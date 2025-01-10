@@ -36,7 +36,8 @@ class CanvasPresenter(AbstractPresenter):
         return addedBoxID
 
     def deleteBox(self, point):
-        self.model.selectAndDelete(point)
+        #self.model.selectAndDelete(point)
+        print("FIXME deleting needs fixed")
         
 
     def selectBox(self, point):

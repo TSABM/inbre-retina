@@ -141,7 +141,7 @@ class LabelData(dict):
         '''
         fill Frames with maxFrames amount of new empty frames
         '''
-        metadata = self.getMetaData()
+        metadata : MetaData = self.getMetaData()
         if metadata == None:
             print("metadata was uninitalized when frames were being initalized")
         projectName = metadata.getProjectName()

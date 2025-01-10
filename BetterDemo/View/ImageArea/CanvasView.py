@@ -114,4 +114,6 @@ class CanvasView(qtw.QGraphicsView):
     
     def deleteBox(self, box):
         #FIXME instead of deleting by point select make this flexible by being able to delete already selected boxes.
-        self.presenter.deleteBox(box)
+        #self.presenter.deleteBox(box)
+        print("FIXME")
+        pass

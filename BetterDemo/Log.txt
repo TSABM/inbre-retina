@@ -3,7 +3,7 @@ Code and documents for the internship
 
 Day 115 1/9/25
 8:40 am - 9:17 am
-4:20 pm - 
+4:20 pm - 7:00 pm 
 worked on bug fixes. refactoring menu bar presenter so label data gets initilized properly. Also deleted popup classes that are no longer
 needed.
 
@@ -11,6 +11,15 @@ After fixing some more problems it crashed again. I did some research and discov
 make refactoring easier.
 
 changed some pylint settings to allow camel case. Also looked at delete. Its faulty right now.
+
+Broke pylinter on accident and cant fix it. Whelp that stinks.
+
+fixed main crashes when trying to draw, though a box does not draw like it should on an image (it says it cant find frame 0)
+png's do crash when calling label data for the display. This is because its still trying to access the data like bounding boxes stil
+existed. It needs to be overhauled for the new back end anyway.
+
+I think the frame problem is that displayables get max frames does nothing only the subclasses do something with that and I'm not sure
+thats coming across. testing with a gif to see what happens. And it crashes with a new crash I've never seen before.
 
 Day 114 1/7/25
 1:15 pm - 1:37 pm
