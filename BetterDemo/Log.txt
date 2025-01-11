@@ -2,7 +2,8 @@
 Code and documents for the internship
 
 Day 116 1/11/25
-12:11 pm - 
+12:11 pm - 02:44 pm 
+2:59 pm - 
 havent found a way to fix pylint despite many attempts. Its going to be harder without it as I cant see at a glance whats broken
 from refactoring. 
 Got pylance to do type checking which does a lot.

@@ -24,12 +24,15 @@ class LabelData(dict):
         random_number = random.randint(0, 5000)
         return random_number
 
-    def addNewData(self, boundingBoxes, cells, events):
+    def addNewData(self, boundingBoxes : Iterable["BoundingBox"], cells, events):
         '''
         add or update box, cell, and event data
         '''
         for box in boundingBoxes:
-            self.updateBoundingBox(box)
+            id = box.get_boxID()
+            frameNum = box.get_frameNumber()
+            [x, y, w, h] = box.getDimensions()
+            self.updateFrameWithBox(id, frameNum, x, y, w, h)
         for cell in cells:
             self.addNewCell(cell)
         for event in events:
@@ -60,7 +63,7 @@ class LabelData(dict):
         frames.update({frameNumber : frame})
         boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, rect[0], rect[1], rect[2], rect[3], cellIDs, eventIDs)})
     '''
-    def updateBoundingBox(self, boxId : int, frameNumber : int, x : int, y : int, w : int, h : int):
+    def updateFrameWithBox(self, boxId : int, frameNumber : int, x : int, y : int, w : int, h : int):
         metadata : MetaData = self.getMetaData()
         frames : dict = self.getFrames()
         #currFrameNum = box.get_frameNumber()
@@ -79,7 +82,7 @@ class LabelData(dict):
         else:
             print("error: box being added did not have a valid frame number: ", frameNumber)
 
-    def deleteBoundingBox(self, boxID : str):
+    def deleteBoundingBox(self, boxID : int):
         #grab the bounding box in question
         boxes : dict = self.getBoundingBoxes()
         box : BoundingBox = boxes.get(boxID)
@@ -241,15 +244,15 @@ class Frame(dict):
     
     def updateBoundingBox(self, boundingBox : "BoundingBox"):
         #FIXME this is no longer valid way of getting bounding boxes. It must be frame based
-        boxes: dict = self.get("boundingBoxes")
+        boxes: dict = self["boundingBoxes"]
         boxID = boundingBox.get_boxID()
         boxes[boxID] = boundingBox
     def getFrameID(self) -> int:
         return self["frameID"]
     def getFrameNumber(self):
         return self.get("frameNumber")
-    def getBoundingBoxes(self):
-        return self.get("boundingBoxes")
+    def getBoundingBoxes(self) -> dict[int, "BoundingBox"]:
+        return self["boundingBoxes"]
     def getBoxKeys(self):
         boundingBoxes : dict = self["boundingBoxes"]
         if boundingBoxes == None:
@@ -292,23 +295,23 @@ class BoundingBox(dict):
             return None
         return QRect(dimensions[0], dimensions[1], dimensions[2], dimensions[3])
     
-    def get_boxID(self):
-        return self.get("boxID")
+    def get_boxID(self) -> int:
+        return self["boxID"]
 
-    def get_frameNumber(self):
-        return self.get("frameNumber")
+    def get_frameNumber(self) -> int:
+        return self["frameNumber"]
     
-    def getDimensions(self):
-        return self.get("dimensions")
+    def getDimensions(self) -> list:
+        return self["dimensions"]
     
     def setDimensions(self, x, y, width, height):
         self.update({"dimensions": [x, y, width, height]})
     
     def get_cellIDs(self):
-        return self.get("cellIds")
+        return self["cellIds"]
 
     def get_eventIDs(self):
-        return self.get("eventIDs")
+        return self["eventIDs"]
     
     def updateBox(self, frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, 
                width: int | None = None, height: int | None = None, cellIDsToAdd : dict | None = None, eventIdsToAdd : dict | None = None):

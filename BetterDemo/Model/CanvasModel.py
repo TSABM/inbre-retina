@@ -107,7 +107,7 @@ class CanvasModel():
             else:
                 for boxId in boxIds:
                     #if its selected render it blue and with handles
-                    box : BoundingBox = boxes.get(boxId)
+                    box : BoundingBox = boxes[boxId]
                     rectangle : QRect = box.get_boundingBox_as_qrect()
                     if box == self.selectedItem:
                         painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
@@ -190,9 +190,9 @@ class CanvasModel():
     
     def __sendBoxUpdate__(self, boxId, frameNumber, x, y, w, h):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        labelData.updateBoundingBox(boxId, frameNumber, x, y, w, h)
+        labelData.updateFrameWithBox(boxId, frameNumber, x, y, w, h)
     
-    def __sendBoxDeleteRequest__(self, boxIdToDelete : str):
+    def __sendBoxDeleteRequest__(self, boxIdToDelete : int):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         labelData.deleteBoundingBox(boxIdToDelete)
 
@@ -207,18 +207,18 @@ class CanvasModel():
         if self.isFileOpen() == False:
             return
         
-        labelData : LabelData = MasterMemory.getLabelData()
+        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         #boundingBoxes : dict = labelData.get("BoundingBoxes") #FIXME
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
-        frame : Frame = labelData.getFrame(self.frameNumber) #FIXME?
+        frame : Frame | None = labelData.getFrame(self.frameNumber) #FIXME?
         if frame == None:
             print("unable to select box, frame ", self.frameNumber, " does not exist")
             return None
-        boxes : dict[BoundingBox] = frame.getBoundingBoxes()
+        boxes : dict[int, BoundingBox] = frame.getBoundingBoxes()
         if boxes == {}:
             print("tried to select a box but frame ", self.frameNumber, " box contianer is empty?")
             return None
-        for box in boxes:
+        for box in boxes.values():
             rectangle : QRect = box.get_boundingBox_as_qrect()
             if rectangle == None:
                 print("ERROR: no rectangle assigned to this label")
@@ -238,11 +238,17 @@ class CanvasModel():
         self.selectedItem = None
         self.updatePixmap()
     
-    def moveBox(self, point):
+    def moveBox(self, point : QPoint):
         if self.isFileOpen() == False:
             return
+        if self.selectedItem == None:
+            print("cannot move box because the selected box is None")
+            return
         
-        rectangle : QRect = self.selectedItem.get_boundingBox_as_qrect()
+        rectangle : QRect | None = self.selectedItem.get_boundingBox_as_qrect()
+        if rectangle == None:
+            print("warning moving box failed. Failed to define rectangle")
+            return
         rectangle.moveCenter(point)
         self.__updateSelectedBoxPosition__(rectangle)
         self.updatePixmap()
@@ -251,9 +257,14 @@ class CanvasModel():
     def resizeBox(self, point, corner): 
         if self.isFileOpen() == False:
             return
-        
+        if self.selectedItem == None:
+            print("cannot resize box. Box is None")
+            return
         #grab curr coords as a rectangle
         rectangle : QRect = self.selectedItem.get_boundingBox_as_qrect() #fixme this is inefficient passing data back and forth, theres got to be a better way 
+        if rectangle == None:
+            print("failed to convert qrect in resize")
+            return
         #transform 
         if corner == 0:  # Top-left
             rectangle.setTopLeft(point)
@@ -275,7 +286,7 @@ class CanvasModel():
         for handle in handles:
             painter.drawRect(handle)
         #remove blue fill for future rectangles
-        painter.setBrush(Qt.NoBrush)
+        painter.setBrush(Qt.NoBrush) # type: ignore
 
     def __getResizeHandles__(self, rect : QRect):
         return [

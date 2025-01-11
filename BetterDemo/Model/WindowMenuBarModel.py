@@ -22,7 +22,7 @@ class WindowMenuBarModel():
             acceptedFormat = SimpleMovie(imageName)
             if acceptedFormat.setMovie(imagePath) == True:
                 #send to canvas?
-                canvas : CanvasModel= MasterMemory.getCanvas()
+                canvas : CanvasModel= MasterMemory.getCanvas() # type: ignore
                 canvas.setSource(acceptedFormat, projectName, None)
             else:
                 pass
@@ -31,7 +31,7 @@ class WindowMenuBarModel():
         elif ".jpeg" in imagePath or ".png" in imagePath or ".jpg" in imagePath or ".bmp" in imagePath or ".ppm" in imagePath or ".tiff" in imagePath:
             acceptedFormat = StandardImage(imageName)
             if acceptedFormat.setImage(imagePath) == True:
-                canvas : CanvasModel = MasterMemory.getCanvas()
+                canvas : CanvasModel = MasterMemory.getCanvas() # type: ignore
                 canvas.setSource(acceptedFormat, projectName, None)
         else:
             pass

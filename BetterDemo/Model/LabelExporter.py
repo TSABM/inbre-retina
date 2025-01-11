@@ -16,7 +16,7 @@ class LabelExporter():
         return json_data
     
     def __getFileName__(self):
-        labelData : LabelData = MasterMemory.getLabelData()
+        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         metadata : MetaData = labelData.getMetaData()
         fileName : str | None = metadata.getSourceName() #FIXME? remnent from gif days may need to alter for folders?
         
