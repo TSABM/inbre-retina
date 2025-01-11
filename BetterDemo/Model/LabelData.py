@@ -7,7 +7,7 @@ class LabelData(dict):
     '''
     dictionary containing the bounding boxes events and metadata for the file
     '''
-    def __init__(self, mediaSourceName : str, maxFrames : int, projectName : int, projectID : int = None): #FIXME right now this class is incompatable with opening existing label datas
+    def __init__(self, mediaSourceName : str, maxFrames : int, projectName : str, projectID : int | None = None): #FIXME right now this class is incompatable with opening existing label datas
         if projectID == None:
             projectID = self.generateNewProjectId()
         self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID, projectName)})
@@ -67,7 +67,7 @@ class LabelData(dict):
         projectID = metadata.getProjectID()
         
         if isinstance(frameNumber, int):
-            currFrame : "Frame" = frames.get(frameNumber)
+            currFrame : "Frame" = frames[frameNumber]
             if currFrame == None:
                 print("couldnt find frame: ", frameNumber)
                 return
@@ -114,27 +114,27 @@ class LabelData(dict):
         '''
         adds new cell type to the dict of existing cell types. the key is the Type (which is a string), a boolean "True" is stored as the value
         '''
-        cellTypes : dict = self.get("CellTypes")
+        cellTypes : dict = self["CellTypes"]
         cellTypes.update({type : True})
     
     def addNewEventType(self, type : str):
         '''
         adds new event type to dict. The key is the type (a string) and the value is a boolean
         '''
-        eventTypes : dict = self.get("EventTypes")
+        eventTypes : dict = self["EventTypes"]
         eventTypes.update({type : True})
 
     def addNewCell(self, cell : "Cell"):
-        cells: dict = self.get("Cells")
+        cells: dict = self["Cells"]
         cells.update({cell.get("cellID"): cell})
 
     def addNewEvent(self, event : "Event"):
-        events: dict = self.get("Events")
+        events: dict = self["Events"]
         events.update({event.get("eventID"): event})
 
     def updateMetaData(self, sourceName, frameTotal):
-        metadata : "MetaData" = self.get("MetaData")
-        metadata.setsourceName(sourceName)
+        metadata : "MetaData" = self["MetaData"]
+        metadata.setSourceName(sourceName)
         metadata.setFrameTotal(frameTotal)
         
     def initFrames(self, maxFrames):
@@ -144,23 +144,23 @@ class LabelData(dict):
         metadata : MetaData = self.getMetaData()
         if metadata == None:
             print("metadata was uninitalized when frames were being initalized")
-        projectName = metadata.getProjectName()
-        projectID = metadata.getProjectID()
+        projectName : str = metadata.getProjectName()
+        projectID : int = metadata.getProjectID()
         #grab a reference to frames data pool
-        frames : dict = self.get("Frames")
+        frames : dict = self["Frames"]
         #for the range of maxframes define a new frame obejct for each framnumber
         for i in range(maxFrames):
-            frames[i] = Frame(i, i, projectName, projectID) #for now te frameID will also just be the frame number. This may need to be changed later
+            frames[i] = Frame(i, i, projectID, projectName) #for now te frameID will also just be the frame number. This may need to be changed later
 
-    def getFrames(self):
+    def getFrames(self) -> dict:
         '''
         returns a dictionary of frame objects (also dictionaries) where the key is the frame number and the val is the frame
         '''
-        return self.get("Frames")
+        return self["Frames"]
 
-    def getFrame(self, frameNum : int):
-        frames : dict = self.get("Frames")
-        frame = frames.get(frameNum)
+    def getFrame(self, frameNum : int) -> "Frame | None":
+        frames : dict = self["Frames"]
+        frame : Frame | None = frames.get(frameNum)
         if frame == None:
             print("Tried to grab frame (",frameNum, ") that does not exist")
         return frame
@@ -191,22 +191,22 @@ class LabelData(dict):
     def getEventTypes(self):
         return self.get("EventTypes")
 
-    def getMetaData(self):
-        return self.get("MetaData")
+    def getMetaData(self) -> "MetaData":
+        return self["MetaData"]
 
     def getLargestBoxIdVal(self) -> int:
         '''
         checks the project ID, frameIDs, and boxIDs and returns the largest of them
         '''
         metadata : MetaData = self["MetaData"]
-        frames : dict[Frame] = self["Frames"]
+        frames : dict[int, Frame] = self["Frames"]
         largestID : int = metadata.getLargestID()
         #check projectID
         projID : int = metadata.getProjectID()
         if projID > largestID:
             largestID = projID
         #check each frames id and boxIDs
-        for frame in frames:
+        for frame in frames.values():
             frameLargest = 0
             #check frameID's
             frameID = frame.getFrameID()
@@ -226,7 +226,7 @@ class LabelData(dict):
         return largestID
 
 class Frame(dict):
-    def __init__(self, frameNumber : int, frameID : int, projectName : str = "", projectID : str = "", boundingBoxes : dict = None, maskAnnotations : dict = None):
+    def __init__(self, frameNumber : int, frameID : int, projectID : int, projectName : str = "", boundingBoxes : dict | None = None, maskAnnotations : dict | None = None):
         if boundingBoxes is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
             boundingBoxes = {}  # Create a new dictionary for each instance
         super().__init__({
@@ -240,7 +240,7 @@ class Frame(dict):
         })
     
     def updateBoundingBox(self, boundingBox : "BoundingBox"):
-        #FIXME might want to add some checks to be sure I'm ot overriding something I shouldnt be...
+        #FIXME this is no longer valid way of getting bounding boxes. It must be frame based
         boxes: dict = self.get("boundingBoxes")
         boxID = boundingBox.get_boxID()
         boxes[boxID] = boundingBox
@@ -270,7 +270,7 @@ class Frame(dict):
     
     
 class BoundingBox(dict):
-    def __init__(self, projectID : int, frameID : int, boxID : int , frameNumber : int = None,xCoord: int = None, yCoord: int = None, width: int = None, height: int = None, cellIDs : dict = None, eventIDs : dict = None):
+    def __init__(self, projectID : int, frameID : int, boxID : int , frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, width: int | None = None, height: int | None = None, cellIDs : dict | None = None, eventIDs : dict | None = None):
         if cellIDs is None:
             cellIDs = {}
         if eventIDs is None:
@@ -310,8 +310,8 @@ class BoundingBox(dict):
     def get_eventIDs(self):
         return self.get("eventIDs")
     
-    def updateBox(self, frameNumber : int = None, xCoord: int = None, yCoord: int = None, 
-               width: int = None, height: int = None, cellIDsToAdd : dict = None, eventIdsToAdd : dict = None):
+    def updateBox(self, frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, 
+               width: int | None = None, height: int | None = None, cellIDsToAdd : dict | None = None, eventIdsToAdd : dict | None = None):
         '''
         update the box info
         '''
@@ -417,7 +417,7 @@ class Event(dict):
         return self.get("boxIDs")
         
 class MetaData(dict): #FIXME need to 
-    def __init__(self, sourceName: str, frameTotal: int, projectID : int, projectName : str, maxWidth : int = 0, maxHeight : int = 0, other: list[str] = None):
+    def __init__(self, sourceName: str, frameTotal: int, projectID : int, projectName : str, maxWidth : int = 0, maxHeight : int = 0, other: list[str] | None = None):
         # Ensure other is a list if not provided
         if other is None:
             other = []
@@ -452,14 +452,14 @@ class MetaData(dict): #FIXME need to
         """Get the stored sourceName as a string or NONE"""
         return self.get("sourceName")
     
-    def getFrameTotal(self):
-        return self.get("frameTotal")
+    def getFrameTotal(self) -> int:
+        return self["frameTotal"]
     
     def getProjectID(self) -> int:
         return self["projectID"]
     
-    def getProjectName(self):
-        return self.get("projectName")
+    def getProjectName(self) -> str:
+        return self["projectName"]
     
     def getMaxDimensions(self):
         '''returns [width, height] values will be integer or None'''

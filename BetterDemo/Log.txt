@@ -1,6 +1,13 @@
 # internship
 Code and documents for the internship
 
+Day 116 1/11/25
+12:11 pm - 
+havent found a way to fix pylint despite many attempts. Its going to be harder without it as I cant see at a glance whats broken
+from refactoring. 
+Got pylance to do type checking which does a lot.
+fixed a bunch of type issues in label data. working on some broken methods.
+
 Day 115 1/9/25
 8:40 am - 9:17 am
 4:20 pm - 7:00 pm 

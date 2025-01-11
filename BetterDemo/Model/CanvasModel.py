@@ -21,17 +21,17 @@ class CanvasModel():
     a canvas which renders a static image and accepts labels
     '''
     def __init__(self):
-        self.sourceToDisplay : Displayable = None
+        self.sourceToDisplay : Displayable | None = None
         self.scene : QGraphicsScene = QGraphicsScene()
 
         self.frameNumber = 0 #FIXME
         
-        self.pixmap : QPixmap = None
+        self.pixmap : QPixmap | None = None
         #FIXME need to make compatable with videos (gif videos)
         #self.pixmap = QPixmap(defaultWidth, defaultHeight)
         self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
 
-        self.selectedItem : BoundingBox = None
+        self.selectedItem : BoundingBox | None = None
         self.resizing = False
         self.resizecorner = None
         
@@ -64,9 +64,12 @@ class CanvasModel():
         '''
         if isinstance(source, Displayable):
             self.sourceToDisplay = source
-            totalFrames : int = source.getTotalFrames()
+            totalFrames : int | None = source.getTotalFrames()
             if isinstance(source, SimpleMovie):
                 totalFrames = source.getTotalFrames()
+            if totalFrames == None:
+                print("error total frames was None")
+                return
             MasterMemory.setLabelData(LabelData(source.getSourceName(), totalFrames, projectName, projectID))
 
             print("image file set, attempting to refresh")
@@ -90,10 +93,10 @@ class CanvasModel():
         '''
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
-        labelData : LabelData = MasterMemory.getLabelData()
+        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         #boundingBoxes : dict = labelData.get("BoundingBoxes") #FIXME ? will this work?
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
-        frame : Frame = labelData.getFrame(self.frameNumber)
+        frame : Frame | None = labelData.getFrame(self.frameNumber)
         if frame == None:
             print("cannot find requested frame")
         else:
@@ -148,7 +151,7 @@ class CanvasModel():
             print("file is not open, aborting add box operation")
             return  
         
-        labelData : LabelData = MasterMemory.getLabelData()
+        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         boxId = labelData.getNewBoxID()
         frameNumber = self.__getFrameNumber__()
         dims = rect.getRect()
@@ -186,14 +189,17 @@ class CanvasModel():
             return
     
     def __sendBoxUpdate__(self, boxId, frameNumber, x, y, w, h):
-        labelData : LabelData = MasterMemory.getLabelData()
+        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         labelData.updateBoundingBox(boxId, frameNumber, x, y, w, h)
     
     def __sendBoxDeleteRequest__(self, boxIdToDelete : str):
-        labelData : LabelData = MasterMemory.getLabelData()
+        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         labelData.deleteBoundingBox(boxIdToDelete)
 
     def __updateSelectedBoxPosition__(self, rectangle : QRect):
+        if self.selectedItem == None:
+            print("No item selected aborting position update")
+            return
         dims = rectangle.getRect()
         self.selectedItem.setDimensions(dims[0], dims[1], dims[2], dims[3])
 

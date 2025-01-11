@@ -8,7 +8,7 @@ class StandardImage(Displayable):
     '''
     def __init__(self, fileName : str):
         super().__init__(fileName)
-        self.image : QImage = None
+        self.image : QImage | None = None
       
     def setImage(self, imagePath : str) -> bool:
         if imagePath != None:
