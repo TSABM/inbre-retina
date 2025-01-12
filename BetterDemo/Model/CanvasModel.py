@@ -174,7 +174,7 @@ class CanvasModel():
         self.deselectBox()
     '''
     
-    def deleteBox(self, boxID):
+    def deleteBox(self, boxID): #FIXME I pass in boxID here but never use it, either selected item is deleted or I pass it in
         #check if a box is at the point (if so select it)
         
         #check if a box is currently selected
@@ -185,16 +185,16 @@ class CanvasModel():
             return
         else:
             #print("Attempting to delete selected box")
-            self.__sendBoxDeleteRequest__(self.selectedItem.get_boxID())
+            self.__sendBoxDeleteRequest__(self.selectedItem.get_boxID(), self.selectedItem.get_frameNumber())
             return
     
     def __sendBoxUpdate__(self, boxId, frameNumber, x, y, w, h):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         labelData.updateFrameWithBox(boxId, frameNumber, x, y, w, h)
     
-    def __sendBoxDeleteRequest__(self, boxIdToDelete : int):
+    def __sendBoxDeleteRequest__(self, boxIdToDelete : int, frameKey : int):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        labelData.deleteBoundingBox(boxIdToDelete)
+        labelData.deleteBoundingBox(boxIdToDelete, frameKey)
 
     def __updateSelectedBoxPosition__(self, rectangle : QRect):
         if self.selectedItem == None:

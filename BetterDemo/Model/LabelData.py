@@ -82,26 +82,33 @@ class LabelData(dict):
         else:
             print("error: box being added did not have a valid frame number: ", frameNumber)
 
-    def deleteBoundingBox(self, boxID : int):
+    def deleteBoundingBox(self, boxID : int, frameKey : int):
         #grab the bounding box in question
-        boxes : dict = self.getBoundingBoxes()
-        box : BoundingBox = boxes.get(boxID)
+        #boxes : dict = self.getBoundingBoxes()
+        #box : BoundingBox = boxes.get(boxID)
+        frames : dict = self.getFrames()
+        frame : Frame = frames[frameKey]
+        boxes : dict = frame.getBoundingBoxes()
+        boxToDelete : BoundingBox = boxes[boxID]
         
         #verify it still exists
-        if box == None: 
+        if boxToDelete == None: 
             print("Cannot delete box. Box not found in data object")
             return
         
         #remove its reference from the frame
-        frames : dict = self.getFrames()
-        frame : Frame = frames.get(box.get_frameNumber())
-        frameBoxIDs : dict = frame.getBoxIds(boxID)
-        del frameBoxIDs[boxID]
+        #frames : dict = self.getFrames()
+        #frame : Frame = frames.get(boxToDelete.get_frameNumber())
+        #frameBoxIDs : dict = frame.getBoxIds(boxID)
+        #del frameBoxIDs[boxID]
         
         #for each event assotiated with it
-        events : dict = self.getEvents()
-        for eventID in box.get_eventIDs():
-            event : Event = events.get(eventID)
+        events : dict[int, Event] = self.getEvents()
+        for eventID in boxToDelete.get_eventIDs():
+            event : Event = events[eventID]
+            if event == None:
+                print("tried to find an event in events to remove it but could not find it")
+                return
             #remove the assotiation with the box being deleted
             eventBoxIds : dict = event.getBoxIDs()
             del eventBoxIds[eventID]
@@ -185,11 +192,11 @@ class LabelData(dict):
     def getCellTypes(self):
         return self.get("CellTypes")
 
-    def getEvents(self):
+    def getEvents(self) -> dict:
         '''
         returns a dictionary of Event objects (also dictionaries) where the key is the eventID and the val is the event
         '''
-        return self.get("Events")
+        return self["Events"]
     
     def getEventTypes(self):
         return self.get("EventTypes")
@@ -307,10 +314,10 @@ class BoundingBox(dict):
     def setDimensions(self, x, y, width, height):
         self.update({"dimensions": [x, y, width, height]})
     
-    def get_cellIDs(self):
+    def get_cellIDs(self) -> dict:
         return self["cellIds"]
 
-    def get_eventIDs(self):
+    def get_eventIDs(self) -> dict:
         return self["eventIDs"]
     
     def updateBox(self, frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, 
@@ -404,7 +411,7 @@ class Cell(dict):
         })
 
 class Event(dict):
-    def __init__(self, eventID : str, eventType : str, boxIDs : dict):
+    def __init__(self, eventID : int, eventType : str, boxIDs : dict):
         # defining fields
         super().__init__({
             "eventID": eventID,
@@ -412,12 +419,12 @@ class Event(dict):
             "boxIDs" : boxIDs
             #"cellIDs": cellIds #cellIDs was a dict, but maybe redundant since boxes store the cell list too
         })
-    def getEventID(self):
-        return self.get("eventID")
+    def getEventID(self) -> int:
+        return self["eventID"]
     def getEventType(self):
         return self.get("eventType")
-    def getBoxIDs(self):
-        return self.get("boxIDs")
+    def getBoxIDs(self) -> dict:
+        return self["boxIDs"]
         
 class MetaData(dict): #FIXME need to 
     def __init__(self, sourceName: str, frameTotal: int, projectID : int, projectName : str, maxWidth : int = 0, maxHeight : int = 0, other: list[str] | None = None):
