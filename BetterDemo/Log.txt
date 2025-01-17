@@ -1,10 +1,17 @@
 # internship
 Code and documents for the internship
 
+Day 118
+11:41 am - 
+
+Day 117
+9:11 am - 9:37 pm 
+wrote up a progress report
+
 Day 116 1/11/25
 12:11 pm - 02:44 pm 
 2:59 pm - 5:02 pm 
-11:26 pm - 
+11:26 pm - 11:52 pm 
 havent found a way to fix pylint despite many attempts. Its going to be harder without it as I cant see at a glance whats broken
 from refactoring. 
 Got pylance to do type checking which does a lot.
@@ -12,6 +19,7 @@ fixed a bunch of type issues in label data. working on some broken methods.
 working on fixes. The type checker has been great in part to help find problems... but also has lead to me needing to fix lots
 of little type problems. Still needs work.
 fixed some more method problems.
+drawing on gifs works again now. png's does not, theres a key error when handling frames, fix this
 
 Day 115 1/9/25
 8:40 am - 9:17 am

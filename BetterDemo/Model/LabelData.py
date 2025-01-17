@@ -224,8 +224,11 @@ class LabelData(dict):
             #check boxKeys
             boxKeys = frame.getBoxKeys()
             if isinstance(boxKeys, Iterable):
-                largestBoxKey = max(boxKeys)
-                if largestBoxKey > frameLargest: frameLargest = largestBoxKey
+                if not boxKeys: #aka if empty
+                    pass
+                else:
+                    largestBoxKey = max(boxKeys)
+                    if largestBoxKey > frameLargest: frameLargest = largestBoxKey
             else:
                 if boxKeys == None: print("Could not get boxIds from a frame got None instead from frame: ", frame.getFrameNumber())
                 else: print("unknown error occured when grabbing box keys for frame number: ", frame.getFrameNumber())
