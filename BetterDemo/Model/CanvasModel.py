@@ -98,7 +98,7 @@ class CanvasModel():
         #boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
         frame : Frame | None = labelData.getFrame(self.frameNumber)
         if frame == None:
-            print("cannot find requested frame")
+            print("Tried to draw labels, cannot find requested frame")
         else:
             boxes : dict = frame.getBoundingBoxes()
             boxIds = boxes.keys()

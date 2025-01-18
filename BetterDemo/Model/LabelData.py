@@ -70,15 +70,19 @@ class LabelData(dict):
         projectID = metadata.getProjectID()
         
         if isinstance(frameNumber, int):
-            currFrame : "Frame" = frames[frameNumber]
-            if currFrame == None:
-                print("couldnt find frame: ", frameNumber)
-                return
+            if frameNumber in frames:
+                currFrame : "Frame" = frames[frameNumber]
+                if not isinstance(currFrame, Frame):
+                    print("error tried to update a box in frame but given frame number is type: ", type(currFrame))
+                    return
+                else:
+                    print("Frame found, updating box")
+                    frameID : int = currFrame.getFrameID()
+                    box : BoundingBox = BoundingBox(projectID, frameID, boxId, frameNumber, x, y, w, h)
+                    currFrame.updateBoundingBox(box)
             else:
-                print("Frame found, updating box")
-                frameID : int = currFrame.getFrameID()
-                box : BoundingBox = BoundingBox(projectID, frameID, boxId, frameNumber, x, y, w, h)
-                currFrame.updateBoundingBox(box)
+                print("Tried to update frame with box data, couldnt find frame: ", frameNumber)
+                return
         else:
             print("error: box being added did not have a valid frame number: ", frameNumber)
 

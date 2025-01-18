@@ -23,10 +23,15 @@ class LabelExporter():
         return fileName
 
 
+    def createProjectFolder(self, projectName):
+        # Create the folder
+        os.makedirs(projectName, exist_ok=True)
+
     def export(self, exportFileName : str, destinationPath : str, overwrite : bool = False): 
         """converts label data to JSON and saves that data as a new JSON file"""
         """FIXME instead of having hard dependencies on master mem and label data in this function maybe either pass in labels 
         or have it be a class instance variable ALSO let the user choose the save location instead of hard coding it """
+        self.createProjectFolder(destinationPath)
         json_data = self.__convertLabelsToJson__()
         #fileName : str | None = self.__getFileName__()
         

@@ -6,7 +6,7 @@ from Model.LabelData import LabelData
 class CanvasPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.model = CanvasModel()
+        self.model : CanvasModel = CanvasModel()
         MasterMemory.setCanvas(self.model)
         #subs? label data? control view?
     
@@ -59,7 +59,7 @@ class CanvasPresenter(AbstractPresenter):
         self.model.moveBox(point)
 
     def getLargestBoxID(self):
-        labelData : LabelData = MasterMemory.getLabelData()
+        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         return labelData.getLargestBoxIdVal()
         
 

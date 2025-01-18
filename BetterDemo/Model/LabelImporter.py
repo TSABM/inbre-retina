@@ -4,6 +4,9 @@ class LabelImporter():
         pass
     
     def importLabels():
+        '''
+        take a json file in the proper format
+        '''
         pass
 
     def openFile():

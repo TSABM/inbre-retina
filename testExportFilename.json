@@ -1,49 +1,13 @@
 {
     "MetaData": {
-        "sourceName": "Developmental Apoptosis movie 1_channel_13.gif",
-        "projectName": 201,
-        "frameTotal": 0,
+        "sourceName": "8-ymdIjNQds00f1RM.png",
+        "projectName": "testProjectName",
+        "projectID": 2845,
+        "frameTotal": 1,
         "maxWidth": 0,
         "maxHeight": 0,
+        "largestID": -1,
         "other": []
-    },
-    "BoundingBoxes": {
-        "box_1": {
-            "boxID": "box_1",
-            "frameNumber": 0,
-            "dimensions": [
-                159,
-                110,
-                26,
-                35
-            ],
-            "cellIds": {},
-            "eventIDs": {}
-        },
-        "box_2": {
-            "boxID": "box_2",
-            "frameNumber": 0,
-            "dimensions": [
-                206,
-                135,
-                15,
-                26
-            ],
-            "cellIds": {},
-            "eventIDs": {}
-        },
-        "box_3": {
-            "boxID": "box_3",
-            "frameNumber": 0,
-            "dimensions": [
-                232,
-                95,
-                14,
-                32
-            ],
-            "cellIds": {},
-            "eventIDs": {}
-        }
     },
     "Cells": {},
     "CellTypes": {},
@@ -51,812 +15,111 @@
     "EventTypes": {},
     "Frames": {
         "0": {
+            "projectID": 2845,
+            "frameID": 0,
             "frameNumber": 0,
-            "boxIDs": {
-                "box_1": "box_1",
-                "box_2": "box_2",
-                "box_3": "box_3"
-            }
-        },
-        "1": {
-            "frameNumber": 1,
-            "boxIDs": {}
-        },
-        "2": {
-            "frameNumber": 2,
-            "boxIDs": {}
-        },
-        "3": {
-            "frameNumber": 3,
-            "boxIDs": {}
-        },
-        "4": {
-            "frameNumber": 4,
-            "boxIDs": {}
-        },
-        "5": {
-            "frameNumber": 5,
-            "boxIDs": {}
-        },
-        "6": {
-            "frameNumber": 6,
-            "boxIDs": {}
-        },
-        "7": {
-            "frameNumber": 7,
-            "boxIDs": {}
-        },
-        "8": {
-            "frameNumber": 8,
-            "boxIDs": {}
-        },
-        "9": {
-            "frameNumber": 9,
-            "boxIDs": {}
-        },
-        "10": {
-            "frameNumber": 10,
-            "boxIDs": {}
-        },
-        "11": {
-            "frameNumber": 11,
-            "boxIDs": {}
-        },
-        "12": {
-            "frameNumber": 12,
-            "boxIDs": {}
-        },
-        "13": {
-            "frameNumber": 13,
-            "boxIDs": {}
-        },
-        "14": {
-            "frameNumber": 14,
-            "boxIDs": {}
-        },
-        "15": {
-            "frameNumber": 15,
-            "boxIDs": {}
-        },
-        "16": {
-            "frameNumber": 16,
-            "boxIDs": {}
-        },
-        "17": {
-            "frameNumber": 17,
-            "boxIDs": {}
-        },
-        "18": {
-            "frameNumber": 18,
-            "boxIDs": {}
-        },
-        "19": {
-            "frameNumber": 19,
-            "boxIDs": {}
-        },
-        "20": {
-            "frameNumber": 20,
-            "boxIDs": {}
-        },
-        "21": {
-            "frameNumber": 21,
-            "boxIDs": {}
-        },
-        "22": {
-            "frameNumber": 22,
-            "boxIDs": {}
-        },
-        "23": {
-            "frameNumber": 23,
-            "boxIDs": {}
-        },
-        "24": {
-            "frameNumber": 24,
-            "boxIDs": {}
-        },
-        "25": {
-            "frameNumber": 25,
-            "boxIDs": {}
-        },
-        "26": {
-            "frameNumber": 26,
-            "boxIDs": {}
-        },
-        "27": {
-            "frameNumber": 27,
-            "boxIDs": {}
-        },
-        "28": {
-            "frameNumber": 28,
-            "boxIDs": {}
-        },
-        "29": {
-            "frameNumber": 29,
-            "boxIDs": {}
-        },
-        "30": {
-            "frameNumber": 30,
-            "boxIDs": {}
-        },
-        "31": {
-            "frameNumber": 31,
-            "boxIDs": {}
-        },
-        "32": {
-            "frameNumber": 32,
-            "boxIDs": {}
-        },
-        "33": {
-            "frameNumber": 33,
-            "boxIDs": {}
-        },
-        "34": {
-            "frameNumber": 34,
-            "boxIDs": {}
-        },
-        "35": {
-            "frameNumber": 35,
-            "boxIDs": {}
-        },
-        "36": {
-            "frameNumber": 36,
-            "boxIDs": {}
-        },
-        "37": {
-            "frameNumber": 37,
-            "boxIDs": {}
-        },
-        "38": {
-            "frameNumber": 38,
-            "boxIDs": {}
-        },
-        "39": {
-            "frameNumber": 39,
-            "boxIDs": {}
-        },
-        "40": {
-            "frameNumber": 40,
-            "boxIDs": {}
-        },
-        "41": {
-            "frameNumber": 41,
-            "boxIDs": {}
-        },
-        "42": {
-            "frameNumber": 42,
-            "boxIDs": {}
-        },
-        "43": {
-            "frameNumber": 43,
-            "boxIDs": {}
-        },
-        "44": {
-            "frameNumber": 44,
-            "boxIDs": {}
-        },
-        "45": {
-            "frameNumber": 45,
-            "boxIDs": {}
-        },
-        "46": {
-            "frameNumber": 46,
-            "boxIDs": {}
-        },
-        "47": {
-            "frameNumber": 47,
-            "boxIDs": {}
-        },
-        "48": {
-            "frameNumber": 48,
-            "boxIDs": {}
-        },
-        "49": {
-            "frameNumber": 49,
-            "boxIDs": {}
-        },
-        "50": {
-            "frameNumber": 50,
-            "boxIDs": {}
-        },
-        "51": {
-            "frameNumber": 51,
-            "boxIDs": {}
-        },
-        "52": {
-            "frameNumber": 52,
-            "boxIDs": {}
-        },
-        "53": {
-            "frameNumber": 53,
-            "boxIDs": {}
-        },
-        "54": {
-            "frameNumber": 54,
-            "boxIDs": {}
-        },
-        "55": {
-            "frameNumber": 55,
-            "boxIDs": {}
-        },
-        "56": {
-            "frameNumber": 56,
-            "boxIDs": {}
-        },
-        "57": {
-            "frameNumber": 57,
-            "boxIDs": {}
-        },
-        "58": {
-            "frameNumber": 58,
-            "boxIDs": {}
-        },
-        "59": {
-            "frameNumber": 59,
-            "boxIDs": {}
-        },
-        "60": {
-            "frameNumber": 60,
-            "boxIDs": {}
-        },
-        "61": {
-            "frameNumber": 61,
-            "boxIDs": {}
-        },
-        "62": {
-            "frameNumber": 62,
-            "boxIDs": {}
-        },
-        "63": {
-            "frameNumber": 63,
-            "boxIDs": {}
-        },
-        "64": {
-            "frameNumber": 64,
-            "boxIDs": {}
-        },
-        "65": {
-            "frameNumber": 65,
-            "boxIDs": {}
-        },
-        "66": {
-            "frameNumber": 66,
-            "boxIDs": {}
-        },
-        "67": {
-            "frameNumber": 67,
-            "boxIDs": {}
-        },
-        "68": {
-            "frameNumber": 68,
-            "boxIDs": {}
-        },
-        "69": {
-            "frameNumber": 69,
-            "boxIDs": {}
-        },
-        "70": {
-            "frameNumber": 70,
-            "boxIDs": {}
-        },
-        "71": {
-            "frameNumber": 71,
-            "boxIDs": {}
-        },
-        "72": {
-            "frameNumber": 72,
-            "boxIDs": {}
-        },
-        "73": {
-            "frameNumber": 73,
-            "boxIDs": {}
-        },
-        "74": {
-            "frameNumber": 74,
-            "boxIDs": {}
-        },
-        "75": {
-            "frameNumber": 75,
-            "boxIDs": {}
-        },
-        "76": {
-            "frameNumber": 76,
-            "boxIDs": {}
-        },
-        "77": {
-            "frameNumber": 77,
-            "boxIDs": {}
-        },
-        "78": {
-            "frameNumber": 78,
-            "boxIDs": {}
-        },
-        "79": {
-            "frameNumber": 79,
-            "boxIDs": {}
-        },
-        "80": {
-            "frameNumber": 80,
-            "boxIDs": {}
-        },
-        "81": {
-            "frameNumber": 81,
-            "boxIDs": {}
-        },
-        "82": {
-            "frameNumber": 82,
-            "boxIDs": {}
-        },
-        "83": {
-            "frameNumber": 83,
-            "boxIDs": {}
-        },
-        "84": {
-            "frameNumber": 84,
-            "boxIDs": {}
-        },
-        "85": {
-            "frameNumber": 85,
-            "boxIDs": {}
-        },
-        "86": {
-            "frameNumber": 86,
-            "boxIDs": {}
-        },
-        "87": {
-            "frameNumber": 87,
-            "boxIDs": {}
-        },
-        "88": {
-            "frameNumber": 88,
-            "boxIDs": {}
-        },
-        "89": {
-            "frameNumber": 89,
-            "boxIDs": {}
-        },
-        "90": {
-            "frameNumber": 90,
-            "boxIDs": {}
-        },
-        "91": {
-            "frameNumber": 91,
-            "boxIDs": {}
-        },
-        "92": {
-            "frameNumber": 92,
-            "boxIDs": {}
-        },
-        "93": {
-            "frameNumber": 93,
-            "boxIDs": {}
-        },
-        "94": {
-            "frameNumber": 94,
-            "boxIDs": {}
-        },
-        "95": {
-            "frameNumber": 95,
-            "boxIDs": {}
-        },
-        "96": {
-            "frameNumber": 96,
-            "boxIDs": {}
-        },
-        "97": {
-            "frameNumber": 97,
-            "boxIDs": {}
-        },
-        "98": {
-            "frameNumber": 98,
-            "boxIDs": {}
-        },
-        "99": {
-            "frameNumber": 99,
-            "boxIDs": {}
-        },
-        "100": {
-            "frameNumber": 100,
-            "boxIDs": {}
-        },
-        "101": {
-            "frameNumber": 101,
-            "boxIDs": {}
-        },
-        "102": {
-            "frameNumber": 102,
-            "boxIDs": {}
-        },
-        "103": {
-            "frameNumber": 103,
-            "boxIDs": {}
-        },
-        "104": {
-            "frameNumber": 104,
-            "boxIDs": {}
-        },
-        "105": {
-            "frameNumber": 105,
-            "boxIDs": {}
-        },
-        "106": {
-            "frameNumber": 106,
-            "boxIDs": {}
-        },
-        "107": {
-            "frameNumber": 107,
-            "boxIDs": {}
-        },
-        "108": {
-            "frameNumber": 108,
-            "boxIDs": {}
-        },
-        "109": {
-            "frameNumber": 109,
-            "boxIDs": {}
-        },
-        "110": {
-            "frameNumber": 110,
-            "boxIDs": {}
-        },
-        "111": {
-            "frameNumber": 111,
-            "boxIDs": {}
-        },
-        "112": {
-            "frameNumber": 112,
-            "boxIDs": {}
-        },
-        "113": {
-            "frameNumber": 113,
-            "boxIDs": {}
-        },
-        "114": {
-            "frameNumber": 114,
-            "boxIDs": {}
-        },
-        "115": {
-            "frameNumber": 115,
-            "boxIDs": {}
-        },
-        "116": {
-            "frameNumber": 116,
-            "boxIDs": {}
-        },
-        "117": {
-            "frameNumber": 117,
-            "boxIDs": {}
-        },
-        "118": {
-            "frameNumber": 118,
-            "boxIDs": {}
-        },
-        "119": {
-            "frameNumber": 119,
-            "boxIDs": {}
-        },
-        "120": {
-            "frameNumber": 120,
-            "boxIDs": {}
-        },
-        "121": {
-            "frameNumber": 121,
-            "boxIDs": {}
-        },
-        "122": {
-            "frameNumber": 122,
-            "boxIDs": {}
-        },
-        "123": {
-            "frameNumber": 123,
-            "boxIDs": {}
-        },
-        "124": {
-            "frameNumber": 124,
-            "boxIDs": {}
-        },
-        "125": {
-            "frameNumber": 125,
-            "boxIDs": {}
-        },
-        "126": {
-            "frameNumber": 126,
-            "boxIDs": {}
-        },
-        "127": {
-            "frameNumber": 127,
-            "boxIDs": {}
-        },
-        "128": {
-            "frameNumber": 128,
-            "boxIDs": {}
-        },
-        "129": {
-            "frameNumber": 129,
-            "boxIDs": {}
-        },
-        "130": {
-            "frameNumber": 130,
-            "boxIDs": {}
-        },
-        "131": {
-            "frameNumber": 131,
-            "boxIDs": {}
-        },
-        "132": {
-            "frameNumber": 132,
-            "boxIDs": {}
-        },
-        "133": {
-            "frameNumber": 133,
-            "boxIDs": {}
-        },
-        "134": {
-            "frameNumber": 134,
-            "boxIDs": {}
-        },
-        "135": {
-            "frameNumber": 135,
-            "boxIDs": {}
-        },
-        "136": {
-            "frameNumber": 136,
-            "boxIDs": {}
-        },
-        "137": {
-            "frameNumber": 137,
-            "boxIDs": {}
-        },
-        "138": {
-            "frameNumber": 138,
-            "boxIDs": {}
-        },
-        "139": {
-            "frameNumber": 139,
-            "boxIDs": {}
-        },
-        "140": {
-            "frameNumber": 140,
-            "boxIDs": {}
-        },
-        "141": {
-            "frameNumber": 141,
-            "boxIDs": {}
-        },
-        "142": {
-            "frameNumber": 142,
-            "boxIDs": {}
-        },
-        "143": {
-            "frameNumber": 143,
-            "boxIDs": {}
-        },
-        "144": {
-            "frameNumber": 144,
-            "boxIDs": {}
-        },
-        "145": {
-            "frameNumber": 145,
-            "boxIDs": {}
-        },
-        "146": {
-            "frameNumber": 146,
-            "boxIDs": {}
-        },
-        "147": {
-            "frameNumber": 147,
-            "boxIDs": {}
-        },
-        "148": {
-            "frameNumber": 148,
-            "boxIDs": {}
-        },
-        "149": {
-            "frameNumber": 149,
-            "boxIDs": {}
-        },
-        "150": {
-            "frameNumber": 150,
-            "boxIDs": {}
-        },
-        "151": {
-            "frameNumber": 151,
-            "boxIDs": {}
-        },
-        "152": {
-            "frameNumber": 152,
-            "boxIDs": {}
-        },
-        "153": {
-            "frameNumber": 153,
-            "boxIDs": {}
-        },
-        "154": {
-            "frameNumber": 154,
-            "boxIDs": {}
-        },
-        "155": {
-            "frameNumber": 155,
-            "boxIDs": {}
-        },
-        "156": {
-            "frameNumber": 156,
-            "boxIDs": {}
-        },
-        "157": {
-            "frameNumber": 157,
-            "boxIDs": {}
-        },
-        "158": {
-            "frameNumber": 158,
-            "boxIDs": {}
-        },
-        "159": {
-            "frameNumber": 159,
-            "boxIDs": {}
-        },
-        "160": {
-            "frameNumber": 160,
-            "boxIDs": {}
-        },
-        "161": {
-            "frameNumber": 161,
-            "boxIDs": {}
-        },
-        "162": {
-            "frameNumber": 162,
-            "boxIDs": {}
-        },
-        "163": {
-            "frameNumber": 163,
-            "boxIDs": {}
-        },
-        "164": {
-            "frameNumber": 164,
-            "boxIDs": {}
-        },
-        "165": {
-            "frameNumber": 165,
-            "boxIDs": {}
-        },
-        "166": {
-            "frameNumber": 166,
-            "boxIDs": {}
-        },
-        "167": {
-            "frameNumber": 167,
-            "boxIDs": {}
-        },
-        "168": {
-            "frameNumber": 168,
-            "boxIDs": {}
-        },
-        "169": {
-            "frameNumber": 169,
-            "boxIDs": {}
-        },
-        "170": {
-            "frameNumber": 170,
-            "boxIDs": {}
-        },
-        "171": {
-            "frameNumber": 171,
-            "boxIDs": {}
-        },
-        "172": {
-            "frameNumber": 172,
-            "boxIDs": {}
-        },
-        "173": {
-            "frameNumber": 173,
-            "boxIDs": {}
-        },
-        "174": {
-            "frameNumber": 174,
-            "boxIDs": {}
-        },
-        "175": {
-            "frameNumber": 175,
-            "boxIDs": {}
-        },
-        "176": {
-            "frameNumber": 176,
-            "boxIDs": {}
-        },
-        "177": {
-            "frameNumber": 177,
-            "boxIDs": {}
-        },
-        "178": {
-            "frameNumber": 178,
-            "boxIDs": {}
-        },
-        "179": {
-            "frameNumber": 179,
-            "boxIDs": {}
-        },
-        "180": {
-            "frameNumber": 180,
-            "boxIDs": {}
-        },
-        "181": {
-            "frameNumber": 181,
-            "boxIDs": {}
-        },
-        "182": {
-            "frameNumber": 182,
-            "boxIDs": {}
-        },
-        "183": {
-            "frameNumber": 183,
-            "boxIDs": {}
-        },
-        "184": {
-            "frameNumber": 184,
-            "boxIDs": {}
-        },
-        "185": {
-            "frameNumber": 185,
-            "boxIDs": {}
-        },
-        "186": {
-            "frameNumber": 186,
-            "boxIDs": {}
-        },
-        "187": {
-            "frameNumber": 187,
-            "boxIDs": {}
-        },
-        "188": {
-            "frameNumber": 188,
-            "boxIDs": {}
-        },
-        "189": {
-            "frameNumber": 189,
-            "boxIDs": {}
-        },
-        "190": {
-            "frameNumber": 190,
-            "boxIDs": {}
-        },
-        "191": {
-            "frameNumber": 191,
-            "boxIDs": {}
-        },
-        "192": {
-            "frameNumber": 192,
-            "boxIDs": {}
-        },
-        "193": {
-            "frameNumber": 193,
-            "boxIDs": {}
-        },
-        "194": {
-            "frameNumber": 194,
-            "boxIDs": {}
-        },
-        "195": {
-            "frameNumber": 195,
-            "boxIDs": {}
-        },
-        "196": {
-            "frameNumber": 196,
-            "boxIDs": {}
-        },
-        "197": {
-            "frameNumber": 197,
-            "boxIDs": {}
-        },
-        "198": {
-            "frameNumber": 198,
-            "boxIDs": {}
-        },
-        "199": {
-            "frameNumber": 199,
-            "boxIDs": {}
-        },
-        "200": {
-            "frameNumber": 200,
-            "boxIDs": {}
+            "projectName": "testProjectName",
+            "boundingBoxes": {
+                "2846": {
+                    "projectID": 2845,
+                    "frameID": 0,
+                    "boxID": 2846,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        81,
+                        107,
+                        47,
+                        79
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "2847": {
+                    "projectID": 2845,
+                    "frameID": 0,
+                    "boxID": 2847,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        130,
+                        64,
+                        59,
+                        78
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "2848": {
+                    "projectID": 2845,
+                    "frameID": 0,
+                    "boxID": 2848,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        203,
+                        55,
+                        48,
+                        80
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "2849": {
+                    "projectID": 2845,
+                    "frameID": 0,
+                    "boxID": 2849,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        264,
+                        67,
+                        67,
+                        91
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "2850": {
+                    "projectID": 2845,
+                    "frameID": 0,
+                    "boxID": 2850,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        356,
+                        73,
+                        44,
+                        97
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "2851": {
+                    "projectID": 2845,
+                    "frameID": 0,
+                    "boxID": 2851,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        443,
+                        113,
+                        67,
+                        128
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "2852": {
+                    "projectID": 2845,
+                    "frameID": 0,
+                    "boxID": 2852,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        252,
+                        236,
+                        58,
+                        111
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                }
+            },
+            "maskAnnotations": null
         }
     }
 }

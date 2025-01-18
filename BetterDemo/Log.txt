@@ -2,7 +2,16 @@
 Code and documents for the internship
 
 Day 118
-11:41 am - 
+11:41 am - 12:47 pm 
+2:07 pm - 2:15
+2:45 pm - 4:58 pm
+8:46 pm - 
+hmm select box is getting called when an image is loaded. I'm guessing its regarding it as a screen click, not sure hwo to fix...
+stopped png draw crash but boxes dont draw right.
+Png crash was due to it saying it had 0 frames. Drawing on png's and editing work now.
+Now to implement import from the mask annotation format, and general export.
+old export code works fine. Moving onto import.
+hmm actually I need to put things in folders....
 
 Day 117
 9:11 am - 9:37 pm 

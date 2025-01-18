@@ -30,4 +30,4 @@ class StandardImage(Displayable):
     
     def getTotalFrames(self) -> int:
         super().getTotalFrames()
-        return 0
+        return 1

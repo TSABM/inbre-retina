@@ -36,7 +36,7 @@ class CanvasView(qtw.QGraphicsView):
 
     def mousePressEvent(self, event):
         #check if the event is a left click
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.LeftButton: # type: ignore
             mode = self.presenter.getInteractionMode()
             self.initialPoint = self.mapToScene(event.pos()).toPoint()
             
@@ -76,7 +76,7 @@ class CanvasView(qtw.QGraphicsView):
                 self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), self.mapFromScene(new_pos)).normalized())
 
     def mouseReleaseEvent(self, event):
-        if event.button() == Qt.LeftButton:
+        if event.button() == Qt.LeftButton: # type: ignore
             mode = self.presenter.getInteractionMode()
             if mode == "Select label":
                 if self.resizing == True:
