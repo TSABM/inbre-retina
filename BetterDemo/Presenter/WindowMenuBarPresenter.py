@@ -22,10 +22,10 @@ class WindowMenuBarPresenter(AbstractPresenter):
         #set the open image
         self.__generalModel.openImage(imagePath, projectName)
 
-    def exportLabelData(self, exportFileName : str, desinationPath : str, overwriteMode : bool):
+    def exportLabelData(self, annotationsFileName : str, projectDestinationPath : str, sourceImagePath : str, overwriteMode : bool):
         #FIXME add error catching
         print("Menu bar presenter passing along export request")
-        self.__exportModel.export(exportFileName, desinationPath, overwriteMode)
+        self.__exportModel.export(annotationsFileName, projectDestinationPath, sourceImagePath, overwriteMode)
 
     def closeApplication(self):
         '''
