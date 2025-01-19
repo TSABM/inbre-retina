@@ -1,8 +1,9 @@
 import json
 import os
 import re
+import shutil
 from Model.masterMemory import MasterMemory
-from Model.LabelData import LabelData, MetaData
+from Model.LabelData import LabelData, MetaData, Frame
 
 class LabelExporter():
     """Converts label data to JSON and then exports it as a new JSON file"""
@@ -15,11 +16,13 @@ class LabelExporter():
         json_data = json.dumps(labelData, indent = 4)
         return json_data
     
-    def __extractFrameJson__(self):
-        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        frameData = labelData.getFrames()
-        json_frame_data = json.dumps(frameData, indent = 4)
-        return json_frame_data
+    def __extractFrameJson__(self, frameData) -> None | str:
+        if frameData == None:
+            print("tried to convert an invalid frame to json")
+            return None
+        else:
+            json_frame_data = json.dumps(frameData, indent = 4)
+            return json_frame_data
 
     def __getFileName__(self):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
@@ -28,10 +31,17 @@ class LabelExporter():
         
         return fileName
 
+    def __writeJsonFile__(self, jsonData : str, filePath : str):
+        try:
+            with open(filePath, 'w') as json_file:
+                json_file.write(jsonData)
+            print("Data exported successfully")
+        except IOError as e:
+            print(f"Export error: failed to write to file. {e}")
 
-    def createProjectFolder(self, projectDestinationPath):
+    def __createFolder__(self, folderDestinationPath):
         # Create the folder
-        os.makedirs(projectDestinationPath, exist_ok=True)
+        os.makedirs(folderDestinationPath, exist_ok=True)
 
     def export(self, annotationsFileName : str, projectDestinationPath : str, sourceImagePath : str, overwrite : bool = False): 
         """converts label data to JSON and saves that data as a new JSON file"""
@@ -49,7 +59,7 @@ class LabelExporter():
         newFilePath = os.path.join(projectDestinationPath, newFileName)
 
         ##create folder
-        self.createProjectFolder(projectDestinationPath)
+        self.__createFolder__(projectDestinationPath)
         
         ##save frame data (hmm how to do this...)
             #save main annotations
@@ -67,15 +77,26 @@ class LabelExporter():
                 return
         
         ##write annotation file
-        try:
-            with open(newFilePath, 'w') as json_file:
-                json_file.write(json_data)
-            print("Data exported successfully")
-        except IOError as e:
-            print(f"Export error: failed to write to file. {e}")
+        self.__writeJsonFile__(json_data, newFilePath)
 
         ## copy over image data
-        
+        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
+        frameData :dict[int, Frame] = labelData.getFrames()
+        for frame in frameData.values():
+            #create new framefolder path
+            frameFilePath = os.path.join(newFilePath, str(frame.getFrameNumber()))
+            #create a folder for the frame
+            self.__createFolder__(frameFilePath)
+            #extract framejson
+            frameJson = self.__extractFrameJson__(frame)
+            if frameJson == None:
+                pass
+            else:
+                #verify image exists
+                    #if it exists use shutil to copy the image to the new directory
+                #save both to a frame subfolder in project
+                self.__writeJsonFile__(frameJson, frameFilePath)
+
     
     def __is_valid_projectname(self, projectname: str) -> bool:
         
