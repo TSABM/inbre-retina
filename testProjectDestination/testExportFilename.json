@@ -1,0 +1,111 @@
+{
+    "MetaData": {
+        "sourceName": "demoImage.jpg",
+        "projectName": "testProjectName",
+        "projectID": 1316,
+        "frameTotal": 1,
+        "maxWidth": 0,
+        "maxHeight": 0,
+        "largestID": -1,
+        "other": []
+    },
+    "Cells": {},
+    "CellTypes": {},
+    "Events": {},
+    "EventTypes": {},
+    "Frames": {
+        "0": {
+            "projectID": 1316,
+            "frameID": 0,
+            "frameNumber": 0,
+            "projectName": "testProjectName",
+            "boundingBoxes": {
+                "1317": {
+                    "projectID": 1316,
+                    "frameID": 0,
+                    "boxID": 1317,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        60,
+                        67,
+                        42,
+                        44
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "1318": {
+                    "projectID": 1316,
+                    "frameID": 0,
+                    "boxID": 1318,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        120,
+                        60,
+                        32,
+                        27
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "1319": {
+                    "projectID": 1316,
+                    "frameID": 0,
+                    "boxID": 1319,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        162,
+                        41,
+                        15,
+                        15
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "1320": {
+                    "projectID": 1316,
+                    "frameID": 0,
+                    "boxID": 1320,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        198,
+                        31,
+                        20,
+                        19
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "1321": {
+                    "projectID": 1316,
+                    "frameID": 0,
+                    "boxID": 1321,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        245,
+                        24,
+                        20,
+                        15
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "1322": {
+                    "projectID": 1316,
+                    "frameID": 0,
+                    "boxID": 1322,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        296,
+                        22,
+                        28,
+                        39
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                }
+            },
+            "maskAnnotations": null
+        }
+    }
+}
