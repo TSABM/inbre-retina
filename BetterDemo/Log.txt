@@ -1,8 +1,6 @@
 # internship
 Code and documents for the internship
 
-Day 121 1/24
-
 Day 120 1/20
 3:45 pm - 4:20 pm
 had a meeting
@@ -13,6 +11,7 @@ So:
 1) Prioritize reversing the frame based export you were working on, revert it to the working version that saved 1 json file with the images
 2) Finish the open/import functions so you can open existing projects
 3) write up documentation for the project structure and update the outdated docs and uml. Provide detail!
+
 
 Day 119 1/18
 5:24 pm - 6:29 pm
