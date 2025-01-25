@@ -5,7 +5,7 @@ import shutil
 from Model.masterMemory import MasterMemory
 from Model.LabelData import LabelData, MetaData, Frame
 
-class LabelExporter():
+class ProjectExporter():
     """Converts label data to JSON and then exports it as a new JSON file"""
     def __init__(self):
         #get all labels
@@ -43,59 +43,49 @@ class LabelExporter():
         # Create the folder
         os.makedirs(folderDestinationPath, exist_ok=True)
 
-    def export(self, annotationsFileName : str, projectDestinationPath : str, sourceImagePath : str, overwrite : bool = False): 
+    def __createProjectFolder__(self, projectPath) -> bool:
+        if os.path.isdir(projectPath):  # Check if it's a folder
+            print(f"Folder already exists: {projectPath}")
+            return False
+        self.__createFolder__(projectPath)
+        return True
+
+    def __createAnnotationFile__(self, overwrite : bool, projectDestinationPath):
+        annotationPath = os.path.join(projectDestinationPath, "annotations.json")
+
+        ##stop any overwrites if not allowed
+        if os.path.exists(annotationPath):
+            print(f"Warning trying to overwrite '{annotationPath}' which already exists")
+            if overwrite == False:
+                print("aborting file overwrite")
+                return 
+        ##jsonify data
+        json_data = self.__convertLabelsToJson__()
+        ##write annotation file
+        self.__writeJsonFile__(json_data, annotationPath)
+
+    def __createSource__(self, projectDestinationPath):
+        #create new source folder path
+        newSourceFilePath = os.path.join(projectDestinationPath, "source")
+        #create a folder for the frame
+        self.__createFolder__(newSourceFilePath)
+        #save source image(s) to the new folder
+        #FIXME
+        pass
+    
+    def export(self, projectDestinationPath : str, sourceImagesPath : str, overwrite : bool = False): 
         """converts label data to JSON and saves that data as a new JSON file"""
         """FIXME instead of having hard dependencies on master mem and label data in this function maybe either pass in labels 
         or have it be a class instance variable ALSO let the user choose the save location instead of hard coding it """
-        
-        ##validate new file and path name
-        if not self.__is_valid_projectname(annotationsFileName):
-            print("Export error: proposed annotations filename, " + annotationsFileName + ",is not valid")
-            return
-        
-        ##add on the new file extension
-        newFileName = annotationsFileName + ".json"
-        #turn into a full path
-        newFilePath = os.path.join(projectDestinationPath, newFileName)
+        #check if source exists
+        if self.__check_path__(sourceImagesPath):
+            self.__createProjectFolder__(projectDestinationPath)
 
-        ##create folder
-        self.__createFolder__(projectDestinationPath)
-        
-        ##save frame data (hmm how to do this...)
-            #save main annotations
-            #save frame folders
-            #in frame folders save image and frame annotations
+            self.__createAnnotationFile__(overwrite, projectDestinationPath)
 
-        ##jsonify data
-        json_data = self.__convertLabelsToJson__()
-        
-        ##stop any overwrites if not allowed
-        if os.path.exists(newFilePath):
-            print(f"Warning trying to overwrite '{newFilePath}' which already exists")
-            if overwrite == False:
-                print("aborting file overwrite")
-                return
-        
-        ##write annotation file
-        self.__writeJsonFile__(json_data, newFilePath)
-
-        ## copy over image data
-        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        frameData :dict[int, Frame] = labelData.getFrames()
-        for frame in frameData.values():
-            #create new framefolder path
-            frameFilePath = os.path.join(newFilePath, str(frame.getFrameNumber()))
-            #create a folder for the frame
-            self.__createFolder__(frameFilePath)
-            #extract framejson
-            frameJson = self.__extractFrameJson__(frame)
-            if frameJson == None:
-                pass
-            else:
-                #verify image exists
-                    #if it exists use shutil to copy the image to the new directory
-                #save both to a frame subfolder in project
-                self.__writeJsonFile__(frameJson, frameFilePath)
+            self.__createSource__(projectDestinationPath, sourceImagesPath)
+        else:
+            print("cannot export file, source image/video cannot be found with the given path: ", sourceImagesPath)
 
     
     def __is_valid_projectname(self, projectname: str) -> bool:
@@ -128,3 +118,18 @@ class LabelExporter():
             return False
     
         return True
+    
+    def __check_path__(self, path) -> bool:
+        if os.path.exists(path):  # Check if the path exists
+            if os.path.isfile(path):  # Check if it's a file
+                print(f"The path exists and is a file: {path}")
+                return True
+            elif os.path.isdir(path):  # Check if it's a folder
+                print(f"The path exists and is a folder: {path}")
+                return True
+            else:  # Something exists, but it's neither a file nor a folder (e.g., symbolic link)
+                print(f"The path exists but is not a regular file or folder: {path}")
+                return False
+        else:
+            print(f"The path does not exist: {path}")
+            return False

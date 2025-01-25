@@ -1,6 +1,16 @@
 # internship
 Code and documents for the internship
 
+Day 121 1/24
+7:00 pm - 8:39 pm 
+10:18 pm - 
+Fixed merge problems with github.
+fixed frame folder creation. Working on saving images to the project too.
+Current problem: my code can handle gifs or simple images. Not folders of images or toher videos. I need to store the image/video data in
+a newly created project so I need to copy the data but if I code a hamfisted version now I'll have to refactor it...
+can I use accepted formats to make this work?
+for now leaving it dummy folder. Change the exporter so if it tries to export and override it deletes whatever is there first.
+
 Day 120 1/20
 3:45 pm - 4:20 pm
 had a meeting

@@ -3,14 +3,14 @@ A presenter to act as a middleman between the view and model
 '''
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.WindowMenuBarModel import WindowMenuBarModel
-from Model.LabelExporter import LabelExporter
+from Model.ProjectExporter import ProjectExporter
 
 
 class WindowMenuBarPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
         self.__generalModel = WindowMenuBarModel()
-        self.__exportModel = LabelExporter()
+        self.__exportModel = ProjectExporter()
     
     def refresh(self):
         super().refresh()

@@ -10,10 +10,13 @@ class SimpleMovie(Displayable):
     def __init__(self, fileName : str):
         super().__init__(fileName)
         #self.label = QLabel #FIXME possibly not needed?
-        self.movie : QMovie = None
+        self.movie : QMovie |None = None
     
     def setFrame(self, frame : int):
         '''set current frame'''
+        if self.movie == None:
+            print("cannot set frame no movie is loaded")
+            return
         self.movie.jumpToFrame(frame)
         
     def getPixmap(self) -> QPixmap | None:
@@ -33,6 +36,8 @@ class SimpleMovie(Displayable):
     
     def getTotalFrames(self) -> int:
         super().getTotalFrames()
+        if self.movie == None:
+            return 0
         return self.movie.frameCount()
 
     def setMovie(self, moviePath : str) -> bool: #FIXME movie path and file name are not linked and could in theory be different...make sure its not a problem
@@ -53,6 +58,9 @@ class SimpleMovie(Displayable):
         pass
     
     def stepFrameForward(self):
+        if self.movie == None:
+            print("cannot jump to next frame no movie is loaded")
+            return
         self.movie.jumpToNextFrame()
 
     def stepFrameBackward(self):

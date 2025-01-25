@@ -4,7 +4,7 @@ class Displayable(ABC):
     '''
     an abstract class. Any other class that inherits or extends this abstract ought to be able to be displayed in the app
     '''
-    sourceName : str = None
+    sourceName : str | None = None
 
     @abstractmethod
     def __init__(self, sourceName):
