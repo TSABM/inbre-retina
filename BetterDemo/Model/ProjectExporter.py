@@ -71,6 +71,13 @@ class ProjectExporter():
         self.__createFolder__(newSourceFilePath)
         #save source image(s) to the new folder
         #FIXME
+        if os.path.isfile(path):
+            #only dealing with a single image/video copy it to the new source folder
+        elif os.path.isdir(path):
+            #dealing with a folder... need to verify that it keeps the folder of images format
+            #ensure it has nothing but images
+            #all images are the same type (jpeg, jpeg, etc)
+            #possibly that they follow some naming convetions (named by frame or something)
         pass
     
     def export(self, projectDestinationPath : str, sourceImagesPath : str, overwrite : bool = False): 
@@ -86,6 +93,7 @@ class ProjectExporter():
             self.__createSource__(projectDestinationPath, sourceImagesPath)
         else:
             print("cannot export file, source image/video cannot be found with the given path: ", sourceImagesPath)
+        return
 
     
     def __is_valid_projectname(self, projectname: str) -> bool:
