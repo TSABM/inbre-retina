@@ -64,35 +64,46 @@ class ProjectExporter():
         ##write annotation file
         self.__writeJsonFile__(json_data, annotationPath)
 
-    def __createSource__(self, projectDestinationPath):
+    def __createSource__(self, sourcePath, projectDestinationPath):
         #create new source folder path
         newSourceFilePath = os.path.join(projectDestinationPath, "source")
         #create a folder for the frame
         self.__createFolder__(newSourceFilePath)
         #save source image(s) to the new folder
         #FIXME
-        if os.path.isfile(path):
+        if os.path.isfile(sourcePath):
             #only dealing with a single image/video copy it to the new source folder
-        elif os.path.isdir(path):
+            try:
+                shutil.copy(sourcePath, projectDestinationPath)
+            except FileNotFoundError:
+                print(f"Source file not found: {sourcePath}")
+            except PermissionError:
+                print(f"Permission denied: Unable to copy to {projectDestinationPath}")
+            except Exception as e:
+                print(f"An error occurred: {e}")
+        
+        elif os.path.isdir(sourcePath):
             #dealing with a folder... need to verify that it keeps the folder of images format
             #ensure it has nothing but images
             #all images are the same type (jpeg, jpeg, etc)
             #possibly that they follow some naming convetions (named by frame or something)
+            print("designated source is a folder not a file. Folder based graphic copying is not completed")
         pass
     
-    def export(self, projectDestinationPath : str, sourceImagesPath : str, overwrite : bool = False): 
+    def export(self, projectDestinationPath : str, overwrite : bool = False): 
         """converts label data to JSON and saves that data as a new JSON file"""
         """FIXME instead of having hard dependencies on master mem and label data in this function maybe either pass in labels 
         or have it be a class instance variable ALSO let the user choose the save location instead of hard coding it """
+        sourcePath : str = MasterMemory.getSourcePath()
         #check if source exists
-        if self.__check_path__(sourceImagesPath):
+        if self.__check_path__(sourcePath):
             self.__createProjectFolder__(projectDestinationPath)
 
             self.__createAnnotationFile__(overwrite, projectDestinationPath)
 
-            self.__createSource__(projectDestinationPath, sourceImagesPath)
+            self.__createSource__(sourcePath, projectDestinationPath)
         else:
-            print("cannot export file, source image/video cannot be found with the given path: ", sourceImagesPath)
+            print("cannot export file, source image/video cannot be found with the given path: ", sourcePath)
         return
 
     

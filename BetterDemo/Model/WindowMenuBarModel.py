@@ -14,9 +14,10 @@ class WindowMenuBarModel():
         '''
         opens a single image or "simple movie" (such as a gif) and creates a data object to hold annotation info
         '''
+
         imageName = os.path.basename(imagePath)
         #check the file format
-
+        MasterMemory.setSourcePath(imagePath)
         #if gif or other like format
         if ".gif" in imagePath or ".mng" in imagePath or ".apng" in imagePath:
             acceptedFormat = SimpleMovie(imageName)
@@ -34,6 +35,8 @@ class WindowMenuBarModel():
                 canvas : CanvasModel = MasterMemory.getCanvas() # type: ignore
                 canvas.setSource(acceptedFormat, projectName, None)
         else:
+            MasterMemory.setSourcePath("")
+            print("could not open image, not a supported file type")
             pass
         
     def openProject(self):

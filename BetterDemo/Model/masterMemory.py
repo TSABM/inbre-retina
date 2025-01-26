@@ -17,6 +17,7 @@ class MasterMemory():
     labelData = None
     interactionMode = "Select label"
     currentFrameNumber : int = 0
+    sourcePath : str = ""
 
     def __init__(self):
         #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
@@ -36,6 +37,10 @@ class MasterMemory():
         return cls.currentFrameNumber
 
     @classmethod
+    def getSourcePath(cls):
+        return cls.sourcePath
+
+    @classmethod
     def setInteractionMode(cls, mode : str):
         '''
         Set global interaction mode to a string. Preset strings are select, and square (so far)
@@ -49,6 +54,10 @@ class MasterMemory():
     @classmethod
     def setLabelData(cls, labelData):
         cls.labelData = labelData
+
+    @classmethod
+    def setSourcePath(cls, sourcePath : str):
+        cls.sourcePath = sourcePath
 
     #deal with subscribers
     '''

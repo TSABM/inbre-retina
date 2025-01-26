@@ -29,11 +29,9 @@ class WindowMenuBarView(qtw.QMenuBar):
         try:
             #open file dialog
             fileDialog = qtw.QFileDialog(self)
-            
         except Exception as e:
             print(f"exception raised: {e}")
             return
-        
         
         imagePath = fileDialog.getOpenFileName()[0]
         print(imagePath)
@@ -48,11 +46,10 @@ class WindowMenuBarView(qtw.QMenuBar):
 
     def exportLabels(self):
         print("user export request received, attempting to pass along ")
-        annotationsFileName = "testExportFilename"
+        #annotationsFileName = "testExportFilename"
         projectDestinationPath = "testProjectDestination"
-        sourceImagePath = ""
         overwriteMode = True
-        self.presenter.exportLabelData(annotationsFileName, projectDestinationPath, sourceImagePath, overwriteMode)
+        self.presenter.exportLabelData( projectDestinationPath, overwriteMode)
         pass
 
     def closeApplication(self):
