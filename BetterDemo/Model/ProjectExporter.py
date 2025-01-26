@@ -74,11 +74,11 @@ class ProjectExporter():
         if os.path.isfile(sourcePath):
             #only dealing with a single image/video copy it to the new source folder
             try:
-                shutil.copy(sourcePath, projectDestinationPath)
+                shutil.copy(sourcePath, newSourceFilePath)
             except FileNotFoundError:
                 print(f"Source file not found: {sourcePath}")
             except PermissionError:
-                print(f"Permission denied: Unable to copy to {projectDestinationPath}")
+                print(f"Permission denied: Unable to copy to {newSourceFilePath}")
             except Exception as e:
                 print(f"An error occurred: {e}")
         

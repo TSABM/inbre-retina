@@ -1,0 +1,69 @@
+{
+    "MetaData": {
+        "sourceName": "demoImage.jpg",
+        "projectName": "testProjectName",
+        "projectID": 80,
+        "frameTotal": 1,
+        "maxWidth": 0,
+        "maxHeight": 0,
+        "largestID": -1,
+        "other": []
+    },
+    "Cells": {},
+    "CellTypes": {},
+    "Events": {},
+    "EventTypes": {},
+    "Frames": {
+        "0": {
+            "projectID": 80,
+            "frameID": 0,
+            "frameNumber": 0,
+            "projectName": "testProjectName",
+            "boundingBoxes": {
+                "81": {
+                    "projectID": 80,
+                    "frameID": 0,
+                    "boxID": 81,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        10,
+                        51,
+                        4,
+                        28
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "82": {
+                    "projectID": 80,
+                    "frameID": 0,
+                    "boxID": 82,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        21,
+                        50,
+                        3,
+                        21
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                },
+                "83": {
+                    "projectID": 80,
+                    "frameID": 0,
+                    "boxID": 83,
+                    "frameNumber": 0,
+                    "dimensions": [
+                        28,
+                        45,
+                        12,
+                        28
+                    ],
+                    "cellIds": {},
+                    "eventIDs": {}
+                }
+            },
+            "maskAnnotations": null
+        }
+    }
+}

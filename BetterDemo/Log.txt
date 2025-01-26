@@ -4,13 +4,18 @@ Code and documents for the internship
 Day 122 1/25
 7:35 pm - 9:03 pm
 9:40 pm - 10:10 pm 
-10:42 pm - 
+10:42 pm - 12:00 am
 Tried first export with images getting saved into the new project folder but it fails right now...
 couldnt find the path? 
 ah the problem is the path is blank. This causes a failure. I used a blank path name for testing I need to grab the actual source image path...
 image path doesnt get saved...only the file name... I need to at least temporarily store it... probably in the displayable?
 image path stored in displayable now to get it from there...only the canvas and menubar have access right now...
 I'll make master mem store it since its temporary
+first full export seems working... verifying now.
+demo image gets saved outside of source folder... maybe thats ok?
+Export Complete now work on import.
+I need to unify image and project opening/initalization so I dont have different code that does the same thing
+and I need to figure out a few details...
 
 Day 121 1/24
 7:00 pm - 8:39 pm 
