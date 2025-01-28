@@ -5,7 +5,7 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.LabelData import LabelData, BoundingBox, Frame
+from Model.LabelData import LabelData, BoundingMask, Frame
 from Model.AcceptedFormats.Displayable import Displayable
 from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 from Model.masterMemory import MasterMemory
@@ -31,7 +31,7 @@ class CanvasModel():
         #self.pixmap = QPixmap(defaultWidth, defaultHeight)
         self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
 
-        self.selectedItem : BoundingBox | None = None
+        self.selectedItem : BoundingMask | None = None
         self.resizing = False
         self.resizecorner = None
         
@@ -107,7 +107,7 @@ class CanvasModel():
             else:
                 for boxId in boxIds:
                     #if its selected render it blue and with handles
-                    box : BoundingBox = boxes[boxId]
+                    box : BoundingMask = boxes[boxId]
                     rectangle : QRect = box.get_boundingBox_as_qrect()
                     if box == self.selectedItem:
                         painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
@@ -214,7 +214,7 @@ class CanvasModel():
         if frame == None:
             print("unable to select box, frame ", self.frameNumber, " does not exist")
             return None
-        boxes : dict[int, BoundingBox] = frame.getBoundingBoxes()
+        boxes : dict[int, BoundingMask] = frame.getBoundingBoxes()
         if boxes == {}:
             print("tried to select a box but frame ", self.frameNumber, " box contianer is empty?")
             return None

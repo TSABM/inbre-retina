@@ -24,7 +24,7 @@ class LabelData(dict):
         random_number = random.randint(0, 5000)
         return random_number
 
-    def addNewData(self, boundingBoxes : Iterable["BoundingBox"], cells, events):
+    def addNewData(self, boundingBoxes : Iterable["BoundingMask"], cells, events):
         '''
         add or update box, cell, and event data
         '''
@@ -78,7 +78,7 @@ class LabelData(dict):
                 else:
                     print("Frame found, updating box")
                     frameID : int = currFrame.getFrameID()
-                    box : BoundingBox = BoundingBox(projectID, frameID, boxId, frameNumber, x, y, w, h)
+                    box : BoundingMask = BoundingMask(projectID, frameID, boxId, frameNumber, x, y, w, h)
                     currFrame.updateBoundingBox(box)
             else:
                 print("Tried to update frame with box data, couldnt find frame: ", frameNumber)
@@ -93,7 +93,7 @@ class LabelData(dict):
         frames : dict = self.getFrames()
         frame : Frame = frames[frameKey]
         boxes : dict = frame.getBoundingBoxes()
-        boxToDelete : BoundingBox = boxes[boxID]
+        boxToDelete : BoundingMask = boxes[boxID]
         
         #verify it still exists
         if boxToDelete == None: 
@@ -256,7 +256,7 @@ class Frame(dict):
             "maskAnnotations" : maskAnnotations
         })
     
-    def updateBoundingBox(self, boundingBox : "BoundingBox"):
+    def updateBoundingBox(self, boundingBox : "BoundingMask"):
         #FIXME this is no longer valid way of getting bounding boxes. It must be frame based
         boxes: dict = self["boundingBoxes"]
         boxID = boundingBox.get_boxID()
@@ -265,7 +265,7 @@ class Frame(dict):
         return self["frameID"]
     def getFrameNumber(self):
         return self.get("frameNumber")
-    def getBoundingBoxes(self) -> dict[int, "BoundingBox"]:
+    def getBoundingBoxes(self) -> dict[int, "BoundingMask"]:
         return self["boundingBoxes"]
     def getBoxKeys(self):
         boundingBoxes : dict = self["boundingBoxes"]
@@ -286,8 +286,8 @@ class Frame(dict):
 
     
     
-class BoundingBox(dict):
-    def __init__(self, projectID : int, frameID : int, boxID : int , frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, width: int | None = None, height: int | None = None, cellIDs : dict | None = None, eventIDs : dict | None = None):
+class BoundingMask(dict):
+    def __init__(self, projectID : int, frameID : int, maskID : int , frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, width: int | None = None, height: int | None = None, cellIDs : dict | None = None, eventIDs : dict | None = None):
         if cellIDs is None:
             cellIDs = {}
         if eventIDs is None:
@@ -295,12 +295,17 @@ class BoundingBox(dict):
         #defining fields
         super().__init__({
                 "projectID" : projectID,
+                "imageSource" : imageSource,
                 "frameID" : frameID,
-                "boxID" : boxID, 
+                "maskID" : maskID, 
                 "frameNumber" : frameNumber,
-                "dimensions": [xCoord, yCoord, width, height],
-                "cellIds" : cellIDs,
-                "eventIDs" : eventIDs
+                "points": points,
+                "cellId" : cellID,
+                "cellType" : cellType,
+                "eventID" : eventID,
+                "created_by": created_by,
+                "creationTimestamp": creationTimestamp,
+                "approved": False,
                 })
 
     def get_boundingBox_as_qrect(self):
@@ -310,7 +315,7 @@ class BoundingBox(dict):
         return QRect(dimensions[0], dimensions[1], dimensions[2], dimensions[3])
     
     def get_boxID(self) -> int:
-        return self["boxID"]
+        return self["maskID"]
 
     def get_frameNumber(self) -> int:
         return self["frameNumber"]
@@ -322,10 +327,10 @@ class BoundingBox(dict):
         self.update({"dimensions": [x, y, width, height]})
     
     def get_cellIDs(self) -> dict:
-        return self["cellIds"]
+        return self["cellId"]
 
     def get_eventIDs(self) -> dict:
-        return self["eventIDs"]
+        return self["eventID"]
     
     def updateBox(self, frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, 
                width: int | None = None, height: int | None = None, cellIDsToAdd : dict | None = None, eventIdsToAdd : dict | None = None):
@@ -356,60 +361,6 @@ class BoundingBox(dict):
 
     def addEvent(self, eventID):
         self["eventIDs"].update({eventID : True})
-
-class MaskAnnotation(dict):
-    def __init__(self, projectID: int, frameID: int, created_by: str, creationTimestamp: str, approved: bool, values: dict):
-        super().__init__({
-            "projectID": projectID,
-            "frameID": frameID,
-            "created_by": created_by,
-            "creationTimestamp": creationTimestamp,
-            "approved": approved,
-            "values": values
-        })
-
-    # Getter and setter for projectID
-    def get_projectID(self) -> int:
-        return self["projectID"]
-
-    def set_projectID(self, projectID: int) -> None:
-        self["projectID"] = projectID
-
-    # Getter and setter for frameID
-    def get_frameID(self) -> int:
-        return self["frameID"]
-
-    def set_frameID(self, frameID: int) -> None:
-        self["frameID"] = frameID
-
-    # Getter and setter for created_by
-    def get_created_by(self) -> str:
-        return self["created_by"]
-
-    def set_created_by(self, created_by: str) -> None:
-        self["created_by"] = created_by
-
-    # Getter and setter for creationTimestamp
-    def get_creationTimestamp(self) -> str:
-        return self["creationTimestamp"]
-
-    def set_creationTimestamp(self, creationTimestamp: str) -> None:
-        self["creationTimestamp"] = creationTimestamp
-
-    # Getter and setter for approved
-    def get_approved(self) -> bool:
-        return self["approved"]
-
-    def set_approved(self, approved: bool) -> None:
-        self["approved"] = approved
-
-    # Getter and setter for values
-    def get_values(self) -> dict:
-        return self["values"]
-
-    def set_values(self, values: dict) -> None:
-        self["values"] = values
-
 class Cell(dict):
     def __init__(self, cellID : str, cellType : str):
         super().__init__({

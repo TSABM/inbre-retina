@@ -1,6 +1,20 @@
 # internship
 Code and documents for the internship
 
+Day 123 1/27
+4:24pm - 4:44 pm
+5:07 pm - 
+having a meeting. Of the 3 things to work on from last week 1 is done and one is a work in progress one hasnt been started.
+Update from this meeting: I need to change label data ASAP. 
+I need ideally to fully implement the 4 middle categories if I can or remove them if
+they arent needed.
+I need to have image names assotiated with each frame
+I need to remove either the project name or project id from the frames
+I need to add cell type to each bounding box
+I need to replace boudning box storage with contours for any shape
+I need to remove the dummy mask annotations section
+I need to rename bounding boxes as annotations or something.
+
 Day 122 1/25
 7:35 pm - 9:03 pm
 9:40 pm - 10:10 pm 
