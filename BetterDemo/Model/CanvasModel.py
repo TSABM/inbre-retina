@@ -5,7 +5,7 @@ The QGraphics Scene that all drawing takes place
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
 from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.LabelData import LabelData, BoundingMask, Frame
+from Model.LabelData import LabelData, Annotation, Frame
 from Model.AcceptedFormats.Displayable import Displayable
 from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 from Model.masterMemory import MasterMemory
@@ -31,7 +31,7 @@ class CanvasModel():
         #self.pixmap = QPixmap(defaultWidth, defaultHeight)
         self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
 
-        self.selectedItem : BoundingMask | None = None
+        self.selectedItem : Annotation | None = None
         self.resizing = False
         self.resizecorner = None
         
@@ -100,14 +100,14 @@ class CanvasModel():
         if frame == None:
             print("Tried to draw labels, cannot find requested frame")
         else:
-            boxes : dict = frame.getBoundingBoxes()
+            boxes : dict = frame.getFrameAnnotations()
             boxIds = boxes.keys()
             if boxIds.__len__ == 0:
                 print("Frame ", self.frameNumber, " has no assotiated bounding boxes")
             else:
                 for boxId in boxIds:
                     #if its selected render it blue and with handles
-                    box : BoundingMask = boxes[boxId]
+                    box : Annotation = boxes[boxId]
                     rectangle : QRect = box.get_boundingBox_as_qrect()
                     if box == self.selectedItem:
                         painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
@@ -185,23 +185,23 @@ class CanvasModel():
             return
         else:
             #print("Attempting to delete selected box")
-            self.__sendBoxDeleteRequest__(self.selectedItem.get_boxID(), self.selectedItem.get_frameNumber())
+            self.__sendBoxDeleteRequest__(self.selectedItem.get_annotationID(), self.selectedItem.get_frameNumber())
             return
     
     def __sendBoxUpdate__(self, boxId, frameNumber, x, y, w, h):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        labelData.updateFrameWithBox(boxId, frameNumber, x, y, w, h)
+        labelData.updateFrameWithAnnotation(boxId, frameNumber, x, y, w, h)
     
     def __sendBoxDeleteRequest__(self, boxIdToDelete : int, frameKey : int):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        labelData.deleteBoundingBox(boxIdToDelete, frameKey)
+        labelData.deleteAnnotation(boxIdToDelete, frameKey)
 
     def __updateSelectedBoxPosition__(self, rectangle : QRect):
         if self.selectedItem == None:
             print("No item selected aborting position update")
             return
         dims = rectangle.getRect()
-        self.selectedItem.setDimensions(dims[0], dims[1], dims[2], dims[3])
+        self.selectedItem.setMask(dims[0], dims[1], dims[2], dims[3])
 
     def selectBox(self, point):
         if self.isFileOpen() == False:
@@ -214,7 +214,7 @@ class CanvasModel():
         if frame == None:
             print("unable to select box, frame ", self.frameNumber, " does not exist")
             return None
-        boxes : dict[int, BoundingMask] = frame.getBoundingBoxes()
+        boxes : dict[int, Annotation] = frame.getFrameAnnotations()
         if boxes == {}:
             print("tried to select a box but frame ", self.frameNumber, " box contianer is empty?")
             return None

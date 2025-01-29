@@ -24,15 +24,15 @@ class LabelData(dict):
         random_number = random.randint(0, 5000)
         return random_number
 
-    def addNewData(self, boundingBoxes : Iterable["BoundingMask"], cells, events):
+    def addNewData(self, boundingBoxes : Iterable["Annotation"], cells, events, imageSource):
         '''
         add or update box, cell, and event data
         '''
         for box in boundingBoxes:
-            id = box.get_boxID()
+            id = box.get_annotationID()
             frameNum = box.get_frameNumber()
-            [x, y, w, h] = box.getDimensions()
-            self.updateFrameWithBox(id, frameNum, x, y, w, h)
+            maskPoints = box.getMaskPoints()
+            self.updateFrameWithAnnotation(id, frameNum, maskPoints, imageSource)
         for cell in cells:
             self.addNewCell(cell)
         for event in events:
@@ -63,7 +63,7 @@ class LabelData(dict):
         frames.update({frameNumber : frame})
         boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, rect[0], rect[1], rect[2], rect[3], cellIDs, eventIDs)})
     '''
-    def updateFrameWithBox(self, boxId : int, frameNumber : int, x : int, y : int, w : int, h : int):
+    def updateFrameWithAnnotation(self, annotationID : int, frameNumber : int, maskPoints : list, imageSource : str):
         metadata : MetaData = self.getMetaData()
         frames : dict = self.getFrames()
         #currFrameNum = box.get_frameNumber()
@@ -78,22 +78,22 @@ class LabelData(dict):
                 else:
                     print("Frame found, updating box")
                     frameID : int = currFrame.getFrameID()
-                    box : BoundingMask = BoundingMask(projectID, frameID, boxId, frameNumber, x, y, w, h)
-                    currFrame.updateBoundingBox(box)
+                    box : Annotation = Annotation(projectID, imageSource, frameID, annotationID, frameNumber, maskPoints)
+                    currFrame.updateAnnotation(box)
             else:
                 print("Tried to update frame with box data, couldnt find frame: ", frameNumber)
                 return
         else:
             print("error: box being added did not have a valid frame number: ", frameNumber)
 
-    def deleteBoundingBox(self, boxID : int, frameKey : int):
+    def deleteAnnotation(self, boxID : int, frameKey : int):
         #grab the bounding box in question
         #boxes : dict = self.getBoundingBoxes()
         #box : BoundingBox = boxes.get(boxID)
         frames : dict = self.getFrames()
         frame : Frame = frames[frameKey]
-        boxes : dict = frame.getBoundingBoxes()
-        boxToDelete : BoundingMask = boxes[boxID]
+        boxes : dict = frame.getFrameAnnotations()
+        boxToDelete : Annotation = boxes[boxID]
         
         #verify it still exists
         if boxToDelete == None: 
@@ -164,7 +164,7 @@ class LabelData(dict):
         frames : dict = self["Frames"]
         #for the range of maxframes define a new frame obejct for each framnumber
         for i in range(maxFrames):
-            frames[i] = Frame(i, i, projectID, projectName) #for now te frameID will also just be the frame number. This may need to be changed later
+            frames[i] = Frame(i, i, projectID) #for now te frameID will also just be the frame number. This may need to be changed later
 
     def getFrames(self) -> dict:
         '''
@@ -226,7 +226,7 @@ class LabelData(dict):
             frameID = frame.getFrameID()
             if frameID > frameLargest: frameLargest = frameID
             #check boxKeys
-            boxKeys = frame.getBoxKeys()
+            boxKeys = frame.getAnnotationKeys()
             if isinstance(boxKeys, Iterable):
                 if not boxKeys: #aka if empty
                     pass
@@ -243,69 +243,62 @@ class LabelData(dict):
         return largestID
 
 class Frame(dict):
-    def __init__(self, frameNumber : int, frameID : int, projectID : int, projectName : str = "", boundingBoxes : dict | None = None, maskAnnotations : dict | None = None):
-        if boundingBoxes is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
-            boundingBoxes = {}  # Create a new dictionary for each instance
+    def __init__(self, frameNumber : int, frameID : int, projectID : int, annotations : dict | None = None, maskAnnotations : dict | None = None):
+        if annotations is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
+            annotations = {}  # Create a new dictionary for each instance
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient.
             "projectID" : projectID,
             "frameID" : frameID,
             "frameNumber" : frameNumber,
-            "projectName" : projectName,
-            "boundingBoxes": boundingBoxes,  # Initialize as an empty dictionary
+            "annotations": annotations,  # Initialize as an empty dictionary
             "maskAnnotations" : maskAnnotations
         })
     
-    def updateBoundingBox(self, boundingBox : "BoundingMask"):
+    def updateAnnotation(self, annotations : "Annotation"):
         #FIXME this is no longer valid way of getting bounding boxes. It must be frame based
-        boxes: dict = self["boundingBoxes"]
-        boxID = boundingBox.get_boxID()
-        boxes[boxID] = boundingBox
+        boxes: dict = self["annotations"]
+        boxID = annotations.get_annotationID()
+        boxes[boxID] = annotations
     def getFrameID(self) -> int:
         return self["frameID"]
     def getFrameNumber(self):
         return self.get("frameNumber")
-    def getBoundingBoxes(self) -> dict[int, "BoundingMask"]:
-        return self["boundingBoxes"]
-    def getBoxKeys(self):
-        boundingBoxes : dict = self["boundingBoxes"]
+    def getFrameAnnotations(self) -> dict[int, "Annotation"]:
+        return self["annotations"]
+    def getAnnotationKeys(self):
+        boundingBoxes : dict = self["annotations"]
         if boundingBoxes == None:
             return None
         return boundingBoxes.keys()
     def getProjectId(self):
         return self.get("projectID")
-    def getProjectName(self):
-        return self["projectName"]
     
     def setFrameID(self, newID):
         self["frameID"] = newID
     def setProjectId (self, newID):
         self["projectID"] = newID
-    def setProjectName(self, newName):
-        self["projectName"] = newName
 
     
     
-class BoundingMask(dict):
-    def __init__(self, projectID : int, frameID : int, maskID : int , frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, width: int | None = None, height: int | None = None, cellIDs : dict | None = None, eventIDs : dict | None = None):
-        if cellIDs is None:
-            cellIDs = {}
-        if eventIDs is None:
-            eventIDs = {}
+class Annotation(dict):
+    def __init__(self, projectID : int, imageSource : str, frameID : int, annotationID : int , frameNumber : int | None = None, 
+                 mask : list | None = None, cellID : int = -1, cellType : str | None = None, eventID : int = -1, 
+                 created_by : str | None = None, creationTimestamp : str |None = None, approved : bool = False ):
         #defining fields
         super().__init__({
                 "projectID" : projectID,
                 "imageSource" : imageSource,
                 "frameID" : frameID,
-                "maskID" : maskID, 
+                "annotationID" : annotationID,
                 "frameNumber" : frameNumber,
-                "points": points,
+                "mask": mask,
                 "cellId" : cellID,
                 "cellType" : cellType,
                 "eventID" : eventID,
                 "created_by": created_by,
                 "creationTimestamp": creationTimestamp,
-                "approved": False,
+                "approved": approved,
                 })
 
     def get_boundingBox_as_qrect(self):
@@ -314,17 +307,17 @@ class BoundingMask(dict):
             return None
         return QRect(dimensions[0], dimensions[1], dimensions[2], dimensions[3])
     
-    def get_boxID(self) -> int:
-        return self["maskID"]
+    def get_annotationID(self) -> int:
+        return self["annotationID"]
 
     def get_frameNumber(self) -> int:
         return self["frameNumber"]
     
-    def getDimensions(self) -> list:
-        return self["dimensions"]
+    def getMaskPoints(self) -> list:
+        return self["mask"]
     
-    def setDimensions(self, x, y, width, height):
-        self.update({"dimensions": [x, y, width, height]})
+    def setMask(self, newMask):
+        self.update({"mask": newMask})
     
     def get_cellIDs(self) -> dict:
         return self["cellId"]
