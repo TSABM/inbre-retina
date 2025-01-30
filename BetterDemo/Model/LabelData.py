@@ -252,7 +252,6 @@ class Frame(dict):
             "frameID" : frameID,
             "frameNumber" : frameNumber,
             "annotations": annotations,  # Initialize as an empty dictionary
-            "maskAnnotations" : maskAnnotations
         })
     
     def updateAnnotation(self, annotations : "Annotation"):
@@ -288,8 +287,8 @@ class Annotation(dict):
         #defining fields
         super().__init__({
                 "projectID" : projectID,
-                "imageSource" : imageSource,
                 "frameID" : frameID,
+                "imageSource" : imageSource,
                 "annotationID" : annotationID,
                 "frameNumber" : frameNumber,
                 "mask": mask,

@@ -3,6 +3,7 @@ Code and documents for the internship
 
 Day 124 1/28
 12:47 pm - 1:48 pm 
+5:00 pm - 6:57 pm 
 worked on main refactors. Currently untested. Also need to implement cell and event data.
 
 Day 123 1/27
