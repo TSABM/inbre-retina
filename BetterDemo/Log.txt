@@ -6,7 +6,7 @@ Day 125 2/1/25
 6:00 pm - 6:50 pm
 7:10 pm - 7:33 pm
 8:12 pm - 9:15 pm 
-10:22 pm - 
+10:22 pm - 11:10 pm
 Ok I worked a few mins here and there earlier in the week without logging what was done so I'll log that here before I work today.
 Bounding boxes need to now be stored in the mask container and are now two points. contours/masks are an arbitrarily long list of points
 those contours can have a lot of points.
