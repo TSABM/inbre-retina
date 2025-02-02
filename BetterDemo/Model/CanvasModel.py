@@ -98,29 +98,35 @@ class CanvasModel():
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        #boundingBoxes : dict = labelData.get("BoundingBoxes") #FIXME ? will this work?
-        #boxIds = MasterMemory.getAllBoxIDsForAFrame(MasterMemory.getCurrentFrameNumber())
         frame : Frame | None = labelData.getFrame(self.frameNumber)
         if frame == None:
             print("Tried to draw labels, cannot find requested frame")
         else:
-            boxes : dict = frame.getFrameAnnotations()
-            boxIds = boxes.keys()
-            if boxIds.__len__ == 0:
-                print("Frame ", self.frameNumber, " has no assotiated bounding boxes")
+            annotations : dict = frame.getFrameAnnotations()
+            annotationIds = annotations.keys()
+            #check if there are no annotations
+            if annotationIds.__len__ == 0:
+                print("Frame ", self.frameNumber, " has no assotiated annotations")
+            #if there are handle drawing
             else:
-                for boxId in boxIds:
+                for annotationId in annotationIds:
                     #if its selected render it blue and with handles
-                    box : Annotation = boxes[boxId]
-                    rectangle : QRect = box.get_boundingBox_as_qrect()
-                    if box == self.selectedItem:
-                        painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
-                        painter.drawRect(rectangle)
-                        self.__drawResizeHandles__(painter, rectangle)
-                        painter.setPen(QColor(255, 0, 0)) #set painter color back to red for the non selected labels
-                    #else render it like normal
+                    annotation : Annotation = annotations[annotationId]
+                    if(self.__verifyAnnotationType(annotation, "Box")):
+                        rectangle : QRect = self.__convertCornersToQRect__(annotation.getMask())
+                        if annotation == self.selectedItem:
+                            painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
+                            painter.drawRect(rectangle)
+                            self.__drawResizeHandles__(painter, rectangle)
+                            painter.setPen(QColor(255, 0, 0)) #set painter color back to red for the non selected labels
+                        #else render it like normal
+                        else:
+                            painter.drawRect(rectangle)
+                    elif(self.__verifyAnnotationType(annotation, "Contour")):
+                        print("contour drawing is not implemented")
                     else:
-                        painter.drawRect(rectangle)
+                        print("error annotation type was neither box nor contour cannot draw it")
+                    
         painter.end()
         self.pixmap_item.setPixmap(self.pixmap)
     
@@ -214,7 +220,7 @@ class CanvasModel():
             print("tried to select a box but frame ", self.frameNumber, " box contianer is empty?")
             return None
         for box in boxes.values():
-            rectangle : QRect = box.get_boundingBox_as_qrect()
+            rectangle : QRect = box.get_mask()
             if rectangle == None:
                 print("ERROR: no rectangle assigned to this label")
                 pass
@@ -240,7 +246,7 @@ class CanvasModel():
             print("cannot move box because the selected box is None")
             return
         
-        rectangle : QRect | None = self.selectedItem.get_boundingBox_as_qrect()
+        rectangle : QRect | None = self.selectedItem.get_mask()
         if rectangle == None:
             print("warning moving box failed. Failed to define rectangle")
             return
@@ -256,7 +262,7 @@ class CanvasModel():
             print("cannot resize box. Box is None")
             return
         #grab curr coords as a rectangle
-        rectangle : QRect = self.selectedItem.get_boundingBox_as_qrect() #fixme this is inefficient passing data back and forth, theres got to be a better way 
+        rectangle : QRect = self.selectedItem.get_mask() #fixme this is inefficient passing data back and forth, theres got to be a better way 
         if rectangle == None:
             print("failed to convert qrect in resize")
             return
@@ -300,11 +306,19 @@ class CanvasModel():
             print("corner cannot be selected: no label marked as selected")
             return None
         else:
-            handles = self.__getResizeHandles__(self.selectedItem.get_boundingBox_as_qrect())
+            
+            handles = self.__getResizeHandles__(self.selectedItem.get_mask())
             for index in range(len(handles)):
                 if handles[index].contains(point):
                     return index
     
-    ### possibly deprocated methods below here. FIXME 
-    def getSelectedLabel(self):
-        return self.selectedItem
+    def __verifyAnnotationType(self, annotation : Annotation, expectedType : str) -> bool:
+        type = annotation.getAnnotationType()
+        if type == expectedType:
+            return True
+        else:
+            return False
+
+    def __convertCornersToQRect__(self, corners) -> QRect:
+        rect = QRect(corners[0], corners[1])
+        return rect

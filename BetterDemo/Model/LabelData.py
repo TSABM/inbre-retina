@@ -33,8 +33,9 @@ class LabelData(dict):
             frameNum = annotation.get_frameNumber()
             cellID = annotation.get_cellID()
             cellType = annotation.get_cellType()
-            maskPoints = annotation.getMaskPoints()
-            self.updateFrameWithAnnotation(id, frameNum, cellID, cellType, maskPoints, imageSource)
+            maskPoints = annotation.getMask()
+            annotationType = annotation.getAnnotationType()
+            self.updateFrameWithAnnotation(id, annotationType, frameNum, cellID, cellType, maskPoints, imageSource)
         for cell in cells:
             self.addNewCell(cell)
         for event in events:
@@ -48,7 +49,7 @@ class LabelData(dict):
         newID = largestId + 1
         return newID
     
-    def updateFrameWithAnnotation(self, annotationID : int, frameNumber : int, cellID : int, cellType : str, maskPoints : list, imageSource : str):
+    def updateFrameWithAnnotation(self, annotationID : int, annotationType : str,  frameNumber : int, cellID : int, cellType : str, maskPoints : list, imageSource : str):
         metadata : MetaData = self.getMetaData()
         frames : dict = self.getFrames()
         #currFrameNum = box.get_frameNumber()
@@ -63,7 +64,7 @@ class LabelData(dict):
                 else:
                     print("Frame found, updating box")
                     frameID : int = currFrame.getFrameID()
-                    box : Annotation = Annotation(projectID, imageSource, frameID, annotationID, frameNumber, cellID, cellType, maskPoints)
+                    box : Annotation = Annotation(projectID, imageSource, frameID, annotationID, annotationType, frameNumber, cellID, cellType, maskPoints)
                     currFrame.updateAnnotation(box)
             else:
                 print("Tried to update frame with box data, couldnt find frame: ", frameNumber)
@@ -85,15 +86,9 @@ class LabelData(dict):
             print("Cannot delete box. Box not found in data object")
             return
         
-        #remove its reference from the frame
-        #frames : dict = self.getFrames()
-        #frame : Frame = frames.get(boxToDelete.get_frameNumber())
-        #frameBoxIDs : dict = frame.getBoxIds(boxID)
-        #del frameBoxIDs[boxID]
-        
         #for each event assotiated with it
         events : dict[int, Event] = self.getEvents()
-        for eventID in boxToDelete.get_eventIDs():
+        for eventID in boxToDelete.get_eventID():
             event : Event = events[eventID]
             if event == None:
                 print("tried to find an event in events to remove it but could not find it")
@@ -258,7 +253,7 @@ class Frame(dict):
     
     
 class Annotation(dict):
-    def __init__(self, projectID : int, imageSource : str, frameID : int, annotationID : int , frameNumber : int, cellID : int, 
+    def __init__(self, projectID : int, imageSource : str, frameID : int, annotationID : int , annotationType : str, frameNumber : int, cellID : int, 
                  cellType : str, mask : list | None = None, eventID : int = -1, 
                  created_by : str | None = None, creationTimestamp : str |None = None, approved : bool = False ):
         #defining fields
@@ -268,6 +263,7 @@ class Annotation(dict):
                 "imageSource" : imageSource,
                 "annotationID" : annotationID,
                 "frameNumber" : frameNumber,
+                "annotationType" : annotationType, #current types "Box", or "Contour" FIXME make this better than strings
                 "mask": mask,
                 "cellId" : cellID,
                 "cellType" : cellType,
@@ -276,12 +272,6 @@ class Annotation(dict):
                 "creationTimestamp": creationTimestamp,
                 "approved": approved,
                 })
-
-    def get_boundingBox_as_qrect(self):
-        dimensions = self.get("dimensions")
-        if dimensions is None:
-            return None
-        return QRect(dimensions[0], dimensions[1], dimensions[2], dimensions[3])
     
     def get_annotationID(self) -> int:
         return self["annotationID"]
@@ -289,7 +279,7 @@ class Annotation(dict):
     def get_frameNumber(self) -> int:
         return self["frameNumber"]
     
-    def getMaskPoints(self) -> list:
+    def getMask(self) -> list:
         return self["mask"]
     
     def setMask(self, newMask):
@@ -333,6 +323,9 @@ class Annotation(dict):
 
     def addEvent(self, eventID):
         self["eventIDs"].update({eventID : True})
+    
+    def getAnnotationType(self) -> str:
+        return self["annotationType"]
 class Cell(dict):
     def __init__(self, cellID : str, cellType : str):
         super().__init__({
