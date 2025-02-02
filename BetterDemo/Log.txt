@@ -1,6 +1,17 @@
 # internship
 Code and documents for the internship
 
+Day 125 2/1/25
+10:55am - 11:20 pm
+6:00 pm - 6:50 pm 
+7:10 pm - 7:33 pm 
+8:12 pm - 
+Ok I worked a few mins here and there earlier in the week without logging what was done so I'll log that here before I work today.
+Bounding boxes need to now be stored in the mask container and are now two points. contours/masks are an arbitrarily long list of points
+those contours can have a lot of points.
+annotations now need an "annotationType" which will be either "contours" or "boundingbox" to help systems quickly tell which it is
+annotations 
+
 Day 124 1/28
 12:47 pm - 1:48 pm 
 5:00 pm - 6:57 pm 

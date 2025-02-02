@@ -24,15 +24,17 @@ class LabelData(dict):
         random_number = random.randint(0, 5000)
         return random_number
 
-    def addNewData(self, boundingBoxes : Iterable["Annotation"], cells, events, imageSource):
+    def addNewData(self, annotations : Iterable["Annotation"], cells, events, imageSource):
         '''
         add or update box, cell, and event data
         '''
-        for box in boundingBoxes:
-            id = box.get_annotationID()
-            frameNum = box.get_frameNumber()
-            maskPoints = box.getMaskPoints()
-            self.updateFrameWithAnnotation(id, frameNum, maskPoints, imageSource)
+        for annotation in annotations:
+            id = annotation.get_annotationID()
+            frameNum = annotation.get_frameNumber()
+            cellID = annotation.get_cellID()
+            cellType = annotation.get_cellType()
+            maskPoints = annotation.getMaskPoints()
+            self.updateFrameWithAnnotation(id, frameNum, cellID, cellType, maskPoints, imageSource)
         for cell in cells:
             self.addNewCell(cell)
         for event in events:
@@ -45,25 +47,8 @@ class LabelData(dict):
             largestId = self.getLargestBoxIdVal()
         newID = largestId + 1
         return newID
-    '''
-    def addNewBoundingBox(self, boxID : str, frameNumber : int, dims : QRect, cellIDs : dict = None, eventIDs : dict = {}):
-        boundingBoxes : dict = self.get("BoundingBoxes")
-        frames : dict = self.get("Frames")
-        rect = dims.getRect()
-
-        frame : Frame = frames.get(frameNumber)
-        #verify frame is set
-        if frame == None:
-            print("Error, couldnt add box: frame number  ", frameNumber, " was invalid")
-            return
-        
-        frame.addBoxId(boxID)
-        for event in eventIDs.keys():
-            frame.addEventId(event)
-        frames.update({frameNumber : frame})
-        boundingBoxes.update({boxID : BoundingBox(boxID, frameNumber, rect[0], rect[1], rect[2], rect[3], cellIDs, eventIDs)})
-    '''
-    def updateFrameWithAnnotation(self, annotationID : int, frameNumber : int, maskPoints : list, imageSource : str):
+    
+    def updateFrameWithAnnotation(self, annotationID : int, frameNumber : int, cellID : int, cellType : str, maskPoints : list, imageSource : str):
         metadata : MetaData = self.getMetaData()
         frames : dict = self.getFrames()
         #currFrameNum = box.get_frameNumber()
@@ -78,7 +63,7 @@ class LabelData(dict):
                 else:
                     print("Frame found, updating box")
                     frameID : int = currFrame.getFrameID()
-                    box : Annotation = Annotation(projectID, imageSource, frameID, annotationID, frameNumber, maskPoints)
+                    box : Annotation = Annotation(projectID, imageSource, frameID, annotationID, frameNumber, cellID, cellType, maskPoints)
                     currFrame.updateAnnotation(box)
             else:
                 print("Tried to update frame with box data, couldnt find frame: ", frameNumber)
@@ -178,15 +163,7 @@ class LabelData(dict):
         if frame == None:
             print("Tried to grab frame (",frameNum, ") that does not exist")
         return frame
-
     
-    #def getBoundingBoxes(self):
-    #    '''
-    #    returns a dictionary of bounding box objects (also dictionaries) where the key is the boxID and the val is the box itself
-    #    '''
-    #    return self.get("BoundingBoxes")
-    
-
     def getCells(self):
         '''
         returns a dictionary of Cell objects (also dictionaries) where the key is the cellID and the val is the cell
@@ -281,8 +258,8 @@ class Frame(dict):
     
     
 class Annotation(dict):
-    def __init__(self, projectID : int, imageSource : str, frameID : int, annotationID : int , frameNumber : int | None = None, 
-                 mask : list | None = None, cellID : int = -1, cellType : str | None = None, eventID : int = -1, 
+    def __init__(self, projectID : int, imageSource : str, frameID : int, annotationID : int , frameNumber : int, cellID : int, 
+                 cellType : str, mask : list | None = None, eventID : int = -1, 
                  created_by : str | None = None, creationTimestamp : str |None = None, approved : bool = False ):
         #defining fields
         super().__init__({
@@ -318,10 +295,13 @@ class Annotation(dict):
     def setMask(self, newMask):
         self.update({"mask": newMask})
     
-    def get_cellIDs(self) -> dict:
+    def get_cellID(self) -> int:
         return self["cellId"]
+    
+    def get_cellType(self) -> str:
+        return self["cellType"]
 
-    def get_eventIDs(self) -> dict:
+    def get_eventID(self) -> dict:
         return self["eventID"]
     
     def updateBox(self, frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, 

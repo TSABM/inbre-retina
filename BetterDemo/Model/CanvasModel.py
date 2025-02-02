@@ -70,7 +70,11 @@ class CanvasModel():
             if totalFrames == None:
                 print("error total frames was None")
                 return
-            MasterMemory.setLabelData(LabelData(source.getSourceName(), totalFrames, projectName, projectID))
+            sourceName = source.getSourceName()
+            if sourceName == None:
+                print("image source name was not found")
+                return
+            MasterMemory.setLabelData(LabelData(sourceName, totalFrames, projectName, projectID))
 
             print("image file set, attempting to refresh")
             self.updatePixmap()
@@ -161,18 +165,6 @@ class CanvasModel():
         self.updatePixmap()
         return boxId
     
-    '''
-    def selectAndDelete(self, point):
-        #handle selection
-        clickedBox = self.selectBox(point)
-        if clickedBox == None:
-            print("could not delete, no box found at clicked location")
-            return
-        #handle deletion
-        #FIXME
-        self.deleteBox(boxID)
-        self.deselectBox()
-    '''
     
     def deleteBox(self, boxID): #FIXME I pass in boxID here but never use it, either selected item is deleted or I pass it in
         #check if a box is at the point (if so select it)
@@ -200,8 +192,11 @@ class CanvasModel():
         if self.selectedItem == None:
             print("No item selected aborting position update")
             return
-        dims = rectangle.getRect()
-        self.selectedItem.setMask(dims[0], dims[1], dims[2], dims[3])
+        topCorner : QPoint = rectangle.topRight()
+        bottomCorner : QPoint = rectangle.bottomLeft()
+        boxMask = [[topCorner.x(), topCorner.y()],[bottomCorner.x(), bottomCorner.y()]]
+
+        self.selectedItem.setMask(boxMask)
 
     def selectBox(self, point):
         if self.isFileOpen() == False:

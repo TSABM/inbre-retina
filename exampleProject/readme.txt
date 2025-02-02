@@ -1,0 +1,1 @@
+this folder is full of dummy data in the format of a completed project. The annotations data is in the right format but the contents of most fields are full of dummy data. (names are arbirary, numbers are placeholders, etc.)
