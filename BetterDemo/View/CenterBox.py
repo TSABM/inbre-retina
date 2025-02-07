@@ -15,6 +15,9 @@ class CenterBox(qtw.QSplitter):
         self.setOrientation(Qt.Horizontal)
         self.setChildrenCollapsible(False)
 
+        controlsArea = ControlAreaView()
+        mediaArea = MediaAreaView()
+
         #adding widgets
         self.addWidget(ControlAreaView())
         self.addWidget(MediaAreaView())

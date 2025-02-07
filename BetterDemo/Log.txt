@@ -1,6 +1,22 @@
 # internship
 Code and documents for the internship
 
+Day 127 2/7
+10:37 am - 11:00 am
+2:13 pm - 3:02 pm
+4:11 pm - 
+todo: 
+write up documentation, 
+fix box drawing, 
+enable existing project opening, 
+implement contour drawing, update the UI
+
+working on updating the documentation less than a third of the way by far.
+
+Day 126 2/4
+11:30 am - 11:45 am
+wrote report
+
 Day 125 2/1/25
 10:55am - 11:20 pm
 6:00 pm - 6:50 pm
