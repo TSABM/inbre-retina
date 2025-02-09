@@ -24,6 +24,14 @@ class LabelData(dict):
         random_number = random.randint(0, 5000)
         return random_number
 
+    def getNewBoxID(self) -> int:
+        metadata : MetaData = self["MetaData"]
+        largestID : int = metadata.getLargestID()
+        if largestID == -1:
+            largestId = self.getLargestBoxIdVal()
+        newID = largestId + 1
+        return newID
+
     def addNewData(self, annotations : Iterable["Annotation"], cells, events, imageSource):
         '''
         add or update box, cell, and event data
@@ -40,14 +48,6 @@ class LabelData(dict):
             self.addNewCell(cell)
         for event in events:
             self.addNewEvent(event)
-
-    def getNewBoxID(self) -> int:
-        metadata : MetaData = self["MetaData"]
-        largestID : int = metadata.getLargestID()
-        if largestID == -1:
-            largestId = self.getLargestBoxIdVal()
-        newID = largestId + 1
-        return newID
     
     def updateFrameWithAnnotation(self, annotationID : int, annotationType : str,  frameNumber : int, cellID : int, cellType : str, maskPoints : list, imageSource : str):
         metadata : MetaData = self.getMetaData()
@@ -109,7 +109,7 @@ class LabelData(dict):
         adds new cell type to the dict of existing cell types. the key is the Type (which is a string), a boolean "True" is stored as the value
         '''
         cellTypes : dict = self["CellTypes"]
-        cellTypes.update({type : True})
+        cellTypes.update({type : type})
     
     def addNewEventType(self, type : str):
         '''
@@ -215,12 +215,13 @@ class LabelData(dict):
         return largestID
 
 class Frame(dict):
-    def __init__(self, frameNumber : int, frameID : int, projectID : int, annotations : dict | None = None, maskAnnotations : dict | None = None):
+    def __init__(self, frameNumber : int, frameID : int, projectID : int, annotations : dict | None = None):
         if annotations is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
             annotations = {}  # Create a new dictionary for each instance
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient.
             "projectID" : projectID,
+            #add image path if there are many frames that are seperate images I should store it here
             "frameID" : frameID,
             "frameNumber" : frameNumber,
             "annotations": annotations,  # Initialize as an empty dictionary
@@ -250,7 +251,6 @@ class Frame(dict):
     def setProjectId (self, newID):
         self["projectID"] = newID
 
-    
     
 class Annotation(dict):
     def __init__(self, projectID : int, imageSource : str, frameID : int, annotationID : int , annotationType : str, frameNumber : int, cellID : int, 
@@ -334,20 +334,19 @@ class Cell(dict):
         })
 
 class Event(dict):
-    def __init__(self, eventID : int, eventType : str, boxIDs : dict):
+    def __init__(self, eventID : int, eventType : str, annotationIDs : list):
         # defining fields
         super().__init__({
             "eventID": eventID,
             "eventType": eventType,
-            "boxIDs" : boxIDs
-            #"cellIDs": cellIds #cellIDs was a dict, but maybe redundant since boxes store the cell list too
+            "annotationIDs" : annotationIDs
         })
     def getEventID(self) -> int:
         return self["eventID"]
     def getEventType(self):
         return self.get("eventType")
-    def getBoxIDs(self) -> dict:
-        return self["boxIDs"]
+    def getAnnotationIDs(self) -> list:
+        return self["annotationIDs"]
         
 class MetaData(dict): #FIXME need to 
     def __init__(self, sourceName: str, frameTotal: int, projectID : int, projectName : str, maxWidth : int = 0, maxHeight : int = 0, other: list[str] | None = None):

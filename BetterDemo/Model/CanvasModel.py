@@ -152,7 +152,7 @@ class CanvasModel():
             return
     
     ### Handle everything related to the bounding boxes ##
-    def addBox(self, rect : QRect):  
+    def addBox(self, maskPoints, annotationType : str, cellType, cellId = None):  
         '''
         takes a Qrect and creates a new bounding box instance, then sends that box to label data to be recorded, then updates the canvas
         '''
@@ -161,12 +161,17 @@ class CanvasModel():
             print("file is not open, aborting add box operation")
             return  
         
+        imageSource : str = self. #fixme get the image source name
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        boxId = labelData.getNewBoxID()
+        annotationId = labelData.getNewBoxID()
+        
         frameNumber = self.__getFrameNumber__()
         dims = rect.getRect()
+        if cellId == None:
+            cellId = labelData.get
 
-        self.__sendBoxUpdate__(boxId, frameNumber, dims[0], dims[1], dims[2], dims[3])
+        #self.__sendBoxUpdate__(boxId, frameNumber, dims[0], dims[1], dims[2], dims[3])
+        self.__sendBoxUpdate__(annotationId, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource)
 
         self.updatePixmap()
         return boxId
@@ -186,9 +191,9 @@ class CanvasModel():
             self.__sendBoxDeleteRequest__(self.selectedItem.get_annotationID(), self.selectedItem.get_frameNumber())
             return
     
-    def __sendBoxUpdate__(self, boxId, frameNumber, x, y, w, h):
+    def __sendBoxUpdate__(self, annotationID, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        labelData.updateFrameWithAnnotation(boxId, frameNumber, x, y, w, h)
+        labelData.updateFrameWithAnnotation(annotationID, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource)
     
     def __sendBoxDeleteRequest__(self, boxIdToDelete : int, frameKey : int):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
@@ -206,31 +211,38 @@ class CanvasModel():
 
     def selectBox(self, point):
         if self.isFileOpen() == False:
+            print("no file is open, cannot select box")
             return
         
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        #boundingBoxes : dict = labelData.get("BoundingBoxes") #FIXME
-        #boxIds = MasterMemory.getAllBoxIDsForAFrame(0) #FIXME this index should update based on the frame looked at
         frame : Frame | None = labelData.getFrame(self.frameNumber) #FIXME?
+        
         if frame == None:
             print("unable to select box, frame ", self.frameNumber, " does not exist")
             return None
-        boxes : dict[int, Annotation] = frame.getFrameAnnotations()
-        if boxes == {}:
-            print("tried to select a box but frame ", self.frameNumber, " box contianer is empty?")
+        
+        annotations : dict[int, Annotation] = frame.getFrameAnnotations()
+
+        if annotations == {}:
+            print("tried to select a box but frame ", self.frameNumber, " annotations contianer is empty?")
             return None
-        for box in boxes.values():
-            rectangle : QRect = box.get_mask()
-            if rectangle == None:
-                print("ERROR: no rectangle assigned to this label")
-                pass
-            elif rectangle.contains(point):
-                print("box selected")
-                self.selectedItem = box
-                self.updatePixmap()
-                return self.selectedItem
-            else:
-                pass
+        
+
+        for annotation in annotations.values():
+            shape : list = annotation.getMask()
+            
+            if annotation.getAnnotationType() == "Box":
+                rectangle = QRect(*shape[0], *shape[1]) 
+                if rectangle == None:
+                    print("ERROR: no rectangle assigned to this label")
+                    pass
+                elif rectangle.contains(point):
+                    print("box selected")
+                    self.selectedItem = annotation
+                    self.updatePixmap()
+                    return self.selectedItem
+                else:
+                    pass
         print("no box selected")
         self.deselectBox()
         return None

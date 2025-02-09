@@ -1,10 +1,19 @@
 # internship
 Code and documents for the internship
+Day 128 2/8
+4:30 pm - 5:30 pm 
+6:00 pm - 7:00 pm
+7:15 pm - 8:10 pm
+9:51 pm - 11:30 pm
+worked on fixing some annotation drawing issues in the canvas and on updating and creating new documentation. 
+The drawing issues are not fixed yet though its closer. I wrote some documentation for the JSON that gets generated
+and I worked on both the master UML and a smaller label data UML. the master UML is going to become too cluttered if I put too
+much detail into it so I'm experiemneting with the label data UML to better define smaller portions of the code.
 
 Day 127 2/7
 10:37 am - 11:00 am
 2:13 pm - 3:02 pm
-4:11 pm - 
+4:11 pm - 5:00 pm
 todo: 
 write up documentation, 
 fix box drawing, 
