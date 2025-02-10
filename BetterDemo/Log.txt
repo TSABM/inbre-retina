@@ -1,7 +1,20 @@
 # internship
 Code and documents for the internship
 Day 129 2/10
-4:00 pm - 
+4:00 pm - 4:50 pm
+Worked on updating the documentation so I could use it in discussions with Boyu. Note to self, asking format questions is much easier
+with uml as a visual aid.
+Chenages that need to be made:
+remove annotations frame number or frameID field (boyu and I discussed removeing frame ID but in hindsight I think its better to keep the reference so when backtracking from an event you can get all the frame information too without risking issues if the frame number isnt good anymore (like if a video gets cut) and you want to keep the annotation data without remaking it)
+move image source to frame not the annotation
+
+then inform iris of the changes?
+
+Then this week prioritize fixing data change related crashes,
+importing existing projects correctly (this was specifically asked for),
+possibly importing raw data and images too?,
+and video frame traversal (at least via a button)
+
 
 Day 128 2/8
 4:30 pm - 5:30 pm 
