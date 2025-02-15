@@ -138,13 +138,13 @@ class LabelData(dict):
         metadata : MetaData = self.getMetaData()
         if metadata == None:
             print("metadata was uninitalized when frames were being initalized")
-        projectName : str = metadata.getProjectName()
+        #projectName : str = metadata.getProjectName()
         projectID : int = metadata.getProjectID()
         #grab a reference to frames data pool
         frames : dict = self["Frames"]
         #for the range of maxframes define a new frame obejct for each framnumber
         for i in range(maxFrames):
-            frames[i] = Frame(i, i, projectID) #for now te frameID will also just be the frame number. This may need to be changed later
+            frames[i] = Frame(i, i, projectID, imageSource) #for now te frameID will also just be the frame number. This may need to be changed later
 
     def getFrames(self) -> dict:
         '''
@@ -215,13 +215,13 @@ class LabelData(dict):
         return largestID
 
 class Frame(dict):
-    def __init__(self, frameNumber : int, frameID : int, projectID : int, annotations : dict | None = None):
+    def __init__(self, frameNumber : int, frameID : int, projectID : int,imageSource : str, annotations : dict | None = None):
         if annotations is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
             annotations = {}  # Create a new dictionary for each instance
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient.
             "projectID" : projectID,
-            #add image path if there are many frames that are seperate images I should store it here
+            "imageSource" : imageSource,
             "frameID" : frameID,
             "frameNumber" : frameNumber,
             "annotations": annotations,  # Initialize as an empty dictionary
@@ -253,14 +253,13 @@ class Frame(dict):
 
     
 class Annotation(dict):
-    def __init__(self, projectID : int, imageSource : str, frameID : int, annotationID : int , annotationType : str, frameNumber : int, cellID : int, 
+    def __init__(self, projectID : int, annotationID : int , annotationType : str, frameNumber : int, cellID : int, 
                  cellType : str, mask : list | None = None, eventID : int = -1, 
                  created_by : str | None = None, creationTimestamp : str |None = None, approved : bool = False ):
         #defining fields
         super().__init__({
                 "projectID" : projectID,
-                "frameID" : frameID,
-                "imageSource" : imageSource,
+                #"frameID" : frameID,
                 "annotationID" : annotationID,
                 "frameNumber" : frameNumber,
                 "annotationType" : annotationType, #current types "Box", or "Contour" FIXME make this better than strings
@@ -356,9 +355,9 @@ class MetaData(dict): #FIXME need to
         
         # defining fields
         super().__init__({
-            "sourceName": sourceName,
             "projectName" : projectName,
             "projectID" : projectID,
+            "sourceName": sourceName,
             "frameTotal": frameTotal,
             "maxWidth" : maxWidth,
             "maxHeight" : maxHeight,
