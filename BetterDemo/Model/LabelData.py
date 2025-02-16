@@ -64,7 +64,7 @@ class LabelData(dict):
                 else:
                     print("Frame found, updating box")
                     frameID : int = currFrame.getFrameID()
-                    box : Annotation = Annotation(projectID, imageSource, frameID, annotationID, annotationType, frameNumber, cellID, cellType, maskPoints)
+                    box : Annotation = Annotation(projectID, annotationID, annotationType, frameNumber, cellID, cellType, maskPoints)
                     currFrame.updateAnnotation(box)
             else:
                 print("Tried to update frame with box data, couldnt find frame: ", frameNumber)
@@ -78,30 +78,20 @@ class LabelData(dict):
         #box : BoundingBox = boxes.get(boxID)
         frames : dict = self.getFrames()
         frame : Frame = frames[frameKey]
-        boxes : dict = frame.getFrameAnnotations()
-        boxToDelete : Annotation = boxes[boxID]
+        annotations : dict = frame.getFrameAnnotations()
+        annotationToDelete : Annotation = annotations[boxID]
         
         #verify it still exists
-        if boxToDelete == None: 
-            print("Cannot delete box. Box not found in data object")
+        if annotationToDelete == None: 
+            print("Cannot delete annotation. Annotation not found in data object")
             return
         
         #for each event assotiated with it
         events : dict[int, Event] = self.getEvents()
-        for eventID in boxToDelete.get_eventID():
-            event : Event = events[eventID]
-            if event == None:
-                print("tried to find an event in events to remove it but could not find it")
-                return
-            #remove the assotiation with the box being deleted
-            eventBoxIds : dict = event.getBoxIDs()
-            del eventBoxIds[eventID]
-            #if the event has no box assotiated then delete it
-            if len(eventBoxIds) == 0:
-                del events[eventID]
+        del events[annotationToDelete.get_eventID()]
             
-        #delete the bounding box
-        del boxes[boxID]
+        #delete the annotation
+        del annotations[boxID]
         print("deleted bounding box")
 
     def addNewCellType(self, type : str):
@@ -128,7 +118,7 @@ class LabelData(dict):
 
     def updateMetaData(self, sourceName, frameTotal):
         metadata : "MetaData" = self["MetaData"]
-        metadata.setSourceName(sourceName)
+        metadata.setSourceField(sourceName)
         metadata.setFrameTotal(frameTotal)
         
     def initFrames(self, maxFrames):
@@ -142,9 +132,31 @@ class LabelData(dict):
         projectID : int = metadata.getProjectID()
         #grab a reference to frames data pool
         frames : dict = self["Frames"]
-        #for the range of maxframes define a new frame obejct for each framnumber
-        for i in range(maxFrames):
-            frames[i] = Frame(i, i, projectID, imageSource) #for now te frameID will also just be the frame number. This may need to be changed later
+        imageSource : str | list[str] = metadata.getSourceField()
+        if isinstance(imageSource, str):
+            #for the range of maxframes define a new frame obejct for each framnumber
+            for i in range(maxFrames):
+                frames[i] = Frame(i, i, projectID, imageSource) #for now te frameID will also just be the frame number. This may need to be changed later
+            
+        elif isinstance(imageSource, list):
+            #verify you get a string 
+            if all(isinstance(item, str) for item in imageSource):
+                print("verified source contents")
+            #if not throw an error
+            else:
+                print("image source has contents other than the accepted types, ")
+            for i in range(maxFrames):
+                frameSource = ""
+                if isinstance(imageSource[i], str):
+                    frameSource = imageSource[i]
+                else:
+                    print("WARNING somehow a frame source of type: ", type(imageSource[i]), " has been loaded into metadata.")
+                    raise(TypeError("Cannot set frames source to a type other than string"))
+                frames[i] = Frame(i, i, projectID, frameSource) #for now te frameID will also just be the frame number. This may need to be changed later    
+        else:
+            #something went wrong
+            print("tried to assign image source to the frame but the image source was of an unknown type")
+            print("imageSource type: ", type(imageSource))      
 
     def getFrames(self) -> dict:
         '''
@@ -290,7 +302,7 @@ class Annotation(dict):
     def get_cellType(self) -> str:
         return self["cellType"]
 
-    def get_eventID(self) -> dict:
+    def get_eventID(self) -> int:
         return self["eventID"]
     
     def updateBox(self, frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, 
@@ -348,7 +360,7 @@ class Event(dict):
         return self["annotationIDs"]
         
 class MetaData(dict): #FIXME need to 
-    def __init__(self, sourceName: str, frameTotal: int, projectID : int, projectName : str, maxWidth : int = 0, maxHeight : int = 0, other: list[str] | None = None):
+    def __init__(self, source: list[str] | str, frameTotal: int, projectID : int, projectName : str, maxWidth : int = 0, maxHeight : int = 0, other: list[str] | None = None):
         # Ensure other is a list if not provided
         if other is None:
             other = []
@@ -357,7 +369,7 @@ class MetaData(dict): #FIXME need to
         super().__init__({
             "projectName" : projectName,
             "projectID" : projectID,
-            "sourceName": sourceName,
+            "source": source, #sometimes there should be multiple source files... change this maybe to a list in that case? Or default to some other value? 
             "frameTotal": frameTotal,
             "maxWidth" : maxWidth,
             "maxHeight" : maxHeight,
@@ -365,10 +377,10 @@ class MetaData(dict): #FIXME need to
             "other": other,
         })
     
-    def setSourceName(self, sourceName: str) -> None:
-        """Set the sourceName in the metadata."""
-        self["sourceName"] = sourceName
-    
+    def setSourceField(self, source: str | list[str]) -> None:
+        """Set the source in the metadata."""
+        self["source"] = source
+
     def setProjectID(self, projectID : int) -> None:
         self["projectID"] = projectID
     
@@ -379,9 +391,9 @@ class MetaData(dict): #FIXME need to
     def setLargestID(self, largestID : int):
         self["largestID"] = largestID
     
-    def getSourceName(self):
-        """Get the stored sourceName as a string or NONE"""
-        return self.get("sourceName")
+    def getSourceField(self) -> str | list[str]:
+        """Get the stored source as a string or list[str]"""
+        return self["source"]
     
     def getFrameTotal(self) -> int:
         return self["frameTotal"]
