@@ -9,3 +9,5 @@ os
 re
 
 shutil
+
+pydantic

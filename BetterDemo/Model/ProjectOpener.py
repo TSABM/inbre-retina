@@ -1,5 +1,8 @@
 import os
 import json
+from Model.masterMemory import MasterMemory
+from Model.LabelData import LabelData
+#from pydantic import BaseModel
 class ProjectOpener():
     def __init__(self, projectPath):
         self.projectPath = projectPath
@@ -24,6 +27,7 @@ class ProjectOpener():
                 verified = False
         return verified
 
+    def validateData(data):
     #init label data
         #read outer directory
         #read metadata
@@ -40,9 +44,11 @@ class ProjectOpener():
             #open annotations into label data
             annotationPath = self.projectPath + "/annotations.json"
             with open(annotationPath, "r") as file:
-                loaded_data = json.load(file)
+                loaded_data : dict = json.load(file)
                 #FIXME see if maybe pydantic can check if the loaded data matches the labelData spec if so we can just load it in directly
-            pass
+        #FIXME validate data integrity. ideally in a LabelData class so changes made there arent lost
+        #FIXME read the data into a label data object
+        #FIXME set master mems label data as this label data possibly through the canvas?
         else:
             print("could not verify the project structure")
             pass
