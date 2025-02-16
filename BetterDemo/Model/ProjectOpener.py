@@ -27,11 +27,19 @@ class ProjectOpener():
                 verified = False
         return verified
 
-    def validateData(data):
-    #init label data
-        #read outer directory
-        #read metadata
-        #
+    def validateData(self, data):
+        if not isinstance(data, dict):
+            print("json data is not a dictionary, cannot parse")
+            return
+        #dict
+        metaData = data.get("MetaData")
+        if metaData == None: print("metaData could not be found"); return
+            #metadata
+            #dict
+            #dict
+            #dict
+            #dict
+            #dict
 
     def openProject(self):
         '''

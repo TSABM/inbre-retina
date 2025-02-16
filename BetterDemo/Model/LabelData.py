@@ -410,3 +410,26 @@ class MetaData(dict): #FIXME need to
     
     def getLargestID(self):
         return self["largestID"]
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "MetaData":
+        """
+        Convert a dictionary into a MetaData object.
+        
+        Args:
+            data (dict): The dictionary containing the metadata fields.
+        
+        Returns:
+            MetaData: An instance of MetaData.
+        """
+        # Extract the required fields from the dictionary and set default values if missing
+        source = data.get("source", [])
+        frameTotal = data.get("frameTotal", 0)
+        projectID = data.get("projectID", 0)
+        projectName = data.get("projectName", "")
+        maxWidth = data.get("maxWidth", 0)
+        maxHeight = data.get("maxHeight", 0)
+        other = data.get("other", [])
+        
+        # Return an instance of MetaData
+        return cls(source, frameTotal, projectID, projectName, maxWidth, maxHeight, other)
