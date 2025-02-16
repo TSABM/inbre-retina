@@ -19,6 +19,43 @@ class LabelData(dict):
 
         self.initFrames(maxFrames) #FIXME
     
+    def initFrames(self, maxFrames):
+        '''
+        fill Frames with maxFrames amount of new empty frames
+        '''
+        metadata : MetaData = self.getMetaData()
+        if metadata == None:
+            print("metadata was uninitalized when frames were being initalized")
+        #projectName : str = metadata.getProjectName()
+        projectID : int = metadata.getProjectID()
+        #grab a reference to frames data pool
+        frames : dict = self["Frames"]
+        imageSource : str | list[str] = metadata.getSourceField()
+        if isinstance(imageSource, str):
+            #for the range of maxframes define a new frame obejct for each framnumber
+            for i in range(maxFrames):
+                frames[i] = Frame(i, i, projectID, imageSource) #for now te frameID will also just be the frame number. This may need to be changed later
+            
+        elif isinstance(imageSource, list):
+            #verify you get a string 
+            if all(isinstance(item, str) for item in imageSource):
+                print("verified source contents")
+            #if not throw an error
+            else:
+                print("image source has contents other than the accepted types, ")
+            for i in range(maxFrames):
+                frameSource = ""
+                if isinstance(imageSource[i], str):
+                    frameSource = imageSource[i]
+                else:
+                    print("WARNING somehow a frame source of type: ", type(imageSource[i]), " has been loaded into metadata.")
+                    raise(TypeError("Cannot set frames source to a type other than string"))
+                frames[i] = Frame(i, i, projectID, frameSource) #for now te frameID will also just be the frame number. This may need to be changed later    
+        else:
+            #something went wrong
+            print("tried to assign image source to the frame but the image source was of an unknown type")
+            print("imageSource type: ", type(imageSource))
+
     def generateNewProjectId(self) -> int:
         '''returns a 1-4 digit project ID'''
         random_number = random.randint(0, 5000)
@@ -120,44 +157,7 @@ class LabelData(dict):
         metadata : "MetaData" = self["MetaData"]
         metadata.setSourceField(sourceName)
         metadata.setFrameTotal(frameTotal)
-        
-    def initFrames(self, maxFrames):
-        '''
-        fill Frames with maxFrames amount of new empty frames
-        '''
-        metadata : MetaData = self.getMetaData()
-        if metadata == None:
-            print("metadata was uninitalized when frames were being initalized")
-        #projectName : str = metadata.getProjectName()
-        projectID : int = metadata.getProjectID()
-        #grab a reference to frames data pool
-        frames : dict = self["Frames"]
-        imageSource : str | list[str] = metadata.getSourceField()
-        if isinstance(imageSource, str):
-            #for the range of maxframes define a new frame obejct for each framnumber
-            for i in range(maxFrames):
-                frames[i] = Frame(i, i, projectID, imageSource) #for now te frameID will also just be the frame number. This may need to be changed later
-            
-        elif isinstance(imageSource, list):
-            #verify you get a string 
-            if all(isinstance(item, str) for item in imageSource):
-                print("verified source contents")
-            #if not throw an error
-            else:
-                print("image source has contents other than the accepted types, ")
-            for i in range(maxFrames):
-                frameSource = ""
-                if isinstance(imageSource[i], str):
-                    frameSource = imageSource[i]
-                else:
-                    print("WARNING somehow a frame source of type: ", type(imageSource[i]), " has been loaded into metadata.")
-                    raise(TypeError("Cannot set frames source to a type other than string"))
-                frames[i] = Frame(i, i, projectID, frameSource) #for now te frameID will also just be the frame number. This may need to be changed later    
-        else:
-            #something went wrong
-            print("tried to assign image source to the frame but the image source was of an unknown type")
-            print("imageSource type: ", type(imageSource))      
-
+           
     def getFrames(self) -> dict:
         '''
         returns a dictionary of frame objects (also dictionaries) where the key is the frame number and the val is the frame

@@ -4,7 +4,9 @@ Code and documents for the internship
 Day 130 2/15
 11:15 pm - 12:07
 12:24 pm - 12:36
-3:41 pm - 
+3:41 pm - 6:15 pm 
+6:45 pm - 7:25 pm 
+7:40 pm - 
 decided to go with origonal plan to remove frame ID's not number. Its true the number will be more volatile BUT the ID isnt used to look up 
 frames in the frames dictionary the frame number is to help preserve ordering. Keeping both would be nice for verification but its a lot of
 probably uneeded data since we could have 2 dozen annotations in a frame.
@@ -12,6 +14,8 @@ probably uneeded data since we could have 2 dozen annotations in a frame.
 made some changes.
 mostly fixes but now also metadatas sourceName has been renamed to source, and it can now be a string (for images and videos) or a list of strings
 (for folders of images)
+
+working on project opener
 
 Day 129 2/10
 4:00 pm - 4:50 pm

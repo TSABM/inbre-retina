@@ -27,7 +27,7 @@ class ProjectExporter():
     def __getFileName__(self):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         metadata : MetaData = labelData.getMetaData()
-        fileName : str | None = metadata.getSourceField() #FIXME? remnent from gif days may need to alter for folders?
+        fileName : str | list[str] = metadata.getSourceField() #FIXME? remnent from gif days may need to alter for folders?
         
         return fileName
 

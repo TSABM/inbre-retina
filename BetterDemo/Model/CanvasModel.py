@@ -258,7 +258,7 @@ class CanvasModel():
             print("cannot move box because the selected box is None")
             return
         
-        rectangle : QRect | None = self.selectedItem.get_mask()
+        rectangle : QRect | None = self.selectedItem.getMask()
         if rectangle == None:
             print("warning moving box failed. Failed to define rectangle")
             return
@@ -274,7 +274,7 @@ class CanvasModel():
             print("cannot resize box. Box is None")
             return
         #grab curr coords as a rectangle
-        rectangle : QRect = self.selectedItem.get_mask() #fixme this is inefficient passing data back and forth, theres got to be a better way 
+        rectangle : QRect = self.selectedItem.getMask() #fixme this is inefficient passing data back and forth, theres got to be a better way 
         if rectangle == None:
             print("failed to convert qrect in resize")
             return
