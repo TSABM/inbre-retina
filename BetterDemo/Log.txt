@@ -3,12 +3,12 @@ Code and documents for the internship
 
 Day 131 2/17
 12:30 pm - 1:00 pm
-3:11 pm - 
+3:11 pm - 4:33 pm 
 spoke with iris. The current annotator program cant ensure cellId's are constant between frames. Iris thinks we coudl use a linked list
 I think this wont work well in the long run, annotations should be unique to each frame, but they are associated with a cellID, if it changes
 each frame then its going to be hard to reliably trace its history especially by eye alone. Still it might be the only option working to
 get this worked out.
-
+seperated the main data types and I'm working on validation code and parsing code. unfinished at this time.
 
 Day 130 2/15
 11:15 pm - 12:07

@@ -231,7 +231,7 @@ class LabelData(dict):
         
         return largestID
 
-    def validate_structure(data: dict) -> bool:
+    def validate_structure(self, data: dict) -> bool:
         """
         Validates if a dictionary matches the expected structure of LabelData.
 
