@@ -2,6 +2,7 @@ import os
 import json
 from Model.masterMemory import MasterMemory
 from Model.LabelData import LabelData
+from Model.MetaData import MetaData
 #from pydantic import BaseModel
 class ProjectOpener():
     def __init__(self, projectPath):
@@ -34,7 +35,7 @@ class ProjectOpener():
         #dict
         metaData = data.get("MetaData")
         if metaData == None: print("metaData could not be found"); return
-            #metadata
+        if not MetaData.validate_structure(metaData): print("imported metaData did not match expected structure"); return
             #dict
             #dict
             #dict
