@@ -1,6 +1,6 @@
 class Annotation(dict):
     def __init__(self, projectID : int, annotationID : int , annotationType : str, frameNumber : int, cellID : int, 
-                 cellType : str, mask : list | None = None, eventID : int = -1, 
+                 cellType : str, mask : list | None = None, eventID : int = -1, prevAnnoId : int = -1, nextAnnoId : int = -1,
                  created_by : str | None = None, creationTimestamp : str |None = None, approved : bool = False ):
         #defining fields
         super().__init__({
@@ -13,6 +13,8 @@ class Annotation(dict):
                 "cellId" : cellID,
                 "cellType" : cellType,
                 "eventID" : eventID,
+                "previousAnnotationID" : prevAnnoId,
+                "nextAnnotationID" : nextAnnoId,
                 "created_by": created_by,
                 "creationTimestamp": creationTimestamp,
                 "approved": approved,
@@ -39,6 +41,18 @@ class Annotation(dict):
     def get_eventID(self) -> int:
         return self["eventID"]
     
+    def get_prev_anno_id(self) -> int:
+        return self["previousAnnotationID"]
+    
+    def set_prev_anno_id(self, newPrevID : int):
+        self["previousAnnotationID"] = newPrevID
+
+    def get_next_anno_id(self) -> int:
+        return self["nextAnnotationID"]
+    
+    def set_next_anno_id(self, nextID : int):
+        self["nextAnnotationID"] = nextID
+
     def updateBox(self, frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, 
                width: int | None = None, height: int | None = None, cellIDsToAdd : dict | None = None, eventIdsToAdd : dict | None = None):
         '''
