@@ -19,8 +19,8 @@ class Frame(dict):
         boxes[boxID] = annotations
     def getFrameID(self) -> int:
         return self["frameID"]
-    def getFrameNumber(self):
-        return self.get("frameNumber")
+    def getFrameNumber(self) -> int:
+        return self["frameNumber"]
     def getFrameAnnotations(self) -> dict[int, "Annotation"]:
         return self["annotations"]
     def getAnnotationKeys(self):
@@ -30,6 +30,8 @@ class Frame(dict):
         return boundingBoxes.keys()
     def getProjectId(self):
         return self.get("projectID")
+    def getImageSource(self)->str:
+        return self["imageSource"]
     
     def setFrameID(self, newID):
         self["frameID"] = newID

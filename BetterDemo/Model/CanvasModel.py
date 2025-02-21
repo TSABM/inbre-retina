@@ -4,11 +4,13 @@ The QGraphics Scene that all drawing takes place
 # pylint: disable = no-name-in-module
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
-from PyQt5.QtCore import QRect, QPoint, Qt, QSize
-from Model.LabelData import LabelData, Annotation, Frame
+from PyQt5.QtCore import QRectF, QPoint, Qt, QSize
+from Model.LabelData import LabelData
 from Model.AcceptedFormats.Displayable import Displayable
 from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 from Model.masterMemory import MasterMemory
+from Model.Frame import Frame
+from Model.Annotation import Annotation
 
 ## temporary default values ##
 defaultWidth = 400
@@ -21,15 +23,13 @@ class CanvasModel():
     a canvas which renders a static image and accepts labels
     '''
     def __init__(self):
-        self.sourceToDisplay : Displayable | None = None
+        #self.sourceToDisplay : Displayable | None = None
         self.scene : QGraphicsScene = QGraphicsScene()
-
-        self.frameNumber = 0 #FIXME
-        
         self.pixmap : QPixmap | None = None
-        #FIXME need to make compatable with videos (gif videos)
-        #self.pixmap = QPixmap(defaultWidth, defaultHeight)
         self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
+
+        #self.frameNumber = 0 #FIXME
+        self.currentFrame : Frame | None
 
         self.selectedItem : Annotation | None = None
         self.resizing = False
@@ -53,9 +53,9 @@ class CanvasModel():
         else:
             return True
     
-    def __getFrameNumber__(self):
-        '''returns the current frames number'''
-        return self.frameNumber
+    #def __getFrameNumber__(self):
+    #    '''returns the current frames number'''
+    #    return self.frameNumber
     
     ### handle pixmap 
     def setSource(self, source : Displayable, projectName : str, projectID : int | None): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
@@ -88,8 +88,11 @@ class CanvasModel():
         '''
         if self.sourceToDisplay != None:
             print("trying to set pixmap")
+            if self.currentFrame == None:
+                print("error cant set pixmap no current frame set")
+                return
             if isinstance(self.sourceToDisplay, SimpleMovie):
-                self.sourceToDisplay.setFrame(self.frameNumber)
+                self.sourceToDisplay.setFrame(self.currentFrame.getFrameNumber())
             self.pixmap = self.sourceToDisplay.getPixmap()
             self.pixmap_item.setPixmap(self.pixmap)
 
@@ -98,9 +101,9 @@ class CanvasModel():
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        frame : Frame | None = labelData.getFrame(self.frameNumber)
-        if frame == None:
-            print("Tried to draw labels, cannot find requested frame")
+        #frame : Frame | None = labelData.getFrame(self.frameNumber)
+        if self.currentFrame == None:
+            print("Tried to draw labels, but cannot find requested frame")
         else:
             annotations : dict = frame.getFrameAnnotations()
             annotationIds = annotations.keys()
@@ -113,7 +116,7 @@ class CanvasModel():
                     #if its selected render it blue and with handles
                     annotation : Annotation = annotations[annotationId]
                     if(self.__verifyAnnotationType(annotation, "Box")):
-                        rectangle : QRect = self.__convertCornersToQRect__(annotation.getMask())
+                        rectangle : QRectF = self.__convertCornersToQRect__(annotation.getMask())
                         if annotation == self.selectedItem:
                             painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
                             painter.drawRect(rectangle)
@@ -152,7 +155,7 @@ class CanvasModel():
             return
     
     ### Handle everything related to the bounding boxes ##
-    def addBox(self, maskPoints, annotationType : str, cellType, cellId = None):  
+    def addAnnotation(self, maskPoints, annotationType : str, cellType, cellId = None):  
         '''
         takes a Qrect and creates a new bounding box instance, then sends that box to label data to be recorded, then updates the canvas
         '''
@@ -160,21 +163,23 @@ class CanvasModel():
         if self.isFileOpen() == False:
             print("file is not open, aborting add box operation")
             return  
+        if self.currentFrame == None:
+            print("current frame not set, aborting addBox")
+            return 
         
-        imageSource : str = self. #fixme get the image source name
+        imageSource : str = self.currentFrame.getImageSource() #fixme get the image source name
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        annotationId = labelData.getNewBoxID()
-        
-        frameNumber = self.__getFrameNumber__()
-        dims = rect.getRect()
+        annotationId = labelData.getNewAnnotationID()
+        frameNumber = self.currentFrame.getFrameNumber()
+        #dims = rect.getRect()
         if cellId == None:
             cellId = labelData.get
 
         #self.__sendBoxUpdate__(boxId, frameNumber, dims[0], dims[1], dims[2], dims[3])
-        self.__sendBoxUpdate__(annotationId, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource)
+        self.__sendAnnotationUpdate__(annotationId, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource)
 
         self.updatePixmap()
-        return boxId
+        return annotationId
     
     
     def deleteBox(self, boxID): #FIXME I pass in boxID here but never use it, either selected item is deleted or I pass it in
@@ -191,7 +196,7 @@ class CanvasModel():
             self.__sendBoxDeleteRequest__(self.selectedItem.get_annotationID(), self.selectedItem.get_frameNumber())
             return
     
-    def __sendBoxUpdate__(self, annotationID, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource):
+    def __sendAnnotationUpdate__(self, annotationID, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         labelData.updateFrameWithAnnotation(annotationID, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource)
     
@@ -199,7 +204,7 @@ class CanvasModel():
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         labelData.deleteAnnotation(boxIdToDelete, frameKey)
 
-    def __updateSelectedBoxPosition__(self, rectangle : QRect):
+    def __updateSelectedBoxPosition__(self, rectangle : QRectF):
         if self.selectedItem == None:
             print("No item selected aborting position update")
             return
@@ -255,16 +260,21 @@ class CanvasModel():
         if self.isFileOpen() == False:
             return
         if self.selectedItem == None:
-            print("cannot move box because the selected box is None")
+            print("cannot move annotation because the selected annotation is None")
             return
-        
-        rectangle : QRect | None = self.selectedItem.getMask()
-        if rectangle == None:
-            print("warning moving box failed. Failed to define rectangle")
-            return
-        rectangle.moveCenter(point)
-        self.__updateSelectedBoxPosition__(rectangle)
-        self.updatePixmap()
+        if self.selectedItem.getAnnotationType() == 'Box':
+            maskPoints = self.selectedItem.getMask()
+            rectangle : QRectF | None = self.__convertCornersToQRect__(maskPoints)
+            if rectangle == None:
+                print("warning moving box failed. Failed to define rectangle")
+                return
+            rectangle.moveCenter(point)
+            self.__updateSelectedBoxPosition__(rectangle)
+            self.updatePixmap()
+        elif self.selectedItem.getAnnotationType() == 'Contour':
+            print("contour movement is not yet implemented")
+        else:
+            print("annotation type is not recognized: ", self.selectedItem.getAnnotationType())
 
     ### methods on box resizing
     def resizeBox(self, point, corner): 
@@ -274,7 +284,7 @@ class CanvasModel():
             print("cannot resize box. Box is None")
             return
         #grab curr coords as a rectangle
-        rectangle : QRect = self.selectedItem.getMask() #fixme this is inefficient passing data back and forth, theres got to be a better way 
+        rectangle : QRectF = self.__convertCornersToQRect__(self.selectedItem.getMask()) #fixme this is inefficient passing data back and forth, theres got to be a better way 
         if rectangle == None:
             print("failed to convert qrect in resize")
             return
@@ -301,25 +311,22 @@ class CanvasModel():
         #remove blue fill for future rectangles
         painter.setBrush(Qt.NoBrush) # type: ignore
 
-    def __getResizeHandles__(self, rect : QRect):
+    def __getResizeHandles__(self, rect : QRectF):
         return [
-            QRect(rect.topLeft() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
-            QRect(rect.topRight() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
-            QRect(rect.bottomLeft() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
-            QRect(rect.bottomRight() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize))
+            QRectF(rect.topLeft() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
+            QRectF(rect.topRight() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
+            QRectF(rect.bottomLeft() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
+            QRectF(rect.bottomRight() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize))
         ]
 
     def selectResizeCorner(self, point):
         if self.isFileOpen() == False:
             return
-
-        #if no box is selected do nothing
         if self.selectedItem == None:
-            print("corner cannot be selected: no label marked as selected")
+            print("corner cannot be selected: no annotation marked as selected")
             return None
-        else:
-            
-            handles = self.__getResizeHandles__(self.selectedItem.get_mask())
+        if self.selectedItem.getAnnotationType() == "Box":
+            handles = self.__getResizeHandles__(self.__convertCornersToQRect__(self.selectedItem.getMask()))
             for index in range(len(handles)):
                 if handles[index].contains(point):
                     return index
@@ -331,6 +338,6 @@ class CanvasModel():
         else:
             return False
 
-    def __convertCornersToQRect__(self, corners) -> QRect:
-        rect = QRect(corners[0], corners[1])
+    def __convertCornersToQRect__(self, corners) -> QRectF:
+        rect = QRectF(*corners[0], *corners[1])
         return rect

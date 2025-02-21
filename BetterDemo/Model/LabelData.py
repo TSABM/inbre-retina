@@ -66,7 +66,7 @@ class LabelData(dict):
         random_number = random.randint(0, 5000)
         return random_number
 
-    def getNewBoxID(self) -> int:
+    def getNewAnnotationID(self) -> int:
         metadata : MetaData = self["MetaData"]
         largestID : int = metadata.getLargestID()
         if largestID == -1:

@@ -32,7 +32,7 @@ class CanvasPresenter(AbstractPresenter):
 
     #Handle boxes
     def addBox(self, rectToAdd):
-        addedBoxID = self.model.addBox(rectToAdd)
+        addedBoxID = self.model.addAnnotation(rectToAdd)
         return addedBoxID
 
     def deleteBox(self, point):
