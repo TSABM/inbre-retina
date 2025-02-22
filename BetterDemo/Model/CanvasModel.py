@@ -92,7 +92,7 @@ class CanvasModel():
                 print("error cant set pixmap no current frame set")
                 return
             if isinstance(self.sourceToDisplay, SimpleMovie):
-                self.sourceToDisplay.setFrame(self.currentFrame.getFrameNumber())
+                #self.sourceToDisplay.setFrame(self.currentFrame.getFrameNumber()) #IS this the func that sets current frame?
             self.pixmap = self.sourceToDisplay.getPixmap()
             self.pixmap_item.setPixmap(self.pixmap)
 

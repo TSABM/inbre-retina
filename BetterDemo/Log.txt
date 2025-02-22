@@ -5,9 +5,11 @@ Day 132 2/21
 11:00 am - 11:25
 12:11 pm - 2:14 pm 
 6:08 pm - 6:43 pm 
-8:20 pm - 
+8:20 pm - 9:16 pm
 Working on fixing canvas to work with new labels. Also added some fields to help track before and after annotations
 Made initial fixes, now to test.
+
+Need to find where the current frame is set, I think in fixing refactor issues I now have it circular in finding its frame
 
 Day 131 2/17
 12:30 pm - 1:00 pm

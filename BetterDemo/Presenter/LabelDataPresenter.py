@@ -15,8 +15,9 @@ class AbstractLabelData(ABC):
 class LabelDataPresenter(AbstractPresenter):
     def __init__(self, view : AbstractLabelData):
         super().__init__(view)
+        
         #send label data area to the master memory
-        self.model : LabelData = None
+        self.model : LabelData | None = None
         #MasterMemory.setLabels(self)
         #self.registerNewSubscriber("labelData", self)
         #self.addSubscriber("canvas")
@@ -41,10 +42,10 @@ class LabelDataPresenter(AbstractPresenter):
             return
         return self.model.getFrames()
 
-    def getBoundingBoxes(self):
-        if self.__verifyFileOpen__() == False:
-            return
-        return self.model.getBoundingBoxes()
+    #def getBoundingBoxes(self):
+    #    if self.__verifyFileOpen__() == False:
+    #        return
+    #    return self.model.getBoundingBoxes()
 
     def getCells(self):
         if self.__verifyFileOpen__() == False:
