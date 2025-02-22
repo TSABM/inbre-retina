@@ -1,6 +1,6 @@
 # pylint: disable = no-name-in-module
 import PyQt5.QtWidgets as qtw
-from PyQt5.QtCore import QRect, QPoint, Qt, QSize
+from PyQt5.QtCore import QRectF, QPoint, Qt, QSize
 from Presenter.CanvasPresenter import CanvasPresenter
 from PyQt5.QtGui import QPixmap, QPainter, QColor
 #from View.ImageArea.LabelPopup import LabelPopup
@@ -54,7 +54,7 @@ class CanvasView(qtw.QGraphicsView):
                 #ensure there are no boxes in select mode
                 self.presenter.deselectBox()
                 #begin rubber band box
-                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), QSize())) #note the new QSize object has width and height of 0
+                self.rubberBand.setGeometry(QRectF(self.mapFromScene(self.initialPoint), QSize())) #note the new QSize object has width and height of 0
                 self.rubberBand.show()
             
             elif mode == "Erase":
@@ -73,7 +73,7 @@ class CanvasView(qtw.QGraphicsView):
                 self.presenter.moveBox(new_pos)
         elif mode == "Draw label":
             if not self.initialPoint.isNull():
-                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), self.mapFromScene(new_pos)).normalized())
+                self.rubberBand.setGeometry(QRectF(self.mapFromScene(self.initialPoint), self.mapFromScene(new_pos)).normalized())
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton: # type: ignore
@@ -88,8 +88,8 @@ class CanvasView(qtw.QGraphicsView):
             elif mode == "Draw label":
                 self.rubberBand.hide()
                 endPoint = self.mapToScene(event.pos()).toPoint()
-                rect = QRect(self.initialPoint, endPoint).normalized()
-                newBoxId = self.drawBox(rect)
+                rect = QRectF(self.initialPoint, endPoint).normalized()
+                newBoxId = self.drawBox(rect, "testCellType", 1) #FIXME temporary vals used here
                 if newBoxId != None:
                     self.openPopUp(newBoxId)
                 else:
@@ -108,8 +108,9 @@ class CanvasView(qtw.QGraphicsView):
         #popup.exec()
         pass
 
-    def drawBox(self, rect):
-        boxId = self.presenter.addBox(rect)
+    def drawBox(self, rect : QRectF, cellType : str, cellId : int):
+        maskPoints = self.__QRectToListOfCorners__(rect)
+        boxId = self.presenter.addAnnotation(maskPoints, "Box", cellType, cellId)
         return boxId
     
     def deleteBox(self, box):
@@ -117,3 +118,7 @@ class CanvasView(qtw.QGraphicsView):
         #self.presenter.deleteBox(box)
         print("FIXME")
         pass
+
+    def __QRectToListOfCorners__(self, rect : QRectF):
+        corners = [[rect.topLeft().x(), rect.topLeft().y()], [rect.bottomRight().x(), rect.bottomRight().y()]]
+        return corners

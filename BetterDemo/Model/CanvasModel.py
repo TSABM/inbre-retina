@@ -105,11 +105,11 @@ class CanvasModel():
         if self.currentFrame == None:
             print("Tried to draw labels, but cannot find requested frame")
         else:
-            annotations : dict = frame.getFrameAnnotations()
+            annotations : dict = self.currentFrame.getFrameAnnotations()
             annotationIds = annotations.keys()
             #check if there are no annotations
             if annotationIds.__len__ == 0:
-                print("Frame ", self.frameNumber, " has no assotiated annotations")
+                print("Frame ", self.currentFrame.getFrameNumber(), " has no assotiated annotations")
             #if there are handle drawing
             else:
                 for annotationId in annotationIds:
@@ -220,16 +220,16 @@ class CanvasModel():
             return
         
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        frame : Frame | None = labelData.getFrame(self.frameNumber) #FIXME?
+        #frame : Frame | None = labelData.getFrame(self.frameNumber) #FIXME?
         
-        if frame == None:
-            print("unable to select box, frame ", self.frameNumber, " does not exist")
+        if self.currentFrame == None:
+            print("unable to select box, no current frame selected")
             return None
         
-        annotations : dict[int, Annotation] = frame.getFrameAnnotations()
+        annotations : dict[int, Annotation] = self.currentFrame.getFrameAnnotations()
 
         if annotations == {}:
-            print("tried to select a box but frame ", self.frameNumber, " annotations contianer is empty?")
+            print("tried to select a box but frame ", self.currentFrame.getFrameNumber(), " annotations contianer is empty?")
             return None
         
 
@@ -237,7 +237,7 @@ class CanvasModel():
             shape : list = annotation.getMask()
             
             if annotation.getAnnotationType() == "Box":
-                rectangle = QRect(*shape[0], *shape[1]) 
+                rectangle = QRectF(*shape[0], *shape[1]) 
                 if rectangle == None:
                     print("ERROR: no rectangle assigned to this label")
                     pass

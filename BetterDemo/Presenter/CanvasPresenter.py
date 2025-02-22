@@ -10,8 +10,8 @@ class CanvasPresenter(AbstractPresenter):
         MasterMemory.setCanvas(self.model)
         #subs? label data? control view?
     
-    def setFile(self, file):
-        self.model.setfile(file)
+    #def setFile(self, file : str, projectName : str, projectID : int):
+    #    self.model.setSource(file, projectName, projectID)
     
     def refresh(self):
         super().refresh()
@@ -31,8 +31,8 @@ class CanvasPresenter(AbstractPresenter):
         MasterMemory.setInteractionMode(mode)
 
     #Handle boxes
-    def addBox(self, rectToAdd):
-        addedBoxID = self.model.addAnnotation(rectToAdd)
+    def addAnnotation(self, maskPoints : list, annotationType : str, cellType : str, cellId : int):
+        addedBoxID = self.model.addAnnotation(maskPoints, annotationType, cellType, cellId)
         return addedBoxID
 
     def deleteBox(self, point):
