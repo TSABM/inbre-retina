@@ -23,13 +23,13 @@ class CanvasModel():
     a canvas which renders a static image and accepts labels
     '''
     def __init__(self):
-        #self.sourceToDisplay : Displayable | None = None
+        self.sourceToDisplay : Displayable | None = None
         self.scene : QGraphicsScene = QGraphicsScene()
         self.pixmap : QPixmap | None = None
         self.pixmap_item = QGraphicsPixmapItem(self.pixmap)
 
         #self.frameNumber = 0 #FIXME
-        self.currentFrame : Frame | None
+        self.currentFrame : Frame | None = None
 
         self.selectedItem : Annotation | None = None
         self.resizing = False
@@ -74,7 +74,10 @@ class CanvasModel():
             if sourceName == None:
                 print("image source name was not found")
                 return
-            MasterMemory.setLabelData(LabelData(sourceName, totalFrames, projectName, projectID))
+            labelData : LabelData = LabelData(sourceName, totalFrames, projectName, projectID)
+            MasterMemory.setLabelData(labelData)
+            #labelData : LabelData | None = MasterMemory.getLabelData()
+            self.currentFrame = labelData.getFrame(0) #FIXME? setting to 0th frame since both images and videos have one.
 
             print("image file set, attempting to refresh")
             self.updatePixmap()
@@ -92,7 +95,7 @@ class CanvasModel():
                 print("error cant set pixmap no current frame set")
                 return
             if isinstance(self.sourceToDisplay, SimpleMovie):
-                #self.sourceToDisplay.setFrame(self.currentFrame.getFrameNumber()) #IS this the func that sets current frame?
+                self.sourceToDisplay.setFrame(self.currentFrame.getFrameNumber()) #IS this the func that sets current frame?
             self.pixmap = self.sourceToDisplay.getPixmap()
             self.pixmap_item.setPixmap(self.pixmap)
 

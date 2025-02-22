@@ -1,6 +1,6 @@
 # pylint: disable = no-name-in-module
 import PyQt5.QtWidgets as qtw
-from PyQt5.QtCore import QRectF, QPoint, Qt, QSize
+from PyQt5.QtCore import QRect, QRectF, QPointF, Qt, QSize, QSizeF
 from Presenter.CanvasPresenter import CanvasPresenter
 from PyQt5.QtGui import QPixmap, QPainter, QColor
 #from View.ImageArea.LabelPopup import LabelPopup
@@ -18,7 +18,7 @@ class CanvasView(qtw.QGraphicsView):
         self.drawing = False
         self.resizing = False
         self.moving = False
-        self.initialPoint = QPoint()
+        self.initialPoint = QPointF()
         self.resizeCornerIndex = None
         self.rubberBand = qtw.QRubberBand(qtw.QRubberBand.Rectangle, self)
 
@@ -54,7 +54,7 @@ class CanvasView(qtw.QGraphicsView):
                 #ensure there are no boxes in select mode
                 self.presenter.deselectBox()
                 #begin rubber band box
-                self.rubberBand.setGeometry(QRectF(self.mapFromScene(self.initialPoint), QSize())) #note the new QSize object has width and height of 0
+                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), QSize())) #note the new QSizeF object has width and height of 0
                 self.rubberBand.show()
             
             elif mode == "Erase":
@@ -73,7 +73,7 @@ class CanvasView(qtw.QGraphicsView):
                 self.presenter.moveBox(new_pos)
         elif mode == "Draw label":
             if not self.initialPoint.isNull():
-                self.rubberBand.setGeometry(QRectF(self.mapFromScene(self.initialPoint), self.mapFromScene(new_pos)).normalized())
+                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), self.mapFromScene(new_pos)).normalized())
 
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton: # type: ignore
@@ -94,7 +94,7 @@ class CanvasView(qtw.QGraphicsView):
                     self.openPopUp(newBoxId)
                 else:
                     print("Cant open label popup: boundingBox did not generate")
-                self.point = QPoint() #resetting selected point data for next draw or select
+                self.point = QPointF() #resetting selected point data for next draw or select
             elif mode == "Erase":
                 #send a hybrid select/erase request that identifies a box at a point and deletes it
                 self.deleteBox(None) #FIXME move this into the select logic and have it delete actively selected boxes

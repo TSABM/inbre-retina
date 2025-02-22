@@ -9,7 +9,7 @@ class LabelDataView(qtw.QWidget):
         super().__init__()
         self.labelToDisplay = None #FIXME
         self.presenter = LabelDataPresenter(self)
-        self.__initUI()
+        #self.__initUI()
         self.showing = False
 
         #self.loadLabelDataFields()
@@ -83,7 +83,7 @@ class LabelDataView(qtw.QWidget):
         self.boundingBoxesLabel = qtw.QLabel("Select Bounding Boxes: ")
         self.boundingBoxesDropdown = qtw.QComboBox()
         #self.boundingBoxesDropdown.addItems() #FIXME
-        self.__addItemsToComboBox(self.boundingBoxesDropdown, self.presenter.getBoundingBoxes())
+        #self.__addItemsToComboBox(self.boundingBoxesDropdown, self.presenter.getBoundingBoxes()) #FIXME
         #BoundingBox info Display
         #self.boundingBoxInfoBox  = BoundingBoxInfoDisplay()
         
@@ -126,7 +126,7 @@ class LabelDataView(qtw.QWidget):
         self.layout().addWidget(self.eventsDropdown)
     
     ### ###
-
+    
     def reloadLabelData(self):
         '''
         reloads data
@@ -140,7 +140,7 @@ class LabelDataView(qtw.QWidget):
         # Re-fetch the updated data from the presenter
         #updated_metadata = self.presenter.getMetadata()
         updated_frames = self.presenter.getFrames()
-        updated_bounding_boxes = self.presenter.getBoundingBoxes()
+        updated_bounding_boxes = self.presenter.getBoundingBoxes() #FIXME
         updated_cells = self.presenter.getCells()
         updated_events = self.presenter.getEvents()
 
@@ -154,7 +154,7 @@ class LabelDataView(qtw.QWidget):
         
     def getFileName(self):
         filename = "No file open" #default
-        metadata : dict = self.presenter.getMetadata()
+        metadata : dict | None = self.presenter.getMetadata()
         if metadata is None:
             pass
         else:
@@ -166,7 +166,7 @@ class LabelDataView(qtw.QWidget):
     
     def getFrameCount(self): 
         frames = "0"  # Default frame count
-        metadata: dict = self.presenter.getMetadata()
+        metadata: dict | None = self.presenter.getMetadata()
     
         if metadata is None:
             pass

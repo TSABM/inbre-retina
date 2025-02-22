@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+Day 133 2/22
+10:55 am - 11:49 pm
+1:40 pm - 
+still having issues with no frame getting set. Its less intutive than I thought. Working on it. Also had to disable label data view.
+
 Day 132 2/21
 11:00 am - 11:25
 12:11 pm - 2:14 pm 
