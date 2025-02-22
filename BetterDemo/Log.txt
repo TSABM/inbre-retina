@@ -3,8 +3,15 @@ Code and documents for the internship
 
 Day 133 2/22
 10:55 am - 11:49 pm
-1:40 pm - 
+1:40 pm - 2:31 pm
 still having issues with no frame getting set. Its less intutive than I thought. Working on it. Also had to disable label data view.
+Ok So I fixed most of the crashes. Turns out my box drawing is not compatable with floats which I need to fix. I tried but it is resulting
+in boxes not following the mouse faithfully. I can export again and most of the fields seem there though largestID isnt getting set
+Maybe its time to remove it as well as the other field
+Cell info in the annotations is not set properly
+event info in annos is not set properly
+cellType is hardcoded right now
+project opening still isnt working. FIX THIS ASAP
 
 Day 132 2/21
 11:00 am - 11:25
