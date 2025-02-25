@@ -32,15 +32,19 @@ class ProjectOpener():
         if not isinstance(data, dict):
             print("json data is not a dictionary, cannot parse")
             return
-        #dict
         metaData = data.get("MetaData")
         if metaData == None: print("metaData could not be found"); return
         if not MetaData.validate_structure(metaData): print("imported metaData did not match expected structure"); return
-            #dict
-            #dict
-            #dict
-            #dict
-            #dict
+        #verify dict
+        #for cell in cells: Cell.validate_structure(cell)
+        #verify dict
+        #for cellType in cellTypes: validate is string
+        #verify dict
+        #for event in events: Event.validate_structure(event)
+        #verify dict
+        #for eventType in eventTypes: validate is string
+        #verify dict
+        #for frame in Frames: Frame.validate_structure(frame)
 
     def openProject(self):
         '''
@@ -54,8 +58,8 @@ class ProjectOpener():
             annotationPath = self.projectPath + "/annotations.json"
             with open(annotationPath, "r") as file:
                 loaded_data : dict = json.load(file)
-                #FIXME see if maybe pydantic can check if the loaded data matches the labelData spec if so we can just load it in directly
         #FIXME validate data integrity. ideally in a LabelData class so changes made there arent lost
+        self.val
         #FIXME read the data into a label data object
         #FIXME set master mems label data as this label data possibly through the canvas?
         else:

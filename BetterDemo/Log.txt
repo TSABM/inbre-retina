@@ -1,6 +1,12 @@
 # internship
 Code and documents for the internship
 
+Day 134 2/24
+4:16 pm - 5:00 pm
+had a meeting. Need to get working demo by the 8th. Open new file, open existing project, save, render annotations, and if possible move
+between frames. 
+Remove bounding boxes, and thus the annotation type field. Need to render contours instead.
+
 Day 133 2/22
 10:55 am - 11:49 pm
 1:40 pm - 2:31 pm
