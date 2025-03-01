@@ -4,9 +4,12 @@ Code and documents for the internship
 Day 135 2/28
 12:45 pm - 2:18 pm
 3:00 pm - 3:55 pm 
-4:15 pm - 
+4:15 pm - 5:11 pm
 todo: open, save, no drawing?, no boxes, video support?
 removed fields from annotations that needed removing, gutting box drawing and implementing contour drawing and detection.
+
+Removed boxes from annotations as well ad anno types, and projectID's from annos. Removed unneeded anno drawing and manipulation functions since we
+just need display. Refactored display code to probably handle contours. Need to test with real data. NEED TO BE ABLE TO OPEN FUNCTIONAL DATA NOW
 
 Day 134 2/24
 4:16 pm - 5:00 pm
