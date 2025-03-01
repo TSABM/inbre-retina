@@ -1,14 +1,12 @@
 class Annotation(dict):
-    def __init__(self, projectID : int, annotationID : int , annotationType : str, frameNumber : int, cellID : int, 
+    def __init__(self, annotationID : int , frameNumber : int, cellID : int, 
                  cellType : str, mask : list | None = None, eventID : int = -1, prevAnnoId : int = -1, nextAnnoId : int = -1,
                  created_by : str | None = None, creationTimestamp : str |None = None, approved : bool = False ):
         #defining fields
         super().__init__({
-                "projectID" : projectID,
                 #"frameID" : frameID,
                 "annotationID" : annotationID,
                 "frameNumber" : frameNumber,
-                "annotationType" : annotationType, #current types "Box", or "Contour" FIXME make this better than strings
                 "mask": mask,
                 "cellId" : cellID,
                 "cellType" : cellType,
@@ -83,6 +81,6 @@ class Annotation(dict):
     def addEvent(self, eventID):
         self["eventIDs"].update({eventID : True})
     
-    def getAnnotationType(self) -> str:
-        return self["annotationType"]
+    #def getAnnotationType(self) -> str:
+    #    return self["annotationType"]
 

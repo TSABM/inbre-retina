@@ -1,6 +1,13 @@
 # internship
 Code and documents for the internship
 
+Day 135 2/28
+12:45 pm - 2:18 pm
+3:00 pm - 3:55 pm 
+4:15 pm - 
+todo: open, save, no drawing?, no boxes, video support?
+removed fields from annotations that needed removing, gutting box drawing and implementing contour drawing and detection.
+
 Day 134 2/24
 4:16 pm - 5:00 pm
 had a meeting. Need to get working demo by the 8th. Open new file, open existing project, save, render annotations, and if possible move

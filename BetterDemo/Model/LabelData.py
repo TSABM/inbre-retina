@@ -84,18 +84,18 @@ class LabelData(dict):
             cellID = annotation.get_cellID()
             cellType = annotation.get_cellType()
             maskPoints = annotation.getMask()
-            annotationType = annotation.getAnnotationType()
-            self.updateFrameWithAnnotation(id, annotationType, frameNum, cellID, cellType, maskPoints, imageSource)
+            #annotationType = annotation.getAnnotationType()
+            self.updateFrameWithAnnotation(id, frameNum, cellID, cellType, maskPoints)
         for cell in cells:
             self.addNewCell(cell)
         for event in events:
             self.addNewEvent(event)
     
-    def updateFrameWithAnnotation(self, annotationID : int, annotationType : str,  frameNumber : int, cellID : int, cellType : str, maskPoints : list, imageSource : str):
-        metadata : MetaData = self.getMetaData()
+    def updateFrameWithAnnotation(self, annotationID : int,  frameNumber : int, cellID : int, cellType : str, maskPoints : list):
+        #metadata : MetaData = self.getMetaData()
         frames : dict = self.getFrames()
         #currFrameNum = box.get_frameNumber()
-        projectID = metadata.getProjectID()
+        #projectID = metadata.getProjectID()
         
         if isinstance(frameNumber, int):
             if frameNumber in frames:
@@ -105,8 +105,8 @@ class LabelData(dict):
                     return
                 else:
                     print("Frame found, updating box")
-                    frameID : int = currFrame.getFrameID()
-                    box : Annotation = Annotation(projectID, annotationID, annotationType, frameNumber, cellID, cellType, maskPoints)
+                    #frameID : int = currFrame.getFrameID()
+                    box : Annotation = Annotation(annotationID, frameNumber, cellID, cellType, maskPoints)
                     currFrame.updateAnnotation(box)
             else:
                 print("Tried to update frame with box data, couldnt find frame: ", frameNumber)

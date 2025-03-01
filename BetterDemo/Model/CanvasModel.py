@@ -3,8 +3,8 @@ The QGraphics Scene that all drawing takes place
 '''
 # pylint: disable = no-name-in-module
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsPixmapItem
-from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage, QColor
-from PyQt5.QtCore import QRectF, QPoint, Qt, QSize
+from PyQt5.QtGui import QPixmap, QPainter, QColor, QPolygonF
+from PyQt5.QtCore import QPointF, Qt
 from Model.LabelData import LabelData
 from Model.AcceptedFormats.Displayable import Displayable
 from Model.AcceptedFormats.SimpleMovie import SimpleMovie
@@ -103,8 +103,10 @@ class CanvasModel():
         '''
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
-        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
+        #labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         #frame : Frame | None = labelData.getFrame(self.frameNumber)
+        
+        #verify frame exists
         if self.currentFrame == None:
             print("Tried to draw labels, but cannot find requested frame")
         else:
@@ -118,21 +120,21 @@ class CanvasModel():
                 for annotationId in annotationIds:
                     #if its selected render it blue and with handles
                     annotation : Annotation = annotations[annotationId]
-                    if(self.__verifyAnnotationType(annotation, "Box")):
-                        rectangle : QRectF = self.__convertCornersToQRect__(annotation.getMask())
-                        if annotation == self.selectedItem:
-                            painter.setPen(QPen(QColor(0, 0, 255), 2))  # Blue pen for selected rectangle
-                            painter.drawRect(rectangle)
-                            self.__drawResizeHandles__(painter, rectangle)
-                            painter.setPen(QColor(255, 0, 0)) #set painter color back to red for the non selected labels
-                        #else render it like normal
+                    mask : list = annotation.getMask()
+                    if len(mask) < 3:
+                        print("less than 3 points in mask, aborting draw")
+                        continue
+                    for i in range(len(mask)):
+                        #if its the last one draw line from here back to the start
+                        if i == len(mask):
+                            x1, y1 = mask[i]
+                            x2, y2 = mask[0]
+                            painter.drawLine(x1, y1, x2, y2)
+                        #otherwise draw from current line to the next one
                         else:
-                            painter.drawRect(rectangle)
-                    elif(self.__verifyAnnotationType(annotation, "Contour")):
-                        print("contour drawing is not implemented")
-                    else:
-                        print("error annotation type was neither box nor contour cannot draw it")
-                    
+                            x1, y1 = mask[i]
+                            x2, y2 = mask[i + 1]
+                            painter.drawLine(x1, y1, x2, y2)
         painter.end()
         self.pixmap_item.setPixmap(self.pixmap)
     
@@ -158,7 +160,7 @@ class CanvasModel():
             return
     
     ### Handle everything related to the bounding boxes ##
-    def addAnnotation(self, maskPoints, annotationType : str, cellType, cellId = None):  
+    def addAnnotation(self, maskPoints, cellType, cellId = None):  
         '''
         takes a Qrect and creates a new bounding box instance, then sends that box to label data to be recorded, then updates the canvas
         '''
@@ -170,7 +172,7 @@ class CanvasModel():
             print("current frame not set, aborting addBox")
             return 
         
-        imageSource : str = self.currentFrame.getImageSource() #fixme get the image source name
+        #imageSource : str = self.currentFrame.getImageSource() #fixme get the image source name
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         annotationId = labelData.getNewAnnotationID()
         frameNumber = self.currentFrame.getFrameNumber()
@@ -179,7 +181,7 @@ class CanvasModel():
             cellId = labelData.get
 
         #self.__sendBoxUpdate__(boxId, frameNumber, dims[0], dims[1], dims[2], dims[3])
-        self.__sendAnnotationUpdate__(annotationId, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource)
+        self.__sendAnnotationUpdate__(annotationId, frameNumber, cellId, cellType, maskPoints)
 
         self.updatePixmap()
         return annotationId
@@ -199,58 +201,32 @@ class CanvasModel():
             self.__sendBoxDeleteRequest__(self.selectedItem.get_annotationID(), self.selectedItem.get_frameNumber())
             return
     
-    def __sendAnnotationUpdate__(self, annotationID, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource):
+    def __sendAnnotationUpdate__(self, annotationID, frameNumber, cellId, cellType, maskPoints):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        labelData.updateFrameWithAnnotation(annotationID, annotationType, frameNumber, cellId, cellType, maskPoints, imageSource)
+        labelData.updateFrameWithAnnotation(annotationID, frameNumber, cellId, cellType, maskPoints)
     
     def __sendBoxDeleteRequest__(self, boxIdToDelete : int, frameKey : int):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         labelData.deleteAnnotation(boxIdToDelete, frameKey)
 
-    def __updateSelectedBoxPosition__(self, rectangle : QRectF):
-        if self.selectedItem == None:
-            print("No item selected aborting position update")
-            return
-        topCorner : QPoint = rectangle.topRight()
-        bottomCorner : QPoint = rectangle.bottomLeft()
-        boxMask = [[topCorner.x(), topCorner.y()],[bottomCorner.x(), bottomCorner.y()]]
-
-        self.selectedItem.setMask(boxMask)
-
-    def selectBox(self, point):
+    def selectAnnotation(self, point): #FIXME return a list of all annotations the point could choose so the user can pick from overlapping annotations
         if self.isFileOpen() == False:
             print("no file is open, cannot select box")
             return
-        
-        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
+        #labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         #frame : Frame | None = labelData.getFrame(self.frameNumber) #FIXME?
-        
         if self.currentFrame == None:
             print("unable to select box, no current frame selected")
             return None
-        
         annotations : dict[int, Annotation] = self.currentFrame.getFrameAnnotations()
-
         if annotations == {}:
             print("tried to select a box but frame ", self.currentFrame.getFrameNumber(), " annotations contianer is empty?")
             return None
-        
-
         for annotation in annotations.values():
             shape : list = annotation.getMask()
-            
-            if annotation.getAnnotationType() == "Box":
-                rectangle = QRectF(*shape[0], *shape[1]) 
-                if rectangle == None:
-                    print("ERROR: no rectangle assigned to this label")
-                    pass
-                elif rectangle.contains(point):
-                    print("box selected")
-                    self.selectedItem = annotation
-                    self.updatePixmap()
-                    return self.selectedItem
-                else:
-                    pass
+            if self.is_point_inside_polygon(point, shape):
+                print("selected a valid annotation")
+                return annotation
         print("no box selected")
         self.deselectBox()
         return None
@@ -259,88 +235,20 @@ class CanvasModel():
         self.selectedItem = None
         self.updatePixmap()
     
-    def moveBox(self, point : QPoint):
-        if self.isFileOpen() == False:
-            return
-        if self.selectedItem == None:
-            print("cannot move annotation because the selected annotation is None")
-            return
-        if self.selectedItem.getAnnotationType() == 'Box':
-            maskPoints = self.selectedItem.getMask()
-            rectangle : QRectF | None = self.__convertCornersToQRect__(maskPoints)
-            if rectangle == None:
-                print("warning moving box failed. Failed to define rectangle")
-                return
-            rectangle.moveCenter(point)
-            self.__updateSelectedBoxPosition__(rectangle)
-            self.updatePixmap()
-        elif self.selectedItem.getAnnotationType() == 'Contour':
-            print("contour movement is not yet implemented")
-        else:
-            print("annotation type is not recognized: ", self.selectedItem.getAnnotationType())
-
-    ### methods on box resizing
-    def resizeBox(self, point, corner): 
-        if self.isFileOpen() == False:
-            return
-        if self.selectedItem == None:
-            print("cannot resize box. Box is None")
-            return
-        #grab curr coords as a rectangle
-        rectangle : QRectF = self.__convertCornersToQRect__(self.selectedItem.getMask()) #fixme this is inefficient passing data back and forth, theres got to be a better way 
-        if rectangle == None:
-            print("failed to convert qrect in resize")
-            return
-        #transform 
-        if corner == 0:  # Top-left
-            rectangle.setTopLeft(point)
-        elif corner == 1:  # Top-right
-            rectangle.setTopRight(point)
-        elif corner == 2:  # Bottom-left
-            rectangle.setBottomLeft(point)
-        elif corner == 3:  # Bottom-right
-            rectangle.setBottomRight(point)
-        #update master
-        self.__updateSelectedBoxPosition__(rectangle)
-        #self.sendBoxUpdate()#this is maybe unneeded the line above may update label data if it just copies by ref...
-        self.updatePixmap()
+    def is_point_inside_polygon(self, point, polygon_points):
+        """
+        Check if a given point (x, y) is inside a polygon.
         
-    def __drawResizeHandles__(self, painter : QPainter, rectangle):
-        handles = self.__getResizeHandles__(rectangle)
-        painter.setBrush(QColor(0, 0, 255)) #blue handle fill
-        #draw each handle
-        for handle in handles:
-            painter.drawRect(handle)
-        #remove blue fill for future rectangles
-        painter.setBrush(Qt.NoBrush) # type: ignore
+        :param point: Tuple (x, y) of the test point
+        :param polygon_points: List of (x, y) tuples representing the polygon
+        :return: True if inside, False otherwise
+        """
+        polygon = QPolygonF([QPointF(x, y) for x, y in polygon_points])
 
-    def __getResizeHandles__(self, rect : QRectF):
-        return [
-            QRectF(rect.topLeft() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
-            QRectF(rect.topRight() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
-            QRectF(rect.bottomLeft() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize)),
-            QRectF(rect.bottomRight() - QPoint(cornerSize//2, cornerSize//2), QSize(cornerSize, cornerSize))
-        ]
-
-    def selectResizeCorner(self, point):
-        if self.isFileOpen() == False:
-            return
-        if self.selectedItem == None:
-            print("corner cannot be selected: no annotation marked as selected")
-            return None
-        if self.selectedItem.getAnnotationType() == "Box":
-            handles = self.__getResizeHandles__(self.__convertCornersToQRect__(self.selectedItem.getMask()))
-            for index in range(len(handles)):
-                if handles[index].contains(point):
-                    return index
-    
-    def __verifyAnnotationType(self, annotation : Annotation, expectedType : str) -> bool:
-        type = annotation.getAnnotationType()
-        if type == expectedType:
-            return True
-        else:
+        if polygon.isClosed() == False:
+            print("tried to draw annotation mask but the polygon wasnt closed")
             return False
 
-    def __convertCornersToQRect__(self, corners) -> QRectF:
-        rect = QRectF(*corners[0], *corners[1])
-        return rect
+        test_point = QPointF(*point)
+        
+        return polygon.containsPoint(test_point, Qt.FillRule.OddEvenFill)  # Uses the even-odd rule

@@ -31,8 +31,8 @@ class CanvasPresenter(AbstractPresenter):
         MasterMemory.setInteractionMode(mode)
 
     #Handle boxes
-    def addAnnotation(self, maskPoints : list, annotationType : str, cellType : str, cellId : int):
-        addedBoxID = self.model.addAnnotation(maskPoints, annotationType, cellType, cellId)
+    def addAnnotation(self, maskPoints : list, cellType : str, cellId : int):
+        addedBoxID = self.model.addAnnotation(maskPoints, cellType, cellId)
         return addedBoxID
 
     def deleteBox(self, point):
@@ -41,23 +41,19 @@ class CanvasPresenter(AbstractPresenter):
         
 
     def selectBox(self, point):
-        selectedBox = self.model.selectBox(point)
+        selectedBox = self.model.selectAnnotation(point)
         #self.publishToSubs()
         return selectedBox 
     
     def deselectBox(self):
         #self.publishToSubs()
         self.model.deselectBox()
-    
-    def selectResizeCorner(self, point):
-        return self.model.selectResizeCorner(point)
 
-    def resizeBox(self, newPosition, cornerIndex):
-        self.model.resizeBox(newPosition, cornerIndex)
-
+    '''
     def moveBox(self, point):
         self.model.moveBox(point)
-
+    '''
+        
     def getLargestBoxID(self):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         return labelData.getLargestBoxIdVal()
