@@ -1,5 +1,5 @@
 class MetaData(dict): #FIXME need to 
-    def __init__(self, source: list[str] | str, frameTotal: int, projectID : int, projectName : str, maxWidth : int = 0, maxHeight : int = 0, other: list[str] | None = None):
+    def __init__(self, source: list[str] | str, frameTotal: int, projectID : int, projectName : str, width : int = 0, height : int = 0, other: list[str] | None = None):
         # Ensure other is a list if not provided
         if other is None:
             other = []
@@ -10,8 +10,8 @@ class MetaData(dict): #FIXME need to
             "projectID" : projectID,
             "source": source, #sometimes there should be multiple source files... change this maybe to a list in that case? Or default to some other value? 
             "frameTotal": frameTotal,
-            "maxWidth" : maxWidth,
-            "maxHeight" : maxHeight,
+            "width" : width,
+            "height" : height,
             "largestID" : -1,
             "other": other,
         })
@@ -45,7 +45,7 @@ class MetaData(dict): #FIXME need to
     
     def getMaxDimensions(self):
         '''returns [width, height] values will be integer or None'''
-        return [self.get("maxWidth"), self.get("maxHeight")]
+        return [self.get("width"), self.get("height")]
     
     def getLargestID(self):
         return self["largestID"]
@@ -90,8 +90,8 @@ class MetaData(dict): #FIXME need to
             "projectID": int,
             "source": (str, list),  # Accept string or list of strings
             "frameTotal": int,
-            "maxWidth": int,
-            "maxHeight": int,
+            "width": int,
+            "height": int,
             "largestID": int,
             "other": list,
         }

@@ -12,18 +12,69 @@ class LabelData(dict):
     '''
     dictionary containing the bounding boxes events and metadata for the file
     '''
-    def __init__(self, mediaSourceName : str, maxFrames : int, projectName : str, projectID : int | None = None): #FIXME right now this class is incompatable with opening existing label datas
-        if projectID == None:
-            projectID = self.generateNewProjectId()
-        self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID, projectName)})
-        self.update({"Cells": dict()})
-        self.update({"CellTypes" : dict()})
-        self.update({"Events": dict()})
-        self.update({"EventTypes" : dict()})
-        self.update({"Frames" : dict()})
+    def __init__(self, mediaSourceName : str | None = None, maxFrames : int | None = None, projectName : str | None = None, projectID : int | None = None, rawData : dict | None = None): #FIXME right now this class is incompatable with opening existing label datas
+        if rawData != None:
+            self.readInData(rawData)
+        else:    
+            if projectID == None:
+                projectID = self.generateNewProjectId()
+            self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID, projectName)})
+            self.update({"Cells": dict()})
+            self.update({"CellTypes" : dict()})
+            self.update({"Events": dict()})
+            self.update({"EventTypes" : dict()})
+            self.update({"Frames" : dict()})
 
         self.initFrames(maxFrames) #FIXME
     
+    def readInData(self, rawData : dict):
+        '''takes data in generic formats and turns into LabelData'''
+        #metadata
+        rawMetadata = rawData["MetaData"]
+        metaData = MetaData.from_dict(rawMetadata)
+        
+        #cells
+        rawCells : dict[int, dict] = rawData["Cells"]
+        cells = {}
+        for cellID, rawCell in rawCells.items():
+            cell : Cell = Cell.from_dict(rawCell)
+            cells.update({cellID : cell})
+        
+        # Cell Types
+        rawCellTypes : dict = rawData["CellTypes"]
+        cellTypes = {}
+        for rawCellType in rawCellTypes.keys():
+            cellTypes[rawCellType] = rawCellType
+
+        # Events
+        rawEvents : dict = rawData["Events"]
+        events = {}
+        for eventID, rawEvent in rawEvents.items():
+            event: Event = Event.from_dict(rawEvent)
+            events[eventID] = event
+
+        # Event Types
+        rawEventTypes : dict = rawData["EventTypes"]
+        eventTypes = {}
+        for rawEventType in rawEventTypes.keys():
+            eventTypes[rawEventType] = rawEventType
+
+        # Frames
+        rawFrames = rawData["Frames"]
+        frames = {}
+        for frameID, rawFrame in rawFrames:
+            frames[frameID] = Frame.from_dict(rawFrame)
+
+        # Update the dictionary with the parsed data
+        self.update({
+            "MetaData": metaData,
+            "Cells": cells,
+            "CellTypes": cellTypes,
+            "Events": events,
+            "EventTypes": eventTypes,
+            "Frames": frames
+        })
+
     def initFrames(self, maxFrames):
         '''
         fill Frames with maxFrames amount of new empty frames
@@ -60,6 +111,40 @@ class LabelData(dict):
             #something went wrong
             print("tried to assign image source to the frame but the image source was of an unknown type")
             print("imageSource type: ", type(imageSource))
+
+    def getFrames(self) -> dict:
+        '''
+        returns a dictionary of frame objects (also dictionaries) where the key is the frame number and the val is the frame
+        '''
+        return self["Frames"]
+
+    def getFrame(self, frameNum : int) -> "Frame | None":
+        frames : dict = self["Frames"]
+        frame : Frame | None = frames.get(frameNum)
+        if frame == None:
+            print("Tried to grab frame (",frameNum, ") that does not exist")
+        return frame
+    
+    def getCells(self):
+        '''
+        returns a dictionary of Cell objects (also dictionaries) where the key is the cellID and the val is the cell
+        '''
+        return self.get("Cells")
+
+    def getCellTypes(self):
+        return self.get("CellTypes")
+
+    def getEvents(self) -> dict:
+        '''
+        returns a dictionary of Event objects (also dictionaries) where the key is the eventID and the val is the event
+        '''
+        return self["Events"]
+    
+    def getEventTypes(self):
+        return self.get("EventTypes")
+
+    def getMetaData(self) -> "MetaData":
+        return self["MetaData"]
 
     def generateNewProjectId(self) -> int:
         '''returns a 1-4 digit project ID'''
@@ -163,41 +248,7 @@ class LabelData(dict):
         metadata.setSourceField(sourceName)
         metadata.setFrameTotal(frameTotal)
            
-    def getFrames(self) -> dict:
-        '''
-        returns a dictionary of frame objects (also dictionaries) where the key is the frame number and the val is the frame
-        '''
-        return self["Frames"]
-
-    def getFrame(self, frameNum : int) -> "Frame | None":
-        frames : dict = self["Frames"]
-        frame : Frame | None = frames.get(frameNum)
-        if frame == None:
-            print("Tried to grab frame (",frameNum, ") that does not exist")
-        return frame
-    
-    def getCells(self):
-        '''
-        returns a dictionary of Cell objects (also dictionaries) where the key is the cellID and the val is the cell
-        '''
-        return self.get("Cells")
-
-    def getCellTypes(self):
-        return self.get("CellTypes")
-
-    def getEvents(self) -> dict:
-        '''
-        returns a dictionary of Event objects (also dictionaries) where the key is the eventID and the val is the event
-        '''
-        return self["Events"]
-    
-    def getEventTypes(self):
-        return self.get("EventTypes")
-
-    def getMetaData(self) -> "MetaData":
-        return self["MetaData"]
-
-    def getLargestBoxIdVal(self) -> int:
+    def getLargestBoxIdVal(self) -> int: #FIXME change this no longer should those ID's worry about collisions
         '''
         checks the project ID, frameIDs, and boxIDs and returns the largest of them
         '''
@@ -231,7 +282,8 @@ class LabelData(dict):
         
         return largestID
 
-    def validate_structure(self, data: dict) -> bool:
+    @classmethod
+    def validate_structure(cls, data: dict) -> bool:
         """
         Validates if a dictionary matches the expected structure of LabelData.
 

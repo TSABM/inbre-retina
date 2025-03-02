@@ -12,5 +12,13 @@ class Event(dict):
         return self.get("eventType")
     def getAnnotationIDs(self) -> list:
         return self["annotationIDs"]
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "Event":
+        return cls(
+            eventID=data["eventID"],
+            eventType=data["eventType"],
+            annotationIDs=data.get("annotationIDs", [])  # Default to empty list if missing
+        )
         
 

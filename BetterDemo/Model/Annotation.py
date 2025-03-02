@@ -84,3 +84,19 @@ class Annotation(dict):
     #def getAnnotationType(self) -> str:
     #    return self["annotationType"]
 
+    @classmethod
+    def from_dict(cls, data: dict) -> "Annotation":
+        return cls(
+            annotationID=data["annotationID"],
+            frameNumber=data["frameNumber"],
+            cellID=data["cellId"],
+            cellType=data["cellType"],
+            mask=data.get("mask", []),  # Default to empty list if missing
+            eventID=data.get("eventID", -1),
+            prevAnnoId=data.get("previousAnnotationID", -1),
+            nextAnnoId=data.get("nextAnnotationID", -1),
+            created_by=data.get("created_by"),
+            creationTimestamp=data.get("creationTimestamp"),
+            approved=data.get("approved", False),
+        )
+

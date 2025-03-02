@@ -37,3 +37,18 @@ class Frame(dict):
         self["frameID"] = newID
     def setProjectId (self, newID):
         self["projectID"] = newID
+    
+    @classmethod
+    def from_dict(cls, data: dict) -> "Frame":
+        annotations = {
+            int(anno_id): Annotation.from_dict(anno_data)
+            for anno_id, anno_data in data.get("annotations", {}).items()
+        }
+
+        return cls(
+            frameNumber=data["frameNumber"],
+            frameID=data["frameID"],
+            projectID=data["projectID"],
+            imageSource=data["imageSource"],
+            annotations=annotations
+        )
