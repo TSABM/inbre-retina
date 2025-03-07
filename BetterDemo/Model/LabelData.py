@@ -16,6 +16,9 @@ class LabelData(dict):
         if rawData != None:
             self.readInData(rawData)
         else:    
+            if mediaSourceName == None or maxFrames ==None or projectName == None:
+                print("tried to init label data but somethign want initalized")
+                return
             if projectID == None:
                 projectID = self.generateNewProjectId()
             self.update({"MetaData": MetaData(mediaSourceName, maxFrames, projectID, projectName)})

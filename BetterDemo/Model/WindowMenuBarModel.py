@@ -5,6 +5,7 @@ from Model.CanvasModel import CanvasModel
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage
 from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 from Model.AcceptedFormats.StandardImage import StandardImage
+from Model.ProjectOpener import ProjectOpener
 
 class WindowMenuBarModel():
     def __init__(self):
@@ -24,7 +25,7 @@ class WindowMenuBarModel():
             if acceptedFormat.setMovie(imagePath) == True:
                 #send to canvas?
                 canvas : CanvasModel= MasterMemory.getCanvas() # type: ignore
-                canvas.setSource(acceptedFormat, projectName, None)
+                canvas.loadNewProject(acceptedFormat, projectName, None)
             else:
                 pass
             pass
@@ -33,14 +34,16 @@ class WindowMenuBarModel():
             acceptedFormat = StandardImage(imageName)
             if acceptedFormat.setImage(imagePath) == True:
                 canvas : CanvasModel = MasterMemory.getCanvas() # type: ignore
-                canvas.setSource(acceptedFormat, projectName, None)
+                canvas.loadNewProject(acceptedFormat, projectName, None)
         else:
             MasterMemory.setSourcePath("")
             print("could not open image, not a supported file type")
             pass
         
-    def openProject(self):
+    def openProject(self, projectPath  : str):
         #FIXME I need to be defined!
+        projectOpener = ProjectOpener(projectPath)
+        projectOpener.openProject()
         pass
 
     def filterFileList(self, fileList):

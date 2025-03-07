@@ -24,6 +24,20 @@ class WindowMenuBarView(qtw.QMenuBar):
         print("unimplemented")
         pass
     
+    def openProject(self):
+        print("opening project")
+        try:
+            #open file dialog
+            folderDialog = qtw.QFileDialog(self)
+        except Exception as e:
+            print(f"exception raised: {e}")
+            return
+        folderPath = folderDialog.getExistingDirectory()
+        if folderPath == "":
+            print("No directory selected")
+        else:
+            self.presenter.openProject(folderPath)
+
     def openImage(self):
         print("opening image")
         try:

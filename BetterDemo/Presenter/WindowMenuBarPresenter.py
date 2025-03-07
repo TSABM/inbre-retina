@@ -15,6 +15,9 @@ class WindowMenuBarPresenter(AbstractPresenter):
     def refresh(self):
         super().refresh()
 
+    def openProject(self, projectPath):
+        self.__generalModel.openProject()
+
     def openImage(self, imagePath, projectName):
         '''
         opens a dialog and returns one selected image

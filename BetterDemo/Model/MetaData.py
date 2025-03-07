@@ -1,8 +1,5 @@
 class MetaData(dict): #FIXME need to 
-    def __init__(self, source: list[str] | str, frameTotal: int, projectID : int, projectName : str, width : int = 0, height : int = 0, other: list[str] | None = None):
-        # Ensure other is a list if not provided
-        if other is None:
-            other = []
+    def __init__(self, source: list[str] | str, frameTotal: int, projectID : int, projectName : str, width : int = 0, height : int = 0):
         
         # defining fields
         super().__init__({
@@ -12,8 +9,7 @@ class MetaData(dict): #FIXME need to
             "frameTotal": frameTotal,
             "width" : width,
             "height" : height,
-            "largestID" : -1,
-            "other": other,
+            "largestID" : -1
         })
     
     def setSourceField(self, source: str | list[str]) -> None:
@@ -68,10 +64,9 @@ class MetaData(dict): #FIXME need to
         projectName = data.get("projectName", "")
         maxWidth = data.get("maxWidth", 0)
         maxHeight = data.get("maxHeight", 0)
-        other = data.get("other", [])
         
         # Return an instance of MetaData
-        return cls(source, frameTotal, projectID, projectName, maxWidth, maxHeight, other)
+        return cls(source, frameTotal, projectID, projectName, maxWidth, maxHeight)
     
     @classmethod
     def validate_structure(cls, data: dict) -> bool:
@@ -93,7 +88,6 @@ class MetaData(dict): #FIXME need to
             "width": int,
             "height": int,
             "largestID": int,
-            "other": list,
         }
 
         # Check if all required keys are present

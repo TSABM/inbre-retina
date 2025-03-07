@@ -39,6 +39,10 @@ class ProjectOpener():
             print("could not validate data against LabelData structure")
             return False
 
+    def convertData(self, data):
+        labelData = LabelData(data)
+        return labelData
+
     def openProject(self):
         '''
         take a potential folder, verify it meets format and open
@@ -55,8 +59,9 @@ class ProjectOpener():
             #validate data integrity. ideally in a LabelData class so changes made there arent lost
             if self.validateData(loaded_data):
                 #FIXME read the data into a label data object
-                readInData = self.
+                readInData = self.convertData(loaded_data)
                 #FIXME set master mems label data as this label data possibly through the canvas?
+                MasterMemory.setSourcePath(sourcePath)
             else:
                 print("annotation data did not match aborting")
         else:

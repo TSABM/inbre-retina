@@ -1,6 +1,19 @@
 # internship
 Code and documents for the internship
 
+Day 138 3/6
+6:13 pm - 7:03 pm 
+7:33 pm - 
+
+Day 137 3/5
+6:38 pm - 6:50 pm 
+10:03 pm - 10:15 pm 
+10:33 pm - 10:45 pm 
+metadata init issue, it wont accept none, fix this. Fixed with a quick check that returns.
+Now to test opening data.
+realized the menu bar controls werent compatable with the opener, fixing that now.
+opener needs a fix, part of its read in method is undefined
+
 Day 136 3/1
 4:08 pm - 5:04 pm
 6:06 pm - 7:15 pm 

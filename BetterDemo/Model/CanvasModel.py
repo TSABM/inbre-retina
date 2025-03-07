@@ -56,9 +56,12 @@ class CanvasModel():
     #def __getFrameNumber__(self):
     #    '''returns the current frames number'''
     #    return self.frameNumber
-    
+
+    def setProject(self):
+        
+
     ### handle pixmap 
-    def setSource(self, source : Displayable, projectName : str, projectID : int | None): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
+    def loadNewProject(self, source : Displayable, projectName : str, projectID : int | None): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
         '''
         If the source is type Displayable set it as the file to display and update the pixmap else print a message and return
         '''
