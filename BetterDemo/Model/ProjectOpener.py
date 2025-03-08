@@ -3,6 +3,9 @@ import json
 from Model.masterMemory import MasterMemory
 from Model.LabelData import LabelData
 from Model.MetaData import MetaData
+from Model.AcceptedFormats.SimpleMovie import SimpleMovie
+from Model.AcceptedFormats.StandardImage import StandardImage
+from Model.CanvasModel import CanvasModel
 #from pydantic import BaseModel
 class ProjectOpener():
     def __init__(self, projectPath):
@@ -28,7 +31,7 @@ class ProjectOpener():
                 verified = False
         return verified
 
-    def validateData(self, data):
+    def __validateData__(self, data):
         if not isinstance(data, dict):
             print("json data is not a dictionary, cannot parse")
             return
@@ -39,8 +42,8 @@ class ProjectOpener():
             print("could not validate data against LabelData structure")
             return False
 
-    def convertData(self, data):
-        labelData = LabelData(data)
+    def convertLabelData(self, data : dict) -> LabelData:
+        labelData = LabelData(None, None, None, None, data)
         return labelData
 
     def openProject(self):
@@ -54,19 +57,47 @@ class ProjectOpener():
             #set current image
             #open annotations into label data
             annotationPath = self.projectPath + "/annotations.json"
+
             with open(annotationPath, "r") as file:
                 loaded_data : dict = json.load(file)
             #validate data integrity. ideally in a LabelData class so changes made there arent lost
-            if self.validateData(loaded_data):
-                #FIXME read the data into a label data object
-                readInData = self.convertData(loaded_data)
-                #FIXME set master mems label data as this label data possibly through the canvas?
-                MasterMemory.setSourcePath(sourcePath)
+            if self.__validateData__(loaded_data):
+                #read the data into a label data object and load into master mem
+                readInData : LabelData = self.convertLabelData(loaded_data)
+                MasterMemory.setLabelData(readInData)
+                
+                #load source video/image into accepted source object, then set in master memory
+                metaData = readInData.getMetaData()
+                graphicSource : str | list[str] = metaData.getSourceField()
+                if isinstance(graphicSource, str):
+                    print("attempting to bind single file source")
+                    acceptedFormat = self.bindSourceFormat(graphicSource)
+                    if (acceptedFormat == None):
+                        print("couldnt bind source to accepted format")
+                        return
+                    MasterMemory.setSourcePath(graphicSource)
+                    canvas : CanvasModel | None = MasterMemory.getCanvas()
+                    if isinstance(canvas, CanvasModel):
+                        canvas.primeCanvas(acceptedFormat)
+                    else:
+                        print("error canvas isnt set properly so I cant open the project")
+                else:
+                    print("trying to bind multi image source from existing project")
+                    print("FIXME this feature isnt ready yet")
             else:
                 print("annotation data did not match aborting")
         else:
             print("could not verify the project structure")
             pass
 
-    def extractLabels():
-        pass
+    def bindSourceFormat(self, path):
+        imageName = os.path.basename(path)
+        if ".gif" in path or ".mng" in path or ".apng" in path:
+            acceptedFormat = SimpleMovie(imageName)
+            if acceptedFormat.setMovie(path) == True:
+                return acceptedFormat
+        elif ".jpeg" in path or ".png" in path or ".jpg" in path or ".bmp" in path or ".ppm" in path or ".tiff" in path:
+            acceptedFormat = StandardImage(imageName)
+            if acceptedFormat.setImage(path) == True:
+                return acceptedFormat
+        return None

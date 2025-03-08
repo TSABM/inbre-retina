@@ -57,8 +57,27 @@ class CanvasModel():
     #    '''returns the current frames number'''
     #    return self.frameNumber
 
-    def setProject(self):
-        
+    def primeCanvas(self, source : Displayable):
+        if self.__setSource__(source):
+            labelData : LabelData | None = MasterMemory.getLabelData()
+            if type(labelData) is LabelData: 
+                self.currentFrame = labelData.getFrame(0) 
+
+                print("image file set, attempting to refresh")
+                self.updatePixmap()
+            else:    
+                print("cant prime canvas no valid labelData loaded")
+                return
+        else:
+            print("cant prime canvas, source is inavlid type")
+
+    def __setSource__(self, source :Displayable):
+        if isinstance(source, Displayable):
+            self.sourceToDisplay = source
+            return True
+        else:
+            print("cant load source, not an instance of displayable")
+            return False
 
     ### handle pixmap 
     def loadNewProject(self, source : Displayable, projectName : str, projectID : int | None): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
@@ -66,10 +85,9 @@ class CanvasModel():
         If the source is type Displayable set it as the file to display and update the pixmap else print a message and return
         '''
         if isinstance(source, Displayable):
-            self.sourceToDisplay = source
             totalFrames : int | None = source.getTotalFrames()
-            if isinstance(source, SimpleMovie):
-                totalFrames = source.getTotalFrames()
+            #if isinstance(source, SimpleMovie):
+            #    totalFrames = source.getTotalFrames()
             if totalFrames == None:
                 print("error total frames was None")
                 return
@@ -79,11 +97,8 @@ class CanvasModel():
                 return
             labelData : LabelData = LabelData(sourceName, totalFrames, projectName, projectID)
             MasterMemory.setLabelData(labelData)
-            #labelData : LabelData | None = MasterMemory.getLabelData()
-            self.currentFrame = labelData.getFrame(0) #FIXME? setting to 0th frame since both images and videos have one.
 
-            print("image file set, attempting to refresh")
-            self.updatePixmap()
+            self.primeCanvas(source)
         else: 
             print("Canvas received a non displayable filetype")
             return

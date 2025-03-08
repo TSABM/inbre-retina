@@ -55,9 +55,6 @@ class WindowMenuBarView(qtw.QMenuBar):
         else:
             self.presenter.openImage(imagePath, "testProjectName")
 
-    def importLabels(self):
-        pass
-
     def exportLabels(self):
         print("user export request received, attempting to pass along ")
         #annotationsFileName = "testExportFilename"
@@ -72,17 +69,17 @@ class WindowMenuBarView(qtw.QMenuBar):
     def __generateMainActions__(self):
         actions = []
 
-        newProject = qtw.QAction("New...", self)
-        newProject.triggered.connect(self.createNewProject)
-        actions.append(newProject)
+        #newProject = qtw.QAction("New...", self)
+        #newProject.triggered.connect(self.createNewProject)
+        #actions.append(newProject)
 
-        openImage = qtw.QAction("Open image", self)
+        openImage = qtw.QAction("New project from image or video", self)
         openImage.triggered.connect(self.openImage)
         actions.append(openImage)
-        
 
-        importLabels = qtw.QAction("Import labels", self)
-        importLabels.triggered.connect(self.importLabels)
+
+        importLabels = qtw.QAction("Open existing project", self)
+        importLabels.triggered.connect(self.openProject)
         actions.append(importLabels)
 
         exportLabels = qtw.QAction("Export labels", self)

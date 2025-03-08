@@ -16,7 +16,7 @@ class WindowMenuBarPresenter(AbstractPresenter):
         super().refresh()
 
     def openProject(self, projectPath):
-        self.__generalModel.openProject()
+        self.__generalModel.openProject(projectPath)
 
     def openImage(self, imagePath, projectName):
         '''

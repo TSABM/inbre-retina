@@ -4,10 +4,9 @@
         "projectID": 3942,
         "source": "demoImage.jpg",
         "frameTotal": 1,
-        "maxWidth": 0,
-        "maxHeight": 0,
-        "largestID": -1,
-        "other": []
+        "width": 0,
+        "height": 0,
+        "largestID": -1
     },
     "Cells": {},
     "CellTypes": {},
@@ -21,10 +20,8 @@
             "frameNumber": 0,
             "annotations": {
                 "3943": {
-                    "projectID": 3942,
                     "annotationID": 3943,
                     "frameNumber": 0,
-                    "annotationType": "Box",
                     "mask": [
                         [
                             301.0,
@@ -32,6 +29,14 @@
                         ],
                         [
                             347.0,
+                            87.0
+                        ],
+                        [
+                            347.0,
+                            152.0
+                        ],
+                        [
+                            301.0,
                             152.0
                         ]
                     ],
@@ -45,10 +50,8 @@
                     "approved": false
                 },
                 "3944": {
-                    "projectID": 3942,
                     "annotationID": 3944,
                     "frameNumber": 0,
-                    "annotationType": "Box",
                     "mask": [
                         [
                             289.0,
@@ -56,6 +59,14 @@
                         ],
                         [
                             302.0,
+                            51.0
+                        ],
+                        [
+                            302.0,
+                            66.0
+                        ],
+                        [
+                            289.0,
                             66.0
                         ]
                     ],
@@ -69,10 +80,8 @@
                     "approved": false
                 },
                 "3945": {
-                    "projectID": 3942,
                     "annotationID": 3945,
                     "frameNumber": 0,
-                    "annotationType": "Box",
                     "mask": [
                         [
                             223.0,
@@ -80,103 +89,15 @@
                         ],
                         [
                             225.0,
+                            30.0
+                        ],
+                        [
+                            225.0,
                             37.0
-                        ]
-                    ],
-                    "cellId": 1,
-                    "cellType": "testCellType",
-                    "eventID": -1,
-                    "previousAnnotationID": -1,
-                    "nextAnnotationID": -1,
-                    "created_by": null,
-                    "creationTimestamp": null,
-                    "approved": false
-                },
-                "3946": {
-                    "projectID": 3942,
-                    "annotationID": 3946,
-                    "frameNumber": 0,
-                    "annotationType": "Box",
-                    "mask": [
-                        [
-                            191.0,
-                            28.0
                         ],
                         [
-                            194.0,
-                            31.0
-                        ]
-                    ],
-                    "cellId": 1,
-                    "cellType": "testCellType",
-                    "eventID": -1,
-                    "previousAnnotationID": -1,
-                    "nextAnnotationID": -1,
-                    "created_by": null,
-                    "creationTimestamp": null,
-                    "approved": false
-                },
-                "3947": {
-                    "projectID": 3942,
-                    "annotationID": 3947,
-                    "frameNumber": 0,
-                    "annotationType": "Box",
-                    "mask": [
-                        [
-                            193.0,
-                            21.0
-                        ],
-                        [
-                            195.0,
-                            21.0
-                        ]
-                    ],
-                    "cellId": 1,
-                    "cellType": "testCellType",
-                    "eventID": -1,
-                    "previousAnnotationID": -1,
-                    "nextAnnotationID": -1,
-                    "created_by": null,
-                    "creationTimestamp": null,
-                    "approved": false
-                },
-                "3948": {
-                    "projectID": 3942,
-                    "annotationID": 3948,
-                    "frameNumber": 0,
-                    "annotationType": "Box",
-                    "mask": [
-                        [
-                            191.0,
-                            16.0
-                        ],
-                        [
-                            197.0,
-                            18.0
-                        ]
-                    ],
-                    "cellId": 1,
-                    "cellType": "testCellType",
-                    "eventID": -1,
-                    "previousAnnotationID": -1,
-                    "nextAnnotationID": -1,
-                    "created_by": null,
-                    "creationTimestamp": null,
-                    "approved": false
-                },
-                "3949": {
-                    "projectID": 3942,
-                    "annotationID": 3949,
-                    "frameNumber": 0,
-                    "annotationType": "Box",
-                    "mask": [
-                        [
-                            192.0,
-                            6.0
-                        ],
-                        [
-                            325.0,
-                            12.0
+                            223.0,
+                            37.0
                         ]
                     ],
                     "cellId": 1,

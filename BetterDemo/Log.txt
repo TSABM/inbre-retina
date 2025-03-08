@@ -1,9 +1,17 @@
 # internship
 Code and documents for the internship
 
+Day 139 3/7
+11:25 am - 12:06 
+12:37 pm - 2:00 pm 
+2:12 pm - 3:02 pm 
+12:00 am - 2:30 am
+open project works, but rendering contours does not. Exporting an existing project now creates phantom frame data in the file that needs fixing.
+
+
 Day 138 3/6
 6:13 pm - 7:03 pm 
-7:33 pm - 
+7:33 pm - 8:32 pm 
 
 Day 137 3/5
 6:38 pm - 6:50 pm 
