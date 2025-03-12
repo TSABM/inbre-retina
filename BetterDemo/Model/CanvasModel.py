@@ -121,6 +121,7 @@ class CanvasModel():
         '''
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
+        print("attempting to draw labels")
         #labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         #frame : Frame | None = labelData.getFrame(self.frameNumber)
         

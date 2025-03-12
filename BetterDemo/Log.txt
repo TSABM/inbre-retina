@@ -1,6 +1,18 @@
 # internship
 Code and documents for the internship
 
+Day 140 3/12
+2:15 pm - 2:40 pm
+Have a meeting, and need to work on fixing phantom frame data and contour drawing.
+problem with annotation drawing is annotations are empty in the frame the canvas receives. I note the annotations are also empty
+in the phantom frame that gets saved, they might be connected if the frame gets loaded or grabbed incorrectly.
+
+talked about progress in the meeting. Someone else may come onto the project on this end. If so I need better documentation so 
+they know whats going on.
+
+Also we want this done in 6 weeks so theres not tons of time left. Fix the main problems, get the UI updated, get video traversal
+working,and get the documentation looking good.
+
 Day 139 3/7
 11:25 am - 12:06 
 12:37 pm - 2:00 pm 
