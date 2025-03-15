@@ -121,40 +121,28 @@ class CanvasModel():
         '''
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
-        print("attempting to draw labels")
-        #labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        #frame : Frame | None = labelData.getFrame(self.frameNumber)
-        
-        #verify frame exists
-        if self.currentFrame == None:
+        if self.currentFrame is None:
             print("Tried to draw labels, but cannot find requested frame")
-        else:
-            annotations : dict = self.currentFrame.getFrameAnnotations()
-            annotationIds = annotations.keys()
-            #check if there are no annotations
-            if annotationIds.__len__ == 0:
-                print("Frame ", self.currentFrame.getFrameNumber(), " has no assotiated annotations")
-            #if there are handle drawing
-            else:
-                for annotationId in annotationIds:
-                    #if its selected render it blue and with handles
-                    annotation : Annotation = annotations[annotationId]
-                    mask : list = annotation.getMask()
-                    if len(mask) < 3:
-                        print("less than 3 points in mask, aborting draw")
-                        continue
-                    for i in range(len(mask)):
-                        #if its the last one draw line from here back to the start
-                        if i == len(mask):
-                            x1, y1 = mask[i]
-                            x2, y2 = mask[0]
-                            painter.drawLine(x1, y1, x2, y2)
-                        #otherwise draw from current line to the next one
-                        else:
-                            x1, y1 = mask[i]
-                            x2, y2 = mask[i + 1]
-                            painter.drawLine(x1, y1, x2, y2)
-        painter.end()
+            return
+
+        annotations = self.currentFrame.getFrameAnnotations()
+        
+        if not annotations:
+            print(f"Frame {self.currentFrame.getFrameNumber()} has no associated annotations")
+            return
+
+        for annotation in annotations.values():
+            mask = annotation.getMask()
+            if len(mask) < 3:
+                print("Less than 3 points in mask, aborting draw")
+                continue
+
+            # Convert mask to a QPolygonF for efficient rendering
+            polygon = QPolygonF([QPointF(x, y) for x, y in mask])
+            
+            # Draw polygon
+            painter.drawPolygon(polygon)
+
         self.pixmap_item.setPixmap(self.pixmap)
     
     def updatePixmap(self):
