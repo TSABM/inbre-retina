@@ -2,7 +2,7 @@
 Code and documents for the internship
 
 Day 141 3/14
-6:30pm - 
+6:30pm - 9:35 pm 
 found the phantom data problem. One of the 0 keys for the frames is a char or string the other is an int.
 The problem is somewhere in label data when it goes to convert. As far as I can tell the frame and annotation code works
 just fine...
