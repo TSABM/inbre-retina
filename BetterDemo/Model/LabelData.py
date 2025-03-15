@@ -28,9 +28,9 @@ class LabelData(dict):
             self.update({"EventTypes" : dict()})
             self.update({"Frames" : dict()})
 
-        if maxFrames == None:
-            maxFrames = len(self["Frames"])
-        self.initFrames(maxFrames) #FIXME
+            #if maxFrames == None: #deprocated, pretty sure this needs removing
+            #    maxFrames = len(self["Frames"])
+            self.initFrames(maxFrames) #FIXME
     
     def readInData(self, rawData : dict):
         '''takes data in generic formats and turns into LabelData'''
@@ -68,7 +68,7 @@ class LabelData(dict):
         rawFrames = rawData["Frames"]
         frames = {}
         for frameID in rawFrames.keys():
-            frames[frameID] = Frame.from_dict(rawFrames[frameID])
+            frames[int(frameID)] = Frame.from_dict(rawFrames[frameID])
 
         # Update the dictionary with the parsed data
         self.update({
