@@ -1,6 +1,16 @@
 # internship
 Code and documents for the internship
 
+Day 141 3/14
+6:30pm - 
+found the phantom data problem. One of the 0 keys for the frames is a char or string the other is an int.
+The problem is somewhere in label data when it goes to convert. As far as I can tell the frame and annotation code works
+just fine...
+
+found the problem. My converter works fine (mostly, the key is a string incorrectly) BUT the bigger issue is
+at the end of creating a label data from scratch I put in initFrames which creates blank frames for each frame in the
+project. Its creating dummy frames because of it.
+
 Day 140 3/12
 2:15 pm - 2:40 pm
 Have a meeting, and need to work on fixing phantom frame data and contour drawing.
