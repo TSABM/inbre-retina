@@ -14,6 +14,8 @@ project. Its creating dummy frames because of it.
 I think I fixed the problem, but my untested polygon draw code causes a crash now. I think the crash is a problem
 between float and non float lines and points
 
+polygon drawing is fixed at least for the first test.
+
 Day 140 3/12
 2:15 pm - 2:40 pm
 Have a meeting, and need to work on fixing phantom frame data and contour drawing.
