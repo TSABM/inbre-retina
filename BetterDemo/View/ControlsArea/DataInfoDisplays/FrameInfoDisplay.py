@@ -4,7 +4,7 @@ from Model.LabelData import Frame
 
 
 class FrameInfoDisplay(InfoDisplay):
-    def __init__(self, frame : Frame = None):
+    def __init__(self, frame : Frame | None = None):
         super().__init__(self, self.__addDisplayContent)
         self.frame = frame
     

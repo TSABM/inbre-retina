@@ -95,7 +95,7 @@ class LabelData(dict):
         if isinstance(imageSource, str):
             #for the range of maxframes define a new frame obejct for each framnumber
             for i in range(maxFrames):
-                frames[i] = Frame(i, i, projectID, imageSource) #for now te frameID will also just be the frame number. This may need to be changed later
+                frames[i] = Frame(i, i, imageSource) #for now te frameID will also just be the frame number. This may need to be changed later
             
         elif isinstance(imageSource, list):
             #verify you get a string 
@@ -111,7 +111,7 @@ class LabelData(dict):
                 else:
                     print("WARNING somehow a frame source of type: ", type(imageSource[i]), " has been loaded into metadata.")
                     raise(TypeError("Cannot set frames source to a type other than string"))
-                frames[i] = Frame(i, i, projectID, frameSource) #for now te frameID will also just be the frame number. This may need to be changed later    
+                frames[i] = Frame(i, i, frameSource) #for now te frameID will also just be the frame number. This may need to be changed later    
         else:
             #something went wrong
             print("tried to assign image source to the frame but the image source was of an unknown type")

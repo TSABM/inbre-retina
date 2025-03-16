@@ -52,6 +52,7 @@ class SimpleMovie(Displayable):
                 return True
 
     def startMovie(self):
+        
         pass
 
     def stopMovie(self):

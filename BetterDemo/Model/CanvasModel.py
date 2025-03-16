@@ -40,46 +40,6 @@ class CanvasModel():
         self.scene.addItem(self.pixmap_item)
     
     ### necissary methods, sort of miscallanious though
-    def getScene(self):
-        return self.scene
-    
-    def isFileOpen(self):
-        '''
-        returns True if label data is not None, False otherwise.
-        '''
-        if MasterMemory.getLabelData() == None:
-            print("No file open")
-            return False
-        else:
-            return True
-    
-    #def __getFrameNumber__(self):
-    #    '''returns the current frames number'''
-    #    return self.frameNumber
-
-    def primeCanvas(self, source : Displayable):
-        if self.__setSource__(source):
-            labelData : LabelData | None = MasterMemory.getLabelData()
-            if type(labelData) is LabelData: 
-                self.currentFrame = labelData.getFrame(0) 
-
-                print("image file set, attempting to refresh")
-                self.updatePixmap()
-            else:    
-                print("cant prime canvas no valid labelData loaded")
-                return
-        else:
-            print("cant prime canvas, source is inavlid type")
-
-    def __setSource__(self, source :Displayable):
-        if isinstance(source, Displayable):
-            self.sourceToDisplay = source
-            return True
-        else:
-            print("cant load source, not an instance of displayable")
-            return False
-
-    ### handle pixmap 
     def loadNewProject(self, source : Displayable, projectName : str, projectID : int | None): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
         '''
         If the source is type Displayable set it as the file to display and update the pixmap else print a message and return
@@ -103,6 +63,43 @@ class CanvasModel():
             print("Canvas received a non displayable filetype")
             return
 
+    def getScene(self):
+        return self.scene
+    
+    def isFileOpen(self):
+        '''
+        returns True if label data is not None, False otherwise.
+        '''
+        if MasterMemory.getLabelData() == None:
+            print("No file open")
+            return False
+        else:
+            return True
+    
+    def primeCanvas(self, source : Displayable):
+        if self.__setSource__(source):
+            labelData : LabelData | None = MasterMemory.getLabelData()
+            if type(labelData) is LabelData: 
+                self.currentFrame = labelData.getFrame(0) 
+
+                print("image file set, attempting to refresh")
+                self.updatePixmap()
+            else:    
+                print("cant prime canvas no valid labelData loaded")
+                return
+        else:
+            print("cant prime canvas, source is inavlid type")
+
+    def __setSource__(self, source :Displayable):
+        if isinstance(source, Displayable):
+            self.sourceToDisplay = source
+            return True
+        else:
+            print("cant load source, not an instance of displayable")
+            return False
+
+    
+    ### handle pixmap 
     def __setPixmap__(self):
         '''
         If there is a file to display get the pixmap at the current frame number
@@ -166,7 +163,23 @@ class CanvasModel():
             print("pixmap == None, aborting update")
             return
     
-    ### Handle everything related to the bounding boxes ##
+    
+    ### navigate videos:
+    def playMovie(self):
+        
+        pass
+
+    def pauseMovie(self):
+        pass
+
+    def stepForward(self):
+        pass
+
+    def stepBackward(self):
+        pass
+
+
+    ### Handle everything related to the cell annotations ##
     def addAnnotation(self, maskPoints, cellType, cellId = None):  
         '''
         takes a Qrect and creates a new bounding box instance, then sends that box to label data to be recorded, then updates the canvas
@@ -192,22 +205,7 @@ class CanvasModel():
 
         self.updatePixmap()
         return annotationId
-    
-    
-    def deleteBox(self, boxID): #FIXME I pass in boxID here but never use it, either selected item is deleted or I pass it in
-        #check if a box is at the point (if so select it)
-        
-        #check if a box is currently selected
-        if self.isFileOpen() == False:
-            return  
-        elif self.selectedItem == None:
-            print("Unable to delete box: Canvas has no box selected")
-            return
-        else:
-            #print("Attempting to delete selected box")
-            self.__sendBoxDeleteRequest__(self.selectedItem.get_annotationID(), self.selectedItem.get_frameNumber())
-            return
-    
+       
     def __sendAnnotationUpdate__(self, annotationID, frameNumber, cellId, cellType, maskPoints):
         labelData : LabelData = MasterMemory.getLabelData() # type: ignore
         labelData.updateFrameWithAnnotation(annotationID, frameNumber, cellId, cellType, maskPoints)

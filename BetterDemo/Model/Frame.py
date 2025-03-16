@@ -1,11 +1,11 @@
 from Model.Annotation import Annotation
 class Frame(dict):
-    def __init__(self, frameNumber : int, frameID : int, projectID : int,imageSource : str, annotations : dict | None = None):
+    def __init__(self, frameNumber : int, frameID : int,imageSource : str, annotations : dict | None = None):
         if annotations is None: #note this is important, if you just have the class line = {} when not specified it creates a global dict shared by all frames
             annotations = {}  # Create a new dictionary for each instance
         super().__init__({
             #using dictionaries instead of lists so adding and searching is more efficient.
-            "projectID" : projectID,
+            #"projectID" : projectID,
             "imageSource" : imageSource,
             "frameID" : frameID,
             "frameNumber" : frameNumber,
@@ -28,15 +28,15 @@ class Frame(dict):
         if boundingBoxes == None:
             return None
         return boundingBoxes.keys()
-    def getProjectId(self):
-        return self.get("projectID")
+    #def getProjectId(self):
+    #    return self.get("projectID")
     def getImageSource(self)->str:
         return self["imageSource"]
     
     def setFrameID(self, newID):
         self["frameID"] = newID
-    def setProjectId (self, newID):
-        self["projectID"] = newID
+    #def setProjectId (self, newID):
+    #    self["projectID"] = newID
     
     @classmethod
     def from_dict(cls, data: dict) -> "Frame":
@@ -48,7 +48,7 @@ class Frame(dict):
         return cls(
             frameNumber=data["frameNumber"],
             frameID=data["frameID"],
-            projectID=data["projectID"],
+            #projectID=data["projectID"],
             imageSource=data["imageSource"],
             annotations=annotations
         )
