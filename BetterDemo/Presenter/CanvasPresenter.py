@@ -34,10 +34,6 @@ class CanvasPresenter(AbstractPresenter):
     def addAnnotation(self, maskPoints : list, cellType : str, cellId : int):
         addedBoxID = self.model.addAnnotation(maskPoints, cellType, cellId)
         return addedBoxID
-
-    def deleteBox(self, point):
-        #self.model.selectAndDelete(point)
-        print("FIXME deleting needs fixed")
         
 
     def selectBox(self, point):
@@ -49,13 +45,10 @@ class CanvasPresenter(AbstractPresenter):
         #self.publishToSubs()
         self.model.deselectBox()
 
-    '''
-    def moveBox(self, point):
-        self.model.moveBox(point)
-    '''
-        
-    def getLargestBoxID(self):
-        labelData : LabelData = MasterMemory.getLabelData() # type: ignore
-        return labelData.getLargestBoxIdVal()
+    def playMovie(self):
+        self.model.playMovie()
+
+    def pauseMovie(self):
+        self.model.pauseMovie()
         
 

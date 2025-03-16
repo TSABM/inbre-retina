@@ -30,6 +30,7 @@ class CanvasModel():
 
         #self.frameNumber = 0 #FIXME
         self.currentFrame : Frame | None = None
+        self.bindFrameChangedSignal()
 
         self.selectedItem : Annotation | None = None
         self.resizing = False
@@ -93,6 +94,7 @@ class CanvasModel():
     def __setSource__(self, source :Displayable):
         if isinstance(source, Displayable):
             self.sourceToDisplay = source
+            self.bindFrameChangedSignal()
             return True
         else:
             print("cant load source, not an instance of displayable")
@@ -182,10 +184,10 @@ class CanvasModel():
             if isinstance(self.sourceToDisplay, SimpleMovie):
                 self.sourceToDisplay.stopMovie()
 
-    def _on_frame_changed_(self):
+    def _on_frame_changed_(self, frame_number : int):
         labelData : LabelData | None = MasterMemory.getLabelData()
         if isinstance(labelData, LabelData):
-            self.currentFrame = labelData.getFrame()
+            self.currentFrame = labelData.getFrame(frame_number)
         pass
 
     def stepForward(self):

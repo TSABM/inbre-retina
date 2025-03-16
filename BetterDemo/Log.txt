@@ -3,7 +3,7 @@ Code and documents for the internship
 
 Day 142 3/15
 6:33 pm - 8:49 pm 
-10:45 pm - 11:25 pm 
+10:45 pm - 11:30 pm 
 Removed some junk data and tested it, it works fine.
 
 Trying to figure out multi media video playback and navigation with proper annotation rendering. Its a bit more complex than I'd like... I think
