@@ -98,6 +98,13 @@ class CanvasModel():
             print("cant load source, not an instance of displayable")
             return False
 
+    def bindFrameChangedSignal(self):
+        if isinstance(self.sourceToDisplay, SimpleMovie):
+            movie = self.sourceToDisplay.movie
+            if movie is not None:
+                # Connect the frameChanged signal
+                movie.frameChanged.connect(self._on_frame_changed_)
+
     
     ### handle pixmap 
     def __setPixmap__(self):
@@ -166,10 +173,19 @@ class CanvasModel():
     
     ### navigate videos:
     def playMovie(self):
-        
-        pass
+        if self.sourceToDisplay is not None:
+            if isinstance(self.sourceToDisplay, SimpleMovie):
+                self.sourceToDisplay.startMovie()
 
     def pauseMovie(self):
+        if self.sourceToDisplay is not None:
+            if isinstance(self.sourceToDisplay, SimpleMovie):
+                self.sourceToDisplay.stopMovie()
+
+    def _on_frame_changed_(self):
+        labelData : LabelData | None = MasterMemory.getLabelData()
+        if isinstance(labelData, LabelData):
+            self.currentFrame = labelData.getFrame()
         pass
 
     def stepForward(self):

@@ -3,11 +3,15 @@ Code and documents for the internship
 
 Day 142 3/15
 6:33 pm - 8:49 pm 
+10:45 pm - 11:25 pm 
 Removed some junk data and tested it, it works fine.
 
 Trying to figure out multi media video playback and navigation with proper annotation rendering. Its a bit more complex than I'd like... I think
 I'm getting closer to figuring it out. Once this is done fixing up the UI and then possibly writing new import code for the raw files we will be
 given seems like the next step.
+
+As I work on the video portion I realize my canvas code is ineffeicient. It has to make a call to master memory and label data on ever frame 
+to get frame annotation data to show the annotations. figure out a better way. Maybe preload all frame data on a successful image load.
 
 Day 141 3/14
 6:30pm - 9:35 pm 
