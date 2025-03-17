@@ -1,6 +1,13 @@
 # internship
 Code and documents for the internship
 
+Day 143 3/17
+4:30 - 5:00 pm
+had a meeting
+Need to get video traversal working
+Need to correct the dependency documentation (cover only what needs to be installed and what version I'm using)
+Need to update the documentation in general
+
 Day 142 3/15
 6:33 pm - 8:49 pm 
 10:45 pm - 11:30 pm 
