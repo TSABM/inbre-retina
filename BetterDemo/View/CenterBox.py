@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 
 #from Presenter.CenterBoxPresenter import CenterBoxPresenter
 from View.ControlsArea.ControlAreaView import ControlAreaView
-from View.ImageArea.MediaAreaView import MediaAreaView
+from BetterDemo.View.CanvasView import CanvasView
 
 class CenterBox(qtw.QSplitter):
     '''
@@ -12,15 +12,16 @@ class CenterBox(qtw.QSplitter):
     def __init__(self):
         super().__init__()
         #self.presenter = CenterBoxPresenter(self)
-        self.setOrientation(Qt.Horizontal)
+        self.setOrientation(Qt.Horizontal) # type: ignore
         self.setChildrenCollapsible(False)
 
         controlsArea = ControlAreaView()
-        mediaArea = MediaAreaView()
+        canvas = CanvasView()
+        #mediaArea = MediaAreaView()
 
         #adding widgets
-        self.addWidget(ControlAreaView())
-        self.addWidget(MediaAreaView())
+        self.addWidget(controlsArea)
+        self.addWidget(canvas)
 
         #setting stretch preferences
         self.setStretchFactor(0,0) #Dont auto stretch first widget

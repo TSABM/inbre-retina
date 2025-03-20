@@ -15,12 +15,12 @@ class CanvasView(qtw.QGraphicsView):
         self.presenter = CanvasPresenter(self)
 
         #init variables for drawing labels
-        self.drawing = False
-        self.resizing = False
-        self.moving = False
+        #self.drawing = False
+        #self.resizing = False
+        #self.moving = False
         self.initialPoint = QPointF()
         self.resizeCornerIndex = None
-        self.rubberBand = qtw.QRubberBand(qtw.QRubberBand.Rectangle, self)
+        #self.rubberBand = qtw.QRubberBand(qtw.QRubberBand.Rectangle, self)
 
         #turn mouse tracking on
         self.setMouseTracking(True)
@@ -42,27 +42,8 @@ class CanvasView(qtw.QGraphicsView):
             
             if mode == "Select label":
                 selectedBox = self.presenter.selectBox(self.initialPoint)
-                if selectedBox != None:
-                    cornerIndex = self.presenter.selectResizeCorner(self.initialPoint)
-                    if cornerIndex != None:
-                        self.resizing = True
-                        self.resizeCornerIndex = cornerIndex
-                    else:
-                        self.moving = True
-                    
-            elif mode == "Draw label":
-                #ensure there are no boxes in select mode
-                self.presenter.deselectBox()
-                #begin rubber band box
-                self.rubberBand.setGeometry(QRect(self.mapFromScene(self.initialPoint), QSize())) #note the new QSizeF object has width and height of 0
-                self.rubberBand.show()
-            
-            elif mode == "Erase":
-                print("Erase has not yet been implemented")
-            
-            else:
-                print("invalid interaction mode ", mode)
-     
+
+    ''' 
     def mouseMoveEvent(self, event):
         mode = self.presenter.getInteractionMode()
         new_pos = self.mapToScene(event.pos()).toPoint()
@@ -122,3 +103,4 @@ class CanvasView(qtw.QGraphicsView):
     def __QRectToListOfCorners__(self, rect : QRectF):
         corners = [[rect.topLeft().x(), rect.topLeft().y()], [rect.bottomRight().x(), rect.bottomRight().y()]]
         return corners
+        '''
