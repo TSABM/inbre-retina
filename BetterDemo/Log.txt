@@ -2,7 +2,9 @@
 Code and documents for the internship
 
 Day 144 3/20
-3: 41 pm - 
+3: 41 pm - 5:00 pm 
+Removed superflous files. 
+Need to add the nav controls and label data display.
 
 
 Day 143 3/17
