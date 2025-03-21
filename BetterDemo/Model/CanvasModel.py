@@ -81,7 +81,7 @@ class CanvasModel():
         if self.__setSource__(source):
             labelData : LabelData | None = MasterMemory.getLabelData()
             if type(labelData) is LabelData: 
-                self.currentFrame = labelData.getFrame(0) 
+                self.currentFrame = labelData.getFrame(0)
 
                 print("image file set, attempting to refresh")
                 self.updatePixmap()
@@ -105,7 +105,7 @@ class CanvasModel():
             movie = self.sourceToDisplay.movie
             if movie is not None:
                 # Connect the frameChanged signal
-                movie.frameChanged.connect(self._on_frame_changed_)
+                movie.frameChanged.connect(self.setCurrFrameLabelData)
 
     
     ### handle pixmap 
@@ -175,26 +175,31 @@ class CanvasModel():
     
     ### navigate videos:
     def playMovie(self):
-        if self.sourceToDisplay is not None:
-            if isinstance(self.sourceToDisplay, SimpleMovie):
+        if isinstance(self.sourceToDisplay, SimpleMovie):
                 self.sourceToDisplay.startMovie()
 
     def pauseMovie(self):
-        if self.sourceToDisplay is not None:
-            if isinstance(self.sourceToDisplay, SimpleMovie):
+        if isinstance(self.sourceToDisplay, SimpleMovie):
                 self.sourceToDisplay.stopMovie()
 
-    def _on_frame_changed_(self, frame_number : int):
+    def stepForward(self):
+        if isinstance(self.sourceToDisplay, SimpleMovie):
+                self.sourceToDisplay.stepFrameForward()
+
+    def stepBackward(self):
+        if isinstance(self.sourceToDisplay, SimpleMovie):
+                self.sourceToDisplay.stepFrameBackward()
+
+    def jumpToFrame(self, frameNumber):
+        pass
+
+    def setCurrFrameLabelData(self, frame_number : int): #fixme make this trigger on each video frame change
         labelData : LabelData | None = MasterMemory.getLabelData()
         if isinstance(labelData, LabelData):
             self.currentFrame = labelData.getFrame(frame_number)
         pass
 
-    def stepForward(self):
-        pass
-
-    def stepBackward(self):
-        pass
+    
 
 
     ### Handle everything related to the cell annotations ##

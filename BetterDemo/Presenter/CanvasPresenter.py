@@ -13,7 +13,15 @@ class CanvasPresenter(AbstractPresenter):
     #def setFile(self, file : str, projectName : str, projectID : int):
     #    self.model.setSource(file, projectName, projectID)
     
-    def refresh(self):
+    '''
+    def playMovie(self):
+        self.model.playMovie()
+
+    def pauseMovie(self):
+        self.model.pauseMovie()
+    '''
+    
+    def refresh(self): #deprocated? 
         super().refresh()
         self.model.updatePixmap()
 
@@ -22,20 +30,12 @@ class CanvasPresenter(AbstractPresenter):
 
     def getSelectedLabel(self):
         return self.model.selectedItem
-    
-    #handle interactionMode
-    def getInteractionMode(self):
-        return MasterMemory.getInteractionMode()
-    
-    def setInteractionMode(self, mode : str):
-        MasterMemory.setInteractionMode(mode)
 
-    #Handle boxes
-    def addAnnotation(self, maskPoints : list, cellType : str, cellId : int):
+    #Handle annotations
+    def addAnnotation(self, maskPoints : list, cellType : str, cellId : int): #deprocated? We wont be making annotations anymore
         addedBoxID = self.model.addAnnotation(maskPoints, cellType, cellId)
         return addedBoxID
         
-
     def selectBox(self, point):
         selectedBox = self.model.selectAnnotation(point)
         #self.publishToSubs()
@@ -44,11 +44,5 @@ class CanvasPresenter(AbstractPresenter):
     def deselectBox(self):
         #self.publishToSubs()
         self.model.deselectBox()
-
-    def playMovie(self):
-        self.model.playMovie()
-
-    def pauseMovie(self):
-        self.model.pauseMovie()
         
 

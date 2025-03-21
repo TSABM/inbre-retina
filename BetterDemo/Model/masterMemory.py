@@ -15,7 +15,6 @@ class MasterMemory():
     #currentFrameNumber = None #current frame in a video
     canvas = None
     labelData = None
-    interactionMode = "Select label"
     currentFrameNumber : int = 0
     sourcePath : str = ""
 
@@ -27,10 +26,6 @@ class MasterMemory():
     @classmethod
     def getCanvas(cls):
         return cls.canvas
-    
-    @classmethod
-    def getInteractionMode(cls):
-        return cls.interactionMode
 
     @classmethod
     def getCurrentFrameNumber(cls):
@@ -39,13 +34,6 @@ class MasterMemory():
     @classmethod
     def getSourcePath(cls):
         return cls.sourcePath
-
-    @classmethod
-    def setInteractionMode(cls, mode : str):
-        '''
-        Set global interaction mode to a string. Preset strings are select, and square (so far)
-        '''
-        cls.interactionMode = mode
     
     @classmethod
     def setCanvas(cls, canvas):

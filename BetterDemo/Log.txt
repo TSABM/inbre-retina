@@ -1,6 +1,11 @@
 # internship
 Code and documents for the internship
 
+Day 145 3/21
+11:55 am - 1:09 pm
+working on controls. Removed some out dated code, and fixed some things. Working on those video traversal bits of code.
+
+
 Day 144 3/20
 3: 41 pm - 5:00 pm 
 Removed superflous files. 

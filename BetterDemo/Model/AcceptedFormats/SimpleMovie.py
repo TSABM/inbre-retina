@@ -52,11 +52,16 @@ class SimpleMovie(Displayable):
                 return True
 
     def startMovie(self):
-        
-        pass
+        if self.movie == None:
+            print("cannot start movie, movie is not set")
+            return
+        self.movie.start()
 
     def stopMovie(self):
-        pass
+        if self.movie == None:
+            print("cannot stop movie, movie is not set")
+            return
+        self.movie.stop()
     
     def stepFrameForward(self):
         if self.movie == None:
