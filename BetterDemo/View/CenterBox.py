@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 
 #from Presenter.CenterBoxPresenter import CenterBoxPresenter
 from View.ControlsArea.ControlAreaView import ControlAreaView
-from BetterDemo.View.CanvasView import CanvasView
+from View.CanvasView import CanvasView
 
 class CenterBox(qtw.QSplitter):
     '''

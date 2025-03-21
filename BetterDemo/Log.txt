@@ -2,8 +2,15 @@
 Code and documents for the internship
 
 Day 145 3/21
-11:55 am - 1:09 pm
+11:55 am - 
 working on controls. Removed some out dated code, and fixed some things. Working on those video traversal bits of code.
+main controls created and hooked up. Now testing, expecting issues with frame changes. Also expecting issues given I dont check for a video vs
+an image right now.
+
+buttons exist and look like they work for now. Cant be sure untill stress tested against a video.
+
+Initial test vs video: No crashes but also no frame traversal. An error log indicates it does not think its a traversable video
+Found the problem. I ask if the whole canvas is a traversable video not if the source file is.
 
 
 Day 144 3/20

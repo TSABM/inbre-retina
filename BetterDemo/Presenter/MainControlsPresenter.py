@@ -1,26 +1,54 @@
 from Presenter.AbstractPresenter import AbstractPresenter
-#from View.MainControlsView import MainControlsView
 from Model.masterMemory import MasterMemory
 from Model.CanvasModel import CanvasModel
+from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 
 class MainControlsPresenter(AbstractPresenter):
     def __init__(self, view):
         super().__init__(view)
-        self.canvas : CanvasModel | None = MasterMemory.getCanvas()
+        self.canvas: CanvasModel | None = MasterMemory.getCanvas()
 
     def __updateCanvas(self):
-        '''
-        the canvas very likely might not be initialized when the controls are. Call this to update it
-        '''
-        tempCanvas =  MasterMemory.getCanvas()
-        if isinstance(tempCanvas, CanvasModel):
-            print("updated canvas controls")
-            self.canvas = tempCanvas
-            return True
-        else:
-            print("canvas is still None, could not update controls")
+        """Update canvas reference if not initialized and return whether it's valid."""
+        self.canvas = MasterMemory.getCanvas()
+
+    def __isValidCanvas(self) -> bool:
+        """Ensure the canvas and its source are valid."""
+        if self.canvas == None:
+            self.__updateCanvas()
+            if isinstance(self.canvas, CanvasModel):
+                return True
             return False
+        else:
+            if isinstance(self.canvas, CanvasModel):
+                return True
+        return False
+
+    def __isValidMovie(self):
+        if self.__isValidCanvas():
+            if isinstance(self.canvas.sourceToDisplay, SimpleMovie): # type: ignore
+                return True
+        return False
+
+    def playMovie(self):
+        if self.__isValidMovie():
+            self.canvas.playMovie() # type: ignore
+
+    def pauseMovie(self):
+        if self.__isValidMovie():
+            self.canvas.pauseMovie() # type: ignore
+
+    def stepForward(self):
+        if self.__isValidMovie():
+            self.canvas.stepForward() # type: ignore
+
+    def stepBackward(self):
+        if self.__isValidMovie():
+            self.canvas.stepBackward() # type: ignore
+
+    def jumpToFrameNum(self, frameNum: int):
+        if self.__isValidMovie():
+            self.canvas.jumpToFrame(frameNum) # type: ignore
 
     def refresh(self):
         super().refresh()
-    
