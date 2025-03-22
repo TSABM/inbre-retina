@@ -176,27 +176,31 @@ class CanvasModel():
     ### navigate videos:
     def playMovie(self):
         if isinstance(self.sourceToDisplay, SimpleMovie):
-                self.sourceToDisplay.startMovie()
+            self.sourceToDisplay.startMovie()
 
     def pauseMovie(self):
         if isinstance(self.sourceToDisplay, SimpleMovie):
-                self.sourceToDisplay.stopMovie()
+            self.sourceToDisplay.stopMovie()
 
     def stepForward(self):
         if isinstance(self.sourceToDisplay, SimpleMovie):
-                self.sourceToDisplay.stepFrameForward()
+            self.sourceToDisplay.stepFrameForward()
+            if self.currentFrame != None:
+                print(self.currentFrame.getFrameID())
 
     def stepBackward(self):
         if isinstance(self.sourceToDisplay, SimpleMovie):
-                self.sourceToDisplay.stepFrameBackward()
+            self.sourceToDisplay.stepFrameBackward()
 
     def jumpToFrame(self, frameNumber):
-        pass
+        if isinstance(self.sourceToDisplay, SimpleMovie):
+            self.sourceToDisplay.setFrame(frameNumber)
 
     def setCurrFrameLabelData(self, frame_number : int): #fixme make this trigger on each video frame change
         labelData : LabelData | None = MasterMemory.getLabelData()
         if isinstance(labelData, LabelData):
             self.currentFrame = labelData.getFrame(frame_number)
+            self.updatePixmap() #double check this...
         pass
 
     

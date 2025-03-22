@@ -17,7 +17,11 @@ class SimpleMovie(Displayable):
         if self.movie == None:
             print("cannot set frame no movie is loaded")
             return
-        self.movie.jumpToFrame(frame)
+        if frame < 0 or frame >= self.getTotalFrames():
+            print("tried to set video frame to invalid number")
+            return
+        if not self.movie.jumpToFrame(frame):
+            print("unknown error to jump to frame: ", frame)
         
     def getPixmap(self) -> QPixmap | None:
         '''returns a pixmap or none'''
@@ -70,4 +74,10 @@ class SimpleMovie(Displayable):
         self.movie.jumpToNextFrame()
 
     def stepFrameBackward(self):
-        pass
+        if self.movie == None:
+            print("cannot jump to next frame no movie is loaded")
+            return
+        currentFrameNum = self.movie.currentFrameNumber()
+        if currentFrameNum > 0:
+            if not self.movie.jumpToFrame(currentFrameNum - 1):
+                print("unknown error to step frame backward. CurrentFrameNumIs: ", currentFrameNum)

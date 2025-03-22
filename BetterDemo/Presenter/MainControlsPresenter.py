@@ -18,6 +18,7 @@ class MainControlsPresenter(AbstractPresenter):
             self.__updateCanvas()
             if isinstance(self.canvas, CanvasModel):
                 return True
+            print("Canvas is not initalized, cannot do requested menu function")
             return False
         else:
             if isinstance(self.canvas, CanvasModel):
@@ -28,6 +29,7 @@ class MainControlsPresenter(AbstractPresenter):
         if self.__isValidCanvas():
             if isinstance(self.canvas.sourceToDisplay, SimpleMovie): # type: ignore
                 return True
+            print("Canvas is initalized but source is not a valid movie format. Cannot do requested menu function")
         return False
 
     def playMovie(self):

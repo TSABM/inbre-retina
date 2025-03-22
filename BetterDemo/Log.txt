@@ -3,6 +3,7 @@ Code and documents for the internship
 
 Day 145 3/21
 11:55 am - 2:30 pm 
+5:08 pm - 6:30 pm 
 working on controls. Removed some out dated code, and fixed some things. Working on those video traversal bits of code.
 main controls created and hooked up. Now testing, expecting issues with frame changes. Also expecting issues given I dont check for a video vs
 an image right now.
@@ -12,6 +13,12 @@ buttons exist and look like they work for now. Cant be sure untill stress tested
 Initial test vs video: No crashes but also no frame traversal. An error log indicates it does not think its a traversable video
 Found the problem. I ask if the whole canvas is a traversable video not if the source file is.
 
+it recognizes the format but the visable frame does not update. debugging now.
+Curr frame never gets decremented, and even though I see some increments the vid never changes
+Video now plays and annotaitons try to load for every frame. play, pause, and step forward all work. step back and jump to dont work right.
+They sort of work sometimes but other times do nothing at all or do the wrong thing.
+
+huh the built in method for jumping to a specific frame seems to fail for some numbers for some reason. All frames past 2 dont work.
 
 Day 144 3/20
 3: 41 pm - 5:00 pm 
