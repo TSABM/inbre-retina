@@ -3,11 +3,12 @@ Code and documents for the internship
 
 Day 146 3/22
 5:44 pm - 6:46 pm 
-7:40 pm - 
+7:40 pm - 8:40 pm 
 
 Now has a temporary display that just shows the raw data as text on the left. You have to manually refresh it unfortunately.
 going back in the video and jumptoFrame still dont work.
 clicking on the canvas causes a crash, old drawing code still tries to call. Need to fix this.
+commented out most of the old interaxtion code.
 
 Day 145 3/21
 11:55 am - 2:30 pm 

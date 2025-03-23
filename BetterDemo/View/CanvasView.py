@@ -18,12 +18,12 @@ class CanvasView(qtw.QGraphicsView):
         #self.drawing = False
         #self.resizing = False
         #self.moving = False
-        self.initialPoint = QPointF()
-        self.resizeCornerIndex = None
+        #self.initialPoint = QPointF()
+        #self.resizeCornerIndex = None
         #self.rubberBand = qtw.QRubberBand(qtw.QRubberBand.Rectangle, self)
 
         #turn mouse tracking on
-        self.setMouseTracking(True)
+        #self.setMouseTracking(True)
         #setting render hints (askes engine to try to antialias and use smooth pixmap transforming)
         self.setRenderHint(QPainter.Antialiasing)
         self.setRenderHint(QPainter.SmoothPixmapTransform)
@@ -37,11 +37,14 @@ class CanvasView(qtw.QGraphicsView):
     def mousePressEvent(self, event):
         #check if the event is a left click
         if event.button() == Qt.LeftButton: # type: ignore
+            print("canvas interaction and editing has been disabled pending some changes")
+            '''
             mode = self.presenter.getInteractionMode()
             self.initialPoint = self.mapToScene(event.pos()).toPoint()
             
             if mode == "Select label":
                 selectedBox = self.presenter.selectBox(self.initialPoint)
+            '''
 
     ''' 
     def mouseMoveEvent(self, event):
