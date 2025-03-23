@@ -51,6 +51,3 @@ class MainControlsPresenter(AbstractPresenter):
     def jumpToFrameNum(self, frameNum: int):
         if self.__isValidMovie():
             self.canvas.jumpToFrame(frameNum) # type: ignore
-
-    def refresh(self):
-        super().refresh()

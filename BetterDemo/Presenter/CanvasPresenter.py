@@ -22,7 +22,6 @@ class CanvasPresenter(AbstractPresenter):
     '''
     
     def refresh(self): #deprocated? 
-        super().refresh()
         self.model.updatePixmap()
 
     def getCanvas(self):

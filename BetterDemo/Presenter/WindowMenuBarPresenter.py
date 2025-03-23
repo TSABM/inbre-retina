@@ -11,9 +11,6 @@ class WindowMenuBarPresenter(AbstractPresenter):
         super().__init__(view)
         self.__generalModel = WindowMenuBarModel()
         self.__exportModel = ProjectExporter()
-    
-    def refresh(self):
-        super().refresh()
 
     def openProject(self, projectPath):
         self.__generalModel.openProject(projectPath)
