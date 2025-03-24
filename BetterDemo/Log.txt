@@ -1,6 +1,15 @@
 # internship
 Code and documents for the internship
 
+Day 147 3/24
+4:30 - 4:40 pm
+Had a short meeting, this week:
+-update video compatability with the real project videos
+-fix backtrack and jumpTo frame movement
+-update the documentation so its all current
+-clean up the github repo so it contains no garbage
+-work with iris to use pytorch and tie our tools together
+
 Day 146 3/22
 5:44 pm - 6:46 pm 
 7:40 pm - 8:40 pm 
