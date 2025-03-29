@@ -4,6 +4,7 @@ from Model.masterMemory import MasterMemory
 from Model.CanvasModel import CanvasModel
 from PyQt5.QtGui import QPixmap, QPainter, QPen, QImage
 from Model.AcceptedFormats.SimpleMovie import SimpleMovie
+from Model.AcceptedFormats.SimpleVideo import SimpleVideo
 from Model.AcceptedFormats.StandardImage import StandardImage
 from Model.ProjectOpener import ProjectOpener
 
@@ -34,6 +35,12 @@ class WindowMenuBarModel():
             acceptedFormat = StandardImage(imageName)
             if acceptedFormat.setImage(imagePath) == True:
                 canvas : CanvasModel = MasterMemory.getCanvas() # type: ignore
+                canvas.loadNewProject(acceptedFormat, projectName, None)
+        elif ".mp4" in imagePath:
+            acceptedFormat = SimpleVideo(imageName)
+            if acceptedFormat.setMovie(imagePath) == True:
+                #send to canvas?
+                canvas : CanvasModel= MasterMemory.getCanvas() # type: ignore
                 canvas.loadNewProject(acceptedFormat, projectName, None)
         else:
             MasterMemory.setSourcePath("")

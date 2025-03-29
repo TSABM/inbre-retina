@@ -7,7 +7,7 @@ from PyQt5.QtGui import QPixmap, QPainter, QColor, QPolygonF
 from PyQt5.QtCore import QPointF, Qt
 from Model.LabelData import LabelData
 from Model.AcceptedFormats.Displayable import Displayable
-from Model.AcceptedFormats.SimpleMovie import SimpleMovie
+from Model.AcceptedFormats.CompatableVideo import CompatableVideo
 from Model.masterMemory import MasterMemory
 from Model.Frame import Frame
 from Model.Annotation import Annotation
@@ -101,7 +101,7 @@ class CanvasModel():
             return False
 
     def bindFrameChangedSignal(self):
-        if isinstance(self.sourceToDisplay, SimpleMovie):
+        if isinstance(self.sourceToDisplay, SimpleMovie): #FIXME only qmovie can do this
             movie = self.sourceToDisplay.movie
             if movie is not None:
                 # Connect the frameChanged signal
@@ -118,7 +118,7 @@ class CanvasModel():
             if self.currentFrame == None:
                 print("error cant set pixmap no current frame set")
                 return
-            if isinstance(self.sourceToDisplay, SimpleMovie):
+            if isinstance(self.sourceToDisplay, CompatableVideo):
                 self.sourceToDisplay.setFrame(self.currentFrame.getFrameNumber()) #IS this the func that sets current frame?
             self.pixmap = self.sourceToDisplay.getPixmap()
             self.pixmap_item.setPixmap(self.pixmap)
@@ -175,25 +175,25 @@ class CanvasModel():
     
     ### navigate videos:
     def playMovie(self):
-        if isinstance(self.sourceToDisplay, SimpleMovie):
+        if isinstance(self.sourceToDisplay, CompatableVideo):
             self.sourceToDisplay.startMovie()
 
     def pauseMovie(self):
-        if isinstance(self.sourceToDisplay, SimpleMovie):
+        if isinstance(self.sourceToDisplay, CompatableVideo):
             self.sourceToDisplay.stopMovie()
 
     def stepForward(self):
-        if isinstance(self.sourceToDisplay, SimpleMovie):
+        if isinstance(self.sourceToDisplay, CompatableVideo):
             self.sourceToDisplay.stepFrameForward()
             if self.currentFrame != None:
                 print(self.currentFrame.getFrameID())
 
     def stepBackward(self):
-        if isinstance(self.sourceToDisplay, SimpleMovie):
+        if isinstance(self.sourceToDisplay, CompatableVideo):
             self.sourceToDisplay.stepFrameBackward()
 
     def jumpToFrame(self, frameNumber):
-        if isinstance(self.sourceToDisplay, SimpleMovie):
+        if isinstance(self.sourceToDisplay, CompatableVideo):
             self.sourceToDisplay.setFrame(frameNumber)
 
     def setCurrFrameLabelData(self, frame_number : int): #fixme make this trigger on each video frame change

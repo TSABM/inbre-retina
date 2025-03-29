@@ -4,6 +4,7 @@ from Model.masterMemory import MasterMemory
 from Model.LabelData import LabelData
 from Model.MetaData import MetaData
 from Model.AcceptedFormats.SimpleMovie import SimpleMovie
+from Model.AcceptedFormats.SimpleVideo import SimpleVideo
 from Model.AcceptedFormats.StandardImage import StandardImage
 from Model.CanvasModel import CanvasModel
 #from pydantic import BaseModel
@@ -99,5 +100,9 @@ class ProjectOpener():
         elif ".jpeg" in path or ".png" in path or ".jpg" in path or ".bmp" in path or ".ppm" in path or ".tiff" in path:
             acceptedFormat = StandardImage(imageName)
             if acceptedFormat.setImage(path) == True:
+                return acceptedFormat
+        elif ".mp4":
+            acceptedFormat = SimpleVideo(imageName)
+            if acceptedFormat.setMovie(path) == True:
                 return acceptedFormat
         return None

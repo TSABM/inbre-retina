@@ -1,6 +1,23 @@
 # internship
 Code and documents for the internship
 
+Day 149 3/28
+8:28 pm - 9:33
+10:28 pm - 12:15 am 
+problem, mp4's cant be navigated by frame like I thought using QMediaPlayer like I hoped. This makes my old code fundimentally incompatable,
+and may label data labels incompatable... chatGPt was able to find another converter I could use but its not great... I need to figure this out
+
+I have an untested version, and an untested version of the multi image parser as another option. Both might be completely broken...
+also project opener handles opening existing projects and window menu bar model handles opening a project from a plain source, this
+is unintuitive, simplify this code.
+
+replacing simpleVideo with a slightly older version. The new version couldnt handle live playback and the new one will be easier to bind a signal to
+...in theory.
+
+Day 148 3/25
+11:45pm- 12:15 pm 
+worked with the team on getting our code to work together
+
 Day 147 3/24
 4:30 - 4:40 pm
 Had a short meeting, this week:

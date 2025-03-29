@@ -1,13 +1,7 @@
-nd2 *may be removable soon*
-
 pyqt5 
 
 numpy *may be removable soon*
 
-os
-
-re
-
-shutil
-
 pydantic
+
+cv2
