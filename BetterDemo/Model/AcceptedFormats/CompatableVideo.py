@@ -1,10 +1,12 @@
 from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import pyqtSignal
 from Model.AcceptedFormats.Displayable import Displayable
 
 class CompatableVideo(Displayable):
-    def __init__(self, movie):
-        super().__init__(movie)
-        self.movie = movie
+    def __init__(self, sourceName):
+        super().__init__(sourceName)
+        self.movie = None
+        self.frameChanged = pyqtSignal(QPixmap)
 
     def setFrame(self, frame: int):
         """Sets the video to a specific frame (to be implemented by subclasses)."""

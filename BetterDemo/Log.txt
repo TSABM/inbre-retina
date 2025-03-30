@@ -1,6 +1,12 @@
 # internship
 Code and documents for the internship
 
+Day 150 3/29
+2:29 pm - 4:30 pm 
+7:38 pm - 
+committing to the newer openCv version of the mp4 handler. It has some problems like not being able to send a signal easily
+I'm working on it.
+
 Day 149 3/28
 8:28 pm - 9:33
 10:28 pm - 12:15 am 

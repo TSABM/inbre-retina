@@ -1,102 +1,93 @@
 import cv2
-from PyQt5.QtWidgets import QLabel, QVBoxLayout, QWidget
-from PyQt5.QtGui import QImage, QPixmap
-from PyQt5.QtMultimedia import QMediaPlayer
-from PyQt5.QtMultimediaWidgets import QVideoWidget
-from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QPixmap, QImage
+from PyQt5.QtCore import QTimer, pyqtSignal, QObject
 from Model.AcceptedFormats.Displayable import Displayable
+from CompatableVideo import CompatableVideo
 
-class SimpleMovie(Displayable):
-    '''
-    Class that accepts MP4 and similar video formats with precise frame control using OpenCV
-    '''
+class SimpleVideo(CompatableVideo, QObject):
+    frameChanged = pyqtSignal(int)  # Signal emitted when the frame changes
+
     def __init__(self, fileName: str):
         super().__init__(fileName)
-
-        self.mediaPlayer = QMediaPlayer(None, QMediaPlayer.VideoSurface)
-        self.videoWidget = QVideoWidget()
-        self.label = QLabel()  # For displaying individual frames
-        
-        layout = QVBoxLayout()
-        layout.addWidget(self.videoWidget)
-        layout.addWidget(self.label)  # Optional: Add QLabel to show extracted frames
-
-        self.mediaPlayer.setVideoOutput(self.videoWidget)
-        self.cap = None  # OpenCV VideoCapture object
+        QObject.__init__(self)  # Required for signals
+        self.cap = None
         self.total_frames = 0
-        self.fps = 30  # Default FPS, will update later
+        self.fps = 30
 
-    def setMovie(self, moviePath: str) -> bool:
-        '''Loads the video file for both playback and OpenCV frame extraction.'''
-        if moviePath:
-            self.mediaPlayer.setMedia(QUrl.fromLocalFile(moviePath))
-            self.cap = cv2.VideoCapture(moviePath)
-            
-            if not self.cap.isOpened():
-                print("Failed to open video file.")
-                return False
-            
-            self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
-            self.total_frames = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
-            
-            print(f"Movie set | FPS: {self.fps} | Total Frames: {self.total_frames}")
-            return True
-        print("Invalid movie path")
-        return False
-
-    def startMovie(self):
-        if self.mediaPlayer.mediaStatus() == QMediaPlayer.NoMedia:
-            print("No media loaded")
-            return
-        self.mediaPlayer.play()
-
-    def stopMovie(self):
-        self.mediaPlayer.stop()
+        self.current_frame = 0
+        self.current_pixmap = None  # Store last retrieved frame
+        
+        self.timer = QTimer()
+        self.timer.timeout.connect(self._playNextFrame)  # Calls next frame when playing
 
     def setFrame(self, frame: int):
-        '''Sets the video position to a specific frame using OpenCV.'''
-        if self.cap is None:
-            print("Video not loaded.")
-            return
-        
-        if frame < 0 or frame >= self.total_frames:
+        """Set the frame of the video and store its image."""
+        if self.cap is None or frame < 0 or frame >= self.total_frames:
             print("Invalid frame number.")
             return
-
         self.cap.set(cv2.CAP_PROP_POS_FRAMES, frame)
         success, frame_data = self.cap.read()
-        
         if success:
-            pixmap = self.convertFrameToPixmap(frame_data)
-            self.label.setPixmap(pixmap)  # Display frame in QLabel
+            self.current_frame = frame
+            self.current_pixmap = self.convertFrameToPixmap(frame_data)
+            self.frameChanged.emit(frame)  # Emit signal to notify UI
         else:
             print("Failed to retrieve frame.")
 
     def getPixmap(self) -> QPixmap | None:
-        '''Returns a pixmap of the current video frame using OpenCV.'''
-        if self.cap is None:
-            print("Video not loaded.")
-            return None
-        
-        success, frame_data = self.cap.read()
-        if success:
-            return self.convertFrameToPixmap(frame_data)
-        else:
-            print("Failed to get frame.")
-            return None
+        """Return the last retrieved frame as a QPixmap."""
+        return self.current_pixmap  # Always return stored frame
 
     def getTotalFrames(self) -> int:
-        '''Returns the exact total number of frames in the video.'''
+        """Get total frames of the video."""
         return self.total_frames
 
+    def setMovie(self, moviePath: str) -> bool:
+        """Set the video file."""
+        self.cap = cv2.VideoCapture(moviePath)
+        if not self.cap.isOpened():
+            print("Failed to open video.")
+            return False
+        self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
+        self.total_frames = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
+        self.setFrame(0)  # Load first frame
+        return True
+
+    def startMovie(self):
+        """Start video playback."""
+        if self.cap is None:
+            print("No video loaded.")
+            return
+        self.timer.start(int(1000 / self.fps))  # Start playback based on FPS
+
+    def stopMovie(self):
+        """Stop video playback."""
+        self.timer.stop()  # Stop playing
+
+    def stepFrameForward(self):
+        """Step to the next frame."""
+        if self.current_frame + 1 < self.total_frames:
+            self.setFrame(self.current_frame + 1)
+
+    def stepFrameBackward(self):
+        """Step to the previous frame."""
+        if self.current_frame > 0:
+            self.setFrame(self.current_frame - 1)
+
     def convertFrameToPixmap(self, frame) -> QPixmap:
-        '''Converts an OpenCV frame (NumPy array) to a QPixmap.'''
+        """Convert OpenCV frame to QPixmap."""
         height, width, channels = frame.shape
         bytes_per_line = channels * width
         q_image = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
         return QPixmap.fromImage(q_image)
 
-    
+    def _playNextFrame(self):
+        """Play the next frame during playback."""
+        if self.current_frame + 1 < self.total_frames:
+            self.setFrame(self.current_frame + 1)
+        else:
+            self.stopMovie()  # Stop at the end of the video
+
     def bindFrameChangedSignal(self, functionToCall):
-        if self.movie is not None:
-            #FIXME bind a signal to trigger this function
+        """Bind a function to the frameChanged signal."""
+        self.frameChanged.connect(functionToCall)

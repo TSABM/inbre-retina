@@ -7,7 +7,7 @@ from CompatableVideo import CompatableVideo
 class SimpleMovie(CompatableVideo):
     def __init__(self, fileName: str):
         super().__init__(fileName)
-        self.movie: QMovie | None = None
+        #self.movie: QMovie | None = None
 
     def setFrame(self, frame: int):
         """Set the frame of the movie."""

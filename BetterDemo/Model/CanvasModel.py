@@ -101,11 +101,11 @@ class CanvasModel():
             return False
 
     def bindFrameChangedSignal(self):
-        if isinstance(self.sourceToDisplay, SimpleMovie): #FIXME only qmovie can do this
+        if isinstance(self.sourceToDisplay, CompatableVideo): #FIXME only qmovie can do this
             movie = self.sourceToDisplay.movie
             if movie is not None:
                 # Connect the frameChanged signal
-                movie.frameChanged.connect(self.setCurrFrameLabelData)
+                self.sourceToDisplay.bindFrameChangedSignal(self.setCurrFrameLabelData)
 
     
     ### handle pixmap 
