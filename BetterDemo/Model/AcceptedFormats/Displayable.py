@@ -1,20 +1,18 @@
-from abc import ABC, abstractmethod
+from PyQt5.QtCore import QObject
 
-class Displayable(ABC):
+class Displayable(QObject):
     '''
     an abstract class. Any other class that inherits or extends this abstract ought to be able to be displayed in the app
     '''
     sourceName : str | None = None
 
-    @abstractmethod
     def __init__(self, sourceName):
+        super().__init__()
         self.sourceName = sourceName
 
-    @abstractmethod
     def getPixmap(self):
         pass
     
-    @abstractmethod
     def getTotalFrames(self):
         pass
 

@@ -1,8 +1,8 @@
 from PyQt5.QtGui import QMovie, QPixmap
-from PyQt5.QtCore import QUrl
-from PyQt5.QtMultimedia import QMediaPlayer
-from Model.AcceptedFormats.Displayable import Displayable
-from CompatableVideo import CompatableVideo
+#from PyQt5.QtCore import QUrl
+#from PyQt5.QtMultimedia import QMediaPlayer
+#from Model.AcceptedFormats.Displayable import Displayable
+from Model.AcceptedFormats.CompatableVideo import CompatableVideo
 
 class SimpleMovie(CompatableVideo):
     def __init__(self, fileName: str):

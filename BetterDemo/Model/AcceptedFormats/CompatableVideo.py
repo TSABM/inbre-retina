@@ -3,10 +3,10 @@ from PyQt5.QtCore import pyqtSignal
 from Model.AcceptedFormats.Displayable import Displayable
 
 class CompatableVideo(Displayable):
+    #frameChanged = pyqtSignal(QPixmap)
     def __init__(self, sourceName):
         super().__init__(sourceName)
         self.movie = None
-        self.frameChanged = pyqtSignal(QPixmap)
 
     def setFrame(self, frame: int):
         """Sets the video to a specific frame (to be implemented by subclasses)."""

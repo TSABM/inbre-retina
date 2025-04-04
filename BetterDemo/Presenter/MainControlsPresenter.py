@@ -1,7 +1,8 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.masterMemory import MasterMemory
 from Model.CanvasModel import CanvasModel
-from Model.AcceptedFormats.SimpleMovie import SimpleMovie
+#from Model.AcceptedFormats.SimpleMovie import SimpleMovie
+from Model.AcceptedFormats.CompatableVideo import CompatableVideo
 
 class MainControlsPresenter(AbstractPresenter):
     def __init__(self, view):
@@ -27,7 +28,7 @@ class MainControlsPresenter(AbstractPresenter):
 
     def __isValidMovie(self):
         if self.__isValidCanvas():
-            if isinstance(self.canvas.sourceToDisplay, SimpleMovie): # type: ignore
+            if isinstance(self.canvas.sourceToDisplay, CompatableVideo): # type: ignore
                 return True
             print("Canvas is initalized but source is not a valid movie format. Cannot do requested menu function")
         return False

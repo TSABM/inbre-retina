@@ -1,93 +1,96 @@
-import cv2
 from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtCore import QTimer, pyqtSignal, QObject
-from Model.AcceptedFormats.Displayable import Displayable
-from CompatableVideo import CompatableVideo
+from PyQt5.QtCore import pyqtSignal, QTimer
+from moviepy import VideoFileClip
+from Model.AcceptedFormats.CompatableVideo import CompatableVideo
+import numpy as np
 
-class SimpleVideo(CompatableVideo, QObject):
-    frameChanged = pyqtSignal(int)  # Signal emitted when the frame changes
-
+class SimpleVideo(CompatableVideo):
+    frameChanged = pyqtSignal(QPixmap)
     def __init__(self, fileName: str):
         super().__init__(fileName)
-        QObject.__init__(self)  # Required for signals
-        self.cap = None
-        self.total_frames = 0
-        self.fps = 30
-
-        self.current_frame = 0
-        self.current_pixmap = None  # Store last retrieved frame
-        
+        #self.video: VideoFileClip | None = None
+        self.frame_rate: float = 24.0
+        self._current_frame_index = 0
         self.timer = QTimer()
-        self.timer.timeout.connect(self._playNextFrame)  # Calls next frame when playing
-
-    def setFrame(self, frame: int):
-        """Set the frame of the video and store its image."""
-        if self.cap is None or frame < 0 or frame >= self.total_frames:
-            print("Invalid frame number.")
-            return
-        self.cap.set(cv2.CAP_PROP_POS_FRAMES, frame)
-        success, frame_data = self.cap.read()
-        if success:
-            self.current_frame = frame
-            self.current_pixmap = self.convertFrameToPixmap(frame_data)
-            self.frameChanged.emit(frame)  # Emit signal to notify UI
-        else:
-            print("Failed to retrieve frame.")
-
-    def getPixmap(self) -> QPixmap | None:
-        """Return the last retrieved frame as a QPixmap."""
-        return self.current_pixmap  # Always return stored frame
-
-    def getTotalFrames(self) -> int:
-        """Get total frames of the video."""
-        return self.total_frames
+        self.timer.timeout.connect(self._advanceFrame)
 
     def setMovie(self, moviePath: str) -> bool:
-        """Set the video file."""
-        self.cap = cv2.VideoCapture(moviePath)
-        if not self.cap.isOpened():
-            print("Failed to open video.")
+        try:
+            self.video = VideoFileClip(moviePath)
+            self.frame_rate = self.video.fps
+            self._current_frame_index = 0
+            return True
+        except Exception as e:
+            print(f"Failed to load movie: {e}")
             return False
-        self.fps = int(self.cap.get(cv2.CAP_PROP_FPS))
-        self.total_frames = int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
-        self.setFrame(0)  # Load first frame
-        return True
 
-    def startMovie(self):
-        """Start video playback."""
-        if self.cap is None:
-            print("No video loaded.")
+    def getTotalFrames(self) -> int:
+        if not self.video:
+            return 0
+        return int(self.video.duration * self.video.fps)
+
+    def getPixmap(self) -> QPixmap | None:
+        if not self.video:
+            return None
+        return self._get_frame_pixmap(self._current_frame_index)
+
+    def setFrame(self, frame: int):
+        if not self.video:
             return
-        self.timer.start(int(1000 / self.fps))  # Start playback based on FPS
-
-    def stopMovie(self):
-        """Stop video playback."""
-        self.timer.stop()  # Stop playing
+        self._current_frame_index = frame
+        pixmap = self._get_frame_pixmap(frame)
+        if pixmap:
+            self.frameChanged.emit(pixmap)
 
     def stepFrameForward(self):
-        """Step to the next frame."""
-        if self.current_frame + 1 < self.total_frames:
-            self.setFrame(self.current_frame + 1)
+        if not self.video:
+            return
+        if self._current_frame_index < self.getTotalFrames() - 1:
+            self._current_frame_index += 1
+            pixmap = self._get_frame_pixmap(self._current_frame_index)
+            if pixmap:
+                self.frameChanged.emit(pixmap)
 
     def stepFrameBackward(self):
-        """Step to the previous frame."""
-        if self.current_frame > 0:
-            self.setFrame(self.current_frame - 1)
+        if not self.video:
+            return
+        if self._current_frame_index > 0:
+            self._current_frame_index -= 1
+            pixmap = self._get_frame_pixmap(self._current_frame_index)
+            if pixmap:
+                self.frameChanged.emit(pixmap)
 
-    def convertFrameToPixmap(self, frame) -> QPixmap:
-        """Convert OpenCV frame to QPixmap."""
-        height, width, channels = frame.shape
-        bytes_per_line = channels * width
-        q_image = QImage(frame.data, width, height, bytes_per_line, QImage.Format_RGB888).rgbSwapped()
-        return QPixmap.fromImage(q_image)
+    def startMovie(self):
+        if not self.video:
+            return
+        #interval_ms = int(1000 / self.frame_rate)
+        #self.timer.start(interval_ms)
 
-    def _playNextFrame(self):
-        """Play the next frame during playback."""
-        if self.current_frame + 1 < self.total_frames:
-            self.setFrame(self.current_frame + 1)
-        else:
-            self.stopMovie()  # Stop at the end of the video
+    def stopMovie(self):
+        self.timer.stop()
+
+    def _advanceFrame(self):
+        if self._current_frame_index >= self.getTotalFrames() - 1:
+            self.stopMovie()
+            return
+        self._current_frame_index += 1
+        pixmap = self._get_frame_pixmap(self._current_frame_index)
+        if pixmap:
+            self.frameChanged.emit(pixmap)
 
     def bindFrameChangedSignal(self, functionToCall):
-        """Bind a function to the frameChanged signal."""
         self.frameChanged.connect(functionToCall)
+
+    def _get_frame_pixmap(self, frame_index: int) -> QPixmap | None:
+        if not self.video:
+            return None
+        try:
+            t = frame_index / self.frame_rate
+            frame = self.video.get_frame(t)  # Returns a (H, W, 3) or (H, W, 4) ndarray
+            h, w, ch = frame.shape
+            bytes_per_line = ch * w
+            image = QImage(frame.data, w, h, bytes_per_line, QImage.Format_RGB888)
+            return QPixmap.fromImage(image.rgbSwapped())  # MoviePy gives RGB, Qt expects BGR
+        except Exception as e:
+            print(f"Error retrieving frame {frame_index}: {e}")
+            return None

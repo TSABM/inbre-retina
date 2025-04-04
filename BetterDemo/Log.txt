@@ -1,11 +1,29 @@
 # internship
 Code and documents for the internship
 
+Day 152
+4/3/25
+7:30 pm - 9:14 pm 
+9:30 - 9:45
+redid mp4 handling again. Just did the first test and it crashes. wooo?
+Ok on second test initial frame loads but no navigation works. they all trigger an error saying the source is an invalid movie format.
+hmm third test, different error now... It tires to move the frame but cant, moving back from 0 has no protections either.
+Need to first get step working then back stpe then play and pause
+
+Day 151
+3/31
+3:50 pm - 4:00 pm
+
 Day 150 3/29
 2:29 pm - 4:30 pm 
-7:38 pm - 
+7:38 pm - 9:30 pm 
 committing to the newer openCv version of the mp4 handler. It has some problems like not being able to send a signal easily
 I'm working on it.
+
+The first version I spent all day on does not work for mp4, there is no good framework that allows all the functions I designed for
+gif file formats. I thought there was but they either offer good support for frame extraction or they play videos well.
+None of the options send signals on frame changes which means loading annotation data per displayed frame is not working
+Working on alternatives.
 
 Day 149 3/28
 8:28 pm - 9:33
