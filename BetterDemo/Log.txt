@@ -1,6 +1,13 @@
 # internship
 Code and documents for the internship
 
+Day 153
+4/4/25
+3:34 pm - 
+Fixed stepping forward. Double check the length of the jumps though, it looks like a lot of a single frame jump.
+step back sort of works, though I'm getting some odd console logs. Double check this, and add 0th index protection.
+
+
 Day 152
 4/3/25
 7:30 pm - 9:14 pm 
