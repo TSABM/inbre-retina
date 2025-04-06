@@ -1,9 +1,16 @@
 # internship
 Code and documents for the internship
 
+Day 154
+4/5/25
+8:03 pm - 
+Ok it all works well. I have gone over and the core functionality was actually spot on. I cant seem to stop the backwards traversal printing
+its a built in thing from one of the packages. I should remove some of the print statements I can though, and test with live annotations.
+Now to update the documentation and project names and structure.
+
 Day 153
 4/4/25
-3:34 pm - 
+3:34 pm - 4:46 pm 
 Fixed stepping forward. Double check the length of the jumps though, it looks like a lot of a single frame jump.
 step back sort of works, though I'm getting some odd console logs. Double check this, and add 0th index protection.
 

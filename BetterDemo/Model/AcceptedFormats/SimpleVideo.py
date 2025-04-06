@@ -2,14 +2,14 @@ from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtCore import pyqtSignal, QTimer
 from moviepy import VideoFileClip
 from Model.AcceptedFormats.CompatableVideo import CompatableVideo
-import numpy as np
+#import numpy as np
 
 class SimpleVideo(CompatableVideo):
     frameChanged = pyqtSignal(int)
     def __init__(self, fileName: str):
         super().__init__(fileName)
         #self.video: VideoFileClip | None = None
-        self.frame_rate: float = 24.0
+        self.frame_rate: float = 24.0 #default val, gets set when video is set
         self._current_frame_index = 0
         self.timer = QTimer()
         self.timer.timeout.connect(self._advanceFrame)
@@ -62,12 +62,14 @@ class SimpleVideo(CompatableVideo):
             pixmap = self._get_frame_pixmap(self._current_frame_index)
             if pixmap:
                 self.frameChanged.emit(self._current_frame_index)
+        else:
+            print("cannot step back to prevent negative frame traversal")
 
     def startMovie(self):
         if not self.movie:
             return
-        #interval_ms = int(1000 / self.frame_rate)
-        #self.timer.start(interval_ms)
+        interval_ms = int(1000 / self.frame_rate)
+        self.timer.start(interval_ms)
 
     def stopMovie(self):
         self.timer.stop()
