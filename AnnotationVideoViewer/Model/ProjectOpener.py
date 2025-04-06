@@ -7,7 +7,7 @@ from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 from Model.AcceptedFormats.SimpleVideo import SimpleVideo
 from Model.AcceptedFormats.StandardImage import StandardImage
 from Model.CanvasModel import CanvasModel
-#from pydantic import BaseModel
+
 class ProjectOpener():
     def __init__(self, projectPath):
         self.projectPath = projectPath

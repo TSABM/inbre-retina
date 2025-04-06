@@ -8,6 +8,8 @@ Ok it all works well. I have gone over and the core functionality was actually s
 its a built in thing from one of the packages. I should remove some of the print statements I can though, and test with live annotations.
 Now to update the documentation and project names and structure.
 
+fixme need to make the export directory to be assignable.
+
 Day 153
 4/4/25
 3:34 pm - 4:46 pm 

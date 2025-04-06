@@ -19,9 +19,9 @@ CenterBox: A container for other views to be rendered within the greater main wi
 
 ControlsAreaView: A container for the different controls the user may need to view and manipulate the labels on the canvas. Contains MainControlView, and LabelDataView.
 
-MainControlsView: Containing mostly temporary code at this time. Intended to hold controls the user can access such as changing the current label interaction mode (select label, draw label, erase label).
+MainControlsView: Contains most controls the user will need to interact with the loaded project data or the canvas. Contains video playback controls, as well as a field to view the loaded in label data.
 
-LabelDataView: Old probably unnecessary code, needs refactor or removal. Intended to contain and display fields which contained the data for any label actively being viewed by the user. Possibly also would allow the user to edit any data there in case of error. Currently does nothing but show some old dummy fields.
+LabelDataView: A textbox to show the currently loaded project data for review before saving or exporting
 
 MediaAreaView: Likely unnecessary code. Serves as a container for CanvasView and nothing else at this time, though it does set some layout rules. May also contain video controls in the future.
 
@@ -37,8 +37,6 @@ CanvasPresenter: Facilitates communication between the canvas view the user inte
 
 LabelDataPresenter: Facilitates communication between the possibly unneeded label data view fields and the LabelData object which holds all relevant Label data for the file.
 
-LabelPopupPresenter: Facilitates communication between the label popup views user interface and its model which handles sending new data to the LabelDataModel. 
-
 MainControlsPresenter: Facilitates communication between the main controls and master memory. At this time only sets the users interaction mode. This code may need refactoring.
 
 WindowMenuBarPresenter:Facilitates communication between the MenuBars view and its model. 
@@ -50,26 +48,24 @@ MasterMemory: A class that holds essential application data as class wide variab
 LabelData: A class which defines how frame data, bounding box data, cell data, event data, type data, and file metadata are stored. Everything at the moment is stored as dictionaries or lists in the hope of making exporting the data easier.  
 LabelExporter: Does nothing yet. Intended to be a class which takes Label Data from master memory and encodes it in JSON (or whatever other format the project desires). The exporter then saves the data on the computer so it can be used later.
 
-LabelImporter: Does nothing yet. Intended to take data previously encoded using the exporter and convert it back into a LabelData object so the data in it can be rendered and manipulated by the user.
+ProjectOpener: Opens a given project if the given project meets the specs.
 
-LabelPopupModel:An out of date class I will probably remove soon. It grabs data from Label data and attempts to push new label data to it. It was an attempt to implement the users ability to push new labels to the masterMemory. It does not work at this time.
+WindowMenuBarModel: The model for the main views menubar. Receives user inputs to interact with the label data, changes settings, etc. 
 
-nd2FileAccessor: Out of date code. An early attempt to access parts of nd2 multi layered video files without loading them all into memory. Didnt work and will probably need to be removed.
-
-WindowMenuBarModel: The model for the main views menubar. At this time just opens a single frame from a small selection of compatible formats. Final intention is for it to perform all logic necessary for the WindowMenuBarView to function i.e. open a file, export a file, import a file, change app settings, etc.
-
-Displayable: An abstract class ensuring that any video or image format a developer wants to make compatible with the application must have a getPixmap method which returns a pixmap.
+Displayable: A parent class, all compatable formats with the canvas and app logic will be children of this class.
 
 SimpleMovie: Extends displayable. Accepts GIF, MNG, and APNG formats and allows for extracting individual frames as pixmaps.
 
-StandardImage: Does nothing at this time. Intended to let the user just render an image as a pixmap in case someone wishes to label cells on one image rather than a video. Will extend Displayable
+StandardImage: Opens single images of accepted formats
 
-Frame: extends dictionary. Contains data for all boxIDs and eventIDs associated with the frame.
+SimpleVideo: extends displayable. Accepts mp4's. Handles stepping frames, jumping to frames, playing and pausing.
 
-BoundingBox: extends dictionary. Contains all data for a bounding box such as boxId, the associated frame number, the dimensions (x, and y of the top left coord and then width and height), a list of associated cellIds, and last a list of associated eventIds.
+Frame: extends dictionary. Contains data for all annotationIDs and eventIDs associated with the frame.
+
+Annotation: contains individual annotation details. Such as what cell is being annotated, what event(s) are assotiated, and the annotation mask details (a list of points)
 
 Cell: extends dictionary. Contains all data for a cell including the cellId and cellType.
 
-Event:extends dictionary. Contains all data for an event including eventID, eventType, and associated boxIDs. Note because boxID’s is plural you can associate one event with multiple frames in a row. This was done in case an event took multiple frames to complete and you wanted to know that. This may need changing though.
+Event:extends dictionary. Contains all data for an event including eventID, eventType, and associated boxIDs.
 
-MetaData: Contains metadata for file LabelData. So far only contains the open image filename and the frame total. This will likely be expanded on when export and import are more defined.
+MetaData: Contains metadata for the project, mostly details about the image/video source.
