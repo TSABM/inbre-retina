@@ -1,4 +1,5 @@
 import PyQt5.QtWidgets as qtw
+from PyQt5.QtWidgets import QApplication
 
 
 from Presenter.WindowMenuBarPresenter import WindowMenuBarPresenter
@@ -64,7 +65,8 @@ class WindowMenuBarView(qtw.QMenuBar):
         pass
 
     def closeApplication(self):
-        self.presenter.closeApplication()
+        #self.presenter.closeApplication()
+        QApplication.quit()
 
     def __generateMainActions__(self):
         actions = []
@@ -82,7 +84,7 @@ class WindowMenuBarView(qtw.QMenuBar):
         importLabels.triggered.connect(self.openProject)
         actions.append(importLabels)
 
-        exportLabels = qtw.QAction("Export labels", self)
+        exportLabels = qtw.QAction("Export labels in project format", self)
         exportLabels.triggered.connect(self.exportLabels)
         actions.append(exportLabels)
 

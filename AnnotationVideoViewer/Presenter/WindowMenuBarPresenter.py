@@ -26,9 +26,3 @@ class WindowMenuBarPresenter(AbstractPresenter):
         #FIXME add error catching
         print("Menu bar presenter passing along export request")
         self.__exportModel.export(projectDestinationPath, overwriteMode)
-
-    def closeApplication(self):
-        '''
-        FIXME Sends a request to close the application
-        '''
-        print("FIXME close app unimplmented")
