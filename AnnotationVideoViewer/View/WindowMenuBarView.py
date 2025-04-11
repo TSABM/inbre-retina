@@ -58,11 +58,26 @@ class WindowMenuBarView(qtw.QMenuBar):
 
     def exportLabels(self):
         print("user export request received, attempting to pass along ")
-        #annotationsFileName = "testExportFilename"
-        projectDestinationPath = "testProjectDestination"
-        overwriteMode = True
-        self.presenter.exportLabelData( projectDestinationPath, overwriteMode)
-        pass
+        # Ask the user for a file name
+        text, ok = qtw.QInputDialog.getText(self, "Export File Name", "Enter a name for the export file:")
+        
+        if ok and text.strip():  # If user pressed OK and entered something
+            exportFileName = text.strip()
+            print(f"Export filename entered: {exportFileName}")
+            
+            # ask for destination directory
+            exportDir = qtw.QFileDialog.getExistingDirectory(self, "Select Export Directory")
+            if not exportDir:
+                print("No export directory selected")
+                return
+
+            # Join the directory and file name
+            import os
+            projectDestinationPath = os.path.join(exportDir, exportFileName)
+            overwriteMode = True  # You can add a checkbox later for this
+            self.presenter.exportLabelData(projectDestinationPath, overwriteMode)
+        else:
+            print("Export cancelled or no filename entered")
 
     def closeApplication(self):
         #self.presenter.closeApplication()

@@ -1,6 +1,16 @@
 # internship
 Code and documents for the internship
 
+Day 155
+4/11/25
+4:41pm - 
+need to make export directory assignable - Done, need to test overwriting to be safe
+would like to make diff annotation colors apply to diff cell types
+would like to be able to select annotations on screen
+need to make a stand alone executable.
+
+opening existing mp4 projects is resulting in failure. fix
+
 Day 154
 4/5/25
 8:03 pm - 9:51 pm 
