@@ -2,25 +2,14 @@
 snub
 '''
 
-#import Model
-#import Model.Canvases.ImageCanvas
-#import Model.OpenScenes
-#from Presenter.LabelDataPresenter import LabelDataPresenter
-#from Presenter.CanvasPresenter import CanvasPresenter
-
-
 class MasterMemory():
     subscribers = dict() #must be a view (or maybe a presenter?) that extends the abstract class
-    #openVideoPath = None #the full path to a video to be viewed frame by frame
-    #currentFrameNumber = None #current frame in a video
     canvas = None
     labelData = None
     currentFrameNumber : int = 0
-    sourcePath : str = ""
+    sourcePath : str = "" #this is the path to the graphic resource being used by the project. Used in project opening/importing and exporting
 
     def __init__(self):
-        #self.addSubscriber("openScenes", Model.OpenScenes.OpenScenes())
-        #self.addSubscriber("canvas", Model.Canvas.Canvas("test2", 0))
         pass
     
     @classmethod

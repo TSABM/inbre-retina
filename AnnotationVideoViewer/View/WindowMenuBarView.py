@@ -52,9 +52,10 @@ class WindowMenuBarView(qtw.QMenuBar):
         print(imagePath)
         #open image
         if imagePath == "":
-            print("No file selected")
-        else:
-            self.presenter.openImage(imagePath, "testProjectName")
+            print("No file selected, aborting")
+            return
+        projectName = "temporaryProjectName"
+        self.presenter.openImage(imagePath, projectName)
 
     def exportLabels(self):
         print("user export request received, attempting to pass along ")

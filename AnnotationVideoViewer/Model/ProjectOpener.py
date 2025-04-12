@@ -72,11 +72,12 @@ class ProjectOpener():
                 graphicSource : str | list[str] = metaData.getSourceField()
                 if isinstance(graphicSource, str):
                     print("attempting to bind single file source")
-                    acceptedFormat = self.bindSourceFormat(graphicSource)
+                    fullSourcePath = self.projectPath + "/source/" + graphicSource
+                    acceptedFormat = self.bindSourceFormat(fullSourcePath)
                     if (acceptedFormat == None):
                         print("couldnt bind source to accepted format")
                         return
-                    MasterMemory.setSourcePath(graphicSource)
+                    MasterMemory.setSourcePath(fullSourcePath) #stores the full source path so the exporter does not have to re-create it if grabbing image from foreign folder to project structure
                     canvas : CanvasModel | None = MasterMemory.getCanvas()
                     if isinstance(canvas, CanvasModel):
                         canvas.primeCanvas(acceptedFormat)
