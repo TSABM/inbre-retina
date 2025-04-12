@@ -1,5 +1,5 @@
 class Cell(dict):
-    def __init__(self, cellID : str, cellType : str):
+    def __init__(self, cellID : int, cellType : str):
         super().__init__({
             "cellID" : cellID,
             "cellType" : cellType
@@ -8,7 +8,7 @@ class Cell(dict):
     def from_dict(cls, data: dict) -> "Cell":
         return cls(cellID=data["cellID"], cellType=data["cellType"])
     
-    def get_cellID(self) -> str:
+    def get_cellID(self) -> int:
         return self["cellID"]
 
     def set_cellID(self, cellID: str) -> None:

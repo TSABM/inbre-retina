@@ -68,7 +68,18 @@ class LabelData(dict):
         rawFrames = rawData["Frames"]
         frames = {}
         for frameID in rawFrames.keys():
-            frames[int(frameID)] = Frame.from_dict(rawFrames[frameID])
+            convertedFrame = Frame.from_dict(rawFrames[frameID])
+            frames[int(frameID)] = convertedFrame
+            #check if frame cell  details are loaded in cells, if not fix this
+            annotations = convertedFrame.getFrameAnnotations()
+            for annotationKey in annotations:
+                cellID = annotations[annotationKey].get_cellID()
+                cellType = annotations[annotationKey].get_cellType()
+                if cellID != None and cellType != None:
+                    if cells.get(cellID) == None:
+                        cells[cellID] = Cell(cellID, cellType)
+                    if cellTypes.get(cellType) == None:
+                        cellTypes[cellType] = cellType
 
         # Update the dictionary with the parsed data
         self.update({
@@ -218,9 +229,11 @@ class LabelData(dict):
             print("Cannot delete annotation. Annotation not found in data object")
             return
         
-        #for each event assotiated with it
+        #check the events dir and delete the one that relates to the deleted annotation
         events : dict[int, Event] = self.getEvents()
-        del events[annotationToDelete.get_eventID()]
+        toDeleteID = annotationToDelete.get_eventID()
+        if isinstance(toDeleteID, int):
+            del events[toDeleteID]
             
         #delete the annotation
         del annotations[boxID]

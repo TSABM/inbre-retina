@@ -1,11 +1,17 @@
 # internship
 Code and documents for the internship
 
+Day 156
+4/12/25
+11:25 am - 1:30 pm 
+fixed project opener to ensure cell fields get filled out from the annotations if they were somehow empty. old -1 data may still cause problems as undefined id's should now be None not -1
+
+
 Day 155
 4/11/25
 4:41pm - 5:04pm
 7:19 pm - 7:56 pm 
-8:30 pm - 
+8:30 pm - 9:30 pm 
 need to make export directory assignable - Done, need to test overwriting to be safe
 would like to make diff annotation colors apply to diff cell types
 would like to be able to select annotations on screen

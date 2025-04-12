@@ -1,6 +1,6 @@
 class Annotation(dict):
     def __init__(self, annotationID : int , frameNumber : int, cellID : int, 
-                 cellType : str, mask : list | None = None, eventID : int = -1, prevAnnoId : int = -1, nextAnnoId : int = -1,
+                 cellType : str, mask : list | None = None, eventID : int | None = None, prevAnnoId : int | None = None, nextAnnoId : int | None = None,
                  created_by : str | None = None, creationTimestamp : str |None = None, approved : bool = False ):
         #defining fields
         super().__init__({
@@ -36,19 +36,19 @@ class Annotation(dict):
     def get_cellType(self) -> str:
         return self["cellType"]
 
-    def get_eventID(self) -> int:
+    def get_eventID(self) -> int | None:
         return self["eventID"]
     
-    def get_prev_anno_id(self) -> int:
+    def get_prev_anno_id(self) -> int | None:
         return self["previousAnnotationID"]
     
-    def set_prev_anno_id(self, newPrevID : int):
+    def set_prev_anno_id(self, newPrevID : int | None):
         self["previousAnnotationID"] = newPrevID
 
-    def get_next_anno_id(self) -> int:
+    def get_next_anno_id(self) -> int | None:
         return self["nextAnnotationID"]
     
-    def set_next_anno_id(self, nextID : int):
+    def set_next_anno_id(self, nextID : int | None):
         self["nextAnnotationID"] = nextID
 
     def updateBox(self, frameNumber : int | None = None, xCoord: int | None = None, yCoord: int | None = None, 
@@ -92,9 +92,9 @@ class Annotation(dict):
             cellID=data["cellId"],
             cellType=data["cellType"],
             mask=data.get("mask", []),  # Default to empty list if missing
-            eventID=data.get("eventID", -1),
-            prevAnnoId=data.get("previousAnnotationID", -1),
-            nextAnnoId=data.get("nextAnnotationID", -1),
+            eventID=data.get("eventID", None),
+            prevAnnoId=data.get("previousAnnotationID", None),
+            nextAnnoId=data.get("nextAnnotationID", None),
             created_by=data.get("created_by"),
             creationTimestamp=data.get("creationTimestamp"),
             approved=data.get("approved", False),
