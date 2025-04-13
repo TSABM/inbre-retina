@@ -19,6 +19,20 @@ cornerSize = 8
 
 
 class CanvasModel():
+    colors = {
+    "Red": QColor(255, 0, 0),
+    "Green": QColor(0, 255, 0),
+    "Blue": QColor(0, 0, 255),
+    "Yellow": QColor(255, 255, 0),
+    "Brown": QColor(165, 42, 42),
+    "Purple": QColor(128, 0, 128),
+    "Orange": QColor(255, 165, 0),
+    "Pink": QColor(255, 192, 203),
+    "Cyan": QColor(0, 255, 255),
+    "Magenta": QColor(255, 0, 255),
+    "Black": QColor(0, 0, 0),
+    "White": QColor(255, 255, 255),
+    }
     '''
     a canvas which renders a static image and accepts labels
     '''
@@ -36,11 +50,18 @@ class CanvasModel():
         self.resizing = False
         self.resizecorner = None
         
+        self.cellColorMap = {} #a dict with the cell type as the key and the color as the value
         self.scene.setBackgroundBrush(QColor(200, 200, 200)) #drawing background to a light gray to indicate the end of the drawable canavs
         self.updatePixmap()
         self.scene.addItem(self.pixmap_item)
     
     ### necissary methods, sort of miscallanious though
+    def mapCellToColor(self, cellTypeToBind, color):
+        self.cellColorMap.update({cellTypeToBind : color})
+
+    def getColors(self):
+        return self.colors
+
     def loadNewProject(self, source : Displayable, projectName : str, projectID : int | None): #FIXME label data is defined here but the way wont work with the folders of images we intent to switch to
         '''
         If the source is type Displayable set it as the file to display and update the pixmap else print a message and return
@@ -127,6 +148,7 @@ class CanvasModel():
         '''
         requests a list of the bounding boxes for the current frame, then renders each one of them (red if not selected, blue if it is)
         '''
+        painter.setPen(self.colors["Orange"]) #default color
         if self.currentFrame is None:
             print("Tried to draw labels, but cannot find requested frame")
             return
@@ -138,6 +160,11 @@ class CanvasModel():
             return
 
         for annotation in annotations.values():
+            cellType = annotation.get_cellType()
+            mappedColor = self.cellColorMap.get(cellType)
+            if mappedColor != None:
+                painter.setPen(mappedColor)
+
             mask = annotation.getMask()
             if len(mask) < 3:
                 print("Less than 3 points in mask, aborting draw")
@@ -163,7 +190,6 @@ class CanvasModel():
         if self.pixmap != None:
             painter = QPainter(self.pixmap)
             if painter.isActive():
-                painter.setPen(QColor(255, 0, 0)) #FIXME let the user choose the color in the future, and maybe the width too.
                 self.__drawLabels__(painter)
             else:
                 print("error: painter could not initalize. The pixmap: ", self.pixmap, " did not work")
@@ -266,7 +292,7 @@ class CanvasModel():
     def deselectBox(self):
         self.selectedItem = None
         self.updatePixmap()
-    
+
     def is_point_inside_polygon(self, point, polygon_points):
         """
         Check if a given point (x, y) is inside a polygon.

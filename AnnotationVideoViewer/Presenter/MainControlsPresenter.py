@@ -1,6 +1,7 @@
 from Presenter.AbstractPresenter import AbstractPresenter
 from Model.masterMemory import MasterMemory
 from Model.CanvasModel import CanvasModel
+from Model.LabelData import LabelData
 #from Model.AcceptedFormats.SimpleMovie import SimpleMovie
 from Model.AcceptedFormats.CompatableVideo import CompatableVideo
 
@@ -52,3 +53,19 @@ class MainControlsPresenter(AbstractPresenter):
     def jumpToFrameNum(self, frameNum: int):
         if self.__isValidMovie():
             self.canvas.jumpToFrame(frameNum) # type: ignore
+        
+    def mapCellTypeToColor(self, cellTypeToBind, color):
+        if self.canvas != None:
+            self.canvas.mapCellToColor(cellTypeToBind, color)
+
+    def getColors(self):
+        if self.canvas != None:
+            return self.canvas.getColors()
+        return None
+    
+    def getCellTypes(self):
+        labelData = MasterMemory.getLabelData()
+        if isinstance(labelData, LabelData):
+            cellTypes = labelData.getCellTypes()
+            return cellTypes
+        return None

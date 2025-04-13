@@ -44,4 +44,4 @@ class CanvasPresenter(AbstractPresenter):
         #self.publishToSubs()
         self.model.deselectBox()
         
-
+    
