@@ -8,8 +8,15 @@
         "height": 0,
         "largestID": -1
     },
-    "Cells": {},
-    "CellTypes": {},
+    "Cells": {
+        "1": {
+            "cellID": 1,
+            "cellType": "testCellType"
+        }
+    },
+    "CellTypes": {
+        "testCellType": "testCellType"
+    },
     "Events": {},
     "EventTypes": {},
     "Frames": {

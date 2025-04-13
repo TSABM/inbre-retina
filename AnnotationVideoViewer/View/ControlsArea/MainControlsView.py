@@ -30,7 +30,6 @@ class MainControlsView(qtw.QWidget):
         self.cell_type_dropdown.setPlaceholderText("Select Cell Type")
         for cell_type in self.getCellTypes().keys():
             self.cell_type_dropdown.addItem(cell_type)
-
         # Color dropdown
         self.color_dropdown = qtw.QComboBox()
         self.color_dropdown.setPlaceholderText("Select Color")
@@ -41,6 +40,9 @@ class MainControlsView(qtw.QWidget):
         # Assign button
         self.assign_button = qtw.QPushButton("Assign Color")
         self.assign_button.clicked.connect(self.__assignColorToCellType__)
+        #refresh fields
+        self.refreshButton = qtw.QPushButton("Refresh color/cellType fields")
+        self.refreshButton.clicked.connect(self.refresh)
 
         # Creating input field for frame jumping
         self.jump_input = qtw.QLineEdit()
@@ -59,6 +61,7 @@ class MainControlsView(qtw.QWidget):
         layout.addWidget(self.cell_type_dropdown)
         layout.addWidget(self.color_dropdown)
         layout.addWidget(self.assign_button)
+        layout.addWidget(self.refreshButton)
 
         # Connecting buttons to functions
         self.play_button.clicked.connect(self.playVideo)
@@ -108,3 +111,14 @@ class MainControlsView(qtw.QWidget):
             return {}
         else:
             return cellTypes
+        
+    def refresh(self):
+        self.cell_type_dropdown.clear()
+        self.color_dropdown.clear()
+        for cell_type in self.getCellTypes().keys():
+            self.cell_type_dropdown.addItem(cell_type)
+        self.colors = self.getColors()
+        if self.colors != None:
+            for color_name in self.colors:
+                self.color_dropdown.addItem(color_name)
+        pass

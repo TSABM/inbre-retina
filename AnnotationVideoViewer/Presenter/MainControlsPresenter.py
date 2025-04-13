@@ -35,30 +35,37 @@ class MainControlsPresenter(AbstractPresenter):
         return False
 
     def playMovie(self):
+        self.__updateCanvas()
         if self.__isValidMovie():
             self.canvas.playMovie() # type: ignore
 
     def pauseMovie(self):
+        self.__updateCanvas()
         if self.__isValidMovie():
             self.canvas.pauseMovie() # type: ignore
 
     def stepForward(self):
+        self.__updateCanvas()
         if self.__isValidMovie():
             self.canvas.stepForward() # type: ignore
 
     def stepBackward(self):
+        self.__updateCanvas()
         if self.__isValidMovie():
             self.canvas.stepBackward() # type: ignore
 
     def jumpToFrameNum(self, frameNum: int):
+        self.__updateCanvas()
         if self.__isValidMovie():
             self.canvas.jumpToFrame(frameNum) # type: ignore
         
     def mapCellTypeToColor(self, cellTypeToBind, color):
+        self.__updateCanvas()
         if self.canvas != None:
             self.canvas.mapCellToColor(cellTypeToBind, color)
 
     def getColors(self):
+        self.__updateCanvas()
         if self.canvas != None:
             return self.canvas.getColors()
         return None

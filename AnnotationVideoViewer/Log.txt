@@ -6,9 +6,11 @@ Day 156
 11:25 am - 1:30 pm 
 4:00 pm - 5:35 pm 
 6:41 pm - 7:30 pm
+8:55 pm - 9:30 pm
 fixed project opener to ensure cell fields get filled out from the annotations if they were somehow empty. old -1 data may still cause problems as undefined id's should now be None not -1
 adding color select, new default is orange, and color mapping should work. Need to add ui control.
 working on color select ui, the drop down dont update yet, still working on that.
+can send the update request but it does not cause the canvas to update right away fix this.
 
 Day 155
 4/11/25
