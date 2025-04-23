@@ -1,0 +1,121 @@
+{
+    "MetaData": {
+        "projectName": "testProjectDestination",
+        "projectID": 3942,
+        "source": "demoImage.jpg",
+        "frameTotal": 1,
+        "width": 0,
+        "height": 0,
+        "largestID": -1
+    },
+    "Cells": {
+        "1": {
+            "cellID": 1,
+            "cellType": "testCellType"
+        }
+    },
+    "CellTypes": {
+        "testCellType": "testCellType"
+    },
+    "Events": {},
+    "EventTypes": {},
+    "Frames": {
+        "0": {
+            "imageSource": "demoImage.jpg",
+            "frameID": 0,
+            "frameNumber": 0,
+            "annotations": {
+                "3943": {
+                    "annotationID": 3943,
+                    "frameNumber": 0,
+                    "mask": [
+                        [
+                            301.0,
+                            87.0
+                        ],
+                        [
+                            347.0,
+                            87.0
+                        ],
+                        [
+                            347.0,
+                            152.0
+                        ],
+                        [
+                            301.0,
+                            152.0
+                        ]
+                    ],
+                    "cellId": 1,
+                    "cellType": "testCellType",
+                    "eventID": -1,
+                    "previousAnnotationID": -1,
+                    "nextAnnotationID": -1,
+                    "created_by": null,
+                    "creationTimestamp": null,
+                    "approved": false
+                },
+                "3944": {
+                    "annotationID": 3944,
+                    "frameNumber": 0,
+                    "mask": [
+                        [
+                            289.0,
+                            51.0
+                        ],
+                        [
+                            302.0,
+                            51.0
+                        ],
+                        [
+                            302.0,
+                            66.0
+                        ],
+                        [
+                            289.0,
+                            66.0
+                        ]
+                    ],
+                    "cellId": 1,
+                    "cellType": "testCellType",
+                    "eventID": -1,
+                    "previousAnnotationID": -1,
+                    "nextAnnotationID": -1,
+                    "created_by": null,
+                    "creationTimestamp": null,
+                    "approved": false
+                },
+                "3945": {
+                    "annotationID": 3945,
+                    "frameNumber": 0,
+                    "mask": [
+                        [
+                            223.0,
+                            30.0
+                        ],
+                        [
+                            225.0,
+                            30.0
+                        ],
+                        [
+                            225.0,
+                            37.0
+                        ],
+                        [
+                            223.0,
+                            37.0
+                        ]
+                    ],
+                    "cellId": 1,
+                    "cellType": "testCellType",
+                    "eventID": -1,
+                    "previousAnnotationID": -1,
+                    "nextAnnotationID": -1,
+                    "created_by": null,
+                    "creationTimestamp": null,
+                    "approved": false
+                }
+            }
+        }
+    }
+}

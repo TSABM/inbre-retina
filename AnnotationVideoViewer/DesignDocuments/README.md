@@ -1,0 +1,1 @@
+This folder contains any design documents or diagrams. diagrams.net is used to make the uml diagrams which can be exported and the main design document is in a markdown format.
